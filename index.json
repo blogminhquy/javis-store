@@ -1849,6 +1849,82 @@
         "sha256": "a72e6eb97342818eb2a8617038e88da21b8d6fe578f5ef81abcf5d352b65ccfe",
         "size": 9418
       }
+    },
+    {
+      "id": "javis.tro-ly-hang-ngay",
+      "kind": "agent",
+      "name": {
+        "vi": "Trợ lý hàng ngày",
+        "en": "Everyday assistants"
+      },
+      "description": {
+        "vi": "3 trợ lý dùng mỗi ngày, không cần quy trình đi kèm: một thư ký dọn hộp thư và sắp việc trong ngày, một người tóm tắt tài liệu dài thành quyết định và việc cần làm, một người phản biện soi lỗ hổng trong kế hoạch trước khi bạn bắt tay vào làm.",
+        "en": "3 everyday agents that work standalone: a secretary who triages the inbox and orders the day, a summariser who turns long documents into decisions and actions, and a devil's advocate who finds the holes in a plan before you commit to it."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "van-phong",
+      "category_label": {
+        "vi": "Văn phòng",
+        "en": "Office"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.tro-ly-hang-ngay",
+      "license": "MIT",
+      "provides": {
+        "agents": [
+          "tl-phan-bien",
+          "tl-thu-ky",
+          "tl-tom-tat"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-tro-ly-hang-ngay-1.0.0.zip",
+        "sha256": "ff680c1d2f542eff604f03683e059fcdf516c0c38defd9b77b274ec9a8ca4822",
+        "size": 5290
+      }
+    },
+    {
+      "id": "javis.tro-ly-nghien-cuu",
+      "kind": "agent",
+      "name": {
+        "vi": "Trợ lý nghiên cứu & ngôn ngữ",
+        "en": "Research & language assistants"
+      },
+      "description": {
+        "vi": "3 trợ lý cho việc học và việc viết đa ngôn ngữ: một người nghiên cứu trả lời có trích dẫn rồi nạp vào Second Brain, một người dịch và bản địa hoá nội dung marketing Việt-Anh giữ nguyên sức bán, một người bóc khái niệm khó thành thứ hiểu được rồi mới dùng.",
+        "en": "3 agents for learning and multilingual writing: a researcher who answers with citations and files findings into the Second Brain, a translator who localises marketing copy between Vietnamese and English without losing its selling power, and an explainer who unpacks a hard concept before you rely on it."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "nghien-cuu",
+      "category_label": {
+        "vi": "Nghiên cứu",
+        "en": "Research"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.tro-ly-nghien-cuu",
+      "license": "MIT",
+      "provides": {
+        "agents": [
+          "tl-dich-ban-dia",
+          "tl-giai-thich",
+          "tl-nghien-cuu"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-tro-ly-nghien-cuu-1.0.0.zip",
+        "sha256": "38bf9df7bc81d7f241d38add9f7e70482818ba98121584ccb070eb18b60ab8fa",
+        "size": 5320
+      }
     }
   ]
 }
