@@ -892,7 +892,7 @@
         "en": "Creative"
       },
       "tier": "data",
-      "verified": false,
+      "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-creative",
       "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
@@ -939,7 +939,7 @@
         "en": "Office"
       },
       "tier": "code",
-      "verified": false,
+      "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-office",
       "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
@@ -982,7 +982,7 @@
         "en": "Office"
       },
       "tier": "code",
-      "verified": false,
+      "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-productivity",
       "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
@@ -1027,7 +1027,7 @@
         "en": "Research"
       },
       "tier": "code",
-      "verified": false,
+      "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-research",
       "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
@@ -1069,7 +1069,7 @@
         "en": "Development"
       },
       "tier": "code",
-      "verified": false,
+      "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-dev",
       "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
@@ -1114,7 +1114,7 @@
         "en": "Development"
       },
       "tier": "data",
-      "verified": false,
+      "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-debug",
       "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
@@ -1154,7 +1154,7 @@
         "en": "Creative"
       },
       "tier": "code",
-      "verified": false,
+      "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-media",
       "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
@@ -1194,7 +1194,7 @@
         "en": "Office"
       },
       "tier": "data",
-      "verified": false,
+      "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-apple",
       "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
@@ -1235,7 +1235,7 @@
         "en": "AI assistants"
       },
       "tier": "data",
-      "verified": false,
+      "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-ai-agents",
       "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
@@ -1279,7 +1279,7 @@
         "en": "Messaging"
       },
       "tier": "code",
-      "verified": false,
+      "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-inbox-web",
       "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
@@ -1320,7 +1320,7 @@
         "en": "Development"
       },
       "tier": "data",
-      "verified": false,
+      "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.anthropic-plugin-dev",
       "source": "https://github.com/anthropics/claude-plugins-official",
@@ -1364,7 +1364,7 @@
         "en": "Development"
       },
       "tier": "data",
-      "verified": false,
+      "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.anthropic-mcp-dev",
       "source": "https://github.com/anthropics/claude-plugins-official",
@@ -1404,7 +1404,7 @@
         "en": "AI assistants"
       },
       "tier": "code",
-      "verified": false,
+      "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.anthropic-claude-setup",
       "source": "https://github.com/anthropics/claude-plugins-official",
@@ -1446,7 +1446,7 @@
         "en": "Creative"
       },
       "tier": "data",
-      "verified": false,
+      "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.anthropic-ui-report",
       "source": "https://github.com/anthropics/claude-plugins-official",
@@ -1488,7 +1488,7 @@
         "en": "Messaging"
       },
       "tier": "data",
-      "verified": false,
+      "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.anthropic-chat-channels",
       "source": "https://github.com/anthropics/claude-plugins-official",
@@ -1531,7 +1531,7 @@
         "en": "Research"
       },
       "tier": "data",
-      "verified": false,
+      "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.anthropic-lab",
       "source": "https://github.com/anthropics/claude-plugins-official",
@@ -1571,7 +1571,7 @@
         "en": "Development"
       },
       "tier": "code",
-      "verified": false,
+      "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.deepseek-review",
       "source": "https://github.com/deepseek-ai/deepseek-harness/tree/master/.agents/skills",
@@ -1588,6 +1588,95 @@
         "url": "dist/javis-deepseek-review-1.0.0.zip",
         "sha256": "56a9a85a6e3e8028baf7e165566a126245c71dd55cd6a586a4bb48346499cb70",
         "size": 31782
+      }
+    },
+    {
+      "id": "javis.superpowers",
+      "kind": "skill",
+      "name": {
+        "vi": "Superpowers",
+        "en": "Superpowers"
+      },
+      "description": {
+        "vi": "14 skill quy trình làm việc của Jesse Vincent (obra/superpowers): brainstorm trước khi code, viết và thực thi plan, TDD, gỡ lỗi có hệ thống, review code hai chiều, git worktree, và bắt buộc chạy lệnh kiểm chứng trước khi báo xong.",
+        "en": "14 workflow skills by Jesse Vincent (obra/superpowers): brainstorm before coding, write and execute plans, TDD, systematic debugging, both sides of code review, git worktrees, and verifying before claiming done."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Jesse Vincent",
+        "url": "https://github.com/obra/superpowers"
+      },
+      "category": "lap-trinh",
+      "category_label": {
+        "vi": "Lập trình",
+        "en": "Development"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.superpowers",
+      "source": "https://github.com/obra/superpowers",
+      "license": "MIT",
+      "provides": {
+        "skills": [
+          "brainstorming",
+          "dispatching-parallel-agents",
+          "executing-plans",
+          "finishing-a-development-branch",
+          "receiving-code-review",
+          "sp-requesting-code-review",
+          "sp-systematic-debugging",
+          "sp-test-driven-development",
+          "subagent-driven-development",
+          "using-git-worktrees",
+          "using-superpowers",
+          "verification-before-completion",
+          "writing-plans",
+          "writing-skills"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-superpowers-1.0.0.zip",
+        "sha256": "52976388955248e9b021a5ab5cec2eefa04d75b954d4c740327ee7cbc1caaacd",
+        "size": 161040
+      }
+    },
+    {
+      "id": "javis.playwright",
+      "kind": "connector",
+      "name": {
+        "vi": "Playwright",
+        "en": "Playwright"
+      },
+      "description": {
+        "vi": "Điều khiển trình duyệt thật qua Playwright MCP chính chủ của Microsoft: mở trang, đọc cấu trúc trang, điền form, bấm nút, chụp màn hình, xuất PDF, chạy kiểm thử đầu-cuối. Không cần API key. Mặc định chạy hồ sơ TÁCH BIỆT và ẩn cửa sổ.",
+        "en": "Drive a real browser through Microsoft's official Playwright MCP: open pages, read page structure, fill forms, click, screenshot, export PDF, run end-to-end tests. No API key. Defaults to an isolated, headless profile."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Microsoft",
+        "url": "https://github.com/microsoft/playwright-mcp"
+      },
+      "category": "website",
+      "category_label": {
+        "vi": "Website",
+        "en": "Website"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.playwright",
+      "source": "https://github.com/microsoft/playwright-mcp",
+      "license": "Apache-2.0",
+      "provides": {
+        "connectors": [
+          "playwright"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-playwright-1.0.0.zip",
+        "sha256": "114afd8a32499073086a4a975ab98a09d1eb0fd1cb26b3ded061c6ffe7469f66",
+        "size": 4309
       }
     }
   ]
