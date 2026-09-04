@@ -1678,6 +1678,177 @@
         "sha256": "114afd8a32499073086a4a975ab98a09d1eb0fd1cb26b3ded061c6ffe7469f66",
         "size": 4309
       }
+    },
+    {
+      "id": "javis.quang-cao-so-lieu",
+      "kind": "workflow",
+      "name": {
+        "vi": "Quảng cáo & số liệu",
+        "en": "Ads & analytics"
+      },
+      "description": {
+        "vi": "3 trợ lý và 3 quy trình đọc số quảng cáo: báo cáo Meta/Google/TikTok Ads hàng tuần, săn ngân sách đang đốt vô ích, và đọc Google Search Console hàng tháng. Mọi con số đều phải chỉ ra nguồn, và bước cuối luôn có một trợ lý kiểm chứng độc lập.",
+        "en": "3 agents and 3 workflows for ad analytics: weekly Meta/Google/TikTok reports, wasted-spend hunting, and a monthly Search Console read. Every number must cite its source, and an independent verifier checks the final step."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "quang-cao",
+      "category_label": {
+        "vi": "Quảng cáo"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.quang-cao-so-lieu",
+      "license": "MIT",
+      "provides": {
+        "agents": [
+          "qc-kiem-chung",
+          "qc-phan-tich-quang-cao",
+          "qc-phan-tich-so-lieu"
+        ],
+        "workflows": [
+          "bao-cao-quang-cao-tuan",
+          "doc-search-console-thang",
+          "san-ngan-sach-lang-phi"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-quang-cao-so-lieu-1.0.0.zip",
+        "sha256": "4fd72f93363e2ee4e907e19088ab1fc05075ee0730d0b326f300d4be5fa6de8d",
+        "size": 7315
+      }
+    },
+    {
+      "id": "javis.noi-dung-social",
+      "kind": "workflow",
+      "name": {
+        "vi": "Nội dung & mạng xã hội",
+        "en": "Content & social"
+      },
+      "description": {
+        "vi": "4 trợ lý và 3 quy trình làm nội dung: từ một ý tưởng ra bài đăng hoàn chỉnh, bẻ bài dài thành chuỗi post, và lên lịch nội dung một tháng. Có bước tìm góc tiếp cận trước khi viết, và bước biên tập cắt chữ thừa sau khi viết.",
+        "en": "4 agents and 3 workflows for content: turn one idea into a finished post, split a long piece into a post series, and plan a month of content. Angle-finding before writing, editing after."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "mang-xa-hoi",
+      "category_label": {
+        "vi": "Mạng xã hội"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.noi-dung-social",
+      "license": "MIT",
+      "provides": {
+        "agents": [
+          "nd-bien-tap",
+          "nd-goc-nhin",
+          "nd-kiem-chung",
+          "nd-viet-bai"
+        ],
+        "workflows": [
+          "bai-dai-thanh-chuoi-post",
+          "lich-noi-dung-thang",
+          "y-tuong-thanh-bai-dang"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-noi-dung-social-1.0.0.zip",
+        "sha256": "3a44de88f284592dcbf55785f26c8a1003c81521333bd96d8afe314ab038e139",
+        "size": 8020
+      }
+    },
+    {
+      "id": "javis.email-pheu",
+      "kind": "workflow",
+      "name": {
+        "vi": "Email & phễu",
+        "en": "Email & funnel"
+      },
+      "description": {
+        "vi": "3 trợ lý và 3 quy trình cho email marketing: chuỗi email nuôi dưỡng sau khi khách tải tài liệu miễn phí, chuỗi kích hoạt lại danh sách đã nguội, và chẩn đoán phễu đang rò ở khâu nào. Viết chuỗi mà không lộ hết nội dung sản phẩm trả phí.",
+        "en": "3 agents and 3 workflows for email marketing: a nurture sequence after a lead magnet, a re-engagement sequence for a cold list, and a funnel leak diagnosis."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "marketing",
+      "category_label": {
+        "vi": "Marketing"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.email-pheu",
+      "license": "MIT",
+      "provides": {
+        "agents": [
+          "em-chien-luoc-pheu",
+          "em-kiem-chung",
+          "em-viet-email"
+        ],
+        "workflows": [
+          "chan-doan-pheu",
+          "chuoi-email-sau-lead-magnet",
+          "kich-hoat-lai-danh-sach"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-email-pheu-1.0.0.zip",
+        "sha256": "87208ad1de687e28600d64bfe4e8d97e5856e687314979ddb95d04417b60b25a",
+        "size": 7044
+      }
+    },
+    {
+      "id": "javis.san-pham-ban-hang",
+      "kind": "workflow",
+      "name": {
+        "vi": "Sản phẩm số & bán hàng",
+        "en": "Digital products & sales"
+      },
+      "description": {
+        "vi": "4 trợ lý và 3 quy trình cho sản phẩm số: từ kỹ năng sẵn có ra ý tưởng sản phẩm bán được, dựng trang bán hàng từ hồ sơ khách, và chuỗi chăm khách sau mua để đổi lấy lời chứng thực. Mọi lời hứa bán hàng đều bị soát lại xem sản phẩm có giao nổi không.",
+        "en": "4 agents and 3 workflows for digital products: turn existing skills into a sellable product, build a sales page from a customer profile, and run a post-purchase sequence that earns testimonials."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "ban-hang",
+      "category_label": {
+        "vi": "Bán hàng",
+        "en": "Sales"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.san-pham-ban-hang",
+      "license": "MIT",
+      "provides": {
+        "agents": [
+          "bh-cham-khach",
+          "bh-chien-luoc-offer",
+          "bh-kiem-chung",
+          "bh-viet-ban-hang"
+        ],
+        "workflows": [
+          "cham-khach-sau-mua",
+          "dung-trang-ban-hang",
+          "y-tuong-thanh-san-pham-so"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-san-pham-ban-hang-1.0.0.zip",
+        "sha256": "86356360043aa04a17e1723e9632f49798213307a3e2811f7db8cf7215d3155e",
+        "size": 8384
+      }
     }
   ]
 }
