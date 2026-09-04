@@ -1690,7 +1690,7 @@
         "vi": "3 trợ lý và 3 quy trình đọc số quảng cáo: báo cáo Meta/Google/TikTok Ads hàng tuần, săn ngân sách đang đốt vô ích, và đọc Google Search Console hàng tháng. Mọi con số đều phải chỉ ra nguồn, và bước cuối luôn có một trợ lý kiểm chứng độc lập.",
         "en": "3 agents and 3 workflows for ad analytics: weekly Meta/Google/TikTok reports, wasted-spend hunting, and a monthly Search Console read. Every number must cite its source, and an independent verifier checks the final step."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Javis"
       },
@@ -1716,9 +1716,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-quang-cao-so-lieu-1.0.0.zip",
-        "sha256": "4fd72f93363e2ee4e907e19088ab1fc05075ee0730d0b326f300d4be5fa6de8d",
-        "size": 7315
+        "url": "dist/javis-quang-cao-so-lieu-1.0.1.zip",
+        "sha256": "37bacacc1b4dc7f0c547e1b6df88d9c9b8f64e22364c83ffe704d60af01f987b",
+        "size": 8136
       }
     },
     {
@@ -1732,7 +1732,7 @@
         "vi": "4 trợ lý và 3 quy trình làm nội dung: từ một ý tưởng ra bài đăng hoàn chỉnh, bẻ bài dài thành chuỗi post, và lên lịch nội dung một tháng. Có bước tìm góc tiếp cận trước khi viết, và bước biên tập cắt chữ thừa sau khi viết.",
         "en": "4 agents and 3 workflows for content: turn one idea into a finished post, split a long piece into a post series, and plan a month of content. Angle-finding before writing, editing after."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Javis"
       },
@@ -1759,9 +1759,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-noi-dung-social-1.0.0.zip",
-        "sha256": "3a44de88f284592dcbf55785f26c8a1003c81521333bd96d8afe314ab038e139",
-        "size": 8020
+        "url": "dist/javis-noi-dung-social-1.0.1.zip",
+        "sha256": "315da242baa6de3f5a00f7cd3f7ff0539ede1779060e79e1daf5c4548b4efeb4",
+        "size": 9102
       }
     },
     {
@@ -1775,7 +1775,7 @@
         "vi": "3 trợ lý và 3 quy trình cho email marketing: chuỗi email nuôi dưỡng sau khi khách tải tài liệu miễn phí, chuỗi kích hoạt lại danh sách đã nguội, và chẩn đoán phễu đang rò ở khâu nào. Viết chuỗi mà không lộ hết nội dung sản phẩm trả phí.",
         "en": "3 agents and 3 workflows for email marketing: a nurture sequence after a lead magnet, a re-engagement sequence for a cold list, and a funnel leak diagnosis."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Javis"
       },
@@ -1801,9 +1801,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-email-pheu-1.0.0.zip",
-        "sha256": "87208ad1de687e28600d64bfe4e8d97e5856e687314979ddb95d04417b60b25a",
-        "size": 7044
+        "url": "dist/javis-email-pheu-1.0.1.zip",
+        "sha256": "f5b57fb05812360e8c88160ea8f5476f04ce7266b8e194f6d5334afab430a860",
+        "size": 7879
       }
     },
     {
@@ -1817,7 +1817,7 @@
         "vi": "4 trợ lý và 3 quy trình cho sản phẩm số: từ kỹ năng sẵn có ra ý tưởng sản phẩm bán được, dựng trang bán hàng từ hồ sơ khách, và chuỗi chăm khách sau mua để đổi lấy lời chứng thực. Mọi lời hứa bán hàng đều bị soát lại xem sản phẩm có giao nổi không.",
         "en": "4 agents and 3 workflows for digital products: turn existing skills into a sellable product, build a sales page from a customer profile, and run a post-purchase sequence that earns testimonials."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Javis"
       },
@@ -1845,9 +1845,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-san-pham-ban-hang-1.0.0.zip",
-        "sha256": "86356360043aa04a17e1723e9632f49798213307a3e2811f7db8cf7215d3155e",
-        "size": 8384
+        "url": "dist/javis-san-pham-ban-hang-1.0.1.zip",
+        "sha256": "a72e6eb97342818eb2a8617038e88da21b8d6fe578f5ef81abcf5d352b65ccfe",
+        "size": 9418
       }
     }
   ]

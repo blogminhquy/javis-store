@@ -26,9 +26,20 @@ Workflow chạy tuần tự. `{{input}}` là thứ bạn gõ vào lúc chạy, `
 - `qc-phan-tich-so-lieu` - Chuyên viên số liệu: Gom số từ bảng tính, Search Console, đơn hàng thành một bảng gọn kèm điều bất thường đáng chú ý.
 - `qc-kiem-chung` - Kiểm chứng độc lập (quảng cáo): Đánh giá độc lập báo cáo quảng cáo, mặc định là nó đang sai cho tới khi chứng minh được ngược lại.
 
-## Hai chỗ bạn nên chỉnh sau khi cài
+## Skill đã gắn sẵn cho từng trợ lý
 
-1. **Skill.** Mọi agent để `skills: []` trống, vì gói không biết brain của bạn đang có skill nào. Mở trang Trợ lý, thêm slug skill bạn muốn agent đó dùng.
-2. **Model.** Mọi agent để `model: ""`, tức chạy theo mặc định của engine bạn đang dùng. Ghim model cụ thể chỉ khi bạn chắc máy mình có model đó.
+| Trợ lý | Skill |
+|---|---|
+| `qc-kiem-chung` | `grounded-citations` (cần `javis.hermes-research`), `verification-before-completion` (cần `javis.superpowers`) |
+| `qc-phan-tich-quang-cao` | `grounded-citations` (cần `javis.hermes-research`), `query-wiki` (hệ thống), `notes` (hệ thống) |
+| `qc-phan-tich-so-lieu` | `xlsx` (cần `javis.hermes-office`), `notes` (hệ thống) |
+
+Skill ghi **(hệ thống)** có sẵn trong mọi brain, không phải cài gì thêm.
+
+Skill còn lại đến từ các gói kỹ năng trong kho: `javis.hermes-office`, `javis.hermes-research`, `javis.superpowers`. Javis không có cơ chế khai phụ thuộc giữa các gói, nên nếu bạn chưa cài chúng thì agent vẫn chạy bình thường: mỗi agent được dạy là gọi skill không có thì đi tiếp bằng năng lực sẵn có rồi báo lại một dòng cho bạn biết thiếu gì.
+
+## Chỗ bạn nên chỉnh sau khi cài
+
+1. **Model.** Mọi agent để `model: ""`, tức chạy theo mặc định của engine bạn đang dùng. Ghim model cụ thể chỉ khi bạn chắc máy mình có model đó.
 
 Agent và workflow được ghi vào **brain đang mở lúc bấm Cài**, không phải mọi brain. Javis không ghi đè mục bạn tự tạo trùng tên, và gỡ gói chỉ xoá thứ bạn chưa sửa.

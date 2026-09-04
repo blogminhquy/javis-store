@@ -1,7 +1,7 @@
 format: javis-pack
 spec: 1
 id: javis.san-pham-ban-hang
-version: 1.0.0
+version: 1.0.1
 name:
   vi: Sản phẩm số & bán hàng
   en: Digital products & sales
