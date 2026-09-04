@@ -1,0 +1,12 @@
+format: javis-pack
+spec: 1
+id: javis.meta-ads
+version: 1.0.0
+name: {vi: "Meta Ads (Facebook & Instagram)"}
+description: {vi: "Số liệu quảng cáo Facebook/Instagram qua MCP chính chủ của Meta (tài khoản ads, hiệu suất chiến dịch, benchmark ngành, catalog sản phẩm). LƯU Ý: đang là beta GIỚI HẠN của Meta - chỉ vài ứng dụng được Meta cấp phép sẵn kết nối được, kết nối tự phục vụ CHƯA khả dụng."}
+author: {name: Javis}
+license: MIT
+homepage: "https://github.com/blogminhquy/javis-store"
+compat: {app: ">=0.55.27"}
+provides:
+  connectors: [connectors/meta-ads.json]

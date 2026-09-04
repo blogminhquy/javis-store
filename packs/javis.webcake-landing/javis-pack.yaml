@@ -1,0 +1,12 @@
+format: javis-pack
+spec: 1
+id: javis.webcake-landing
+version: 1.0.0
+name: {vi: "Webcake Landing"}
+description: {vi: "Để AI tự thiết kế và sửa landing page Webcake bằng lời nói (tạo trang, sửa section, publish...). Chạy local qua npx, mỗi tài khoản 1 JWT."}
+author: {name: Javis}
+license: MIT
+homepage: "https://github.com/blogminhquy/javis-store"
+compat: {app: ">=0.55.27"}
+provides:
+  connectors: [connectors/webcake-landing.json]

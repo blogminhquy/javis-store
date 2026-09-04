@@ -11,15 +11,23 @@
     {
       "id": "javis.tinh-gia",
       "kind": "tool",
-      "name": { "vi": "Tính giá bán", "en": "Pricing helper" },
+      "name": {
+        "vi": "Tính giá bán",
+        "en": "Pricing helper"
+      },
       "description": {
         "vi": "Từ giá vốn ra giá niêm yết: chọn biên lợi nhuận hoặc markup, cộng VAT, làm tròn lên số đẹp. Trả về biên thực tế sau khi làm tròn.",
         "en": "Turn cost into a shelf price: margin or markup, VAT, rounded up to a tidy number. Reports the real margin after rounding."
       },
       "version": "1.0.0",
-      "author": { "name": "Javis" },
+      "author": {
+        "name": "Javis"
+      },
       "category": "ban-hang",
-      "category_label": { "vi": "Bán hàng", "en": "Sales" },
+      "category_label": {
+        "vi": "Bán hàng",
+        "en": "Sales"
+      },
       "tier": "code",
       "verified": true,
       "updated": "2026-09-04",
@@ -28,6 +36,838 @@
         "url": "dist/javis-tinh-gia-1.0.0.zip",
         "sha256": "2efc5b73e55c98573bae20d765a6cfeabe062646f6dcb9d890fd56bb557e1cdb",
         "size": 5289
+      }
+    },
+    {
+      "id": "javis.composio",
+      "kind": "connector",
+      "name": {
+        "vi": "Composio"
+      },
+      "description": {
+        "vi": "Cổng đa ứng dụng của Composio: một kết nối mở ra hơn 500 app (Gmail, Notion, Google Sheets, GitHub, Linear, Slack...). Javis tìm tool, nối tài khoản từng app và chạy hành động qua Composio, không cần Javis viết connector riêng cho mỗi app. Dán API key (ck_...) là xong."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "kho-ung-dung",
+      "category_label": {
+        "vi": "Kho ứng dụng"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.composio",
+      "provides": {
+        "connectors": [
+          "composio"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-composio-1.0.0.zip",
+        "sha256": "7cd748fae430d104f5398cb01dd338d65221d0ba1ff6006832275078fc9edf1a",
+        "size": 1973
+      }
+    },
+    {
+      "id": "javis.pancake-pos",
+      "kind": "connector",
+      "name": {
+        "vi": "Pancake POS"
+      },
+      "description": {
+        "vi": "Đơn hàng, doanh thu, khách hàng, tồn kho, quảng cáo từ Pancake POS. Mỗi cửa hàng 1 API key - thêm nhiều tài khoản cho nhiều shop."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "ban-hang",
+      "category_label": {
+        "vi": "Bán hàng"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.pancake-pos",
+      "provides": {
+        "connectors": [
+          "pancake-pos"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-pancake-pos-1.0.0.zip",
+        "sha256": "93bf26951f5bdf0f2c1635f16ebcd1f4b3334d5f358abe65578667a6ae15229e",
+        "size": 8799
+      }
+    },
+    {
+      "id": "javis.shopify",
+      "kind": "connector",
+      "name": {
+        "vi": "Shopify"
+      },
+      "description": {
+        "vi": "Tra cứu sản phẩm, giá, tồn kho và dựng sẵn giỏ hàng của MỘT cửa hàng Shopify qua MCP chính chủ (chuẩn UCP). Không cần API key, không cần cài app, không cần là chủ shop - chỉ cần địa chỉ cửa hàng."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "ban-hang",
+      "category_label": {
+        "vi": "Bán hàng"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.shopify",
+      "provides": {
+        "connectors": [
+          "shopify"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-shopify-1.0.0.zip",
+        "sha256": "99139723a7ef862493cdf5c9078e74c1f44b47bac5f615183fa8919f70997015",
+        "size": 2347
+      }
+    },
+    {
+      "id": "javis.webcake-landing",
+      "kind": "connector",
+      "name": {
+        "vi": "Webcake Landing"
+      },
+      "description": {
+        "vi": "Để AI tự thiết kế và sửa landing page Webcake bằng lời nói (tạo trang, sửa section, publish...). Chạy local qua npx, mỗi tài khoản 1 JWT."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "marketing",
+      "category_label": {
+        "vi": "Marketing"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.webcake-landing",
+      "provides": {
+        "connectors": [
+          "webcake-landing"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-webcake-landing-1.0.0.zip",
+        "sha256": "c40be7627ec5462728ba5376b0cbc7fe913cd42927e59ead705cc87fffcf6cf0",
+        "size": 10366
+      }
+    },
+    {
+      "id": "javis.webcake-landing-web",
+      "kind": "connector",
+      "name": {
+        "vi": "Webcake Landing (đăng nhập web)"
+      },
+      "description": {
+        "vi": "Cùng bộ công cụ landing Webcake nhưng chạy trên máy chủ sẵn: bấm Kết nối rồi đăng nhập, không dán JWT, không cần Node.js trên máy."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "marketing",
+      "category_label": {
+        "vi": "Marketing"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.webcake-landing-web",
+      "provides": {
+        "connectors": [
+          "webcake-landing-web"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-webcake-landing-web-1.0.0.zip",
+        "sha256": "64a4110545934cead5ec181fc278a7e82c18299678d484550578fc938b7d7748",
+        "size": 10388
+      }
+    },
+    {
+      "id": "javis.google-sheets",
+      "kind": "connector",
+      "name": {
+        "vi": "Google Sheets"
+      },
+      "description": {
+        "vi": "Đọc/ghi bảng tính Google: đổ báo cáo doanh thu, tồn kho, công nợ ra Sheets tự động. Đấu bằng service account - không cần đăng nhập."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "van-phong",
+      "category_label": {
+        "vi": "Văn phòng"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-sheets",
+      "provides": {
+        "connectors": [
+          "google-sheets"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-google-sheets-1.0.0.zip",
+        "sha256": "f44add021760f4afe78111f304dfc7bda0928bc676ff22620c4a5e7edb41a9b0",
+        "size": 7486
+      }
+    },
+    {
+      "id": "javis.google-search-console",
+      "kind": "connector",
+      "name": {
+        "vi": "Google Search Console"
+      },
+      "description": {
+        "vi": "Số liệu SEO website: khách tìm từ khoá gì ra trang của bạn, lượt hiển thị, lượt bấm, trang top."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "marketing",
+      "category_label": {
+        "vi": "Marketing"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-search-console",
+      "provides": {
+        "connectors": [
+          "google-search-console"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-google-search-console-1.0.0.zip",
+        "sha256": "8b8234dd168eefd639b1659c594df7cdb596c130b56c88f47e8e882f997ece77",
+        "size": 1253
+      }
+    },
+    {
+      "id": "javis.google-workspace",
+      "kind": "connector",
+      "name": {
+        "vi": "Google Workspace (Gmail, Lịch, Drive, Docs)"
+      },
+      "description": {
+        "vi": "Gmail, Calendar, Drive, Docs, Sheets, Slides, Forms, Tasks... trong MỘT kết nối. Tạo OAuth client 1 lần, khoảng 10 phút, có hướng dẫn từng bước. Lần đầu gọi tool Google, trình duyệt TRÊN MÁY CHẠY JAVIS mở ra để bấm đồng ý, nên máy phải có màn hình."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "van-phong",
+      "category_label": {
+        "vi": "Văn phòng"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-workspace",
+      "provides": {
+        "connectors": [
+          "google-workspace"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-google-workspace-1.0.0.zip",
+        "sha256": "f650083ca50e7f5619b5f0ec766d396dded44c75d8fa250519506d44aa68b8eb",
+        "size": 3112
+      }
+    },
+    {
+      "id": "javis.google-tasks",
+      "kind": "connector",
+      "name": {
+        "vi": "Google Tasks"
+      },
+      "description": {
+        "vi": "Việc cần làm trong Google Tasks: xem danh sách, thêm việc, đặt hạn, đánh dấu xong. Chỉ xin quyền Tasks, không đụng Gmail hay Drive. Đăng nhập Google bằng OAuth client tự tạo (~10 phút, có hướng dẫn)."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "van-phong",
+      "category_label": {
+        "vi": "Văn phòng"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-tasks",
+      "provides": {
+        "connectors": [
+          "google-tasks"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-google-tasks-1.0.0.zip",
+        "sha256": "5867a0da27a1c618dd5396448f11066749176450fb39836ab56da52133c093a5",
+        "size": 2767
+      }
+    },
+    {
+      "id": "javis.meta-ads",
+      "kind": "connector",
+      "name": {
+        "vi": "Meta Ads (Facebook & Instagram)"
+      },
+      "description": {
+        "vi": "Số liệu quảng cáo Facebook/Instagram qua MCP chính chủ của Meta (tài khoản ads, hiệu suất chiến dịch, benchmark ngành, catalog sản phẩm). LƯU Ý: đang là beta GIỚI HẠN của Meta - chỉ vài ứng dụng được Meta cấp phép sẵn kết nối được, kết nối tự phục vụ CHƯA khả dụng."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "quang-cao",
+      "category_label": {
+        "vi": "Quảng cáo"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.meta-ads",
+      "provides": {
+        "connectors": [
+          "meta-ads"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-meta-ads-1.0.0.zip",
+        "sha256": "5d406f2a226f4defe5b88be375c404029fff48d79d1d6f7e915f498e10b06543",
+        "size": 16925
+      }
+    },
+    {
+      "id": "javis.meta-ads-graph",
+      "kind": "connector",
+      "name": {
+        "vi": "Meta Ads (tự tạo app - Graph API)"
+      },
+      "description": {
+        "vi": "Số liệu quảng cáo Facebook/Instagram gọi THẲNG Marketing API của Meta (KHÔNG qua MCP beta bị khoá). Bạn tạo 1 Facebook App, dán App ID + App Secret, Javis đọc tài khoản ads, chiến dịch và hiệu suất của bạn. CHỈ ĐỌC - không tạo/sửa chiến dịch, không tiêu tiền. Đây là cách các nền tảng như Composio dùng."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "quang-cao",
+      "category_label": {
+        "vi": "Quảng cáo"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.meta-ads-graph",
+      "provides": {
+        "connectors": [
+          "meta-ads-graph"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-meta-ads-graph-1.0.0.zip",
+        "sha256": "058b674a3c56eb402da214ff40b5370b05ac72ccbb851c66fc79ff8bd09b5bce",
+        "size": 18753
+      }
+    },
+    {
+      "id": "javis.facebook-pages",
+      "kind": "connector",
+      "name": {
+        "vi": "Facebook Trang (tự tạo app - Graph API)"
+      },
+      "description": {
+        "vi": "Quản lý Trang/Fanpage Facebook của bạn qua Graph API chính chủ: xem danh sách Trang, đọc bài và bình luận (chỉ đọc), đăng bài chữ, ẢNH, ALBUM nhiều ảnh, VIDEO, SỬA bài đã đăng và trả lời bình luận (toàn quyền). Bạn tạo 1 Facebook App (dùng lại app đang có cho Meta Ads cũng được), dán App ID + App Secret. Đăng và sửa bài là hành động THẬT nên chỉ chạy ở mức Toàn quyền, không tự làm lén."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "mang-xa-hoi",
+      "category_label": {
+        "vi": "Mạng xã hội"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.facebook-pages",
+      "provides": {
+        "connectors": [
+          "facebook-pages"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-facebook-pages-1.0.0.zip",
+        "sha256": "af64306ef56265574d8201d7daf72308be865f43a1ebf5b21581fc5db45a4983",
+        "size": 18957
+      }
+    },
+    {
+      "id": "javis.facebook-monitor",
+      "kind": "connector",
+      "name": {
+        "vi": "Theo dõi Facebook (Apify)"
+      },
+      "description": {
+        "vi": "Theo dõi Trang và Nhóm CÔNG KHAI trên Facebook để tìm bài viral (nhiều share), qua dịch vụ quét Apify. KHÔNG dùng tài khoản cá nhân của bạn nên không lo khoá; chạy tốt trên VPS 24/7. Trả về bài kèm số share/react/bình luận để lọc bài hot. Cần token Apify (đăng ký free, trả theo lượt quét ~2.6 USD/1000 bài). Nhóm KÍN là bước sau (cần thêm cookie)."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "mang-xa-hoi",
+      "category_label": {
+        "vi": "Mạng xã hội"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.facebook-monitor",
+      "provides": {
+        "connectors": [
+          "facebook-monitor"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-facebook-monitor-1.0.0.zip",
+        "sha256": "9f1bc6d88aacdf8741330c620680bba66fcdc881fafa32393c8e7cf7b4669647",
+        "size": 16844
+      }
+    },
+    {
+      "id": "javis.google-ads",
+      "kind": "connector",
+      "name": {
+        "vi": "Google Ads"
+      },
+      "description": {
+        "vi": "Số liệu Google Ads qua MCP chính chủ của Google (chỉ đọc): chiến dịch, chi phí, chuyển đổi, từ khoá qua truy vấn GAQL. Chạy local; cần developer token + Google Cloud, cài 1 lần hơi kỹ thuật."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "quang-cao",
+      "category_label": {
+        "vi": "Quảng cáo"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-ads",
+      "provides": {
+        "connectors": [
+          "google-ads"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-google-ads-1.0.0.zip",
+        "sha256": "78a2ef3abc14fab5be6a304df7a0e72d0d50b14d170abb06e6aa3a8d80f45f2f",
+        "size": 28341
+      }
+    },
+    {
+      "id": "javis.tiktok-ads",
+      "kind": "connector",
+      "name": {
+        "vi": "TikTok Ads"
+      },
+      "description": {
+        "vi": "Số liệu quảng cáo TikTok (chỉ đọc): tài khoản, chiến dịch, nhóm quảng cáo, creative, báo cáo hiệu suất. Server cộng đồng chạy local trên Marketing API chính thức - dán App ID + Secret + Access Token."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "quang-cao",
+      "category_label": {
+        "vi": "Quảng cáo"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.tiktok-ads",
+      "provides": {
+        "connectors": [
+          "tiktok-ads"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-tiktok-ads-1.0.0.zip",
+        "sha256": "841e9919dc955b6040cdd40b4fa556c02ddcf8307b070635dd1aad540bf9951c",
+        "size": 8759
+      }
+    },
+    {
+      "id": "javis.google-calendar",
+      "kind": "connector",
+      "name": {
+        "vi": "Google Calendar"
+      },
+      "description": {
+        "vi": "Lịch Google qua MCP chính chủ của Google: xem lịch, tìm chỗ trống, tạo/sửa sự kiện, nhắc hẹn. Đăng nhập Google trong dashboard, chạy được cả trên VPS. Cần tạo OAuth client + ghi danh Developer Preview của Google 1 lần (~10 phút)."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "van-phong",
+      "category_label": {
+        "vi": "Văn phòng"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-calendar",
+      "provides": {
+        "connectors": [
+          "google-calendar"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-google-calendar-1.0.0.zip",
+        "sha256": "f3204f20a48c9e63959b2678de408e3c6843eceda12f5265d10a60aa1eae6323",
+        "size": 12536
+      }
+    },
+    {
+      "id": "javis.gmail",
+      "kind": "connector",
+      "name": {
+        "vi": "Gmail"
+      },
+      "description": {
+        "vi": "Gmail qua MCP chính chủ của Google: đọc và tìm thư, soạn NHÁP, gắn nhãn sắp xếp hộp thư. Server chính chủ KHÔNG có tool gửi thẳng - luôn dừng ở bản nháp để bạn tự bấm gửi. Cần tạo OAuth client + ghi danh Developer Preview của Google 1 lần."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "van-phong",
+      "category_label": {
+        "vi": "Văn phòng"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.gmail",
+      "provides": {
+        "connectors": [
+          "gmail"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-gmail-1.0.0.zip",
+        "sha256": "0c8669e18a4443f0a370fc12ca984db6f1dbc0c60586382e48f7e137197db675",
+        "size": 16670
+      }
+    },
+    {
+      "id": "javis.slack",
+      "kind": "connector",
+      "name": {
+        "vi": "Slack"
+      },
+      "description": {
+        "vi": "Tìm kiếm và đọc/gửi tin nhắn Slack, xem kênh và thành viên, quản lý canvas qua MCP chính chủ của Slack. Cần tạo một Slack app trong workspace và được admin duyệt (đây là yêu cầu bắt buộc của Slack)."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "nhan-tin",
+      "category_label": {
+        "vi": "Nhắn tin"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.slack",
+      "provides": {
+        "connectors": [
+          "slack"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-slack-1.0.0.zip",
+        "sha256": "405dc29f944384259c11e086a063d4f9dedc49cf613433799422a4aad3b0e377",
+        "size": 26088
+      }
+    },
+    {
+      "id": "javis.systeme-io",
+      "kind": "connector",
+      "name": {
+        "vi": "Systeme.io"
+      },
+      "description": {
+        "vi": "Quản lý liên hệ, tag, trường tuỳ biến, newsletter và phễu từ Systeme.io qua MCP chính chủ. Dán MCP key là xong (key có hạn tối đa 90 ngày, tối đa 2 key mỗi tài khoản)."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "marketing",
+      "category_label": {
+        "vi": "Marketing"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.systeme-io",
+      "provides": {
+        "connectors": [
+          "systeme-io"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-systeme-io-1.0.0.zip",
+        "sha256": "7886621cf1702fe73d7b4a7f663468dc2bd66d03d48d57693eee1d657dc4d194",
+        "size": 12770
+      }
+    },
+    {
+      "id": "javis.lark",
+      "kind": "connector",
+      "name": {
+        "vi": "Lark"
+      },
+      "description": {
+        "vi": "Nhắn tin, tài liệu (Docs), bảng dữ liệu (Base/Bitable), wiki và danh bạ trong Lark qua MCP chính chủ. Chạy local bằng app của bạn (dán App ID + App Secret). Cần tạo một Lark app và cấp quyền tương ứng."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "van-phong",
+      "category_label": {
+        "vi": "Văn phòng"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.lark",
+      "provides": {
+        "connectors": [
+          "lark"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-lark-1.0.0.zip",
+        "sha256": "fcd23dc9495219f9d38be517d2d07d43e83196d4e134aac360c03009a33372b7",
+        "size": 51811
+      }
+    },
+    {
+      "id": "javis.higgsfield",
+      "kind": "connector",
+      "name": {
+        "vi": "Higgsfield"
+      },
+      "description": {
+        "vi": "Tạo và chỉnh ảnh/video bằng AI của Higgsfield qua MCP chính chủ: sinh ảnh, sinh video, nâng nét (upscale), mở rộng khung hình, xoá nền, cắt nhân vật, điều khiển chuyển động. Đăng nhập Higgsfield 1 chạm - không cần tạo app hay dán key. Lưu ý: mỗi lần tạo/chỉnh tiêu credit Higgsfield của bạn."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "sang-tao",
+      "category_label": {
+        "vi": "Sáng tạo"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.higgsfield",
+      "provides": {
+        "connectors": [
+          "higgsfield"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-higgsfield-1.0.0.zip",
+        "sha256": "5021689623f95050febad984bfc6b9b1f1a8c0978ea1ea775b48ef63ae194584",
+        "size": 91932
+      }
+    },
+    {
+      "id": "javis.x-twitter",
+      "kind": "connector",
+      "name": {
+        "vi": "X (Twitter)"
+      },
+      "description": {
+        "vi": "Tìm kiếm và đọc bài đăng, xem hồ sơ và số liệu công khai trên X (Twitter) qua MCP chính chủ của X. Dán Bearer Token (App-only) từ X Developer Portal - dùng để đọc/tìm; đăng bài cần OAuth người dùng (sẽ bổ sung nếu cần)."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "mang-xa-hoi",
+      "category_label": {
+        "vi": "Mạng xã hội"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.x-twitter",
+      "provides": {
+        "connectors": [
+          "x-twitter"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-x-twitter-1.0.0.zip",
+        "sha256": "5ab9a99da5e6412f24c9ee3ab89d7bc4594385afdba3c28210164b7193aadde9",
+        "size": 271235
+      }
+    },
+    {
+      "id": "javis.google-keep",
+      "kind": "connector",
+      "name": {
+        "vi": "Google Keep"
+      },
+      "description": {
+        "vi": "Đọc và sửa ghi chú Google Keep: tìm note, tạo note và danh sách việc, gắn nhãn, ghim, lưu trữ. LƯU Ý: Keep không có API chính chủ nên phải dùng master token có TOÀN QUYỀN tài khoản Google, không phải OAuth giới hạn phạm vi như Gmail hay Lịch. Javis chỉ thao tác được ghi chú, nhưng token thì mở cả tài khoản nếu bị lộ."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "van-phong",
+      "category_label": {
+        "vi": "Văn phòng"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-keep",
+      "provides": {
+        "connectors": [
+          "google-keep"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-google-keep-1.0.0.zip",
+        "sha256": "29be155ed7e1a1e8cff632dc917d93f54aa85cb6caea07e948698b1d820e644e",
+        "size": 3093
+      }
+    },
+    {
+      "id": "javis.notebooklm",
+      "kind": "connector",
+      "name": {
+        "vi": "Google NotebookLM"
+      },
+      "description": {
+        "vi": "Đọc và thao tác notebook trên Google NotebookLM: liệt kê notebook, đọc nguồn, hỏi đáp ngay trong notebook, thêm nguồn, lưu ghi chú, tạo tóm tắt/audio ở Studio. LƯU Ý: NotebookLM chưa có API chính chủ nên phải mượn PHIÊN ĐĂNG NHẬP trình duyệt (cookie Google), không phải OAuth giới hạn phạm vi như Gmail hay Lịch."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "van-phong",
+      "category_label": {
+        "vi": "Văn phòng"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.notebooklm",
+      "provides": {
+        "connectors": [
+          "notebooklm"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-notebooklm-1.0.0.zip",
+        "sha256": "a29f903f2f66bea8bcd4b7849cd0492db0e8c71a10a3bc5d48b875f2d68bfce2",
+        "size": 3067
+      }
+    },
+    {
+      "id": "javis.n8n",
+      "kind": "connector",
+      "name": {
+        "vi": "n8n"
+      },
+      "description": {
+        "vi": "Điều khiển n8n của bạn: tìm và đọc workflow, xem lịch sử chạy, tạo và sửa workflow, chạy workflow - qua MCP chính chủ của n8n. Cần địa chỉ n8n của bạn + MCP Access Token."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "van-phong",
+      "category_label": {
+        "vi": "Văn phòng"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.n8n",
+      "provides": {
+        "connectors": [
+          "n8n"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-n8n-1.0.0.zip",
+        "sha256": "144b63eb3716cc2e9040e8e667ba9aff3a8ce518ecad2bdc0ec503a48b034fe6",
+        "size": 2032
+      }
+    },
+    {
+      "id": "javis.hostinger",
+      "kind": "connector",
+      "name": {
+        "vi": "Hostinger"
+      },
+      "description": {
+        "vi": "Quản lý hosting Hostinger ngay trong chat: xem tên miền và ngày hết hạn, sửa bản ghi DNS, xem website và WordPress, VPS, hộp thư, hoá đơn và gói đang chạy. MCP chính chủ của Hostinger, dán API token là xong."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "website",
+      "category_label": {
+        "vi": "Website"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hostinger",
+      "provides": {
+        "connectors": [
+          "hostinger"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-hostinger-1.0.0.zip",
+        "sha256": "4a4e92fe9b27804c8bc7e38685b8cadc17126c452d099b90a3d386118987df58",
+        "size": 2280
       }
     }
   ]

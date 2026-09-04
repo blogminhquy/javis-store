@@ -1,0 +1,12 @@
+format: javis-pack
+spec: 1
+id: javis.slack
+version: 1.0.0
+name: {vi: "Slack"}
+description: {vi: "Tìm kiếm và đọc/gửi tin nhắn Slack, xem kênh và thành viên, quản lý canvas qua MCP chính chủ của Slack. Cần tạo một Slack app trong workspace và được admin duyệt (đây là yêu cầu bắt buộc của Slack)."}
+author: {name: Javis}
+license: MIT
+homepage: "https://github.com/blogminhquy/javis-store"
+compat: {app: ">=0.55.27"}
+provides:
+  connectors: [connectors/slack.json]

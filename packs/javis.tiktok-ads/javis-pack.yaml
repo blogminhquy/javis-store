@@ -1,0 +1,12 @@
+format: javis-pack
+spec: 1
+id: javis.tiktok-ads
+version: 1.0.0
+name: {vi: "TikTok Ads"}
+description: {vi: "Số liệu quảng cáo TikTok (chỉ đọc): tài khoản, chiến dịch, nhóm quảng cáo, creative, báo cáo hiệu suất. Server cộng đồng chạy local trên Marketing API chính thức - dán App ID + Secret + Access Token."}
+author: {name: Javis}
+license: MIT
+homepage: "https://github.com/blogminhquy/javis-store"
+compat: {app: ">=0.55.27"}
+provides:
+  connectors: [connectors/tiktok-ads.json]

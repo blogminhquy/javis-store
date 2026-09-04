@@ -1,0 +1,12 @@
+format: javis-pack
+spec: 1
+id: javis.systeme-io
+version: 1.0.0
+name: {vi: "Systeme.io"}
+description: {vi: "Quản lý liên hệ, tag, trường tuỳ biến, newsletter và phễu từ Systeme.io qua MCP chính chủ. Dán MCP key là xong (key có hạn tối đa 90 ngày, tối đa 2 key mỗi tài khoản)."}
+author: {name: Javis}
+license: MIT
+homepage: "https://github.com/blogminhquy/javis-store"
+compat: {app: ">=0.55.27"}
+provides:
+  connectors: [connectors/systeme-io.json]

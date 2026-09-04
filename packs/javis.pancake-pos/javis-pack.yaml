@@ -1,0 +1,12 @@
+format: javis-pack
+spec: 1
+id: javis.pancake-pos
+version: 1.0.0
+name: {vi: "Pancake POS"}
+description: {vi: "Đơn hàng, doanh thu, khách hàng, tồn kho, quảng cáo từ Pancake POS. Mỗi cửa hàng 1 API key - thêm nhiều tài khoản cho nhiều shop."}
+author: {name: Javis}
+license: MIT
+homepage: "https://github.com/blogminhquy/javis-store"
+compat: {app: ">=0.55.27"}
+provides:
+  connectors: [connectors/pancake-pos.json]
