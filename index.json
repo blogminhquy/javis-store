@@ -892,7 +892,7 @@
         "en": "Creative"
       },
       "tier": "data",
-      "verified": false,
+      "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-creative",
       "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
@@ -939,7 +939,7 @@
         "en": "Office"
       },
       "tier": "code",
-      "verified": false,
+      "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-office",
       "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
@@ -982,7 +982,7 @@
         "en": "Office"
       },
       "tier": "code",
-      "verified": false,
+      "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-productivity",
       "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
@@ -1027,7 +1027,7 @@
         "en": "Research"
       },
       "tier": "code",
-      "verified": false,
+      "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-research",
       "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
@@ -1069,7 +1069,7 @@
         "en": "Development"
       },
       "tier": "code",
-      "verified": false,
+      "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-dev",
       "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
@@ -1114,7 +1114,7 @@
         "en": "Development"
       },
       "tier": "data",
-      "verified": false,
+      "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-debug",
       "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
@@ -1154,7 +1154,7 @@
         "en": "Creative"
       },
       "tier": "code",
-      "verified": false,
+      "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-media",
       "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
@@ -1194,7 +1194,7 @@
         "en": "Office"
       },
       "tier": "data",
-      "verified": false,
+      "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-apple",
       "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
@@ -1235,7 +1235,7 @@
         "en": "AI assistants"
       },
       "tier": "data",
-      "verified": false,
+      "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-ai-agents",
       "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
@@ -1279,7 +1279,7 @@
         "en": "Messaging"
       },
       "tier": "code",
-      "verified": false,
+      "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-inbox-web",
       "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
@@ -1320,7 +1320,7 @@
         "en": "Development"
       },
       "tier": "data",
-      "verified": false,
+      "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.anthropic-plugin-dev",
       "source": "https://github.com/anthropics/claude-plugins-official",
@@ -1364,7 +1364,7 @@
         "en": "Development"
       },
       "tier": "data",
-      "verified": false,
+      "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.anthropic-mcp-dev",
       "source": "https://github.com/anthropics/claude-plugins-official",
@@ -1404,7 +1404,7 @@
         "en": "AI assistants"
       },
       "tier": "code",
-      "verified": false,
+      "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.anthropic-claude-setup",
       "source": "https://github.com/anthropics/claude-plugins-official",
@@ -1446,7 +1446,7 @@
         "en": "Creative"
       },
       "tier": "data",
-      "verified": false,
+      "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.anthropic-ui-report",
       "source": "https://github.com/anthropics/claude-plugins-official",
@@ -1488,7 +1488,7 @@
         "en": "Messaging"
       },
       "tier": "data",
-      "verified": false,
+      "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.anthropic-chat-channels",
       "source": "https://github.com/anthropics/claude-plugins-official",
@@ -1531,7 +1531,7 @@
         "en": "Research"
       },
       "tier": "data",
-      "verified": false,
+      "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.anthropic-lab",
       "source": "https://github.com/anthropics/claude-plugins-official",
@@ -1571,7 +1571,7 @@
         "en": "Development"
       },
       "tier": "code",
-      "verified": false,
+      "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.deepseek-review",
       "source": "https://github.com/deepseek-ai/deepseek-harness/tree/master/.agents/skills",
