@@ -1,0 +1,24 @@
+# Kiểm mọi gói trước khi trộn vào kho.
+#
+# Vì sao kho cần CI dù nó chỉ là dữ liệu: gói trong đây tới máy người dùng mà KHÔNG qua một bản
+# Javis mới. Không có lần phát hành nào đứng chắn phía sau, nên chỗ chắn duy nhất là đây.
+#
+# Không cài gì cả - `tools/kiem-tra.py` chỉ dùng thư viện chuẩn. Chạy hết trong vài giây.
+name: Kiểm kho
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  kiem-tra:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Kiểm cấu trúc gói, an toàn quyền, và danh mục
+        run: python tools/kiem-tra.py

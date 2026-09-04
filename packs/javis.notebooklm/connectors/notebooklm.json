@@ -110,5 +110,8 @@
   "risk": "Kết nối này dùng COOKIE PHIÊN Google, credential tương đương đang đăng nhập tài khoản Google của bạn, không phải OAuth giới hạn phạm vi như Gmail hay Lịch.\n\nMức Chỉ đọc: liệt kê notebook, đọc nguồn, xem trạng thái. Không đụng gì.\n\nMức Ghi nháp: thêm quyền tạo notebook, thêm nguồn, lưu ghi chú, hỏi đáp trong notebook và tạo tóm tắt/audio ở Studio - những thứ này tiêu quota NotebookLM của bạn.\n\nMức Toàn quyền: thêm quyền XOÁ notebook, xoá nguồn, và CHIA SẺ notebook cho người khác. Chia sẻ nhầm thì gỡ lại được nhưng người ta đã đọc rồi, nên nó nằm ở mức cao nhất.\n\nnotebooklm-py là thư viện KHÔNG chính thức, chạy trên giao thức nội bộ của NotebookLM. Google đổi giao thức lúc nào cũng có thể làm kết nối này gãy.",
   "rate_limit": {
     "calls_per_min": 20
-  }
+  },
+  "ghi_da_can_nhac": [
+    "research_cancel"
+  ]
 }
