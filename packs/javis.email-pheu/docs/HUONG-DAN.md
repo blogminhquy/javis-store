@@ -26,9 +26,20 @@ Workflow chạy tuần tự. `{{input}}` là thứ bạn gõ vào lúc chạy, `
 - `em-viet-email` - Người viết email: Viết email dạng thư tay, mỗi email một ý, có lý do mở và lý do đọc tiếp.
 - `em-kiem-chung` - Kiểm chứng độc lập (email): Đánh giá độc lập chuỗi email, mặc định là nó đang lộ quá nhiều hoặc hứa quá tay.
 
-## Hai chỗ bạn nên chỉnh sau khi cài
+## Skill đã gắn sẵn cho từng trợ lý
 
-1. **Skill.** Mọi agent để `skills: []` trống, vì gói không biết brain của bạn đang có skill nào. Mở trang Trợ lý, thêm slug skill bạn muốn agent đó dùng.
-2. **Model.** Mọi agent để `model: ""`, tức chạy theo mặc định của engine bạn đang dùng. Ghim model cụ thể chỉ khi bạn chắc máy mình có model đó.
+| Trợ lý | Skill |
+|---|---|
+| `em-chien-luoc-pheu` | `brainstorming` (cần `javis.superpowers`), `query-wiki` (hệ thống), `notes` (hệ thống) |
+| `em-kiem-chung` | `grounded-citations` (cần `javis.hermes-research`), `verification-before-completion` (cần `javis.superpowers`) |
+| `em-viet-email` | `humanizer` (cần `javis.hermes-creative`), `query-wiki` (hệ thống) |
+
+Skill ghi **(hệ thống)** có sẵn trong mọi brain, không phải cài gì thêm.
+
+Skill còn lại đến từ các gói kỹ năng trong kho: `javis.hermes-creative`, `javis.hermes-research`, `javis.superpowers`. Javis không có cơ chế khai phụ thuộc giữa các gói, nên nếu bạn chưa cài chúng thì agent vẫn chạy bình thường: mỗi agent được dạy là gọi skill không có thì đi tiếp bằng năng lực sẵn có rồi báo lại một dòng cho bạn biết thiếu gì.
+
+## Chỗ bạn nên chỉnh sau khi cài
+
+1. **Model.** Mọi agent để `model: ""`, tức chạy theo mặc định của engine bạn đang dùng. Ghim model cụ thể chỉ khi bạn chắc máy mình có model đó.
 
 Agent và workflow được ghi vào **brain đang mở lúc bấm Cài**, không phải mọi brain. Javis không ghi đè mục bạn tự tạo trùng tên, và gỡ gói chỉ xoá thứ bạn chưa sửa.
