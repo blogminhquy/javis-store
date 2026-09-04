@@ -869,6 +869,726 @@
         "sha256": "4a4e92fe9b27804c8bc7e38685b8cadc17126c452d099b90a3d386118987df58",
         "size": 2280
       }
+    },
+    {
+      "id": "javis.hermes-creative",
+      "kind": "skill",
+      "name": {
+        "vi": "Hermes: Sáng tạo & thiết kế",
+        "en": "Hermes: Creative & design"
+      },
+      "description": {
+        "vi": "10 skill sáng tạo của Hermes Agent (Nous Research): sơ đồ kiến trúc SVG, infographic, HTML artifact, video Manim, sketch p5.js, 54 design system thật, viết lời nhạc Suno, và bộ lọc bỏ giọng văn AI.",
+        "en": "10 creative skills from Hermes Agent: SVG architecture diagrams, infographics, HTML artifacts, Manim videos, p5.js sketches, 54 real design systems, Suno song prompts, and an AI-slop remover."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Nous Research",
+        "url": "https://github.com/NousResearch/hermes-agent"
+      },
+      "category": "sang-tao",
+      "category_label": {
+        "vi": "Sáng tạo",
+        "en": "Creative"
+      },
+      "tier": "data",
+      "verified": false,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-creative",
+      "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
+      "license": "MIT",
+      "provides": {
+        "skills": [
+          "architecture-diagram",
+          "ascii-video",
+          "baoyu-infographic",
+          "claude-design",
+          "design-md",
+          "humanizer",
+          "manim-video",
+          "p5js",
+          "popular-web-designs",
+          "songwriting-and-ai-music"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-hermes-creative-1.0.0.zip",
+        "sha256": "e3efc8703f63046fa7d99a64edf8ad0b67125ee6bbe4228dd5dab8b7a8cd637e",
+        "size": 666747
+      }
+    },
+    {
+      "id": "javis.hermes-office",
+      "kind": "skill",
+      "name": {
+        "vi": "Hermes: Tài liệu văn phòng",
+        "en": "Hermes: Office documents"
+      },
+      "description": {
+        "vi": "6 skill xử lý tài liệu của Hermes Agent: Word .docx, Excel .xlsx, PowerPoint .pptx, PDF (tạo/ghép/OCR/điền form), và hai skill bóc việc cần làm kèm trích dẫn từ tài liệu hoặc biên bản họp.",
+        "en": "6 document skills from Hermes Agent: Word .docx, Excel .xlsx, PowerPoint .pptx, PDF (create, merge, OCR, fill), plus two skills that extract cited action items from documents and meeting notes."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Nous Research",
+        "url": "https://github.com/NousResearch/hermes-agent"
+      },
+      "category": "van-phong",
+      "category_label": {
+        "vi": "Văn phòng",
+        "en": "Office"
+      },
+      "tier": "code",
+      "verified": false,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-office",
+      "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
+      "license": "MIT",
+      "provides": {
+        "skills": [
+          "docx",
+          "xlsx",
+          "powerpoint",
+          "pdf",
+          "document-to-action-items",
+          "meeting-action-items"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-hermes-office-1.0.0.zip",
+        "sha256": "c03ed689bf03ffb73d3b400dc326fa4195c0d00e92060e53f89a84ae158f094b",
+        "size": 134379
+      }
+    },
+    {
+      "id": "javis.hermes-productivity",
+      "kind": "skill",
+      "name": {
+        "vi": "Hermes: Năng suất & công cụ",
+        "en": "Hermes: Productivity tools"
+      },
+      "description": {
+        "vi": "8 skill năng suất của Hermes Agent: Airtable, Box, Notion, Obsidian, Google Workspace, Microsoft Teams, bản đồ OpenStreetMap, và quy trình tổng kết tuần.",
+        "en": "8 productivity skills from Hermes Agent: Airtable, Box, Notion, Obsidian, Google Workspace, Microsoft Teams, OpenStreetMap routing, and a weekly review routine."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Nous Research",
+        "url": "https://github.com/NousResearch/hermes-agent"
+      },
+      "category": "van-phong",
+      "category_label": {
+        "vi": "Văn phòng",
+        "en": "Office"
+      },
+      "tier": "code",
+      "verified": false,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-productivity",
+      "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
+      "license": "MIT",
+      "provides": {
+        "skills": [
+          "airtable",
+          "box",
+          "notion",
+          "obsidian",
+          "google-workspace",
+          "teams-meeting-pipeline",
+          "maps",
+          "weekly-review-planning"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-hermes-productivity-1.0.0.zip",
+        "sha256": "0d657f8ef7ff516dd1b74f0c8080ff7a9e5d641690e082c9f3143ad723238cf5",
+        "size": 91078
+      }
+    },
+    {
+      "id": "javis.hermes-research",
+      "kind": "skill",
+      "name": {
+        "vi": "Hermes: Nghiên cứu & theo dõi",
+        "en": "Hermes: Research & monitoring"
+      },
+      "description": {
+        "vi": "5 skill nghiên cứu của Hermes Agent: tìm bài arXiv, theo dõi tin đối thủ, canh giá sản phẩm/vé máy bay, dựng wiki kiến thức kiểu Karpathy, và ép mọi câu trả lời phải có nguồn kiểm chứng được.",
+        "en": "5 research skills from Hermes Agent: arXiv search, competitor news monitoring, price watching, a Karpathy-style LLM wiki, and grounding every answer in verifiable citations."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Nous Research",
+        "url": "https://github.com/NousResearch/hermes-agent"
+      },
+      "category": "nghien-cuu",
+      "category_label": {
+        "vi": "Nghiên cứu",
+        "en": "Research"
+      },
+      "tier": "code",
+      "verified": false,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-research",
+      "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
+      "license": "MIT",
+      "provides": {
+        "skills": [
+          "arxiv",
+          "competitor-news-monitor",
+          "grounded-citations",
+          "llm-wiki",
+          "product-price-monitor"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-hermes-research-1.0.0.zip",
+        "sha256": "3e01a83ce7789aff5d04cb490375940213d46427ea4926378859d10b08f8ca81",
+        "size": 39217
+      }
+    },
+    {
+      "id": "javis.hermes-dev",
+      "kind": "skill",
+      "name": {
+        "vi": "Hermes: Quy trình lập trình",
+        "en": "Hermes: Dev workflow"
+      },
+      "description": {
+        "vi": "8 skill quy trình code của Hermes Agent: GitHub qua gh CLI, TDD RED-GREEN-REFACTOR, gỡ lỗi 4 pha tìm gốc rễ, review trước khi commit, dọn code, spike thử ý tưởng, đo quy mô codebase, và điều phối Kanban.",
+        "en": "8 engineering-workflow skills from Hermes Agent: GitHub via gh CLI, RED-GREEN-REFACTOR TDD, 4-phase root-cause debugging, pre-commit review, code cleanup, spikes, codebase sizing, and Kanban handoffs."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Nous Research",
+        "url": "https://github.com/NousResearch/hermes-agent"
+      },
+      "category": "lap-trinh",
+      "category_label": {
+        "vi": "Lập trình",
+        "en": "Development"
+      },
+      "tier": "code",
+      "verified": false,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-dev",
+      "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
+      "license": "MIT",
+      "provides": {
+        "skills": [
+          "github",
+          "test-driven-development",
+          "systematic-debugging",
+          "requesting-code-review",
+          "simplify-code",
+          "spike",
+          "codebase-inspection",
+          "sdlc-review"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-hermes-dev-1.0.0.zip",
+        "sha256": "d122a466b426681381ff6c1581a5c36676707db64a1aca87cbaa2e82a7025589",
+        "size": 72020
+      }
+    },
+    {
+      "id": "javis.hermes-debug",
+      "kind": "skill",
+      "name": {
+        "vi": "Hermes: Gỡ lỗi & kiểm thử",
+        "en": "Hermes: Debugging & QA"
+      },
+      "description": {
+        "vi": "3 skill gỡ lỗi của Hermes Agent: debug Node.js qua --inspect và Chrome DevTools Protocol, debug Python bằng pdb + debugpy (DAP), và kiểm thử khám phá web app để tìm bug kèm bằng chứng.",
+        "en": "3 debugging skills from Hermes Agent: Node.js via --inspect and the Chrome DevTools Protocol, Python via pdb + debugpy (DAP), and exploratory QA of web apps with evidence-backed bug reports."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Nous Research",
+        "url": "https://github.com/NousResearch/hermes-agent"
+      },
+      "category": "lap-trinh",
+      "category_label": {
+        "vi": "Lập trình",
+        "en": "Development"
+      },
+      "tier": "data",
+      "verified": false,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-debug",
+      "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
+      "license": "MIT",
+      "provides": {
+        "skills": [
+          "node-inspect-debugger",
+          "python-debugpy",
+          "dogfood"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-hermes-debug-1.0.0.zip",
+        "sha256": "09e42f488c174e14d794abf5ecc5324f7273c18ef5877e3877e30d7dd831ca14",
+        "size": 19312
+      }
+    },
+    {
+      "id": "javis.hermes-media",
+      "kind": "skill",
+      "name": {
+        "vi": "Hermes: Âm thanh & video",
+        "en": "Hermes: Audio & video"
+      },
+      "description": {
+        "vi": "3 skill media của Hermes Agent: lấy transcript YouTube rồi viết tóm tắt/thread/blog, tìm và tải GIF từ Tenor, và phân tích phổ âm thanh (mel, chroma, MFCC).",
+        "en": "3 media skills from Hermes Agent: turn YouTube transcripts into summaries, threads and blogs; search and download GIFs from Tenor; and analyse audio spectrograms (mel, chroma, MFCC)."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Nous Research",
+        "url": "https://github.com/NousResearch/hermes-agent"
+      },
+      "category": "sang-tao",
+      "category_label": {
+        "vi": "Sáng tạo",
+        "en": "Creative"
+      },
+      "tier": "code",
+      "verified": false,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-media",
+      "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
+      "license": "MIT",
+      "provides": {
+        "skills": [
+          "youtube-content",
+          "gif-search",
+          "songsee"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-hermes-media-1.0.0.zip",
+        "sha256": "f0071ad9f350024336a389ed95a682501688274f7d47515d57546e857b7679fe",
+        "size": 10116
+      }
+    },
+    {
+      "id": "javis.hermes-apple",
+      "kind": "skill",
+      "name": {
+        "vi": "Hermes: Apple (chỉ macOS)",
+        "en": "Hermes: Apple (macOS only)"
+      },
+      "description": {
+        "vi": "4 skill Apple của Hermes Agent: Notes, Reminders, Find My và iMessage/SMS. CHỈ CHẠY TRÊN macOS - mỗi skill cần một CLI riêng cài sẵn trên máy (memo, remindctl, imsg).",
+        "en": "4 Apple skills from Hermes Agent: Notes, Reminders, Find My and iMessage/SMS. macOS ONLY - each one needs its own CLI installed on the machine (memo, remindctl, imsg)."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Nous Research",
+        "url": "https://github.com/NousResearch/hermes-agent"
+      },
+      "category": "van-phong",
+      "category_label": {
+        "vi": "Văn phòng",
+        "en": "Office"
+      },
+      "tier": "data",
+      "verified": false,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-apple",
+      "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
+      "license": "MIT",
+      "provides": {
+        "skills": [
+          "apple-notes",
+          "apple-reminders",
+          "findmy",
+          "apple-imessage"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-hermes-apple-1.0.0.zip",
+        "sha256": "5b3c253aecc1583d8683be3fcdfebcbe4ccc6fa7dda866e0b7d2b44d82285fe0",
+        "size": 9173
+      }
+    },
+    {
+      "id": "javis.hermes-ai-agents",
+      "kind": "skill",
+      "name": {
+        "vi": "Hermes: Điều phối agent AI",
+        "en": "Hermes: AI agent orchestration"
+      },
+      "description": {
+        "vi": "7 skill của Hermes Agent về giao việc cho agent khác: Claude Code, OpenAI Codex, OpenCode, computer use, cùng ba skill về chính Hermes Agent (cấu hình, viết skill, soi DOM desktop).",
+        "en": "7 Hermes Agent skills for delegating to other agents: Claude Code, OpenAI Codex, OpenCode, computer use, plus three about Hermes Agent itself (config, skill authoring, desktop DOM inspection)."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Nous Research",
+        "url": "https://github.com/NousResearch/hermes-agent"
+      },
+      "category": "tro-ly-ai",
+      "category_label": {
+        "vi": "Trợ lý AI",
+        "en": "AI assistants"
+      },
+      "tier": "data",
+      "verified": false,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-ai-agents",
+      "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
+      "license": "MIT",
+      "provides": {
+        "skills": [
+          "claude-code",
+          "codex",
+          "opencode",
+          "computer-use",
+          "hermes-agent",
+          "hermes-agent-skill-authoring",
+          "inspecting-hermes-desktop-dom"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-hermes-ai-agents-1.0.0.zip",
+        "sha256": "aca524713504c3a76677bd36a99edee96aafb49ade270a1b2b3e5de824f6c5a9",
+        "size": 98703
+      }
+    },
+    {
+      "id": "javis.hermes-inbox-web",
+      "kind": "skill",
+      "name": {
+        "vi": "Hermes: Hộp thư & web",
+        "en": "Hermes: Inbox & web"
+      },
+      "description": {
+        "vi": "4 skill hộp thư và web của Hermes Agent: phân loại inbox rồi soạn thư nháp an toàn, đọc/gửi mail IMAP-SMTP bằng Himalaya CLI, dùng X/Twitter qua xurl, và cứu trang bị chặn 403/429/paywall/WAF.",
+        "en": "4 inbox and web skills from Hermes Agent: triage an inbox and draft replies safely, IMAP/SMTP mail via the Himalaya CLI, X/Twitter via xurl, and recovering pages blocked by 403/429, paywalls or WAFs."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Nous Research",
+        "url": "https://github.com/NousResearch/hermes-agent"
+      },
+      "category": "nhan-tin",
+      "category_label": {
+        "vi": "Nhắn tin",
+        "en": "Messaging"
+      },
+      "tier": "code",
+      "verified": false,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-inbox-web",
+      "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
+      "license": "MIT",
+      "provides": {
+        "skills": [
+          "email-inbox-triage",
+          "himalaya",
+          "xurl",
+          "blocked-page-recovery"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-hermes-inbox-web-1.0.0.zip",
+        "sha256": "61586a463ca4740599ed8189ba297e62c9c5ee8f8a665a577126ef8166479312",
+        "size": 24810
+      }
+    },
+    {
+      "id": "javis.anthropic-plugin-dev",
+      "kind": "skill",
+      "name": {
+        "vi": "Claude: Viết plugin",
+        "en": "Claude: Plugin development"
+      },
+      "description": {
+        "vi": "7 skill chính chủ Anthropic để viết plugin cho Claude Code: cấu trúc plugin, slash command, subagent, hook, tích hợp MCP, cài đặt người dùng chỉnh được, và cách viết SKILL.md.",
+        "en": "Anthropic's 7 official skills for building Claude Code plugins: plugin structure, slash commands, subagents, hooks, MCP integration, user-configurable settings, and writing SKILL.md files."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Anthropic",
+        "url": "https://github.com/anthropics/claude-plugins-official"
+      },
+      "category": "lap-trinh",
+      "category_label": {
+        "vi": "Lập trình",
+        "en": "Development"
+      },
+      "tier": "data",
+      "verified": false,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.anthropic-plugin-dev",
+      "source": "https://github.com/anthropics/claude-plugins-official",
+      "license": "Apache-2.0",
+      "provides": {
+        "skills": [
+          "plugin-structure",
+          "command-development",
+          "agent-development",
+          "hook-development",
+          "mcp-integration",
+          "plugin-settings",
+          "skill-development"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-anthropic-plugin-dev-1.0.0.zip",
+        "sha256": "118963e64b81795a227a320a40c52308317b83cad681b943aeeb1240d71926b0",
+        "size": 190584
+      }
+    },
+    {
+      "id": "javis.anthropic-mcp-dev",
+      "kind": "skill",
+      "name": {
+        "vi": "Claude: Viết MCP server",
+        "en": "Claude: MCP server development"
+      },
+      "description": {
+        "vi": "3 skill chính chủ Anthropic để dựng MCP server: bọc một API thành server (tool, resource, transport, test), thêm widget giao diện tương tác (MCP app), và đóng gói thành .mcpb cài một chạm.",
+        "en": "Anthropic's 3 official skills for MCP servers: wrap an API into a server (tools, resources, transports, testing), add interactive UI widgets (MCP apps), and package it as a one-click .mcpb bundle."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Anthropic",
+        "url": "https://github.com/anthropics/claude-plugins-official"
+      },
+      "category": "lap-trinh",
+      "category_label": {
+        "vi": "Lập trình",
+        "en": "Development"
+      },
+      "tier": "data",
+      "verified": false,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.anthropic-mcp-dev",
+      "source": "https://github.com/anthropics/claude-plugins-official",
+      "license": "Apache-2.0",
+      "provides": {
+        "skills": [
+          "build-mcp-server",
+          "build-mcp-app",
+          "build-mcpb"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-anthropic-mcp-dev-1.0.0.zip",
+        "sha256": "71043b9b4a7da025e42942aff9477552b85ff0b5c560410634d04d5a424ce0d0",
+        "size": 62235
+      }
+    },
+    {
+      "id": "javis.anthropic-claude-setup",
+      "kind": "skill",
+      "name": {
+        "vi": "Claude: Thiết lập & bảo mật",
+        "en": "Claude: Setup & security"
+      },
+      "description": {
+        "vi": "5 skill chính chủ Anthropic để chỉnh chính Claude Code: tạo và đo hiệu quả skill, gợi ý tự động hoá cho một codebase, soát lại CLAUDE.md, viết luật hookify, và quét bảo mật repo hoặc nhánh.",
+        "en": "Anthropic's 5 official skills for tuning Claude Code itself: create and benchmark skills, recommend automations for a codebase, audit CLAUDE.md, write hookify rules, and run security scans."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Anthropic",
+        "url": "https://github.com/anthropics/claude-plugins-official"
+      },
+      "category": "tro-ly-ai",
+      "category_label": {
+        "vi": "Trợ lý AI",
+        "en": "AI assistants"
+      },
+      "tier": "code",
+      "verified": false,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.anthropic-claude-setup",
+      "source": "https://github.com/anthropics/claude-plugins-official",
+      "license": "Apache-2.0",
+      "provides": {
+        "skills": [
+          "skill-creator",
+          "claude-automation-recommender",
+          "claude-md-improver",
+          "writing-hookify-rules",
+          "claude-security"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-anthropic-claude-setup-1.0.0.zip",
+        "sha256": "febd2921fdfc2610ab68c3f885668606f3ded32e44d0fc1e5cf3d8f9f853fc0d",
+        "size": 152711
+      }
+    },
+    {
+      "id": "javis.anthropic-ui-report",
+      "kind": "skill",
+      "name": {
+        "vi": "Claude: Giao diện & báo cáo",
+        "en": "Claude: UI & reports"
+      },
+      "description": {
+        "vi": "5 skill chính chủ Anthropic về thứ nhìn được: định hướng thiết kế UI, playground HTML tương tác, trang trạng thái dự án nhiều tab, báo cáo phiên làm việc, và bản tổng kết mức dùng Claude Code.",
+        "en": "Anthropic's 5 official skills for visible output: deliberate UI design direction, interactive HTML playgrounds, tabbed project status pages, session usage reports, and Claude Code usage receipts."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Anthropic",
+        "url": "https://github.com/anthropics/claude-plugins-official"
+      },
+      "category": "sang-tao",
+      "category_label": {
+        "vi": "Sáng tạo",
+        "en": "Creative"
+      },
+      "tier": "data",
+      "verified": false,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.anthropic-ui-report",
+      "source": "https://github.com/anthropics/claude-plugins-official",
+      "license": "Apache-2.0",
+      "provides": {
+        "skills": [
+          "frontend-design",
+          "playground",
+          "project-artifact",
+          "session-report",
+          "receipts"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-anthropic-ui-report-1.0.0.zip",
+        "sha256": "0f814aea327d715152293ec5c32fe30b883fb674e1b7a39d8c4b789efe33e9a2",
+        "size": 99417
+      }
+    },
+    {
+      "id": "javis.anthropic-chat-channels",
+      "kind": "skill",
+      "name": {
+        "vi": "Claude: Kênh chat (Discord/Telegram/iMessage)",
+        "en": "Claude: Chat channels (Discord/Telegram/iMessage)"
+      },
+      "description": {
+        "vi": "6 skill từ plugin đối tác trong kho Anthropic: thiết lập và quản lý quyền truy cập cho ba kênh chat Discord, Telegram, iMessage - duyệt ghép cặp, sửa allowlist, đặt chính sách DM/nhóm.",
+        "en": "6 skills from partner plugins in Anthropic's directory: set up and manage access for the Discord, Telegram and iMessage channels - approve pairings, edit allowlists, set DM/group policy."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Anthropic",
+        "url": "https://github.com/anthropics/claude-plugins-official"
+      },
+      "category": "nhan-tin",
+      "category_label": {
+        "vi": "Nhắn tin",
+        "en": "Messaging"
+      },
+      "tier": "data",
+      "verified": false,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.anthropic-chat-channels",
+      "source": "https://github.com/anthropics/claude-plugins-official",
+      "license": "Apache-2.0",
+      "provides": {
+        "skills": [
+          "discord-configure",
+          "discord-access",
+          "telegram-configure",
+          "telegram-access",
+          "imessage-configure",
+          "imessage-access"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-anthropic-chat-channels-1.0.0.zip",
+        "sha256": "adb127ac344bd8a569051cc5c0c53c6a0fb876b2a3047a3be0ab327a725e94d9",
+        "size": 20597
+      }
+    },
+    {
+      "id": "javis.anthropic-lab",
+      "kind": "skill",
+      "name": {
+        "vi": "Claude: Toán olympiad & phần cứng M5",
+        "en": "Claude: Math olympiad & M5 hardware"
+      },
+      "description": {
+        "vi": "3 skill chính chủ Anthropic: giải toán olympiad (IMO, Putnam, USAMO) có bộ phản biện riêng và mức tin cậy hiệu chỉnh, cùng hai skill nạp firmware và lập trình MicroPython cho thiết bị M5Stack ESP32.",
+        "en": "3 Anthropic skills: solve olympiad problems (IMO, Putnam, USAMO) with an adversarial verifier and calibrated confidence, plus two for flashing and programming M5Stack ESP32 devices in MicroPython."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Anthropic",
+        "url": "https://github.com/anthropics/claude-plugins-official"
+      },
+      "category": "nghien-cuu",
+      "category_label": {
+        "vi": "Nghiên cứu",
+        "en": "Research"
+      },
+      "tier": "data",
+      "verified": false,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.anthropic-lab",
+      "source": "https://github.com/anthropics/claude-plugins-official",
+      "license": "Apache-2.0",
+      "provides": {
+        "skills": [
+          "math-olympiad",
+          "m5-onboard",
+          "cardputer-buddy"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-anthropic-lab-1.0.0.zip",
+        "sha256": "c7f1c3b6dacff1fa9b64cfbef803fb5b1fcc1b9277f6fe8dcc5d81c479f04b0e",
+        "size": 48415
+      }
+    },
+    {
+      "id": "javis.deepseek-review",
+      "kind": "skill",
+      "name": {
+        "vi": "DeepSeek: Review & chuẩn viết",
+        "en": "DeepSeek: Review & prose standard"
+      },
+      "description": {
+        "vi": "4 skill dùng chung được, lọc từ deepseek-harness: review pull request theo thứ tự đúng-đắn trước, chuẩn viết comment và tài liệu, tìm chỗ code rút gọn được, và quay lại phiên trình duyệt thành GIF.",
+        "en": "4 reusable skills lifted from deepseek-harness: review a pull request correctness-first, an editorial standard for comments and docs, find code that can be simplified, and record a browser session as a GIF."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "DeepSeek",
+        "url": "https://github.com/deepseek-ai/deepseek-harness"
+      },
+      "category": "lap-trinh",
+      "category_label": {
+        "vi": "Lập trình",
+        "en": "Development"
+      },
+      "tier": "code",
+      "verified": false,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.deepseek-review",
+      "source": "https://github.com/deepseek-ai/deepseek-harness/tree/master/.agents/skills",
+      "license": "MIT",
+      "provides": {
+        "skills": [
+          "dsh-code-review",
+          "dsh-prose-standard",
+          "dsh-find-simplifications",
+          "record-browser-gif"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-deepseek-review-1.0.0.zip",
+        "sha256": "56a9a85a6e3e8028baf7e165566a126245c71dd55cd6a586a4bb48346499cb70",
+        "size": 31782
+      }
     }
   ]
 }
