@@ -770,8 +770,8 @@
       },
       "download": {
         "url": "dist/javis-google-keep-1.0.0.zip",
-        "sha256": "29be155ed7e1a1e8cff632dc917d93f54aa85cb6caea07e948698b1d820e644e",
-        "size": 3093
+        "sha256": "df1fdb56b0992d9c0a78563eb67581088cb6f8d2aae1596a717ca7d3ef1a175c",
+        "size": 3118
       }
     },
     {
@@ -802,8 +802,8 @@
       },
       "download": {
         "url": "dist/javis-notebooklm-1.0.0.zip",
-        "sha256": "a29f903f2f66bea8bcd4b7849cd0492db0e8c71a10a3bc5d48b875f2d68bfce2",
-        "size": 3067
+        "sha256": "ad738396b3df384e22356ae5679e0ac4fcf9de9c9907f6311f313ae4e31054ae",
+        "size": 3083
       }
     },
     {
