@@ -1,7 +1,7 @@
 {
   "id": "tts-dropship",
   "name": "TTS Dropship (thitruongsi.com)",
-  "icon": "package",
+  "icon": "assets/tts-dropship.png",
   "category": "Bán hàng",
   "description": "Bán dropship trên sàn TTS: tìm hàng theo lợi nhuận, tách địa chỉ từ tin nhắn khách, tạo khách hàng, báo giá vận chuyển, LÊN ĐƠN, theo dõi vận đơn và xem tiền về. Đăng nhập bằng token lấy từ trình duyệt (sàn không phát hành API key). Mặc định Chỉ đọc. Tạo đơn và huỷ đơn là tiền thật nên luôn phải xác nhận hai bước.",
   "status": "beta",

@@ -1,7 +1,7 @@
 {
   "id": "google-workspace",
   "name": "Google Workspace (Gmail, Lịch, Drive, Docs)",
-  "icon": "mail",
+  "icon": "assets/google-workspace.png",
   "group": "google",
   "group_line": "Gộp Gmail, Lịch, Drive, Docs, Sheets vào MỘT kết nối. Cần máy có màn hình; VPS thì dùng thẻ Lịch và Gmail riêng.",
   "category": "Văn phòng",

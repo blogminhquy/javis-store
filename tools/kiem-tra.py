@@ -28,8 +28,8 @@ Kiểm những gì
 3. AN TOÀN: mặc định chỉ đọc, và không tool nào có tên kiểu phá huỷ / tiêu tiền mà lại nằm ở
    nhóm đọc hay ghi.
 4. Bí mật: không nhét credential vào `url` (Javis không che `url`, nó ra thẳng giao diện và log).
-5. Danh mục: mọi mục trong `index.json` có gói thật, có tệp zip thật, sha256 và size khớp, và
-   nội dung zip khớp thư mục nguồn.
+5. Danh mục: mọi mục trong `index.json` có gói thật, có tệp zip thật, sha256 và size khớp,
+   nội dung zip khớp thư mục nguồn, và mục kết nối có `icon` trỏ vào logo thật nằm trong gói.
 6. Không có ký tự em dash (luật của chủ kho, vì nó làm trình đọc màn hình vấp).
 """
 import hashlib
@@ -278,6 +278,21 @@ for g in idx.get("packs") or []:
           + " | chỉ trên đĩa: " + str(sorted(set(tren_dia) - set(trong_zip))))
     khac = [k for k in (set(trong_zip) & set(tren_dia)) if trong_zip[k] != tren_dia[k]]
     check(f"danh mục: {gid} nội dung từng tệp khớp thư mục nguồn", not khac, khac)
+
+    # Logo trên thẻ trong Kho cài đặt. Javis đọc `icon` của mục danh mục và ghép với địa chỉ
+    # của chính file index (như `download.url`), nên nó phải là đường dẫn TƯƠNG ĐỐI trỏ vào
+    # một tệp ảnh có thật trong repo - và là ảnh nằm TRONG gói, để logo trong kho và logo trên
+    # trang Kết nối sau khi cài là cùng một tệp, không bao giờ lệch nhau. Không nhận .svg vì
+    # cùng lý do với icon trong khuôn connector ở mục 2.
+    icon = str(g.get("icon") or "")
+    if g.get("kind") == "connector":
+        check(f"danh mục: {gid} là kết nối thì phải có `icon` (logo trên thẻ)", bool(icon))
+    if icon:
+        check(f"danh mục: {gid} icon là đường dẫn tương đối", not icon.startswith(("/", "http:", "https:")), icon)
+        check(f"danh mục: {gid} icon nằm trong thư mục gói", icon.startswith(f"packs/{gid}/assets/"), icon)
+        check(f"danh mục: {gid} icon là ảnh png/webp/jpg/gif, không svg",
+              icon.lower().endswith((".png", ".webp", ".jpg", ".jpeg", ".gif")), icon)
+        check(f"danh mục: {gid} tệp icon có thật", (GOC / icon).is_file(), icon)
 
     # Gói có mặt trên đĩa mà quên thêm vào danh mục thì không ai thấy nó - lỗi im lặng nhất
     # của cả repo này.

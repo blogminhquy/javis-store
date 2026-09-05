@@ -15,7 +15,10 @@ Javis của họ - đọc được mọi khoá API và mọi tệp mà Javis đ�
 
    Lệnh in ra đường dẫn `.zip` trong `dist/` và chuỗi `sha256`.
 4. Thêm một mục vào `packs[]` trong `index.json`, dùng `download.url` **tương đối**
-   (`dist/<tên tệp>.zip`) và dán đúng `sha256` lệnh trên vừa in.
+   (`dist/<tên tệp>.zip`) và dán đúng `sha256` lệnh trên vừa in. Gói kết nối thì khai thêm
+   `icon` trỏ vào logo **nằm trong gói** (`packs/<id>/assets/<tên>.png`): đó là logo hiện trên
+   thẻ trong Kho cài đặt, và cũng là tệp khuôn connector trỏ tới qua `assets/<tên>.png`, nên
+   hai chỗ không bao giờ lệch nhau.
 5. Chạy trình kiểm trước khi gửi:
 
        python tools/kiem-tra.py
@@ -37,7 +40,8 @@ Cả mã nguồn lẫn tệp `.zip` đều phải có trong PR. Thiếu một tr
 - **Trùng `id` với connector có sẵn.** Bị từ chối thẳng, không có ngoại lệ: một gói khai trùng
   `id` kèm `url_template` khác sẽ âm thầm bẻ hướng một kết nối **đang đăng nhập thật**.
 - **Icon.** Phải nằm trong gói. Icon ở xa là một beacon nổ mỗi lần vẽ trang, tức lộ IP và nhịp
-  dùng của người cài cho bạn.
+  dùng của người cài cho bạn. Dùng `.png`, `.webp` hoặc `.jpg` (256x256 là đủ), không dùng
+  `.svg`: đường phục vụ ảnh của gói cố ý từ chối SVG.
 - **Mô tả tool.** Nó đi thẳng vào danh sách công cụ của những engine đang cầm quyền chạy lệnh,
   nên mô tả gài chỉ dẫn cho mô hình là lý do từ chối.
 

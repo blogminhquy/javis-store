@@ -1,7 +1,7 @@
 {
   "id": "notebooklm",
   "name": "Google NotebookLM",
-  "icon": "notebook",
+  "icon": "assets/notebooklm.png",
   "category": "Văn phòng",
   "description": "Đọc và thao tác notebook trên Google NotebookLM: liệt kê notebook, đọc nguồn, hỏi đáp ngay trong notebook, thêm nguồn, lưu ghi chú, tạo tóm tắt/audio ở Studio. LƯU Ý: NotebookLM chưa có API chính chủ nên phải mượn PHIÊN ĐĂNG NHẬP trình duyệt (cookie Google), không phải OAuth giới hạn phạm vi như Gmail hay Lịch.",
   "status": "beta",

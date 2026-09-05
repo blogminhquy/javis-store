@@ -1,7 +1,7 @@
 format: javis-pack
 spec: 1
 id: javis.hostinger
-version: 1.0.0
+version: 1.0.1
 name: {vi: "Hostinger"}
 description: {vi: "Quản lý hosting Hostinger ngay trong chat: xem tên miền và ngày hết hạn, sửa bản ghi DNS, xem website và WordPress, VPS, hộp thư, hoá đơn và gói đang chạy. MCP chính chủ của Hostinger, dán API token là xong."}
 author: {name: Javis}
