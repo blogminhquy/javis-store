@@ -1,7 +1,7 @@
 {
   "id": "playwright",
   "name": "Playwright",
-  "icon": "globe",
+  "icon": "assets/playwright.png",
   "category": "Website",
   "description": "Điều khiển trình duyệt thật qua Playwright MCP chính chủ của Microsoft: mở trang, đọc cấu trúc trang, tìm phần tử, điền form, bấm nút, chụp màn hình, xuất PDF, quay video, chạy kiểm thử đầu-cuối. Không cần API key. Mặc định chạy hồ sơ TÁCH BIỆT và ẩn cửa sổ.",
   "status": "beta",

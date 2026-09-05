@@ -47,7 +47,7 @@
       "description": {
         "vi": "Cổng đa ứng dụng của Composio: một kết nối mở ra hơn 500 app (Gmail, Notion, Google Sheets, GitHub, Linear, Slack...). Javis tìm tool, nối tài khoản từng app và chạy hành động qua Composio, không cần Javis viết connector riêng cho mỗi app. Dán API key (ck_...) là xong."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Javis"
       },
@@ -59,15 +59,16 @@
       "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.composio",
+      "icon": "packs/javis.composio/assets/composio.png",
       "provides": {
         "connectors": [
           "composio"
         ]
       },
       "download": {
-        "url": "dist/javis-composio-1.0.0.zip",
-        "sha256": "7cd748fae430d104f5398cb01dd338d65221d0ba1ff6006832275078fc9edf1a",
-        "size": 1973
+        "url": "dist/javis-composio-1.0.1.zip",
+        "sha256": "62f2b8f6430ade903f43be9093b2f0ce0ea8329354cfe676c4eab1a7cef35432",
+        "size": 6302
       }
     },
     {
@@ -91,6 +92,7 @@
       "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.pancake-pos",
+      "icon": "packs/javis.pancake-pos/assets/pancake-pos.png",
       "provides": {
         "connectors": [
           "pancake-pos"
@@ -111,7 +113,7 @@
       "description": {
         "vi": "Tra cứu sản phẩm, giá, tồn kho và dựng sẵn giỏ hàng của MỘT cửa hàng Shopify qua MCP chính chủ (chuẩn UCP). Không cần API key, không cần cài app, không cần là chủ shop - chỉ cần địa chỉ cửa hàng."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Javis"
       },
@@ -123,15 +125,16 @@
       "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.shopify",
+      "icon": "packs/javis.shopify/assets/shopify.png",
       "provides": {
         "connectors": [
           "shopify"
         ]
       },
       "download": {
-        "url": "dist/javis-shopify-1.0.0.zip",
-        "sha256": "99139723a7ef862493cdf5c9078e74c1f44b47bac5f615183fa8919f70997015",
-        "size": 2347
+        "url": "dist/javis-shopify-1.0.1.zip",
+        "sha256": "88d32f1037ee254bc4982b30128cc9f25619948eb23ca169f57335688af150fb",
+        "size": 9801
       }
     },
     {
@@ -155,6 +158,7 @@
       "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.webcake-landing",
+      "icon": "packs/javis.webcake-landing/assets/webcake.jpg",
       "provides": {
         "connectors": [
           "webcake-landing"
@@ -187,6 +191,7 @@
       "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.webcake-landing-web",
+      "icon": "packs/javis.webcake-landing-web/assets/webcake.jpg",
       "provides": {
         "connectors": [
           "webcake-landing-web"
@@ -219,6 +224,7 @@
       "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-sheets",
+      "icon": "packs/javis.google-sheets/assets/google-sheets.png",
       "provides": {
         "connectors": [
           "google-sheets"
@@ -239,7 +245,7 @@
       "description": {
         "vi": "Số liệu SEO website: khách tìm từ khoá gì ra trang của bạn, lượt hiển thị, lượt bấm, trang top."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Javis"
       },
@@ -251,15 +257,16 @@
       "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-search-console",
+      "icon": "packs/javis.google-search-console/assets/google-search-console.png",
       "provides": {
         "connectors": [
           "google-search-console"
         ]
       },
       "download": {
-        "url": "dist/javis-google-search-console-1.0.0.zip",
-        "sha256": "8b8234dd168eefd639b1659c594df7cdb596c130b56c88f47e8e882f997ece77",
-        "size": 1253
+        "url": "dist/javis-google-search-console-1.0.1.zip",
+        "sha256": "8ca32c2c55a2213710aaa8a500579094c5a0e4f5e9f602952f558ab64a0dfa26",
+        "size": 5650
       }
     },
     {
@@ -271,7 +278,7 @@
       "description": {
         "vi": "Gmail, Calendar, Drive, Docs, Sheets, Slides, Forms, Tasks... trong MỘT kết nối. Tạo OAuth client 1 lần, khoảng 10 phút, có hướng dẫn từng bước. Lần đầu gọi tool Google, trình duyệt TRÊN MÁY CHẠY JAVIS mở ra để bấm đồng ý, nên máy phải có màn hình."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Javis"
       },
@@ -283,15 +290,16 @@
       "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-workspace",
+      "icon": "packs/javis.google-workspace/assets/google-workspace.png",
       "provides": {
         "connectors": [
           "google-workspace"
         ]
       },
       "download": {
-        "url": "dist/javis-google-workspace-1.0.0.zip",
-        "sha256": "f650083ca50e7f5619b5f0ec766d396dded44c75d8fa250519506d44aa68b8eb",
-        "size": 3112
+        "url": "dist/javis-google-workspace-1.0.1.zip",
+        "sha256": "e3b7c8c7f6081f04e4f06b8684625f87fea805ecde25e8ea571eb7c99c379d7e",
+        "size": 8010
       }
     },
     {
@@ -303,7 +311,7 @@
       "description": {
         "vi": "Việc cần làm trong Google Tasks: xem danh sách, thêm việc, đặt hạn, đánh dấu xong. Chỉ xin quyền Tasks, không đụng Gmail hay Drive. Đăng nhập Google bằng OAuth client tự tạo (~10 phút, có hướng dẫn)."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Javis"
       },
@@ -315,15 +323,16 @@
       "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-tasks",
+      "icon": "packs/javis.google-tasks/assets/google-tasks.png",
       "provides": {
         "connectors": [
           "google-tasks"
         ]
       },
       "download": {
-        "url": "dist/javis-google-tasks-1.0.0.zip",
-        "sha256": "5867a0da27a1c618dd5396448f11066749176450fb39836ab56da52133c093a5",
-        "size": 2767
+        "url": "dist/javis-google-tasks-1.0.1.zip",
+        "sha256": "c614078fe14e9a79bcc602bfc63e703faa6ac327cef24b644d4039912a38f6c3",
+        "size": 9020
       }
     },
     {
@@ -347,6 +356,7 @@
       "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.meta-ads",
+      "icon": "packs/javis.meta-ads/assets/meta-ads.webp",
       "provides": {
         "connectors": [
           "meta-ads"
@@ -379,6 +389,7 @@
       "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.meta-ads-graph",
+      "icon": "packs/javis.meta-ads-graph/assets/meta-ads.webp",
       "provides": {
         "connectors": [
           "meta-ads-graph"
@@ -411,6 +422,7 @@
       "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.facebook-pages",
+      "icon": "packs/javis.facebook-pages/assets/meta-ads.webp",
       "provides": {
         "connectors": [
           "facebook-pages"
@@ -443,6 +455,7 @@
       "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.facebook-monitor",
+      "icon": "packs/javis.facebook-monitor/assets/meta-ads.webp",
       "provides": {
         "connectors": [
           "facebook-monitor"
@@ -475,6 +488,7 @@
       "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-ads",
+      "icon": "packs/javis.google-ads/assets/google-ads.webp",
       "provides": {
         "connectors": [
           "google-ads"
@@ -507,6 +521,7 @@
       "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.tiktok-ads",
+      "icon": "packs/javis.tiktok-ads/assets/tiktok-ads.webp",
       "provides": {
         "connectors": [
           "tiktok-ads"
@@ -539,6 +554,7 @@
       "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-calendar",
+      "icon": "packs/javis.google-calendar/assets/google-calendar.png",
       "provides": {
         "connectors": [
           "google-calendar"
@@ -571,6 +587,7 @@
       "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.gmail",
+      "icon": "packs/javis.gmail/assets/gmail.webp",
       "provides": {
         "connectors": [
           "gmail"
@@ -603,6 +620,7 @@
       "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.slack",
+      "icon": "packs/javis.slack/assets/slack.webp",
       "provides": {
         "connectors": [
           "slack"
@@ -635,6 +653,7 @@
       "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.systeme-io",
+      "icon": "packs/javis.systeme-io/assets/systeme-io.png",
       "provides": {
         "connectors": [
           "systeme-io"
@@ -667,6 +686,7 @@
       "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.lark",
+      "icon": "packs/javis.lark/assets/lark.png",
       "provides": {
         "connectors": [
           "lark"
@@ -699,6 +719,7 @@
       "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.higgsfield",
+      "icon": "packs/javis.higgsfield/assets/higgsfield.png",
       "provides": {
         "connectors": [
           "higgsfield"
@@ -731,6 +752,7 @@
       "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.x-twitter",
+      "icon": "packs/javis.x-twitter/assets/x.png",
       "provides": {
         "connectors": [
           "x-twitter"
@@ -751,7 +773,7 @@
       "description": {
         "vi": "Đọc và sửa ghi chú Google Keep: tìm note, tạo note và danh sách việc, gắn nhãn, ghim, lưu trữ. LƯU Ý: Keep không có API chính chủ nên phải dùng master token có TOÀN QUYỀN tài khoản Google, không phải OAuth giới hạn phạm vi như Gmail hay Lịch. Javis chỉ thao tác được ghi chú, nhưng token thì mở cả tài khoản nếu bị lộ."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Javis"
       },
@@ -763,15 +785,16 @@
       "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-keep",
+      "icon": "packs/javis.google-keep/assets/google-keep.png",
       "provides": {
         "connectors": [
           "google-keep"
         ]
       },
       "download": {
-        "url": "dist/javis-google-keep-1.0.0.zip",
-        "sha256": "df1fdb56b0992d9c0a78563eb67581088cb6f8d2aae1596a717ca7d3ef1a175c",
-        "size": 3118
+        "url": "dist/javis-google-keep-1.0.1.zip",
+        "sha256": "e044054eb3fdbb7e2d796e0e6e722042df65e011b89f2ea7aad73f9e11c9d38c",
+        "size": 6033
       }
     },
     {
@@ -783,7 +806,7 @@
       "description": {
         "vi": "Đọc và thao tác notebook trên Google NotebookLM: liệt kê notebook, đọc nguồn, hỏi đáp ngay trong notebook, thêm nguồn, lưu ghi chú, tạo tóm tắt/audio ở Studio. LƯU Ý: NotebookLM chưa có API chính chủ nên phải mượn PHIÊN ĐĂNG NHẬP trình duyệt (cookie Google), không phải OAuth giới hạn phạm vi như Gmail hay Lịch."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Javis"
       },
@@ -795,15 +818,16 @@
       "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.notebooklm",
+      "icon": "packs/javis.notebooklm/assets/notebooklm.png",
       "provides": {
         "connectors": [
           "notebooklm"
         ]
       },
       "download": {
-        "url": "dist/javis-notebooklm-1.0.0.zip",
-        "sha256": "ad738396b3df384e22356ae5679e0ac4fcf9de9c9907f6311f313ae4e31054ae",
-        "size": 3083
+        "url": "dist/javis-notebooklm-1.0.1.zip",
+        "sha256": "c8f766ccdfd36dea286600e80e0af5968ef486cb002f027dfc6d1fcc2eb0607f",
+        "size": 9913
       }
     },
     {
@@ -815,7 +839,7 @@
       "description": {
         "vi": "Điều khiển n8n của bạn: tìm và đọc workflow, xem lịch sử chạy, tạo và sửa workflow, chạy workflow - qua MCP chính chủ của n8n. Cần địa chỉ n8n của bạn + MCP Access Token."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Javis"
       },
@@ -827,15 +851,16 @@
       "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.n8n",
+      "icon": "packs/javis.n8n/assets/n8n.png",
       "provides": {
         "connectors": [
           "n8n"
         ]
       },
       "download": {
-        "url": "dist/javis-n8n-1.0.0.zip",
-        "sha256": "144b63eb3716cc2e9040e8e667ba9aff3a8ce518ecad2bdc0ec503a48b034fe6",
-        "size": 2032
+        "url": "dist/javis-n8n-1.0.1.zip",
+        "sha256": "f01623d197d553c699f4d0bc7941f4fc09c2e83b6b9d761c2507df6bdedf2320",
+        "size": 7540
       }
     },
     {
@@ -847,7 +872,7 @@
       "description": {
         "vi": "Quản lý hosting Hostinger ngay trong chat: xem tên miền và ngày hết hạn, sửa bản ghi DNS, xem website và WordPress, VPS, hộp thư, hoá đơn và gói đang chạy. MCP chính chủ của Hostinger, dán API token là xong."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Javis"
       },
@@ -859,15 +884,16 @@
       "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hostinger",
+      "icon": "packs/javis.hostinger/assets/hostinger.png",
       "provides": {
         "connectors": [
           "hostinger"
         ]
       },
       "download": {
-        "url": "dist/javis-hostinger-1.0.0.zip",
-        "sha256": "4a4e92fe9b27804c8bc7e38685b8cadc17126c452d099b90a3d386118987df58",
-        "size": 2280
+        "url": "dist/javis-hostinger-1.0.1.zip",
+        "sha256": "c947bf621e59b0b2b6e51d41f427e5dc95683ce71907d87420294c0644e68136",
+        "size": 6165
       }
     },
     {
@@ -1652,7 +1678,7 @@
         "vi": "Điều khiển trình duyệt thật qua Playwright MCP chính chủ của Microsoft: mở trang, đọc cấu trúc trang, điền form, bấm nút, chụp màn hình, xuất PDF, chạy kiểm thử đầu-cuối. Không cần API key. Mặc định chạy hồ sơ TÁCH BIỆT và ẩn cửa sổ.",
         "en": "Drive a real browser through Microsoft's official Playwright MCP: open pages, read page structure, fill forms, click, screenshot, export PDF, run end-to-end tests. No API key. Defaults to an isolated, headless profile."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Microsoft",
         "url": "https://github.com/microsoft/playwright-mcp"
@@ -1666,6 +1692,7 @@
       "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.playwright",
+      "icon": "packs/javis.playwright/assets/playwright.png",
       "source": "https://github.com/microsoft/playwright-mcp",
       "license": "Apache-2.0",
       "provides": {
@@ -1674,9 +1701,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-playwright-1.0.0.zip",
-        "sha256": "114afd8a32499073086a4a975ab98a09d1eb0fd1cb26b3ded061c6ffe7469f66",
-        "size": 4309
+        "url": "dist/javis-playwright-1.0.1.zip",
+        "sha256": "2070030e5398d0ff8ea2853bc7969d280b969ab5f96b8813ff1d86ad98d00b9b",
+        "size": 14554
       }
     },
     {
@@ -1935,7 +1962,7 @@
       "description": {
         "vi": "Bán dropship trên sàn TTS: tìm hàng theo lợi nhuận, tách địa chỉ từ tin nhắn khách, tạo khách, báo giá ship, LÊN ĐƠN, theo dõi vận đơn và xem tiền về. Sàn không phát hành API key nên đăng nhập bằng token lấy từ trình duyệt. Sàn đổi hình dạng dữ liệu thì gói TỰ soi lược đồ và sửa lại truy vấn, không phải cài lại. Tạo đơn và huỷ đơn luôn phải xác nhận hai bước."
       },
-      "version": "1.0.1",
+      "version": "1.0.2",
       "author": {
         "name": "Javis"
       },
@@ -1947,15 +1974,16 @@
       "verified": true,
       "updated": "2026-09-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.tts-dropship",
+      "icon": "packs/javis.tts-dropship/assets/tts-dropship.png",
       "provides": {
         "connectors": [
           "tts-dropship"
         ]
       },
       "download": {
-        "url": "dist/javis-tts-dropship-1.0.1.zip",
-        "sha256": "f4296f6c97468441e8aace7bb1fc0f42432b61f14a0da3b24902deed7eb7e484",
-        "size": 30768
+        "url": "dist/javis-tts-dropship-1.0.2.zip",
+        "sha256": "29a72ba83fd42e02b8b758413dbc96dd3b06f323bbf5438f8b86083b8e806428",
+        "size": 34805
       }
     }
   ]

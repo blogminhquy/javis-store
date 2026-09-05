@@ -12,7 +12,9 @@ Bốn chỗ script phải xử lý, và mỗi chỗ đều là một luật th�
   nếu icon bắt đầu bằng `/`, nên logo phải được CHÉP VÀO gói và trỏ lại `assets/x.png`.
 
   SVG. Endpoint phục vụ ảnh của gói cố ý KHÔNG trả `.svg` (mở thẳng một tab là chạy script bên
-  trong). Ba logo `.svg` rơi về một icon Lucide - xấu hơn logo thật nhưng hiện được.
+  trong). Ba logo `.svg` rơi về một icon Lucide - xấu hơn logo thật nhưng hiện được. Từ bản
+  1.0.1 các gói này đã mang bản PNG dựng sẵn trong `assets/`; script XOÁ SẠCH thư mục gói rồi
+  sinh lại, nên chạy lại là mất logo (và mất mọi sửa tay khác). Chỉ chạy khi thật sự di trú lại.
 
   KHÔNG ĐÓNG GÓI ĐƯỢC. `transport: internal` là allowlist bảo vệ `importlib.import_module`, và
   `auth.type: qr` là đường riêng của Zalo với ba endpoint cùng một nhánh JS. Cả hai KHÔNG khai

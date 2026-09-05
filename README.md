@@ -20,6 +20,7 @@ Kho không tới được cũng không sao: gói đã cài chạy bình thườn
 
     index.json          danh mục - thứ Javis đọc
     packs/<id>/         MÃ NGUỒN từng gói, để ai cũng đọc được trước khi cài
+    packs/<id>/assets/  logo của gói: thẻ trong Kho cài đặt và trang Kết nối cùng dùng tệp này
     dist/<id>-<ver>.zip tệp Javis thật sự tải về
     tools/dong-goi.py   đóng gói một thư mục thành .zip và in dấu vân tay
 

@@ -1,7 +1,7 @@
 {
   "id": "shopify",
   "name": "Shopify",
-  "icon": "shopping-bag",
+  "icon": "assets/shopify.png",
   "category": "Bán hàng",
   "description": "Tra cứu sản phẩm, giá, tồn kho và dựng sẵn giỏ hàng của MỘT cửa hàng Shopify qua MCP chính chủ (chuẩn UCP). Không cần API key, không cần cài app, không cần là chủ shop - chỉ cần địa chỉ cửa hàng.",
   "status": "beta",

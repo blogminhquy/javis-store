@@ -1,7 +1,7 @@
 {
   "id": "google-keep",
   "name": "Google Keep",
-  "icon": "notebook",
+  "icon": "assets/google-keep.png",
   "group": "google",
   "group_line": "Ghi chú Keep: tìm, tạo, ghim. Dùng token TOÀN QUYỀN tài khoản - cân nhắc kỹ.",
   "category": "Văn phòng",

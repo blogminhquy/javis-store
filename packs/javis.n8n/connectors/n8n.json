@@ -1,7 +1,7 @@
 {
   "id": "n8n",
   "name": "n8n",
-  "icon": "workflow",
+  "icon": "assets/n8n.png",
   "category": "Văn phòng",
   "description": "Điều khiển n8n của bạn: tìm và đọc workflow, xem lịch sử chạy, tạo và sửa workflow, chạy workflow - qua MCP chính chủ của n8n. Cần địa chỉ n8n của bạn + MCP Access Token.",
   "status": "beta",

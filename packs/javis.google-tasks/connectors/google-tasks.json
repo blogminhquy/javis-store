@@ -1,7 +1,7 @@
 {
   "id": "google-tasks",
   "name": "Google Tasks",
-  "icon": "list-todo",
+  "icon": "assets/google-tasks.png",
   "group": "google",
   "group_line": "Việc cần làm: xem danh sách, thêm việc, đặt hạn, đánh dấu xong. Chỉ xin quyền Tasks.",
   "category": "Văn phòng",
