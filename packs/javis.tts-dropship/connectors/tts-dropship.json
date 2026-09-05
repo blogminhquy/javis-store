@@ -1,0 +1,103 @@
+{
+  "id": "tts-dropship",
+  "name": "TTS Dropship (thitruongsi.com)",
+  "icon": "package",
+  "category": "Bán hàng",
+  "description": "Bán dropship trên sàn TTS: tìm hàng theo lợi nhuận, tách địa chỉ từ tin nhắn khách, tạo khách hàng, báo giá vận chuyển, LÊN ĐƠN, theo dõi vận đơn và xem tiền về. Đăng nhập bằng token lấy từ trình duyệt (sàn không phát hành API key). Mặc định Chỉ đọc. Tạo đơn và huỷ đơn là tiền thật nên luôn phải xác nhận hai bước.",
+  "status": "beta",
+  "transport": "http",
+  "url": "",
+  "auth": {
+    "type": "apikey",
+    "fields": [
+      {
+        "key": "access_token",
+        "label": "Token đăng nhập (@publicToken)",
+        "placeholder": "eyJhbGciOi... (chuỗi rất dài, dán nguyên văn)",
+        "multiline": true
+      },
+      {
+        "key": "refresh_token",
+        "label": "Refresh token (@refreshToken) - nên có",
+        "placeholder": "Dán giá trị @refreshToken trong Local Storage",
+        "optional": true,
+        "multiline": true
+      },
+      {
+        "key": "refresh_url",
+        "label": "Địa chỉ gia hạn token (để trống nếu chưa biết)",
+        "placeholder": "Ví dụ: https://api.thitruongsi.com/v1/user/api/auth/refresh",
+        "optional": true
+      }
+    ],
+    "guide": "Sàn TTS Dropship KHÔNG phát hành API key công khai, nên Javis dùng đúng phiên đăng nhập của bạn trên trình duyệt. Lấy 1 lần, khoảng 2 phút.\n\n1. Mở https://dropship.thitruongsi.com và đăng nhập như bình thường.\n2. Bấm F12 để mở Công cụ cho nhà phát triển (máy Mac: Cmd + Option + I).\n3. Vào tab Application (Chrome/Edge) hoặc Storage (Firefox) > Local Storage > https://dropship.thitruongsi.com\n4. Tìm dòng có khoá @publicToken. Bấm vào nó, copy TOÀN BỘ giá trị (chuỗi rất dài, bắt đầu bằng eyJ...) rồi dán vào ô 'Token đăng nhập' bên dưới.\n5. Tìm thêm dòng @refreshToken, copy và dán vào ô 'Refresh token'. Ô này không bắt buộc nhưng nên có.\n\nHẠN DÙNG: token của TTS sống khoảng 3 ngày. Javis tự đọc hạn ghi ngay trên token (không gọi mạng) và báo trước khi sắp hết. Lúc hết hạn, tool trả về lỗi nói rõ phải làm gì chứ không im lặng trả số liệu sai.\n\nTỰ GIA HẠN: TTS chưa công bố địa chỉ đổi refresh token, nên ô 'Địa chỉ gia hạn token' để trống là Javis KHÔNG tự gia hạn. Nếu bạn tìm được địa chỉ đó (tab Network của trình duyệt, lọc chữ refresh) thì dán vào, Javis sẽ tự đổi token mới trước khi hết hạn.\n\nBẢO MẬT: token này mở được tài khoản bán hàng của bạn, hãy coi nó như mật khẩu. Javis mã hoá trước khi ghi xuống đĩa và không bao giờ ghi nó vào log.",
+    "guide_url": "https://dropship.thitruongsi.com",
+    "steps": [
+      {
+        "text": "Mở trang dropship của TTS và đăng nhập bằng tài khoản bán hàng của bạn.",
+        "link": "https://dropship.thitruongsi.com",
+        "link_label": "Mở TTS Dropship"
+      },
+      {
+        "text": "Bấm F12 để mở Công cụ cho nhà phát triển (máy Mac: Cmd + Option + I), rồi vào tab Application (Chrome/Edge) hoặc Storage (Firefox)."
+      },
+      {
+        "text": "Mở Local Storage > https://dropship.thitruongsi.com. Tìm dòng có khoá @publicToken, copy TOÀN BỘ giá trị (chuỗi rất dài, bắt đầu bằng eyJ) rồi dán vào ô 'Token đăng nhập' bên dưới."
+      },
+      {
+        "text": "Tìm thêm dòng @refreshToken và dán vào ô thứ hai. Không bắt buộc, nhưng thiếu nó thì cứ khoảng 3 ngày bạn phải quay lại dán token mới."
+      },
+      {
+        "text": "Ô 'Địa chỉ gia hạn token' cứ để trống. TTS chưa công bố địa chỉ này, nên để trống là Javis không tự gia hạn và sẽ báo rõ khi token hết hạn. Tìm được thì dán vào sau, không phải kết nối lại từ đầu."
+      },
+      {
+        "text": "Bấm Kết nối, rồi nhờ Javis chạy tool tts_health_check để xem đường nào của sàn còn sống. Đây là API nội bộ không có tài liệu chính thức nên sàn có thể đổi bất cứ lúc nào."
+      }
+    ],
+    "setup": {
+      "links": [
+        {
+          "label": "Mở TTS Dropship",
+          "url": "https://dropship.thitruongsi.com"
+        },
+        {
+          "label": "Danh sách đơn",
+          "url": "https://dropship.thitruongsi.com/orders"
+        }
+      ]
+    }
+  },
+  "tool_meta": {
+    "read": [
+      "tts_products",
+      "tts_suppliers",
+      "tts_cart",
+      "tts_customers",
+      "tts_shipping_rates",
+      "tts_orders",
+      "tts_finance",
+      "tts_listings",
+      "tts_wishlist",
+      "tts_health_check"
+    ],
+    "write": [
+      "tts_cart_update",
+      "tts_customer_write",
+      "tts_listing_write",
+      "tts_wishlist_write",
+      "tts_supplier_follow",
+      "tts_graphql"
+    ],
+    "danger": [
+      "tts_create_order",
+      "tts_cancel_order",
+      "tts_order_action",
+      "tts_listing_delete"
+    ]
+  },
+  "ghi_da_can_nhac": [
+    "tts_orders"
+  ],
+  "default_perm": "readonly",
+  "risk": "Mức Chỉ đọc (mặc định) chỉ xem sản phẩm, đơn hàng, vận đơn, khách hàng và tiền về. An toàn.\n\nMức Ghi nháp thêm quyền sửa giỏ hàng, TẠO KHÁCH HÀNG MỚI, viết bài đăng bán, lưu sản phẩm và theo dõi nhà cung cấp. Sàn TTS KHÔNG có đường sửa hay xoá khách hàng, nên một khách tạo nhầm sẽ nằm lại trong danh sách vĩnh viễn.\n\nMức Toàn quyền cho phép Javis TẠO ĐƠN HÀNG THẬT (sàn thu tiền COD của khách và trừ tiền hàng của bạn), HUỶ ĐƠN, ĐÁNH GIÁ đơn, mở KHIẾU NẠI và xoá bài đăng bán.\n\nBa điều không hoàn tác được, cần biết trước:\n1. Đơn đã tạo thì KHÔNG SỬA ĐƯỢC. Sàn không có đường cập nhật đơn, sai một chữ trong địa chỉ là phải huỷ rồi lên lại từ đầu.\n2. Đánh giá đơn chỉ gửi được một lần và nó mở khoá tiền đối soát.\n3. Huỷ đơn là dứt điểm, không khôi phục lại được.\n\nVì vậy tts_create_order, tts_cancel_order và tts_order_action luôn bắt xác nhận hai bước: lần gọi đầu chỉ trả về bản xem trước, phải gọi lại với confirm=true mới chạy thật. Loop chạy nền không bao giờ được tự lên đơn, kể cả khi kết nối đã ở mức Toàn quyền.\n\nGói này KHÔNG có tool rút tiền. Nó chỉ đọc được biểu phí rút, cố ý bỏ hẳn đường chuyển tiền ra ngoài."
+}

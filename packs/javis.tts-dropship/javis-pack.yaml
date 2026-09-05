@@ -1,0 +1,16 @@
+format: javis-pack
+spec: 1
+id: javis.tts-dropship
+version: 1.0.0
+name: {vi: "TTS Dropship (thitruongsi.com)"}
+description: {vi: "Bán dropship trên sàn TTS: tìm hàng theo lợi nhuận, tách địa chỉ từ tin nhắn khách, tạo khách, báo giá ship, LÊN ĐƠN, theo dõi vận đơn và xem tiền về. Đăng nhập bằng token lấy từ trình duyệt. Mặc định Chỉ đọc; tạo đơn và huỷ đơn là tiền thật nên luôn phải xác nhận hai bước."}
+author: {name: Javis}
+license: MIT
+homepage: "https://github.com/blogminhquy/javis-store"
+compat: {app: ">=0.55.27"}
+provides:
+  connectors: [connectors/tts-dropship.json]
+  plugins:
+    - plugins/tts-dropship
+  skills:
+    - skills/len-don-tts-dropship
