@@ -1,6 +1,6 @@
 name: TTS Dropship
 slug: tts-dropship
-version: 1.0.0
+version: 1.0.1
 description: Bán dropship trên sàn thitruongsi.com - tìm hàng theo lợi nhuận, tách địa chỉ khách, tạo khách, báo giá ship, lên đơn, theo dõi vận đơn, xem tiền về. Dùng token của kết nối "TTS Dropship".
 author: Javis
 enabled: true
