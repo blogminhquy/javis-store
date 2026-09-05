@@ -96,9 +96,20 @@ một câu, mất năm giây và tránh một đơn phải huỷ.
 **Đoán `variant_id`.** Luôn lấy từ `tts_products` `action=get`, đừng suy từ tên phân loại.
 
 **Kết luận "sàn đổi API" khi một tool lỗi.** Chạy `tts_health_check` trước. Nó chỉ ra đường
-nào hỏng và phân biệt được ba nguyên nhân: token hết hạn, sàn đổi tên trường GraphQL, hay sàn
-thật sự đổi endpoint. Trường hợp giữa thì sửa được ngay bằng `tts_graphql` với `action=set`,
-không phải cài lại gói.
+nào hỏng và phân biệt được ba nguyên nhân: token hết hạn, sàn đổi hình dạng dữ liệu GraphQL,
+hay sàn thật sự đổi endpoint.
+
+Trường hợp giữa thì phần lớn **tự khỏi**: gặp câu lỗi kiểu `Cannot query field "id" on type
+"..."`, gói tự hỏi sàn xem type đó có trường gì, lồng lại truy vấn, thử lại và lưu bản sửa ra
+ngoài gói. Kết quả trả về có dòng `_javis_tu_sua` nói nó đã sửa gì; đọc dòng đó rồi báo lại cho
+người dùng một câu, đừng nuốt.
+
+Chỉ khi sàn TẮT quyền soi lược đồ thì mới phải làm tay, và cũng chỉ hai bước:
+`tts_graphql` với `action=introspect` kèm `type` lấy nguyên văn trong câu lỗi để xem hình dạng
+thật, rồi `action=set` để ghi lại truy vấn. Không bao giờ phải cài lại gói.
+
+Đã xảy ra thật ngày 05/09/2026: sàn bọc kết quả tìm sản phẩm vào `ProductSearchResponse` và
+kết quả đơn vào `OrdersQueryResponse`, làm cả hai tool xương sống tắc cùng lúc.
 
 ## Loop chạy nền
 

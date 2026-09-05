@@ -251,7 +251,8 @@ def _che(s: str) -> str:
     return s[:400]
 
 
-async def _api(method, path, *, params=None, body=None, multipart=None, dropship=True, timeout=45):
+async def _api(method, path, *, params=None, body=None, multipart=None, dropship=True,
+               timeout=45, tra_loi_json=False):
     """Gọi api.thitruongsi.com. Trả (dữ_liệu, lỗi) - đúng một vế khác None.
 
     Cờ `dropship=true` cắm ở ĐÂY chứ không ở từng tool: quên nó một lần là sàn trả số liệu của
@@ -305,6 +306,11 @@ async def _api(method, path, *, params=None, body=None, multipart=None, dropship
         except Exception:
             d = None
         if r.status_code >= 400:
+            # GraphQL báo lỗi TRUY VẤN bằng mã 4xx kèm thân JSON hợp lệ (TTS dùng 422). Nuốt
+            # nó thành một dòng "HTTP 422" là vứt đúng câu nói ra sai ở chỗ nào, và người đọc
+            # chỉ còn một con số không hành động được. Trả thân về cho lớp GraphQL đọc.
+            if tra_loi_json and isinstance(d, dict) and d.get("errors"):
+                return d, None
             chi_tiet = _che(json.dumps(d, ensure_ascii=False) if d is not None else r.text)
             return None, f"sàn TTS trả HTTP {r.status_code}: {chi_tiet}"
         return d, None
@@ -333,6 +339,26 @@ def _build_qs(cap: dict) -> str:
     return "?" + "&".join(phan)
 
 
+def _ghi_doc(ctx, ten_op, patch):
+    """Ghi bản sửa của MỘT operation ra thư mục state. Trả lý do thất bại, hoặc rỗng.
+
+    Ghi NGOÀI gói có chủ ý: bản cập nhật gói thay cả thư mục `plugins/`, nên một bản sửa nằm
+    trong đó sẽ bị xoá đúng vào lúc người dùng bấm Cập nhật."""
+    de = ctx.data_dir / "graphql.json"
+    try:
+        hien = json.loads(de.read_text(encoding="utf-8"))
+        if not isinstance(hien, dict):
+            hien = {}
+    except Exception:
+        hien = {}
+    hien[ten_op] = {**(hien.get(ten_op) or {}), **patch}
+    try:
+        de.write_text(json.dumps(hien, ensure_ascii=False, indent=2), encoding="utf-8")
+    except Exception as e:
+        return f"{type(e).__name__}: {e}"
+    return ""
+
+
 def _gql_docs(ctx):
     """Tài liệu truy vấn: bản trong gói, đè bởi bản người dùng sửa trong thư mục state."""
     goc = {}
@@ -351,29 +377,210 @@ def _gql_docs(ctx):
     return goc
 
 
-async def _gql(ctx, ten_op, bien):
-    """Gọi POST /graphql. Trả (dữ_liệu_đã_bóc_lớp, lỗi)."""
+# Câu lỗi sàn trả khi truy vấn chọn một trường không còn nằm thẳng trên type gốc nữa. Đây
+# CHÍNH LÀ dạng hỏng đã gặp thật ngày 05/09/2026: sàn bọc kết quả vào một type con
+# (`ProductSearchResponse`, `OrdersQueryResponse`) thay vì trả phẳng như trước.
+_LOI_TRUONG = re.compile(r'Cannot query field "([^"]+)" on type "([^"]+)"')
+
+
+async def _introspect(ten_type):
+    """Hỏi thẳng sàn xem một type có những trường gì. Trả ({tên: mô tả kiểu}, lỗi).
+
+    Vì sao gói tự hỏi thay vì để người viết gói đoán: đây là API nội bộ không tài liệu, và
+    người duy nhất biết chắc hình dạng hiện tại là chính máy chủ. Đoán một lần thì đúng được
+    một lần; hỏi được thì lần đổi sau cũng tự xử lý."""
+    doc = ("query JavisIntrospect($n: String!) { __type(name: $n) { name kind fields { name "
+           "type { kind name ofType { kind name ofType { kind name ofType { kind name } } } } "
+           "} } }")
+    d, loi = await _api("POST", "/graphql", dropship=False, tra_loi_json=True,
+                        body={"operationName": "JavisIntrospect",
+                              "variables": {"n": ten_type}, "query": doc})
+    if loi:
+        return None, loi
+    if isinstance(d, dict) and d.get("errors"):
+        return None, ("sàn không cho soi lược đồ GraphQL (introspection thường bị tắt trên bản "
+                      "chạy thật): " + json.dumps(d["errors"], ensure_ascii=False)[:200])
+    t = ((d or {}).get("data") or {}).get("__type")
+    if not isinstance(t, dict) or not t.get("fields"):
+        return None, f"sàn không biết type '{ten_type}'"
+    ra = {}
+    for f in t["fields"]:
+        kieu, sau = f.get("type") or {}, []
+        while isinstance(kieu, dict):
+            if kieu.get("name"):
+                sau.append(kieu["name"])
+            if kieu.get("kind") == "LIST":
+                sau.append("[]")
+            kieu = kieu.get("ofType")
+        ra[f.get("name")] = " ".join(x for x in sau if x) or "?"
+    return ra, None
+
+
+def _boc_trong(doc: str, goc: str):
+    """Tách tài liệu truy vấn thành (đầu, phần chọn trường của root, đuôi). None nếu không đọc được.
+
+    Cố ý KHÔNG viết một trình phân tích GraphQL: mọi tài liệu trong gói này đều một hình dạng
+    (`query Ten($q: T!) { goc(...) { ... } }`), nên đếm ngoặc là đủ và không kéo theo một thư
+    viện chỉ để dùng ở đúng một chỗ."""
+    # Tìm root như một TRƯỜNG, không như một chuỗi con. `doc.find("searchProducts")` khớp phải
+    # chữ đó nằm trong TÊN OPERATION `searchProductsQuery` đứng trước, nên nó cắt cao hơn một
+    # tầng và mọi phép lồng sau đó đều lệch. Đòi ngay sau tên phải là `(` hoặc `{` thì
+    # `searchProductsQuery(` bị loại vì sau `searchProducts` còn chữ `Query`.
+    m = re.search(r"(?<![A-Za-z0-9_])" + re.escape(goc) + r"\s*(\(|\{)", doc)
+    if not m:
+        return None
+    k = m.end() - 1
+    if doc[k] == "(":
+        # Nhảy qua khối đối số rồi mới tìm phần chọn trường.
+        do_ngoac, k = 1, k + 1
+        while k < len(doc) and do_ngoac:
+            if doc[k] == "(":
+                do_ngoac += 1
+            elif doc[k] == ")":
+                do_ngoac -= 1
+            k += 1
+        if do_ngoac:
+            return None
+        j = doc.find("{", k)
+    else:
+        j = k
+    if j < 0:
+        return None
+    sau, do = j + 1, 1
+    while sau < len(doc) and do:
+        if doc[sau] == "{":
+            do += 1
+        elif doc[sau] == "}":
+            do -= 1
+        sau += 1
+    if do:
+        return None
+    return doc[:j + 1], doc[j + 1:sau - 1].strip(), doc[sau - 1:]
+
+
+def _lop_boc_don(sel: str) -> str:
+    """Tên lớp bọc nếu phần chọn trường chỉ gồm ĐÚNG MỘT trường có khối con. Rỗng nếu khác.
+
+    `products { id title }` trả "products"; `id title` trả rỗng; `total products { id }` cũng
+    trả rỗng, vì ở đó `products` không phải lớp bọc duy nhất và bóc nó ra sẽ mất `total`."""
+    s = sel.strip()
+    m = re.match(r"^([A-Za-z_][A-Za-z0-9_]*)\s*\{", s)
+    if not m:
+        return ""
+    tach = _boc_trong(s, m.group(1))
+    return m.group(1) if tach and tach[2].strip() == "}" else ""
+
+
+async def _tu_sua(ctx, ten_op, spec, loi_json):
+    """Sàn bọc kết quả vào một type con: tìm ra tên lớp bọc rồi lồng phần chọn trường vào.
+
+    Trả (doc_mới, tên_lớp_bọc, lý_do_thất_bại). Chỉ chạy cho ĐÚNG một dạng lỗi, và chỉ lồng
+    thêm một tầng - không tự ý viết lại phần chọn trường của người dùng."""
+    # Soi TỪNG câu lỗi, không soi chuỗi JSON đã dump: `json.dumps` biến mọi dấu nháy trong câu
+    # lỗi thành `\"`, nên một mẫu tìm dấu nháy thường sẽ không bao giờ khớp. Đúng cái bẫy này
+    # đã làm phần tự sửa im lặng không chạy ở bản đầu.
+    truong_loi, ten_type = "", ""
+    for e in (loi_json or []):
+        cau = e.get("message") if isinstance(e, dict) else e
+        m = _LOI_TRUONG.search(str(cau or ""))
+        if m:
+            truong_loi, ten_type = m.group(1), m.group(2)
+            break
+    if not ten_type:
+        return None, "", "lỗi không thuộc dạng 'sàn bọc kết quả vào type con'"
+    truong, loi = await _introspect(ten_type)
+    if loi:
+        return None, "", loi
+    goc = spec.get("root") or ""
+    tach = _boc_trong(spec.get("doc") or "", goc)
+    if not tach:
+        return None, "", "không đọc được hình dạng tài liệu truy vấn hiện tại"
+    dau, trong, duoi = tach
+
+    # Lớp bọc mà tài liệu ĐANG dùng, nếu có. Khi câu lỗi trỏ vào chính nó thì nghĩa là tên lớp
+    # đó SAI, phải THAY, không phải lồng thêm một tầng nữa - lồng tiếp ra ba tầng và sai nặng
+    # hơn lúc đầu. Đây là đường hỏng nhiều khả năng xảy ra nhất của bản 1.0.1: tên `products`
+    # và `items` trong doc mặc định là suy ra từ câu lỗi của sàn chứ chưa gọi thật để xác minh.
+    boc_dang_co = _lop_boc_don(trong)
+    if boc_dang_co and boc_dang_co == truong_loi:
+        tach2 = _boc_trong(trong, boc_dang_co)
+        if tach2:
+            trong = tach2[1]
+
+    # Trường đầu tiên là DANH SÁCH đối tượng chính là chỗ dữ liệu chuyển vào. Ưu tiên vài tên
+    # hay gặp trước khi rơi về "cái list đầu tiên", để không vớ phải một list phụ nào đó.
+    ung = [t for t, k in truong.items() if "[]" in k]
+    for uu in ("products", "items", "orders", "data", "nodes", "results", "edges", "list"):
+        if uu in ung:
+            ung = [uu] + [x for x in ung if x != uu]
+            break
+    if not ung:
+        return None, "", (f"type '{ten_type}' không có trường danh sách nào để lồng vào. "
+                          f"Các trường sàn khai: {', '.join(sorted(truong)) or '(rỗng)'}")
+    lop = ung[0]
+    return dau + " " + lop + " { " + trong + " } " + duoi, lop, ""
+
+
+async def _gql(ctx, ten_op, bien, cho_tu_sua=True):
+    """Gọi POST /graphql. Trả (dữ_liệu_đã_bóc_lớp, lỗi).
+
+    Gặp đúng dạng lỗi "sàn bọc kết quả vào type con" thì tự soi lược đồ, lồng lại phần chọn
+    trường, thử LẠI MỘT LẦN, và nếu chạy thì ghi bản sửa ra ngoài gói. Một lần thôi, có chủ ý:
+    thử lại vòng vo trên một lược đồ đã đổi hẳn chỉ đốt thời gian và làm câu lỗi khó đọc."""
     docs = _gql_docs(ctx)
     spec = docs.get(ten_op) or {}
     doc = (spec.get("doc") or "").strip()
     if not doc:
         return None, (f"không có tài liệu truy vấn cho '{ten_op}'. Xem bằng tool tts_graphql "
                       "(action=show) rồi sửa bằng action=set.")
-    d, loi = await _api("POST", "/graphql",
-                        body={"operationName": ten_op, "variables": bien, "query": doc},
-                        dropship=False)
+    d, loi = await _api("POST", "/graphql", dropship=False, tra_loi_json=True,
+                        body={"operationName": ten_op, "variables": bien, "query": doc})
     if loi:
         return None, loi
+
+    ghi_chu = ""
     if isinstance(d, dict) and d.get("errors"):
-        return None, ("sàn TTS từ chối truy vấn GraphQL '%s': %s. Đây gần như luôn là tên trường "
-                      "trong graphql.json không còn khớp với sàn. Xem bằng tts_graphql "
-                      "(action=show), sửa bằng action=set, không phải cài lại gói."
-                      % (ten_op, json.dumps(d["errors"], ensure_ascii=False)[:400]))
+        moi, lop, vi_sao = (None, "", "đã thử tự sửa một lần rồi")
+        if cho_tu_sua:
+            moi, lop, vi_sao = await _tu_sua(ctx, ten_op, spec, d["errors"])
+        if not moi:
+            return None, (
+                "sàn TTS từ chối truy vấn GraphQL '%s': %s\n\nĐây là tên trường trong "
+                "graphql.json không còn khớp sàn, KHÔNG phải token hay mạng. Javis đã thử tự "
+                "sửa nhưng không xong (%s). Soi hình dạng thật bằng tts_graphql "
+                "action=introspect (kèm tham số `type` lấy từ câu lỗi trên), rồi ghi lại bằng "
+                "action=set. Không phải cài lại gói."
+                % (ten_op, json.dumps(d["errors"], ensure_ascii=False)[:400], vi_sao))
+        spec2 = {**spec, "doc": moi}
+        d2, loi2 = await _api("POST", "/graphql", dropship=False, tra_loi_json=True,
+                              body={"operationName": ten_op, "variables": bien, "query": moi})
+        if loi2 or (isinstance(d2, dict) and d2.get("errors")):
+            chi_tiet = loi2 or json.dumps(d2.get("errors"), ensure_ascii=False)[:300]
+            return None, (
+                "sàn TTS từ chối truy vấn GraphQL '%s'. Javis đã tự lồng kết quả vào lớp '%s' "
+                "rồi thử lại, vẫn không được: %s. Soi bằng tts_graphql action=introspect rồi "
+                "ghi lại bằng action=set." % (ten_op, lop, chi_tiet))
+        _ghi_doc(ctx, ten_op, {"doc": moi})
+        d, spec = d2, spec2
+        ghi_chu = ("Sàn đã đổi hình dạng kết quả: nay bọc trong lớp '%s'. Javis tự lồng lại "
+                   "truy vấn, thử lại thành công và ĐÃ LƯU bản sửa ngoài gói, nên lần sau "
+                   "chạy thẳng. Dữ liệu giờ nằm trong data.%s.%s"
+                   % (lop, spec.get("root") or "?", lop))
+
     than = (d or {}).get("data") if isinstance(d, dict) else None
     goc = spec.get("root") or ""
+    ra = None
     if isinstance(than, dict) and goc and goc in than:
-        return {goc: than[goc], "extensions": (d or {}).get("extensions")}, None
-    return d, None
+        ra = {goc: than[goc], "extensions": (d or {}).get("extensions")}
+    elif isinstance(than, dict) and len(than) == 1:
+        # Tên trường gốc đổi mà phần chọn trường vẫn đúng: lấy đại cái khoá duy nhất còn hơn
+        # trả về nguyên khối `data` rồi để model tự mò.
+        ra = {**than, "extensions": (d or {}).get("extensions")}
+    else:
+        ra = d
+    if ghi_chu and isinstance(ra, dict):
+        ra["_javis_tu_sua"] = ghi_chu
+    return ra, None
 
 
 # ============================================================
@@ -1100,6 +1307,20 @@ async def _graphql_doc(args, ctx):
                    "Sửa bằng action=set (truyền 'operation' và 'doc', kèm 'root' nếu tên trường "
                    "gốc đổi). Quay về mặc định của gói bằng action=reset.")
 
+    if act == "introspect":
+        ten_type = _str(args, "type")
+        if not ten_type:
+            return _loi("thiếu 'type': tên type lấy nguyên văn trong câu lỗi của sàn, ví dụ "
+                        "ProductSearchResponse trong 'Cannot query field \"id\" on type "
+                        "\"ProductSearchResponse\"'.")
+        truong, loi = await _introspect(ten_type)
+        if loi:
+            return _loi(loi)
+        return _ra({"type": ten_type, "truong": truong},
+                   "Đây là hình dạng THẬT sàn đang khai, không phải suy đoán. Trường nào có "
+                   "'[]' là danh sách, và thường chính nó là chỗ dữ liệu đã chuyển vào. Ghi lại "
+                   "truy vấn bằng action=set.")
+
     if act == "set":
         op = _str(args, "operation")
         doc = _str(args, "doc")
@@ -1107,20 +1328,12 @@ async def _graphql_doc(args, ctx):
             return _loi("thiếu 'operation' hoặc 'doc'.")
         if "query" not in doc and "mutation" not in doc:
             return _loi("'doc' phải là một tài liệu GraphQL (bắt đầu bằng query hoặc mutation).")
-        hien = {}
-        try:
-            hien = json.loads(de.read_text(encoding="utf-8"))
-        except Exception:
-            hien = {}
-        muc = dict(hien.get(op) or {})
-        muc["doc"] = doc
+        patch = {"doc": doc}
         if _str(args, "root"):
-            muc["root"] = _str(args, "root")
-        hien[op] = muc
-        try:
-            de.write_text(json.dumps(hien, ensure_ascii=False, indent=2), encoding="utf-8")
-        except Exception as e:
-            return _loi(f"không ghi được bản sửa: {type(e).__name__}: {e}")
+            patch["root"] = _str(args, "root")
+        vi_sao = _ghi_doc(ctx, op, patch)
+        if vi_sao:
+            return _loi(f"không ghi được bản sửa: {vi_sao}")
         return _ra({"da_luu": op, "duong_dan": str(de)},
                    "Bản sửa này nằm ngoài gói nên bản cập nhật gói sau đó không xoá mất. Chạy "
                    "tts_health_check để xem truy vấn đã chạy chưa.")
@@ -1133,7 +1346,7 @@ async def _graphql_doc(args, ctx):
             return _loi(f"không xoá được bản sửa: {type(e).__name__}: {e}")
         return _ra({"da_quay_ve_mac_dinh": True})
 
-    return _loi("action phải là: show | set | reset")
+    return _loi("action phải là: show | introspect | set | reset")
 
 
 # ============================================================
@@ -1305,11 +1518,14 @@ def register(ctx):
        _supplier_follow, "safe", "🏪", {"shop_id": {"type": "string"}}, ["shop_id"])
 
     _t(ctx, "tts_graphql",
-       "TTS Dropship: xem và sửa tài liệu truy vấn GraphQL của gói. Dùng khi tts_health_check báo "
-       "một truy vấn lỗi vì sàn đổi tên trường. action=show | set (cần operation và doc) | reset. "
-       "Bản sửa nằm ngoài gói nên bản cập nhật gói không xoá mất.",
+       "TTS Dropship: xem, SOI LƯỢC ĐỒ và sửa tài liệu truy vấn GraphQL của gói. Dùng khi sàn "
+       "đổi hình dạng kết quả. action=show | introspect (cần 'type' lấy từ câu lỗi, hỏi thẳng "
+       "sàn xem type đó có trường gì THẬT) | set (cần operation và doc) | reset. Bản sửa nằm "
+       "ngoài gói nên bản cập nhật gói không xoá mất.",
        _graphql_doc, "safe", "🛠️", {
-           "action": {"type": "string", "enum": ["show", "set", "reset"]},
+           "action": {"type": "string", "enum": ["show", "introspect", "set", "reset"]},
+           "type": {"type": "string",
+                    "description": "Tên type GraphQL cần soi, ví dụ ProductSearchResponse"},
            "operation": {"type": "string",
                          "enum": ["searchProductsQuery", "ProductById", "searchShopQuery",
                                   "OrderListQuery"]},
