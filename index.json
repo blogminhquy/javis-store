@@ -47,7 +47,7 @@
       "description": {
         "vi": "Cổng đa ứng dụng của Composio: một kết nối mở ra hơn 500 app (Gmail, Notion, Google Sheets, GitHub, Linear, Slack...). Javis tìm tool, nối tài khoản từng app và chạy hành động qua Composio, không cần Javis viết connector riêng cho mỗi app. Dán API key (ck_...) là xong."
       },
-      "version": "1.0.1",
+      "version": "1.0.2",
       "author": {
         "name": "Javis"
       },
@@ -66,9 +66,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-composio-1.0.1.zip",
-        "sha256": "62f2b8f6430ade903f43be9093b2f0ce0ea8329354cfe676c4eab1a7cef35432",
-        "size": 6302
+        "url": "dist/javis-composio-1.0.2.zip",
+        "sha256": "711e263812c4abcc6b9c95cb839183244d8399b2bd1cfc5a66c1b3d631af3833",
+        "size": 11227
       }
     },
     {
@@ -113,7 +113,7 @@
       "description": {
         "vi": "Tra cứu sản phẩm, giá, tồn kho và dựng sẵn giỏ hàng của MỘT cửa hàng Shopify qua MCP chính chủ (chuẩn UCP). Không cần API key, không cần cài app, không cần là chủ shop - chỉ cần địa chỉ cửa hàng."
       },
-      "version": "1.0.1",
+      "version": "1.0.2",
       "author": {
         "name": "Javis"
       },
@@ -132,9 +132,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-shopify-1.0.1.zip",
-        "sha256": "88d32f1037ee254bc4982b30128cc9f25619948eb23ca169f57335688af150fb",
-        "size": 9801
+        "url": "dist/javis-shopify-1.0.2.zip",
+        "sha256": "b4ffb838c94d096d529d0c2edb9923e60cbe953da8de00a77fa25863d23f6418",
+        "size": 15152
       }
     },
     {
@@ -245,7 +245,7 @@
       "description": {
         "vi": "Số liệu SEO website: khách tìm từ khoá gì ra trang của bạn, lượt hiển thị, lượt bấm, trang top."
       },
-      "version": "1.0.1",
+      "version": "1.0.2",
       "author": {
         "name": "Javis"
       },
@@ -264,9 +264,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-google-search-console-1.0.1.zip",
-        "sha256": "8ca32c2c55a2213710aaa8a500579094c5a0e4f5e9f602952f558ab64a0dfa26",
-        "size": 5650
+        "url": "dist/javis-google-search-console-1.0.2.zip",
+        "sha256": "3f8e14f3b89b0d01ade3f8268de9058dc5d79c982579d9bde930f8c760b2f555",
+        "size": 9885
       }
     },
     {
@@ -278,7 +278,7 @@
       "description": {
         "vi": "Gmail, Calendar, Drive, Docs, Sheets, Slides, Forms, Tasks... trong MỘT kết nối. Tạo OAuth client 1 lần, khoảng 10 phút, có hướng dẫn từng bước. Lần đầu gọi tool Google, trình duyệt TRÊN MÁY CHẠY JAVIS mở ra để bấm đồng ý, nên máy phải có màn hình."
       },
-      "version": "1.0.1",
+      "version": "1.0.2",
       "author": {
         "name": "Javis"
       },
@@ -297,9 +297,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-google-workspace-1.0.1.zip",
-        "sha256": "e3b7c8c7f6081f04e4f06b8684625f87fea805ecde25e8ea571eb7c99c379d7e",
-        "size": 8010
+        "url": "dist/javis-google-workspace-1.0.2.zip",
+        "sha256": "040b289b95f7f25beb721c3891a8eb57b3b0c7905e7abe103db70a7de5430e3f",
+        "size": 13118
       }
     },
     {
@@ -311,7 +311,7 @@
       "description": {
         "vi": "Việc cần làm trong Google Tasks: xem danh sách, thêm việc, đặt hạn, đánh dấu xong. Chỉ xin quyền Tasks, không đụng Gmail hay Drive. Đăng nhập Google bằng OAuth client tự tạo (~10 phút, có hướng dẫn)."
       },
-      "version": "1.0.1",
+      "version": "1.0.2",
       "author": {
         "name": "Javis"
       },
@@ -330,9 +330,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-google-tasks-1.0.1.zip",
-        "sha256": "c614078fe14e9a79bcc602bfc63e703faa6ac327cef24b644d4039912a38f6c3",
-        "size": 9020
+        "url": "dist/javis-google-tasks-1.0.2.zip",
+        "sha256": "c8cca302a9290dbacbd968933d2baee0144287d04471c18e5a8cb834242e6bc2",
+        "size": 14143
       }
     },
     {
@@ -773,7 +773,7 @@
       "description": {
         "vi": "Đọc và sửa ghi chú Google Keep: tìm note, tạo note và danh sách việc, gắn nhãn, ghim, lưu trữ. LƯU Ý: Keep không có API chính chủ nên phải dùng master token có TOÀN QUYỀN tài khoản Google, không phải OAuth giới hạn phạm vi như Gmail hay Lịch. Javis chỉ thao tác được ghi chú, nhưng token thì mở cả tài khoản nếu bị lộ."
       },
-      "version": "1.0.1",
+      "version": "1.0.2",
       "author": {
         "name": "Javis"
       },
@@ -792,9 +792,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-google-keep-1.0.1.zip",
-        "sha256": "e044054eb3fdbb7e2d796e0e6e722042df65e011b89f2ea7aad73f9e11c9d38c",
-        "size": 6033
+        "url": "dist/javis-google-keep-1.0.2.zip",
+        "sha256": "2878a2ec405138b7ec103bc59f1b581988161d51e588c98f92515e4608aab489",
+        "size": 9340
       }
     },
     {
@@ -806,7 +806,7 @@
       "description": {
         "vi": "Đọc và thao tác notebook trên Google NotebookLM: liệt kê notebook, đọc nguồn, hỏi đáp ngay trong notebook, thêm nguồn, lưu ghi chú, tạo tóm tắt/audio ở Studio. LƯU Ý: NotebookLM chưa có API chính chủ nên phải mượn PHIÊN ĐĂNG NHẬP trình duyệt (cookie Google), không phải OAuth giới hạn phạm vi như Gmail hay Lịch."
       },
-      "version": "1.0.1",
+      "version": "1.0.2",
       "author": {
         "name": "Javis"
       },
@@ -825,9 +825,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-notebooklm-1.0.1.zip",
-        "sha256": "c8f766ccdfd36dea286600e80e0af5968ef486cb002f027dfc6d1fcc2eb0607f",
-        "size": 9913
+        "url": "dist/javis-notebooklm-1.0.2.zip",
+        "sha256": "3380c43633ff91698c4d353e097ecea5c2bf6116cdb386cd8ca2520283504098",
+        "size": 14266
       }
     },
     {
@@ -839,7 +839,7 @@
       "description": {
         "vi": "Điều khiển n8n của bạn: tìm và đọc workflow, xem lịch sử chạy, tạo và sửa workflow, chạy workflow - qua MCP chính chủ của n8n. Cần địa chỉ n8n của bạn + MCP Access Token."
       },
-      "version": "1.0.1",
+      "version": "1.0.2",
       "author": {
         "name": "Javis"
       },
@@ -858,9 +858,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-n8n-1.0.1.zip",
-        "sha256": "f01623d197d553c699f4d0bc7941f4fc09c2e83b6b9d761c2507df6bdedf2320",
-        "size": 7540
+        "url": "dist/javis-n8n-1.0.2.zip",
+        "sha256": "26bf976685b3512240b40fa08547f48b916cd6826c5d9670dd9f4745f3960040",
+        "size": 10911
       }
     },
     {
@@ -872,7 +872,7 @@
       "description": {
         "vi": "Quản lý hosting Hostinger ngay trong chat: xem tên miền và ngày hết hạn, sửa bản ghi DNS, xem website và WordPress, VPS, hộp thư, hoá đơn và gói đang chạy. MCP chính chủ của Hostinger, dán API token là xong."
       },
-      "version": "1.0.1",
+      "version": "1.0.2",
       "author": {
         "name": "Javis"
       },
@@ -891,9 +891,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-hostinger-1.0.1.zip",
-        "sha256": "c947bf621e59b0b2b6e51d41f427e5dc95683ce71907d87420294c0644e68136",
-        "size": 6165
+        "url": "dist/javis-hostinger-1.0.2.zip",
+        "sha256": "59d3a1dcaaa02ad161e0fb28d7f032848d97d333c35a6565748506b9b26b4ed2",
+        "size": 9578
       }
     },
     {
@@ -1678,7 +1678,7 @@
         "vi": "Điều khiển trình duyệt thật qua Playwright MCP chính chủ của Microsoft: mở trang, đọc cấu trúc trang, điền form, bấm nút, chụp màn hình, xuất PDF, chạy kiểm thử đầu-cuối. Không cần API key. Mặc định chạy hồ sơ TÁCH BIỆT và ẩn cửa sổ.",
         "en": "Drive a real browser through Microsoft's official Playwright MCP: open pages, read page structure, fill forms, click, screenshot, export PDF, run end-to-end tests. No API key. Defaults to an isolated, headless profile."
       },
-      "version": "1.0.1",
+      "version": "1.0.2",
       "author": {
         "name": "Microsoft",
         "url": "https://github.com/microsoft/playwright-mcp"
@@ -1701,9 +1701,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-playwright-1.0.1.zip",
-        "sha256": "2070030e5398d0ff8ea2853bc7969d280b969ab5f96b8813ff1d86ad98d00b9b",
-        "size": 14554
+        "url": "dist/javis-playwright-1.0.2.zip",
+        "sha256": "413409d9169b6bdaa43ea41c4eb10241858e2ddf47632ebd861cca7cb03228d3",
+        "size": 21077
       }
     },
     {
@@ -1962,7 +1962,7 @@
       "description": {
         "vi": "Bán dropship trên sàn TTS: tìm hàng theo lợi nhuận, tách địa chỉ từ tin nhắn khách, tạo khách, báo giá ship, LÊN ĐƠN, theo dõi vận đơn và xem tiền về. Sàn không phát hành API key nên đăng nhập bằng token lấy từ trình duyệt. Sàn đổi hình dạng dữ liệu thì gói TỰ soi lược đồ và sửa lại truy vấn, không phải cài lại. Tạo đơn và huỷ đơn luôn phải xác nhận hai bước."
       },
-      "version": "1.0.2",
+      "version": "1.0.3",
       "author": {
         "name": "Javis"
       },
@@ -1981,9 +1981,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-tts-dropship-1.0.2.zip",
-        "sha256": "29a72ba83fd42e02b8b758413dbc96dd3b06f323bbf5438f8b86083b8e806428",
-        "size": 34805
+        "url": "dist/javis-tts-dropship-1.0.3.zip",
+        "sha256": "ff256a3894bb57d9c9118c1c46c3e8083fca7a333f3e86e3cfb58775b9fe84a4",
+        "size": 38206
       }
     }
   ]

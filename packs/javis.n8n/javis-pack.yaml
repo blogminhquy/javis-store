@@ -1,7 +1,7 @@
 format: javis-pack
 spec: 1
 id: javis.n8n
-version: 1.0.1
+version: 1.0.2
 name: {vi: "n8n"}
 description: {vi: "Điều khiển n8n của bạn: tìm và đọc workflow, xem lịch sử chạy, tạo và sửa workflow, chạy workflow - qua MCP chính chủ của n8n. Cần địa chỉ n8n của bạn + MCP Access Token."}
 author: {name: Javis}
