@@ -67,8 +67,8 @@
       },
       "download": {
         "url": "dist/javis-composio-1.0.2.zip",
-        "sha256": "711e263812c4abcc6b9c95cb839183244d8399b2bd1cfc5a66c1b3d631af3833",
-        "size": 11227
+        "sha256": "724d03c5771e7f233884575439b85bbfff3a4989b251f4511db16c31793e17e3",
+        "size": 16145
       }
     },
     {
@@ -1982,8 +1982,8 @@
       },
       "download": {
         "url": "dist/javis-tts-dropship-1.0.3.zip",
-        "sha256": "ff256a3894bb57d9c9118c1c46c3e8083fca7a333f3e86e3cfb58775b9fe84a4",
-        "size": 38206
+        "sha256": "8318457e4a6fe90005a26870907c4b9ec13478a9285e5e3f92ab3a1c123e31fc",
+        "size": 53704
       }
     }
   ]
