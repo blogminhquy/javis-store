@@ -1925,6 +1925,38 @@
         "sha256": "38bf9df7bc81d7f241d38add9f7e70482818ba98121584ccb070eb18b60ab8fa",
         "size": 5320
       }
+    },
+    {
+      "id": "javis.tts-dropship",
+      "kind": "connector",
+      "name": {
+        "vi": "TTS Dropship (thitruongsi.com)"
+      },
+      "description": {
+        "vi": "Bán dropship trên sàn TTS: tìm hàng theo lợi nhuận, tách địa chỉ từ tin nhắn khách, tạo khách, báo giá ship, LÊN ĐƠN, theo dõi vận đơn và xem tiền về. Sàn không phát hành API key nên đăng nhập bằng token lấy từ trình duyệt. Mặc định Chỉ đọc; tạo đơn và huỷ đơn luôn phải xác nhận hai bước vì sàn không cho sửa đơn đã tạo."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "ban-hang",
+      "category_label": {
+        "vi": "Bán hàng"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.tts-dropship",
+      "provides": {
+        "connectors": [
+          "tts-dropship"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-tts-dropship-1.0.0.zip",
+        "sha256": "a15babc80968a1c2d1845b348a727f25b32f14d760fd3b7d17675d6d63117db3",
+        "size": 26607
+      }
     }
   ]
 }
