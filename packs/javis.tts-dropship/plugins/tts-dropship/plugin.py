@@ -22,7 +22,12 @@ Bốn điều quyết định hình dạng của file này
    danh sách trường của ba truy vấn GraphQL, nhưng không bắt được nguyên văn tài liệu truy vấn.
    Nên tài liệu đó nằm trong `graphql.json` như DỮ LIỆU và sửa được lúc chạy qua tool
    `tts_graphql`, không phải đóng gói lại. Cùng lý do, mọi tool ghi đều nhận `raw_body` để đè
-   nguyên thân request khi sàn đổi hình dạng.
+   nguyên thân request khi sàn đổi hình dạng. Và cùng lý do, khi sàn từ chối một truy vấn vì
+   lệch lược đồ thì gói TỰ soi `__type` rồi sửa lấy - đổi tên trường theo gợi ý của chính sàn,
+   điền trường con cho trường vừa hoá thành khối, lồng thêm lớp bọc, hoặc bỏ hẳn một trường sàn
+   không còn khai - thử lại tối đa ba vòng rồi ghi bản sửa ra thư mục state. Nguyên tắc ở đó:
+   thà mất MỘT TRƯỜNG còn hơn mất cả truy vấn, và không bao giờ sửa một lỗi mình không hiểu.
+   Phần này không chạy thử được trên sàn thật nên có bộ ca riêng: `tools/thu-tts-tu-sua.py`.
 
 4. **Đơn đã tạo thì KHÔNG SỬA ĐƯỢC.** Sàn không có PUT/PATCH cho đơn, chỉ có huỷ rồi lên lại.
    Nên `tts_create_order`, `tts_cancel_order` và `tts_order_action` bắt xác nhận hai bước: lần
@@ -41,6 +46,7 @@ Cố ý KHÔNG có trong gói này
 from __future__ import annotations
 
 import base64
+import difflib
 import json
 import re
 import time
@@ -377,14 +383,59 @@ def _gql_docs(ctx):
     return goc
 
 
-# Câu lỗi sàn trả khi truy vấn chọn một trường không còn nằm thẳng trên type gốc nữa. Đây
-# CHÍNH LÀ dạng hỏng đã gặp thật ngày 05/09/2026: sàn bọc kết quả vào một type con
-# (`ProductSearchResponse`, `OrdersQueryResponse`) thay vì trả phẳng như trước.
+# Ba dạng lỗi lược đồ sàn thật sự trả về khi `graphql.json` không còn khớp. Cả ba đều là lỗi
+# KIỂM TRA (validation), nên sàn trả kèm `locations` chỉ đúng dòng-cột của trường sai trong
+# chính tài liệu vừa gửi lên. Chỗ đó là thứ quý nhất ở đây: nhờ nó gói sửa ĐÚNG MỘT trường,
+# thay vì thay mọi chỗ trùng tên - `id` có mặt ở năm khối khác nhau trong một truy vấn.
+#
+#   1. Trường không còn tồn tại  - `Cannot query field "x" on type "T"`. Vừa là dạng sàn ĐỔI
+#      TÊN một trường (07/09/2026: `dropship_selling_price` -> `dropship_supplier_price`),
+#      vừa là dạng sàn BỌC cả kết quả vào một type con (05/09/2026: `ProductSearchResponse`).
+#   2. Trường hoá ra là một khối - `Field "x" of type "T" must have a selection of subfields`.
+#      Đúng chuyện đã xảy ra với `bill_of_lading`: từ một chuỗi mã vận đơn thành một object.
+#   3. Trường hoá ra là giá trị đơn - `... must not have a selection since type "T" has no
+#      subfields`. Chiều ngược lại của (2).
 _LOI_TRUONG = re.compile(r'Cannot query field "([^"]+)" on type "([^"]+)"')
+_LOI_THIEU_CON = re.compile(
+    r'Field "([^"]+)" of type "([^"]+)" must have a selection of subfields')
+_LOI_THUA_CON = re.compile(
+    r'Field "([^"]+)" must not have a selection since type "([^"]+)" has no subfields')
+_Y_LA = re.compile(r"Did you mean ([^?]+)\?")
+
+# Tên hay gặp của lớp bọc danh sách, xếp theo thứ tự ưu tiên khi phải chọn giữa nhiều trường.
+_TEN_LOP_BOC = ("products", "items", "orders", "data", "nodes", "results", "edges", "list")
+
+# Trần số trường con tự điền khi một trường đơn hoá ra là khối. Không lấy hết: một type lạ có
+# hai trăm trường sẽ thổi tài liệu truy vấn lẫn câu trả lời vượt trần ngữ cảnh của model.
+_TRAN_TRUONG_CON = 24
+
+# Số vòng "sửa rồi thử lại" tối đa cho một lần gọi. Nhiều hơn một, vì một lần đổi thật của sàn
+# hay kéo theo vài trường cùng lúc và sàn chỉ báo được những lỗi nó thấy ở vòng đó.
+_SO_VONG_TU_SUA = 3
+
+
+def _goc_kieu(t: str) -> str:
+    """Bóc `[LineItem!]!` về `LineItem`. Câu lỗi của sàn hay kèm dấu trang trí kiểu."""
+    return re.sub(r"[\[\]!\s]", "", t or "")
+
+
+def _y_la(cau: str):
+    """Những tên chính SÀN gợi ý trong câu lỗi (`Did you mean "a" or "b"?`).
+
+    Lọc lấy tên hợp lệ vì gợi ý của dạng lỗi (2) là `Did you mean "x { ... }"?`, tức có cả
+    dấu ngoặc trong đó."""
+    m = _Y_LA.search(cau or "")
+    if not m:
+        return []
+    return [x for x in re.findall(r'"([^"]+)"', m.group(1))
+            if re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", x)]
 
 
 async def _introspect(ten_type):
-    """Hỏi thẳng sàn xem một type có những trường gì. Trả ({tên: mô tả kiểu}, lỗi).
+    """Hỏi thẳng sàn xem một type có những trường gì.
+
+    Trả ({tên: {kieu, danh_sach, co_con}}, lỗi). `co_con` là trường phải chọn tiếp trường con
+    (OBJECT/INTERFACE/UNION); trường không có `co_con` là trường lấy thẳng được.
 
     Vì sao gói tự hỏi thay vì để người viết gói đoán: đây là API nội bộ không tài liệu, và
     người duy nhất biết chắc hình dạng hiện tại là chính máy chủ. Đoán một lần thì đúng được
@@ -394,7 +445,7 @@ async def _introspect(ten_type):
            "} } }")
     d, loi = await _api("POST", "/graphql", dropship=False, tra_loi_json=True,
                         body={"operationName": "JavisIntrospect",
-                              "variables": {"n": ten_type}, "query": doc})
+                              "variables": {"n": _goc_kieu(ten_type)}, "query": doc})
     if loi:
         return None, loi
     if isinstance(d, dict) and d.get("errors"):
@@ -402,18 +453,38 @@ async def _introspect(ten_type):
                       "chạy thật): " + json.dumps(d["errors"], ensure_ascii=False)[:200])
     t = ((d or {}).get("data") or {}).get("__type")
     if not isinstance(t, dict) or not t.get("fields"):
-        return None, f"sàn không biết type '{ten_type}'"
+        return None, f"sàn không biết type '{_goc_kieu(ten_type)}'"
     ra = {}
     for f in t["fields"]:
-        kieu, sau = f.get("type") or {}, []
+        kieu, sau, danh_sach, trong_cung = f.get("type") or {}, [], False, ""
         while isinstance(kieu, dict):
             if kieu.get("name"):
                 sau.append(kieu["name"])
+                trong_cung = kieu.get("kind") or trong_cung
             if kieu.get("kind") == "LIST":
+                danh_sach = True
                 sau.append("[]")
             kieu = kieu.get("ofType")
-        ra[f.get("name")] = " ".join(x for x in sau if x) or "?"
+        ra[f.get("name")] = {
+            "kieu": " ".join(x for x in sau if x) or "?",
+            "danh_sach": danh_sach,
+            "co_con": trong_cung in ("OBJECT", "INTERFACE", "UNION"),
+        }
     return ra, None
+
+
+def _het_khoi(doc: str, i: int, mo: str, dong: str) -> int:
+    """Chỉ số ngay SAU khối `mo...dong` bắt đầu tại i. -1 nếu khối không đóng."""
+    do = 0
+    while i < len(doc):
+        if doc[i] == mo:
+            do += 1
+        elif doc[i] == dong:
+            do -= 1
+            if do == 0:
+                return i + 1
+        i += 1
+    return -1
 
 
 def _boc_trong(doc: str, goc: str):
@@ -432,143 +503,337 @@ def _boc_trong(doc: str, goc: str):
     k = m.end() - 1
     if doc[k] == "(":
         # Nhảy qua khối đối số rồi mới tìm phần chọn trường.
-        do_ngoac, k = 1, k + 1
-        while k < len(doc) and do_ngoac:
-            if doc[k] == "(":
-                do_ngoac += 1
-            elif doc[k] == ")":
-                do_ngoac -= 1
-            k += 1
-        if do_ngoac:
+        k = _het_khoi(doc, k, "(", ")")
+        if k < 0:
             return None
         j = doc.find("{", k)
     else:
         j = k
     if j < 0:
         return None
-    sau, do = j + 1, 1
-    while sau < len(doc) and do:
-        if doc[sau] == "{":
-            do += 1
-        elif doc[sau] == "}":
-            do -= 1
-        sau += 1
-    if do:
+    sau = _het_khoi(doc, j, "{", "}")
+    if sau < 0:
         return None
     return doc[:j + 1], doc[j + 1:sau - 1].strip(), doc[sau - 1:]
 
 
-def _lop_boc_don(sel: str) -> str:
-    """Tên lớp bọc nếu phần chọn trường chỉ gồm ĐÚNG MỘT trường có khối con. Rỗng nếu khác.
+def _vi_tri(doc: str, dong, cot) -> int:
+    """Đổi (dòng, cột) trong câu lỗi GraphQL thành chỉ số ký tự. -1 nếu ngoài tầm."""
+    try:
+        dong, cot = int(dong), int(cot)
+    except (TypeError, ValueError):
+        return -1
+    if dong < 1 or cot < 1:
+        return -1
+    cac = doc.split("\n")
+    if dong > len(cac):
+        return -1
+    return sum(len(x) + 1 for x in cac[:dong - 1]) + cot - 1
 
-    `products { id title }` trả "products"; `id title` trả rỗng; `total products { id }` cũng
-    trả rỗng, vì ở đó `products` không phải lớp bọc duy nhất và bóc nó ra sẽ mất `total`."""
-    s = sel.strip()
-    m = re.match(r"^([A-Za-z_][A-Za-z0-9_]*)\s*\{", s)
-    if not m:
-        return ""
-    tach = _boc_trong(s, m.group(1))
-    return m.group(1) if tach and tach[2].strip() == "}" else ""
+
+def _dung_ranh(doc: str, i: int, ten: str) -> bool:
+    truoc = doc[i - 1] if i else " "
+    sau = doc[i + len(ten)] if i + len(ten) < len(doc) else " "
+    return not (truoc.isalnum() or truoc == "_") and not (sau.isalnum() or sau == "_")
 
 
-async def _tu_sua(ctx, ten_op, spec, loi_json):
-    """Sàn bọc kết quả vào một type con: tìm ra tên lớp bọc rồi lồng phần chọn trường vào.
+def _tim_truong(doc: str, ten: str, dong=None, cot=None) -> int:
+    """Chỉ số ký tự của trường `ten` trong tài liệu. -1 nếu không chắc chắn.
 
-    Trả (doc_mới, tên_lớp_bọc, lý_do_thất_bại). Chỉ chạy cho ĐÚNG một dạng lỗi, và chỉ lồng
-    thêm một tầng - không tự ý viết lại phần chọn trường của người dùng."""
-    # Soi TỪNG câu lỗi, không soi chuỗi JSON đã dump: `json.dumps` biến mọi dấu nháy trong câu
-    # lỗi thành `\"`, nên một mẫu tìm dấu nháy thường sẽ không bao giờ khớp. Đúng cái bẫy này
-    # đã làm phần tự sửa im lặng không chạy ở bản đầu.
-    truong_loi, ten_type = "", ""
-    for e in (loi_json or []):
-        cau = e.get("message") if isinstance(e, dict) else e
-        m = _LOI_TRUONG.search(str(cau or ""))
-        if m:
-            truong_loi, ten_type = m.group(1), m.group(2)
-            break
-    if not ten_type:
-        return None, "", "lỗi không thuộc dạng 'sàn bọc kết quả vào type con'"
-    truong, loi = await _introspect(ten_type)
-    if loi:
-        return None, "", loi
-    goc = spec.get("root") or ""
-    tach = _boc_trong(spec.get("doc") or "", goc)
+    Ưu tiên `locations` sàn trả kèm câu lỗi: nó chỉ ĐÚNG một chỗ, nên sửa được `id` trong khối
+    `shop` mà không đụng `id` ở bốn khối khác. Không có locations thì chỉ nhận khi tên ấy xuất
+    hiện đúng MỘT lần; đoán bừa chỗ cần sửa là cách nhanh nhất để hỏng thêm."""
+    i = _vi_tri(doc, dong, cot)
+    if 0 <= i < len(doc) and doc.startswith(ten, i) and _dung_ranh(doc, i, ten):
+        return i
+    cac = [m.start() for m in re.finditer(
+        r"(?<![A-Za-z0-9_])" + re.escape(ten) + r"(?![A-Za-z0-9_])", doc)]
+    return cac[0] if len(cac) == 1 else -1
+
+
+def _pham_vi_truong(doc: str, dau: int):
+    """(đầu, cuối) của cả một trường tính từ vị trí tên: kèm khối đối số và khối con nếu có."""
+    k = dau
+    while k < len(doc) and (doc[k].isalnum() or doc[k] == "_"):
+        k += 1
+    cuoi, j = k, k
+    while j < len(doc) and doc[j].isspace():
+        j += 1
+    if j < len(doc) and doc[j] == "(":
+        j = _het_khoi(doc, j, "(", ")")
+        if j < 0:
+            return dau, cuoi
+        cuoi = j
+        while j < len(doc) and doc[j].isspace():
+            j += 1
+    if j < len(doc) and doc[j] == "{":
+        j = _het_khoi(doc, j, "{", "}")
+        if j > 0:
+            cuoi = j
+    return dau, cuoi
+
+
+def _khoi_chua(doc: str, i: int):
+    """(đầu_nội_dung, cuối_nội_dung) của khối `{...}` gần nhất bao vị trí i. None nếu không có."""
+    do, k = 0, i - 1
+    while k >= 0:
+        if doc[k] == "}":
+            do += 1
+        elif doc[k] == "{":
+            if not do:
+                break
+            do -= 1
+        k -= 1
+    if k < 0:
+        return None
+    cuoi = _het_khoi(doc, k, "{", "}")
+    return (k + 1, cuoi - 1) if cuoi > 0 else None
+
+
+def _mot_minh(doc: str, i: int) -> bool:
+    """Trường ở vị trí i có phải trường DUY NHẤT trong khối chứa nó không.
+
+    Quan trọng vì nó tách hai phép sửa ngược nhau: một trường đứng lẫn với trường khác mà sàn
+    không còn khai thì BỎ đi được; một trường đứng một mình mà bỏ thì còn lại khối rỗng, tức
+    truy vấn sai cú pháp - chỗ đó phải THAY tên, vì gần như luôn là lớp bọc vừa đổi tên."""
+    kh = _khoi_chua(doc, i)
+    if not kh:
+        return False
+    dau, cuoi = kh
+    _, het = _pham_vi_truong(doc, i)
+    return not doc[dau:i].strip() and not doc[het:cuoi].strip()
+
+
+def _o_tang_goc(doc: str, goc: str, i: int) -> bool:
+    """Vị trí i có nằm THẲNG trong phần chọn trường của root không (không lồng sâu hơn)."""
+    tach = _boc_trong(doc, goc)
     if not tach:
-        return None, "", "không đọc được hình dạng tài liệu truy vấn hiện tại"
-    dau, trong, duoi = tach
+        return False
+    dau, het = len(tach[0]), len(doc) - len(tach[2]) + 1
+    if not dau <= i < het:
+        return False
+    return doc.count("{", dau, i) == doc.count("}", dau, i)
 
-    # Lớp bọc mà tài liệu ĐANG dùng, nếu có. Khi câu lỗi trỏ vào chính nó thì nghĩa là tên lớp
-    # đó SAI, phải THAY, không phải lồng thêm một tầng nữa - lồng tiếp ra ba tầng và sai nặng
-    # hơn lúc đầu. Đây là đường hỏng nhiều khả năng xảy ra nhất của bản 1.0.1: tên `products`
-    # và `items` trong doc mặc định là suy ra từ câu lỗi của sàn chứ chưa gọi thật để xác minh.
-    boc_dang_co = _lop_boc_don(trong)
-    if boc_dang_co and boc_dang_co == truong_loi:
-        tach2 = _boc_trong(trong, boc_dang_co)
-        if tach2:
-            trong = tach2[1]
 
-    # Trường đầu tiên là DANH SÁCH đối tượng chính là chỗ dữ liệu chuyển vào. Ưu tiên vài tên
-    # hay gặp trước khi rơi về "cái list đầu tiên", để không vớ phải một list phụ nào đó.
-    ung = [t for t, k in truong.items() if "[]" in k]
-    for uu in ("products", "items", "orders", "data", "nodes", "results", "edges", "list"):
+def _ung_doi_ten(ten: str, goi_y, truong):
+    """Tên thay thế cho một trường sàn không còn khai. Rỗng nếu không có ứng viên đủ chắc.
+
+    Ưu tiên gợi ý của CHÍNH SÀN (`Did you mean`), rồi mới tới tên gần giống trong lược đồ.
+    Ngưỡng 0.75 là chỗ tách hai ca thật: `dropship_selling_price` -> `dropship_supplier_price`
+    đạt 0.80 nên được nhận, còn `id` so với `products`/`total` của một lớp bọc mới thì không
+    tên nào tới ngưỡng, nên ca lớp bọc không bị nhận nhầm thành đổi tên."""
+    co = list(truong or {})
+    for g in goi_y:
+        if not co or g in co:
+            return g
+    if not co:
+        return ""
+    gan = difflib.get_close_matches(ten, co, 1, 0.75)
+    return gan[0] if gan else ""
+
+
+def _chon_lop(truong) -> str:
+    """Tên trường danh sách để lồng kết quả vào, khi sàn bọc kết quả thêm một tầng."""
+    ung = [t for t, v in (truong or {}).items() if v.get("danh_sach")]
+    for uu in _TEN_LOP_BOC:
         if uu in ung:
-            ung = [uu] + [x for x in ung if x != uu]
-            break
-    if not ung:
-        return None, "", (f"type '{ten_type}' không có trường danh sách nào để lồng vào. "
-                          f"Các trường sàn khai: {', '.join(sorted(truong)) or '(rỗng)'}")
-    lop = ung[0]
-    return dau + " " + lop + " { " + trong + " } " + duoi, lop, ""
+            return uu
+    return ung[0] if ung else ""
 
 
-async def _gql(ctx, ten_op, bien, cho_tu_sua=True):
+async def _sua_mot_vong(doc: str, goc: str, loi_json):
+    """Một vòng tự sửa: đọc MỌI câu lỗi lược đồ, dựng phép sửa, áp một lượt lên tài liệu.
+
+    Trả (doc_mới, [mô tả từng phép sửa], lý do thất bại); doc_mới là None khi không sửa được gì.
+
+    Nguyên tắc: KHÔNG viết lại truy vấn theo ý mình, chỉ đụng đúng những trường sàn kêu sai, và
+    thà mất một trường còn hơn mất cả truy vấn - một `bill_of_lading` đổi hình dạng không được
+    phép kéo theo cả danh sách đơn."""
+    bo_nho = {}
+
+    async def truong_cua(t):
+        t = _goc_kieu(t)
+        if t not in bo_nho:
+            bo_nho[t] = await _introspect(t)
+        return bo_nho[t]
+
+    # Soi TỪNG câu lỗi một, không soi chuỗi JSON đã dump: `json.dumps` biến mọi dấu nháy trong
+    # câu lỗi thành `\"`, nên một mẫu tìm dấu nháy thường sẽ không bao giờ khớp. Đúng cái bẫy
+    # này đã làm phần tự sửa im lặng không chạy ở bản đầu. Lấy luôn `locations` ở đây, vì đó là
+    # thứ duy nhất chỉ được ĐÚNG chỗ cần sửa.
+    cau_loi = []
+    for e in (loi_json or []):
+        if isinstance(e, dict):
+            vt = ((e.get("locations") or [{}])[0]) or {}
+            cau_loi.append((str(e.get("message") or ""), vt.get("line"), vt.get("column")))
+        else:
+            cau_loi.append((str(e), None, None))
+
+    # Bước 1: sàn bọc CẢ kết quả vào một type con. Đây là phép sửa đổi cấu trúc, và khi nó xảy
+    # ra thì mọi câu lỗi còn lại của lượt đều cùng một nguyên nhân, nên làm một mình rồi thử
+    # lại thay vì trộn với các phép sửa lẻ.
+    for cau, dong, cot in cau_loi:
+        m = _LOI_TRUONG.search(cau)
+        if not m:
+            continue
+        i = _tim_truong(doc, m.group(1), dong, cot)
+        if i < 0 or not _o_tang_goc(doc, goc, i) or _mot_minh(doc, i):
+            continue
+        truong, _ = await truong_cua(m.group(2))
+        if not truong or _ung_doi_ten(m.group(1), _y_la(cau), truong):
+            continue        # có tên thay được thì đây là đổi tên trường, không phải bọc thêm
+        lop = _chon_lop(truong)
+        tach = _boc_trong(doc, goc)
+        if not lop or not tach:
+            continue
+        return (tach[0] + " " + lop + " { " + tach[1] + " } " + tach[2],
+                ["lồng kết quả vào lớp bọc '%s' (sàn đã đổi sang trả kết quả gói trong type "
+                 "'%s')" % (lop, _goc_kieu(m.group(2)))], "")
+
+    # Bước 2: sửa từng trường một. Mỗi phép sửa là (đầu, cuối, chuỗi thay, mô tả cho người đọc).
+    sua, bo_qua = [], []
+    for cau, dong, cot in cau_loi:
+        m = _LOI_TRUONG.search(cau)
+        if m:
+            ten, kieu = m.group(1), _goc_kieu(m.group(2))
+            i = _tim_truong(doc, ten, dong, cot)
+            if i < 0:
+                bo_qua.append(f"không xác định được chỗ của '{ten}' trong truy vấn")
+                continue
+            truong, loi_soi = await truong_cua(kieu)
+            dau, cuoi = _pham_vi_truong(doc, i)
+            ung = _ung_doi_ten(ten, _y_la(cau), truong)
+            if ung:
+                sua.append((i, i + len(ten), ung,
+                            f"đổi tên trường '{ten}' -> '{ung}' trên type '{kieu}'"))
+            elif _mot_minh(doc, i):
+                lop = _chon_lop(truong)
+                if lop:
+                    sua.append((i, i + len(ten), lop,
+                                f"đổi tên lớp bọc '{ten}' -> '{lop}' trên type '{kieu}'"))
+                else:
+                    bo_qua.append(f"'{ten}' là trường duy nhất trong khối của nó nên bỏ đi là "
+                                  f"truy vấn rỗng, mà cũng không có tên nào thay được"
+                                  + (f" ({loi_soi})" if loi_soi else ""))
+            else:
+                sua.append((dau, cuoi, "",
+                            f"BỎ trường '{ten}': sàn không còn khai nó trên type '{kieu}' và "
+                            f"không có tên nào đủ gần để thay"))
+            continue
+
+        m = _LOI_THIEU_CON.search(cau)
+        if m:
+            ten, kieu = m.group(1), _goc_kieu(m.group(2))
+            i = _tim_truong(doc, ten, dong, cot)
+            if i < 0:
+                bo_qua.append(f"không xác định được chỗ của '{ten}' trong truy vấn")
+                continue
+            truong, loi_soi = await truong_cua(kieu)
+            con = [k for k, v in (truong or {}).items() if not v.get("co_con")]
+            dau, cuoi = _pham_vi_truong(doc, i)
+            if con:
+                con = con[:_TRAN_TRUONG_CON]
+                sua.append((dau, cuoi, doc[dau:cuoi].rstrip() + " { " + " ".join(con) + " }",
+                            f"'{ten}' nay là một khối chứ không phải giá trị đơn: lấy các "
+                            f"trường lấy thẳng được của type '{kieu}' ({', '.join(con)})"))
+            else:
+                sua.append((dau, cuoi, "",
+                            f"BỎ trường '{ten}': nay là khối của type '{kieu}' mà không soi "
+                            f"được nó có trường con nào"
+                            + (f" ({loi_soi})" if loi_soi else "")))
+            continue
+
+        m = _LOI_THUA_CON.search(cau)
+        if m:
+            ten = m.group(1)
+            i = _tim_truong(doc, ten, dong, cot)
+            if i < 0:
+                bo_qua.append(f"không xác định được chỗ của '{ten}' trong truy vấn")
+                continue
+            dau, cuoi = _pham_vi_truong(doc, i)
+            sua.append((dau, cuoi, ten,
+                        f"'{ten}' nay là giá trị đơn ('{_goc_kieu(m.group(2))}'): bỏ khối con"))
+            continue
+
+        if cau.strip():
+            bo_qua.append(cau.strip()[:140])
+
+    if not sua:
+        return None, [], ("; ".join(bo_qua)
+                          or "lỗi không thuộc ba dạng lệch lược đồ mà gói biết sửa")
+
+    # Áp từ CUỐI lên ĐẦU để chỉ số của những phép sửa chưa áp không bị xô lệch, và bỏ phép sửa
+    # nào chồng lên một phép đã nhận (một trường nằm trong khối con của trường kia).
+    mo_ta, da_chiem = [], []
+    for dau, cuoi, thay, ghi in sorted(sua, key=lambda x: -x[0]):
+        if any(dau < b and a < cuoi for a, b in da_chiem):
+            continue
+        doc = doc[:dau] + thay + doc[cuoi:]
+        da_chiem.append((dau, cuoi))
+        mo_ta.append(ghi)
+    if not _boc_trong(doc, goc):
+        return None, [], "bản sửa làm hỏng hình dạng tài liệu truy vấn nên đã bỏ"
+    return doc, list(reversed(mo_ta)), ""
+
+
+def _loi_gql(ten_op, loi_json, da_sua, vi_sao) -> str:
+    return ("sàn TTS từ chối truy vấn GraphQL '%s': %s\n\nĐây là lược đồ trong graphql.json "
+            "không còn khớp sàn, KHÔNG phải token hay mạng. Javis đã thử tự sửa%s nhưng chưa "
+            "xong (%s). Soi hình dạng thật bằng tts_graphql action=introspect (tham số `type` "
+            "lấy nguyên văn trong câu lỗi trên), rồi ghi lại bằng action=set. Không phải cài "
+            "lại gói." % (ten_op, json.dumps(loi_json, ensure_ascii=False)[:400],
+                          (" (" + "; ".join(da_sua) + ")") if da_sua else "",
+                          vi_sao or "không rõ"))
+
+
+async def _gql(ctx, ten_op, bien, so_vong=_SO_VONG_TU_SUA):
     """Gọi POST /graphql. Trả (dữ_liệu_đã_bóc_lớp, lỗi).
 
-    Gặp đúng dạng lỗi "sàn bọc kết quả vào type con" thì tự soi lược đồ, lồng lại phần chọn
-    trường, thử LẠI MỘT LẦN, và nếu chạy thì ghi bản sửa ra ngoài gói. Một lần thôi, có chủ ý:
-    thử lại vòng vo trên một lược đồ đã đổi hẳn chỉ đốt thời gian và làm câu lỗi khó đọc."""
+    Sàn lệch lược đồ thì tự soi `__type`, sửa đúng những trường sàn kêu sai rồi thử lại, tối đa
+    `so_vong` vòng. Nhiều vòng chứ không phải một, vì một lần đổi thật của sàn thường kéo theo
+    vài trường và sàn chỉ báo được những lỗi nó thấy ở vòng đó. Chạy được thì GHI bản sửa ra
+    thư mục state, nên lần sau đi thẳng; không chạy được thì KHÔNG ghi gì, để lần gọi sau bắt
+    đầu lại từ bản trong gói chứ không tích lũy một tài liệu hỏng."""
     docs = _gql_docs(ctx)
     spec = docs.get(ten_op) or {}
     doc = (spec.get("doc") or "").strip()
     if not doc:
         return None, (f"không có tài liệu truy vấn cho '{ten_op}'. Xem bằng tool tts_graphql "
                       "(action=show) rồi sửa bằng action=set.")
-    d, loi = await _api("POST", "/graphql", dropship=False, tra_loi_json=True,
-                        body={"operationName": ten_op, "variables": bien, "query": doc})
-    if loi:
-        return None, loi
+    goc = spec.get("root") or ""
+    da_sua, d = [], None
+    for vong in range(so_vong + 1):
+        d, loi = await _api("POST", "/graphql", dropship=False, tra_loi_json=True,
+                            body={"operationName": ten_op, "variables": bien, "query": doc})
+        if loi:
+            return None, loi
+        loi_json = d.get("errors") if isinstance(d, dict) else None
+        if not loi_json:
+            break
+        if vong >= so_vong:
+            return None, _loi_gql(ten_op, loi_json, da_sua,
+                                  f"sửa và thử lại {so_vong} vòng vẫn còn lỗi")
+        moi, mo_ta, vi_sao = await _sua_mot_vong(doc, goc, loi_json)
+        if not moi:
+            return None, _loi_gql(ten_op, loi_json, da_sua, vi_sao)
+        doc, da_sua = moi, da_sua + mo_ta
 
     ghi_chu = ""
-    if isinstance(d, dict) and d.get("errors"):
-        moi, lop, vi_sao = (None, "", "đã thử tự sửa một lần rồi")
-        if cho_tu_sua:
-            moi, lop, vi_sao = await _tu_sua(ctx, ten_op, spec, d["errors"])
-        if not moi:
-            return None, (
-                "sàn TTS từ chối truy vấn GraphQL '%s': %s\n\nĐây là tên trường trong "
-                "graphql.json không còn khớp sàn, KHÔNG phải token hay mạng. Javis đã thử tự "
-                "sửa nhưng không xong (%s). Soi hình dạng thật bằng tts_graphql "
-                "action=introspect (kèm tham số `type` lấy từ câu lỗi trên), rồi ghi lại bằng "
-                "action=set. Không phải cài lại gói."
-                % (ten_op, json.dumps(d["errors"], ensure_ascii=False)[:400], vi_sao))
-        spec2 = {**spec, "doc": moi}
-        d2, loi2 = await _api("POST", "/graphql", dropship=False, tra_loi_json=True,
-                              body={"operationName": ten_op, "variables": bien, "query": moi})
-        if loi2 or (isinstance(d2, dict) and d2.get("errors")):
-            chi_tiet = loi2 or json.dumps(d2.get("errors"), ensure_ascii=False)[:300]
-            return None, (
-                "sàn TTS từ chối truy vấn GraphQL '%s'. Javis đã tự lồng kết quả vào lớp '%s' "
-                "rồi thử lại, vẫn không được: %s. Soi bằng tts_graphql action=introspect rồi "
-                "ghi lại bằng action=set." % (ten_op, lop, chi_tiet))
-        _ghi_doc(ctx, ten_op, {"doc": moi})
-        d, spec = d2, spec2
-        ghi_chu = ("Sàn đã đổi hình dạng kết quả: nay bọc trong lớp '%s'. Javis tự lồng lại "
-                   "truy vấn, thử lại thành công và ĐÃ LƯU bản sửa ngoài gói, nên lần sau "
-                   "chạy thẳng. Dữ liệu giờ nằm trong data.%s.%s"
-                   % (lop, spec.get("root") or "?", lop))
+    if da_sua:
+        vi_sao = _ghi_doc(ctx, ten_op, {"doc": doc})
+        ghi_chu = ("Sàn TTS đã đổi lược đồ GraphQL. Javis tự sửa truy vấn '%s' rồi chạy lại "
+                   "thành công. Đã làm: %s. %s"
+                   % (ten_op, "; ".join(da_sua),
+                      "Bản sửa ĐÃ LƯU ngoài gói nên lần sau chạy thẳng."
+                      if not vi_sao else
+                      "KHÔNG lưu được bản sửa (%s) nên lần gọi sau sẽ phải sửa lại." % vi_sao))
+        if any(x.startswith("BỎ ") or "đổi tên" in x for x in da_sua):
+            ghi_chu += (" LƯU Ý: có trường bị đổi tên hoặc bỏ đi. Nếu đó là trường TIỀN thì đọc "
+                        "lại ý nghĩa trước khi tính lãi - hai cái tên giống nhau không có nghĩa "
+                        "là cùng một khoản. Xem bản sửa bằng tts_graphql action=show, quay về "
+                        "mặc định của gói bằng action=reset.")
 
     than = (d or {}).get("data") if isinstance(d, dict) else None
-    goc = spec.get("root") or ""
     ra = None
     if isinstance(than, dict) and goc and goc in than:
         ra = {goc: than[goc], "extensions": (d or {}).get("extensions")}
@@ -1040,7 +1305,12 @@ def _xem_truoc(don: dict) -> dict:
         "shop_id": don.get("shop_id"),
         "khach": (don.get("customer") or {}).get("id") if isinstance(don.get("customer"), dict)
                  else ("đơn từ sàn khác" if don.get("source_identifier") else "CHƯA CÓ"),
-        "dia_chi_nhan": don.get("shipping_address") or don.get("shipping") or "CHƯA CÓ",
+        "dia_chi_nhan": (
+            don.get("shipping_address") or don.get("shipping")
+            or ("CHƯA TRUYỀN - đơn này mới chỉ có mã khách. Bản xem trước chỉ đọc được thân "
+                "request, nên không thấy được sàn sẽ lấy địa chỉ nào. Muốn chắc chắn giao "
+                "đúng chỗ thì truyền tay 'shipping_address'."
+                if isinstance(don.get("customer"), dict) else "CHƯA CÓ")),
         "so_dong_hang": len(dong),
         "hang": tom,
         "tong_tien_khach_tra": _tien(tong_ban),
@@ -1077,13 +1347,22 @@ async def _create_order(args, ctx):
         don_list.append(don)
 
     if not args.get("confirm"):
+        ghi = ("ĐÂY MỚI LÀ BẢN XEM TRƯỚC, chưa có đơn nào được tạo. Đọc lại cho khách xác "
+               "nhận tên, số điện thoại, địa chỉ, hàng và giá. Đơn đã tạo thì sàn KHÔNG cho "
+               "sửa, chỉ có huỷ rồi lên lại. Đồng ý rồi thì gọi lại đúng tool này với "
+               "confirm=true.")
+        # Đơn chỉ có mã khách thì bản xem trước KHÔNG đọc ra được địa chỉ, vì địa chỉ nằm ở
+        # phía sàn chứ không nằm trong thân request. Nói thẳng chỗ mù đó, đừng để người đọc
+        # tưởng mình vừa duyệt một địa chỉ mà thật ra chưa ai nhìn thấy.
+        if any(isinstance(d.get("customer"), dict) and not d.get("shipping_address")
+               for d in don_list):
+            ghi += (" LƯU Ý: có đơn chỉ truyền mã khách mà không truyền 'shipping_address', nên "
+                    "địa chỉ giao KHÔNG hiện trong bản xem trước này. Đọc địa chỉ của khách "
+                    "bằng tts_customers action=search rồi truyền tay 'shipping_address' nếu "
+                    "muốn nhìn thấy đúng chỗ hàng sẽ tới trước khi bấm.")
         return _ra({"so_don_se_tao": len(don_list),
                     "cac_don": [_xem_truoc(d) for d in don_list],
-                    "da_thuc_thi": False},
-                   "ĐÂY MỚI LÀ BẢN XEM TRƯỚC, chưa có đơn nào được tạo. Đọc lại cho khách xác "
-                   "nhận tên, số điện thoại, địa chỉ, hàng và giá. Đơn đã tạo thì sàn KHÔNG cho "
-                   "sửa, chỉ có huỷ rồi lên lại. Đồng ý rồi thì gọi lại đúng tool này với "
-                   "confirm=true.")
+                    "da_thuc_thi": False}, ghi)
 
     ket_qua = []
     for don in don_list:
@@ -1286,11 +1565,21 @@ async def _health(args, ctx):
             continue
         d, loi = await _gql(ctx, op, bien)
         bao["graphql"][op] = "ok" if not loi else f"LỖI: {loi[:220]}"
+    # Soi lược đồ bật hay tắt QUYẾT ĐỊNH gói có tự sửa được không khi sàn đổi trường: tắt thì
+    # mọi lệch lược đồ đều phải sửa tay bằng tts_graphql action=set. Biết trước hơn là biết
+    # vào đúng lúc đang lên đơn cho khách.
+    _, loi_soi = await _introspect("Query")
+    bao["soi_luoc_do"] = "ok - gói tự sửa được truy vấn khi sàn đổi" if not loi_soi \
+        else f"KHÔNG DÙNG ĐƯỢC: {loi_soi[:180]}"
+
     hong = [k for k, v in {**bao["rest"], **bao["graphql"]}.items() if str(v).startswith("LỖI")]
     return _ra(bao, ("Mọi đường đều sống." if not hong else
                      "Đường hỏng: " + ", ".join(hong) + ". Lỗi GraphQL gần như luôn là tên trường "
-                     "trong graphql.json không còn khớp sàn, sửa bằng tool tts_graphql "
-                     "(action=set) chứ không phải cài lại gói. Lỗi REST 401/403 là token hết hạn. "
+                     "trong graphql.json không còn khớp sàn. Gói tự sửa được ba dạng lệch (đổi "
+                     "tên trường, trường hoá thành khối, sàn bọc thêm một lớp) MIỄN LÀ dòng "
+                     "soi_luoc_do ở trên là ok; còn lại thì sửa tay bằng tool tts_graphql "
+                     "(action=introspect rồi action=set), không phải cài lại gói. "
+                     "Lỗi REST 401/403 là token hết hạn. "
                      "Đây là API nội bộ của sàn, không có tài liệu chính thức và sàn có thể đổi "
                      "bất cứ lúc nào."))
 
@@ -1316,10 +1605,14 @@ async def _graphql_doc(args, ctx):
         truong, loi = await _introspect(ten_type)
         if loi:
             return _loi(loi)
-        return _ra({"type": ten_type, "truong": truong},
+        return _ra({"type": _goc_kieu(ten_type),
+                    "truong": {k: v["kieu"] for k, v in truong.items()},
+                    "truong_phai_chon_tiep": sorted(k for k, v in truong.items()
+                                                    if v.get("co_con"))},
                    "Đây là hình dạng THẬT sàn đang khai, không phải suy đoán. Trường nào có "
-                   "'[]' là danh sách, và thường chính nó là chỗ dữ liệu đã chuyển vào. Ghi lại "
-                   "truy vấn bằng action=set.")
+                   "'[]' là danh sách, và thường chính nó là chỗ dữ liệu đã chuyển vào. Trường "
+                   "nằm trong 'truong_phai_chon_tiep' là một khối, phải viết `ten { con1 con2 }` "
+                   "chứ không lấy thẳng được. Ghi lại truy vấn bằng action=set.")
 
     if act == "set":
         op = _str(args, "operation")

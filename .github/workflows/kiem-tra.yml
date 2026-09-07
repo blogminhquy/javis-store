@@ -22,3 +22,8 @@ jobs:
           python-version: "3.12"
       - name: Kiểm cấu trúc gói, an toàn quyền, và danh mục
         run: python tools/kiem-tra.py
+
+      # Phần tự sửa truy vấn của gói TTS Dropship chỉ chạy vào đúng lúc sàn vừa đổi lược đồ,
+      # tức lúc không ai chạy thử được. Bộ ca này giả câu lỗi và lược đồ để nó vẫn được chạy.
+      - name: Thử phần tự sửa lược đồ GraphQL của TTS Dropship
+        run: python tools/thu-tts-tu-sua.py

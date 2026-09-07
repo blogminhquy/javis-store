@@ -53,6 +53,12 @@ bản tóm tắt: khách, hàng, số lượng, giá bán, phí ship, lãi ướ
 người dùng bằng lời**, nêu rõ tên người nhận, số điện thoại, địa chỉ đầy đủ và tổng tiền khách
 phải trả.
 
+Muốn bản xem trước hiện được ĐỊA CHỈ thì phải truyền `shipping_address` (lấy từ bước 1), chứ
+không chỉ `customer_id`. Bản xem trước chỉ đọc được thân request; địa chỉ mặc định của khách
+nằm ở phía sàn nên nó không nhìn thấy, và lúc đó ô địa chỉ ghi "CHƯA TRUYỀN". Đơn vẫn lên
+được, nhưng người xác nhận đang duyệt một địa chỉ chưa ai đọc ra - mà đơn đã tạo thì sàn không
+cho sửa. Nên với khách mới, hoặc khách có nhiều địa chỉ, luôn truyền tay `shipping_address`.
+
 **6. Tạo thật.** Người dùng xác nhận rồi mới gọi lại `tts_create_order` với `confirm=true`.
 Giỏ nhiều shop thì truyền mảng `orders`, mỗi mục một shop. Kết quả trả về trạng thái từng đơn:
 nếu có đơn lỗi thì **chỉ lên lại đúng đơn đó**, đừng gọi lại cả lượt, vì các đơn đã tạo là
