@@ -24,9 +24,9 @@ cho bot Telegram, khách nhắn cho bot Zalo, và tin gửi tới tài khoản Z
 Ba điều phải nhớ khi kết luận:
 
 - **Chỉ có dữ liệu từ ngày Javis bắt đầu trực.** Không có lịch sử cũ trước đó.
-- **Zalo cá nhân là một chiều.** Tin chủ tự trả lời bằng app Zalo trên điện thoại KHÔNG vào
-  kho. Nên hội thoại Zalo cá nhân "chờ trả lời" có thể đã được trả lời rồi; nói rõ điều đó,
-  đừng kết luận "khách bị bỏ quên".
+- **Zalo cá nhân chỉ ghi khi chủ bật** (mục Kênh ở trang Hội thoại), và tin chủ tự trả lời
+  bằng app trên điện thoại có thể không vào kho. Nên hội thoại Zalo cá nhân "chờ trả lời" có
+  thể đã được trả lời rồi; nói rõ điều đó, đừng kết luận "khách bị bỏ quên".
 - **Ảnh, file, tin thoại chỉ giữ loại tin và tên/đường dẫn**, không giữ nội dung. Muốn xem thì
   mở file trong inbox của brain hoặc đường link `url` nếu có.
 
@@ -58,7 +58,7 @@ Ba điều phải nhớ khi kết luận:
 
 ## Lỗi hay gặp
 
-- Tool trả `ERROR: ... cần Javis OS 0.60.0`: Javis chưa có kho hội thoại. Bảo người dùng cập
+- Tool trả `ERROR: ... cần Javis OS 0.60.1`: Javis chưa có kho hội thoại. Bảo người dùng cập
   nhật Javis (mục Cập nhật trên thanh bên).
 - Kho trống dù đã có bot: bot chưa được BẬT ở trang Chatbot, hoặc chưa có khách nhắn từ lúc
-  bật. Với Zalo cá nhân: kiểm dòng "Zalo cá nhân: đang đọc..." ở đầu trang Hội thoại.
+  bật. Với Zalo cá nhân: kiểm công tắc Ghi hội thoại ở mục Kênh của trang Hội thoại.

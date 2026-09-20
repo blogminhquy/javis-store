@@ -1,5 +1,5 @@
 # Gói "Quản lý khách hàng": tầng CRM cắm vào kho hội thoại khách đa kênh của Javis OS
-# (trang Hội thoại, có từ 0.60.0). Gói KHÔNG tự đọc tin từ Telegram hay Zalo; việc đó là của
+# (trang Hội thoại từ 0.60.0, tầng CRM của kho từ 0.60.1). Gói KHÔNG tự đọc tin từ Telegram hay Zalo; việc đó là của
 # lõi Javis. Gói chỉ đọc kho đã có, gắn tag và ghi chú lên khách, tìm khách chờ trả lời, xuất
 # danh sách. Nên nó không cần token nào và không mở kết nối ra ngoài.
 format: javis-pack
@@ -12,18 +12,18 @@ name:
   vi: Quản lý khách hàng (CRM)
   en: Customer management (CRM)
 description:
-  vi: Xem khách từ mọi kênh chat, hồ sơ và lịch sử từng người, gắn tag, ghi chú, tìm khách chờ trả lời, thống kê và xuất CSV. Cần Javis 0.60.0 trở lên.
-  en: Customers from every chat channel, per-person profile and history, tags, notes, unanswered queue, stats and CSV export. Needs Javis 0.60.0 or newer.
+  vi: Xem khách từ mọi kênh chat, hồ sơ và lịch sử từng người, gắn tag, ghi chú, tìm khách chờ trả lời, thống kê và xuất CSV. Cần Javis 0.60.1 trở lên.
+  en: Customers from every chat channel, per-person profile and history, tags, notes, unanswered queue, stats and CSV export. Needs Javis 0.60.1 or newer.
 
 author:
   name: Javis
 license: MIT
 homepage: https://github.com/blogminhquy/javis-store
 
-# Kho hội thoại (server/conversation_store.py) mới có từ 0.60.0. Bản cũ hơn thì gói bị tắt
+# Tầng CRM của kho hội thoại (server/conversations.py) mới có từ 0.60.1. Bản cũ hơn thì gói bị tắt
 # kèm lý do đọc được, thay vì cài xong mà tool nào cũng báo thiếu module.
 compat:
-  app: ">=0.60.0"
+  app: ">=0.60.1"
 
 provides:
   plugins:

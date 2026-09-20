@@ -1,8 +1,8 @@
 """Quản lý khách hàng (CRM) trên kho hội thoại khách đa kênh của Javis OS.
 
-Gói này là TẦNG TRÊN của trang Hội thoại (Javis 0.60.0+): lõi Javis đã gom tin từ bot
+Gói này là TẦNG TRÊN của trang Hội thoại (Javis 0.60.1+): lõi Javis đã gom tin từ bot
 Telegram, bot Zalo và Zalo cá nhân về một kho (khách -> hội thoại -> tin). Plugin đọc kho đó
-qua đúng các hàm của `conversation_store`, không tự viết SQL: schema là của lõi, lõi đổi thì
+qua đúng các hàm của `conversations` (tầng CRM 0.60.1+), không tự viết SQL: schema là của lõi, lõi đổi thì
 hàm của lõi đổi theo, còn SQL chép ở đây sẽ gãy im lặng.
 
 Tám tool, chia hai nhóm:
@@ -30,16 +30,17 @@ _TRAN_DONG = 500
 
 
 def _kho():
-    """Kho hội thoại của lõi Javis. Trả (store, None) hoặc (None, lý do)."""
+    """Kho hội thoại của lõi Javis (module `conversations`, tầng CRM có từ 0.60.1).
+    Trả (module, None) hoặc (None, lý do)."""
     try:
-        import conversation_store
+        import conversations as cs
     except Exception:
-        return None, ("ERROR: Javis này chưa có kho hội thoại (cần Javis OS 0.60.0 trở lên). "
+        return None, ("ERROR: Javis này chưa có kho hội thoại khách (cần Javis OS 0.60.1 trở lên). "
                       "Cập nhật Javis rồi gọi lại.")
-    try:
-        return conversation_store.get_store(), None
-    except Exception as e:
-        return None, f"ERROR: không mở được kho hội thoại: {type(e).__name__}: {e}"
+    if not hasattr(cs, "danh_sach_khach"):
+        return None, ("ERROR: kho hội thoại của Javis này chưa có tầng CRM (cần Javis OS 0.60.1 trở lên). "
+                      "Cập nhật Javis rồi gọi lại.")
+    return cs, None
 
 
 def _check():
@@ -73,22 +74,23 @@ def _ra(d):
 
 def _khach_gon(c):
     return {
-        "id": c["id"], "ten": c.get("name") or "(chưa có tên)", "username": c.get("username") or "",
+        "id": c["id"], "ten": c.get("name") or "(chưa có tên)",
         "kenh": c.get("channel_label") or c.get("channel"), "tai_khoan": c.get("account_name") or "",
         "id_tren_kenh": c.get("external_user_id"), "tags": c.get("tags") or [],
-        "ghi_chu": c.get("note") or "", "so_tin": c.get("msg_count") or 0,
+        "ghi_chu": c.get("note") or "", "so_tin": c.get("so_tin") or 0,
         "lan_dau": _gio(c.get("first_seen_at")), "lan_cuoi": _gio(c.get("last_seen_at")),
     }
 
 
 def _hoi_thoai_gon(v):
     return {
-        "id": v["id"], "ten": v.get("display_name"), "kenh": v.get("channel_label") or v.get("channel"),
+        "id": v["id"], "ten": v.get("title") or v.get("customer_name") or v.get("external_chat_id"),
+        "kenh": v.get("channel_label") or v.get("channel"),
         "bot_id": v.get("bot_id") or "", "loai": "nhóm" if v.get("chat_type") == "group" else "riêng",
         "che_do": v.get("mode"), "khach_id": v.get("customer_id"),
         "tin_cuoi": v.get("last_message") or "", "nguoi_noi_cuoi": v.get("last_sender_type") or "",
         "luc": _gio(v.get("last_message_at")), "chua_doc": v.get("unread_count") or 0,
-        "so_tin": v.get("msg_count") or 0, "tags": v.get("customer_tags") or [],
+        "so_tin": v.get("message_count") or 0, "tags": v.get("customer_tags") or [],
     }
 
 
@@ -111,7 +113,7 @@ def crm_khach_hang(args, ctx):
     if loi:
         return loi
     a = args or {}
-    ds = st.list_customers(channel=str(a.get("kenh") or "").strip().lower(), tag=str(a.get("tag") or "").strip(),
+    ds = st.danh_sach_khach(channel=str(a.get("kenh") or "").strip().lower(), tag=str(a.get("tag") or "").strip(),
                            q=str(a.get("q") or "").strip(), days=_so(a.get("ngay"), 0, 0, 3650),
                            limit=_so(a.get("limit"), 50))
     return _ra({"so_khach": len(ds), "khach": [_khach_gon(c) for c in ds]})
@@ -127,7 +129,7 @@ def crm_ho_so_khach(args, ctx):
         q = str(a.get("q") or "").strip()
         if not q:
             return "ERROR: cần 'khach_id' hoặc 'q' (tên / username / id trên kênh) để tìm khách."
-        ds = st.list_customers(q=q, limit=10)
+        ds = st.danh_sach_khach(q=q, limit=10)
         if not ds:
             return f"Không thấy khách nào khớp '{q}'."
         if len(ds) > 1:
@@ -138,14 +140,14 @@ def crm_ho_so_khach(args, ctx):
         kid = int(kid)
     except (TypeError, ValueError):
         return "ERROR: 'khach_id' phải là số."
-    c = st.get_customer(kid)
+    c = st.khach(kid)
     if not c:
         return f"ERROR: không có khách id {kid}."
     so_tin = _so(a.get("so_tin"), 30, 1, 200)
     hoi_thoai = []
-    for v in st.customer_conversations(kid):
+    for v in st.hoi_thoai_cua_khach(kid):
         d = _hoi_thoai_gon(v)
-        d["tin_gan_nhat"] = [_tin_gon(m) for m in st.get_messages(v["id"], limit=so_tin)]
+        d["tin_gan_nhat"] = [_tin_gon(m) for m in st.tin_nhan(v["id"], limit=so_tin)]
         hoi_thoai.append(d)
     return _ra({"khach": _khach_gon(c), "hoi_thoai": hoi_thoai})
 
@@ -160,14 +162,15 @@ def crm_hoi_thoai(args, ctx):
             cid = int(a["hoi_thoai_id"])
         except (TypeError, ValueError):
             return "ERROR: 'hoi_thoai_id' phải là số."
-        v = st.get_conversation(cid)
+        v = st.chi_tiet(cid)
         if not v:
             return f"ERROR: không có hội thoại id {cid}."
         return _ra({"hoi_thoai": _hoi_thoai_gon(v),
-                    "tin": [_tin_gon(m) for m in st.get_messages(cid, limit=_so(a.get("limit"), 60, 1, 500))]})
-    ds = st.list_conversations(channel=str(a.get("kenh") or "").strip().lower(), bot_id=str(a.get("bot_id") or "").strip(),
-                               q=str(a.get("q") or "").strip(), chua_doc=bool(a.get("chua_doc")),
-                               limit=_so(a.get("limit"), 30))
+                    "tin": [_tin_gon(m) for m in st.tin_nhan(cid, limit=_so(a.get("limit"), 60, 1, 500))]})
+    ds = st.danh_sach(channel=str(a.get("kenh") or "").strip().lower(), bot_id=str(a.get("bot_id") or "").strip(),
+                      q=str(a.get("q") or "").strip(), limit=_so(a.get("limit"), 30))
+    if a.get("chua_doc"):
+        ds = [v for v in ds if (v.get("unread_count") or 0) > 0]
     return _ra({"so_hoi_thoai": len(ds), "hoi_thoai": [_hoi_thoai_gon(v) for v in ds]})
 
 
@@ -179,7 +182,7 @@ def crm_tim_tin(args, ctx):
     q = str(a.get("q") or "").strip()
     if not q:
         return "ERROR: thiếu 'q' (chữ cần tìm trong tin nhắn)."
-    ds = st.search_messages(q, channel=str(a.get("kenh") or "").strip().lower(), limit=_so(a.get("limit"), 40))
+    ds = st.tim_tin(q, channel=str(a.get("kenh") or "").strip().lower(), limit=_so(a.get("limit"), 40))
     return _ra({"so_tin": len(ds), "tin": [{
         "hoi_thoai_id": m["conversation_id"], "khach": m.get("customer_name") or m.get("title") or m.get("external_chat_id"),
         "kenh": m.get("channel"), "ai": m.get("sender_type"), "luc": _gio(m.get("created_at")), "text": m.get("text") or "",
@@ -195,7 +198,7 @@ def crm_cho_tra_loi(args, ctx):
         gio = float(a.get("gio") if a.get("gio") not in (None, "") else 2)
     except (TypeError, ValueError):
         return "ERROR: 'gio' phải là số giờ."
-    ds = st.cho_tra_loi(hours=max(0.0, gio), limit=_so(a.get("limit"), 50))
+    ds = st.cho_tra_loi(max(0.0, gio), _so(a.get("limit"), 50))
     out = []
     for v in ds:
         d = _hoi_thoai_gon(v)
@@ -205,8 +208,8 @@ def crm_cho_tra_loi(args, ctx):
             d["cho_da_gio"] = None
         out.append(d)
     return _ra({"nguong_gio": gio, "so_hoi_thoai": len(out),
-                "luu_y": "Tin chủ tự trả lời bằng app Zalo trên điện thoại KHÔNG vào kho, nên hội thoại Zalo "
-                         "cá nhân có thể đã được trả lời rồi. Kiểm lại trước khi nhắn thêm.",
+                "luu_y": "Với Zalo cá nhân, tin chủ tự trả lời bằng app trên điện thoại có thể không vào kho, "
+                         "nên hội thoại đó có thể đã được trả lời rồi. Kiểm lại trước khi nhắn thêm.",
                 "hoi_thoai": out})
 
 
@@ -216,21 +219,12 @@ def crm_thong_ke(args, ctx):
         return loi
     a = args or {}
     ngay = _so(a.get("ngay"), 7, 1, 365)
-    tk = st.stats(channel=str(a.get("kenh") or "").strip().lower(), bot_id=str(a.get("bot_id") or "").strip())
-    # Khách mới theo ngày: đếm từ lần đầu xuất hiện.
-    moc = time.time() - ngay * 86400
-    theo_ngay = {}
-    for c in st.list_customers(channel=str(a.get("kenh") or "").strip().lower(), limit=1000):
-        fs = c.get("first_seen_at") or 0
-        if fs >= moc:
-            k = datetime.fromtimestamp(fs).strftime("%Y-%m-%d")
-            theo_ngay[k] = theo_ngay.get(k, 0) + 1
-    tags = {}
-    for c in st.list_customers(limit=1000):
-        for t in c.get("tags") or []:
-            tags[t] = tags.get(t, 0) + 1
-    return _ra({"tong": tk, "khach_moi_theo_ngay": dict(sorted(theo_ngay.items())),
-                "so_ngay": ngay, "tag": dict(sorted(tags.items(), key=lambda x: -x[1]))})
+    kenh = str(a.get("kenh") or "").strip().lower()
+    tong = st.thong_ke(bot_id=str(a.get("bot_id") or "").strip(), channel=kenh)
+    kh = st.thong_ke_khach(ngay, channel=kenh)
+    return _ra({"hoi_thoai": tong, "khach": kh["khach"], "so_ngay": ngay,
+                "khach_moi_theo_ngay": kh["khach_moi_theo_ngay"], "tag": kh["theo_tag"],
+                "cho_tra_loi": kh["cho_tra_loi"]})
 
 
 # ============================================================
@@ -245,7 +239,7 @@ def crm_gan_tag(args, ctx):
         kid = int(a.get("khach_id"))
     except (TypeError, ValueError):
         return "ERROR: thiếu 'khach_id' (số). Tìm bằng crm_khach_hang hoặc crm_ho_so_khach trước."
-    c = st.get_customer(kid)
+    c = st.khach(kid)
     if not c:
         return f"ERROR: không có khách id {kid}."
     tags = list(c.get("tags") or [])
@@ -261,10 +255,10 @@ def crm_gan_tag(args, ctx):
             tags.append(t)
     bo = _ds(a.get("bo"))
     tags = [t for t in tags if t not in bo]
-    tags = st.set_customer_tags(kid, tags)
+    tags = st.dat_tag_khach(kid, tags) or []
     if a.get("ghi_chu") is not None:
-        st.set_customer_note(kid, str(a.get("ghi_chu") or ""))
-    return _ra({"ok": True, "khach": _khach_gon(st.get_customer(kid))})
+        st.dat_ghi_chu_khach(kid, str(a.get("ghi_chu") or ""))
+    return _ra({"ok": True, "khach": _khach_gon(st.khach(kid))})
 
 
 def crm_xuat_csv(args, ctx):
@@ -275,14 +269,14 @@ def crm_xuat_csv(args, ctx):
     root = getattr(ctx, "vault_root", None)
     if not root:
         return "ERROR: không biết brain đang mở nên không biết ghi CSV vào đâu."
-    ds = st.list_customers(channel=str(a.get("kenh") or "").strip().lower(), tag=str(a.get("tag") or "").strip(),
+    ds = st.danh_sach_khach(channel=str(a.get("kenh") or "").strip().lower(), tag=str(a.get("tag") or "").strip(),
                            q=str(a.get("q") or "").strip(), days=_so(a.get("ngay"), 0, 0, 3650), limit=5000)
     buf = io.StringIO()
     w = csv.writer(buf)
-    w.writerow(["id", "ten", "username", "kenh", "tai_khoan", "id_tren_kenh", "tags", "ghi_chu", "so_tin", "lan_dau", "lan_cuoi"])
+    w.writerow(["id", "ten", "kenh", "tai_khoan", "id_tren_kenh", "tags", "ghi_chu", "so_tin", "lan_dau", "lan_cuoi"])
     for c in ds:
         g = _khach_gon(c)
-        w.writerow([g["id"], g["ten"], g["username"], g["kenh"], g["tai_khoan"], g["id_tren_kenh"],
+        w.writerow([g["id"], g["ten"], g["kenh"], g["tai_khoan"], g["id_tren_kenh"],
                     ", ".join(g["tags"]), g["ghi_chu"], g["so_tin"], g["lan_dau"], g["lan_cuoi"]])
     thu_muc = Path(root) / "exports"
     thu_muc.mkdir(parents=True, exist_ok=True)

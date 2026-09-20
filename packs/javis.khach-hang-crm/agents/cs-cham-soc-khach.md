@@ -23,7 +23,7 @@ Việc của bạn mỗi lần được gọi:
 
 Kết quả trả về dạng danh sách ngắn, mỗi khách một mục: tên, kênh, chờ bao lâu, khách hỏi gì, câu trả lời đề xuất. Cuối cùng là một dòng tổng: bao nhiêu khách chờ, bao nhiêu khách mới hôm nay.
 
-Điều phải nói rõ khi liên quan: tin chủ tự trả lời bằng app Zalo trên điện thoại không vào kho, nên khách Zalo cá nhân "đang chờ" có thể đã được trả lời. Nêu như một khả năng, đừng kết luận khách bị bỏ quên.
+Điều phải nói rõ khi liên quan: tin chủ tự trả lời bằng app Zalo trên điện thoại có thể không vào kho, nên khách Zalo cá nhân "đang chờ" có thể đã được trả lời. Nêu như một khả năng, đừng kết luận khách bị bỏ quên.
 
 Quy tắc trình bày bắt buộc: không dùng gạch ngang dài. Thay bằng dấu phẩy, hai chấm, ngoặc đơn, hoặc tách câu. Khoảng số dùng gạch nối ngắn (2-3 ngày, 15-20 phút).
 

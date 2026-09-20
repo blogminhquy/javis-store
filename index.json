@@ -46,8 +46,8 @@
         "en": "Customer management (CRM)"
       },
       "description": {
-        "vi": "Sổ khách hàng đặt lên trang Hội thoại: khách từ Telegram, Zalo Bot, Zalo cá nhân; hồ sơ và lịch sử từng người, gắn tag, ghi chú, khách chờ trả lời, thống kê, xuất Excel. Kèm trợ lý CSKH và quy trình rà soát mỗi ngày. Cần Javis 0.60.0 trở lên.",
-        "en": "A customer book on top of the Conversations page: customers from Telegram, Zalo Bot and personal Zalo; per-person profile and history, tags, notes, unanswered queue, stats, Excel export. Ships a support agent and a daily review workflow. Needs Javis 0.60.0 or newer."
+        "vi": "Sổ khách hàng đặt lên trang Hội thoại: khách từ Telegram, Zalo Bot, Zalo cá nhân; hồ sơ và lịch sử từng người, gắn tag, ghi chú, khách chờ trả lời, thống kê, xuất Excel. Kèm trợ lý CSKH và quy trình rà soát mỗi ngày. Cần Javis 0.60.1 trở lên.",
+        "en": "A customer book on top of the Conversations page: customers from Telegram, Zalo Bot and personal Zalo; per-person profile and history, tags, notes, unanswered queue, stats, Excel export. Ships a support agent and a daily review workflow. Needs Javis 0.60.1 or newer."
       },
       "version": "1.0.0",
       "author": {
@@ -65,8 +65,8 @@
       "icon": "packs/javis.khach-hang-crm/assets/khach-hang-crm.png",
       "download": {
         "url": "dist/javis-khach-hang-crm-1.0.0.zip",
-        "sha256": "a10996c6301c858d5c0ac8c57f4a926e3b8bfe40c1006f03d8924db8a50f9751",
-        "size": 14177
+        "sha256": "78e638637bc1b8ca4a46c9311fa2461cfbc7fb63324a6035db75ffebe6506719",
+        "size": 14086
       }
     },
     {
