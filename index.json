@@ -1,7 +1,7 @@
 {
   "format": "javis-pack-index",
   "format_version": 1,
-  "updated": "2026-09-05",
+  "updated": "2026-09-20",
   "store": {
     "name": "Kho cài đặt Javis",
     "url": "https://github.com/blogminhquy/javis-store"
@@ -36,6 +36,37 @@
         "url": "dist/javis-tinh-gia-1.0.0.zip",
         "sha256": "2efc5b73e55c98573bae20d765a6cfeabe062646f6dcb9d890fd56bb557e1cdb",
         "size": 5289
+      }
+    },
+    {
+      "id": "javis.khach-hang-crm",
+      "kind": "bundle",
+      "name": {
+        "vi": "Quản lý khách hàng (CRM)",
+        "en": "Customer management (CRM)"
+      },
+      "description": {
+        "vi": "Sổ khách hàng đặt lên trang Hội thoại: khách từ Telegram, Zalo Bot, Zalo cá nhân; hồ sơ và lịch sử từng người, gắn tag, ghi chú, khách chờ trả lời, thống kê, xuất Excel. Kèm trợ lý CSKH và quy trình rà soát mỗi ngày. Cần Javis 0.60.1 trở lên.",
+        "en": "A customer book on top of the Conversations page: customers from Telegram, Zalo Bot and personal Zalo; per-person profile and history, tags, notes, unanswered queue, stats, Excel export. Ships a support agent and a daily review workflow. Needs Javis 0.60.1 or newer."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "ban-hang",
+      "category_label": {
+        "vi": "Bán hàng",
+        "en": "Sales"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-09-20",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.khach-hang-crm",
+      "icon": "packs/javis.khach-hang-crm/assets/khach-hang-crm.png",
+      "download": {
+        "url": "dist/javis-khach-hang-crm-1.0.0.zip",
+        "sha256": "78e638637bc1b8ca4a46c9311fa2461cfbc7fb63324a6035db75ffebe6506719",
+        "size": 14086
       }
     },
     {
