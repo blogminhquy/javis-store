@@ -1,0 +1,30 @@
+# Gói "Javis trong ChatGPT": chat trên chatgpt.com, ChatGPT gọi công cụ của Javis.
+#
+# Tính năng này từng nằm trong lõi (0.64.21) và được đưa ra thành gói ở 0.64.26, vì Javis giữ
+# mọi cuộc chat chung một nền tảng. Ai vẫn cần thì cài, và việc cài là lựa chọn có chủ ý.
+format: javis-pack
+spec: 1
+
+id: javis.javis-trong-chatgpt
+version: 1.0.0
+
+name:
+  vi: Javis trong ChatGPT
+  en: Javis in ChatGPT
+description:
+  vi: Chat trên chatgpt.com bằng gói ChatGPT của bạn, và ChatGPT tự gọi công cụ của Javis (số liệu, brain, nhắc lịch, Zalo). Cần Javis 0.64.26 trở lên, mật khẩu quản trị và tên miền https.
+  en: Chat on chatgpt.com with your own ChatGPT plan while ChatGPT calls Javis's tools (numbers, brain, reminders, Zalo). Needs Javis 0.64.26 or newer, an admin password and an https domain.
+
+author:
+  name: Javis
+license: MIT
+homepage: https://github.com/blogminhquy/javis-store/tree/main/packs/javis.javis-trong-chatgpt
+
+# 0.64.26 mở `ctx.register_http` và `ctx.register_well_known` cho plugin. Bản cũ hơn thì gói
+# bị tắt kèm lý do đọc được, thay vì cài xong mà register() ném lỗi.
+compat:
+  app: ">=0.64.26"
+
+provides:
+  plugins:
+    - plugins/javis-trong-chatgpt

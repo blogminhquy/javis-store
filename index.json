@@ -1,7 +1,7 @@
 {
   "format": "javis-pack-index",
   "format_version": 1,
-  "updated": "2026-09-20",
+  "updated": "2026-09-24",
   "store": {
     "name": "Kho cài đặt Javis",
     "url": "https://github.com/blogminhquy/javis-store"
@@ -2015,6 +2015,37 @@
         "url": "dist/javis-tts-dropship-1.0.3.zip",
         "sha256": "8318457e4a6fe90005a26870907c4b9ec13478a9285e5e3f92ab3a1c123e31fc",
         "size": 53704
+      }
+    },
+    {
+      "id": "javis.javis-trong-chatgpt",
+      "kind": "tool",
+      "name": {
+        "vi": "Javis trong ChatGPT",
+        "en": "Javis in ChatGPT"
+      },
+      "description": {
+        "vi": "Chat trên chatgpt.com bằng gói ChatGPT của bạn, và ChatGPT tự gọi công cụ của Javis: số liệu, brain, nhắc lịch, Zalo. Chọn mức quyền, ngắt kết nối bất cứ lúc nào. Cần Javis 0.64.26 trở lên, mật khẩu quản trị và tên miền https.",
+        "en": "Chat on chatgpt.com with your own ChatGPT plan while ChatGPT calls Javis's tools: numbers, brain, reminders, Zalo. Pick the permission level, disconnect any time. Needs Javis 0.64.26 or newer, an admin password and an https domain."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "tro-ly-ai",
+      "category_label": {
+        "vi": "Trợ lý AI",
+        "en": "AI assistants"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-09-24",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.javis-trong-chatgpt",
+      "icon": "packs/javis.javis-trong-chatgpt/assets/javis-trong-chatgpt.png",
+      "download": {
+        "url": "dist/javis-javis-trong-chatgpt-1.0.0.zip",
+        "sha256": "cb86e0714a2f5000c5ea78dcb7b197a6db5ed40afa62fca6c764b4baccdcb708",
+        "size": 43809
       }
     }
   ]

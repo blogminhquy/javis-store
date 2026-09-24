@@ -1,0 +1,13 @@
+name: Javis trong ChatGPT
+slug: javis-trong-chatgpt
+version: 1.0.0
+description: Chat trên chatgpt.com bằng gói ChatGPT của bạn, ChatGPT gọi công cụ của Javis qua connector MCP có OAuth. Bấm Mở trang để lấy địa chỉ, chọn mức quyền, ngắt kết nối.
+author: Javis
+enabled: true
+# Gói không thêm tool nào: nó mở một CỬA để ChatGPT gọi các tool Javis đã có qua hub, và mức
+# quyền của từng lượt gọi do chủ chọn trên trang của gói (hub ép ở lớp cứng).
+min_mode: readonly
+tools: []
+hooks: []
+# Trang riêng của gói: thẻ plugin có nút "Mở trang" trỏ vào /ext/javis-trong-chatgpt/
+page: ""
