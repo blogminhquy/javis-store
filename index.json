@@ -2025,8 +2025,8 @@
         "en": "Javis in ChatGPT"
       },
       "description": {
-        "vi": "Chat trên chatgpt.com bằng gói ChatGPT của bạn, và ChatGPT tự gọi công cụ của Javis: số liệu, brain, nhắc lịch, Zalo. Chọn mức quyền, ngắt kết nối bất cứ lúc nào. Cần Javis 0.64.22 trở lên, mật khẩu quản trị và tên miền https.",
-        "en": "Chat on chatgpt.com with your own ChatGPT plan while ChatGPT calls Javis's tools: numbers, brain, reminders, Zalo. Pick the permission level, disconnect any time. Needs Javis 0.64.22 or newer, an admin password and an https domain."
+        "vi": "Chat trên chatgpt.com bằng gói ChatGPT của bạn, và ChatGPT tự gọi công cụ của Javis: số liệu, brain, nhắc lịch, Zalo. Chọn mức quyền, ngắt kết nối bất cứ lúc nào. Cần Javis 0.64.26 trở lên, mật khẩu quản trị và tên miền https.",
+        "en": "Chat on chatgpt.com with your own ChatGPT plan while ChatGPT calls Javis's tools: numbers, brain, reminders, Zalo. Pick the permission level, disconnect any time. Needs Javis 0.64.26 or newer, an admin password and an https domain."
       },
       "version": "1.0.0",
       "author": {
@@ -2044,7 +2044,7 @@
       "icon": "packs/javis.javis-trong-chatgpt/assets/javis-trong-chatgpt.png",
       "download": {
         "url": "dist/javis-javis-trong-chatgpt-1.0.0.zip",
-        "sha256": "40f5b9abbc315665c1c91a57c3f4e8ad7d1f6d65602e8827d76124c9d9e88e12",
+        "sha256": "cb86e0714a2f5000c5ea78dcb7b197a6db5ed40afa62fca6c764b4baccdcb708",
         "size": 43809
       }
     }

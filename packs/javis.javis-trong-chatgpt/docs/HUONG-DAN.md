@@ -4,7 +4,7 @@ Bạn chat trên **chatgpt.com** bằng gói ChatGPT của mình, và ChatGPT t�
 
 Phần suy nghĩ chạy bằng gói ChatGPT của bạn, **không tốn hạn mức Codex**. Javis chỉ lo phần làm.
 
-> Vì sao là một gói: Javis giữ mọi cuộc chat chung **một nền tảng**, nên tính năng đưa chat sang chatgpt.com không bật sẵn cho mọi người. Nó từng nằm trong bản chính (0.64.21) và được tách ra thành gói ở 0.64.22. Ai cần thì cài.
+> Vì sao là một gói: Javis giữ mọi cuộc chat chung **một nền tảng**, nên tính năng đưa chat sang chatgpt.com không bật sẵn cho mọi người. Nó từng nằm trong bản chính (0.64.21) và được tách ra thành gói ở 0.64.26. Ai cần thì cài.
 
 ---
 
@@ -18,7 +18,7 @@ Gói không thêm tool mới. ChatGPT dùng đúng bộ công cụ Javis đã c�
 
 ## Cần có gì
 
-- **Javis OS 0.64.22 trở lên.** Bản cũ hơn thì gói bị tắt kèm lý do ngay lúc cài.
+- **Javis OS 0.64.26 trở lên.** Bản cũ hơn thì gói bị tắt kèm lý do ngay lúc cài.
 - **Gói ChatGPT** Plus, Pro, Business (Team), Enterprise hoặc Edu. Gói miễn phí không có tính năng này.
 - **Máy tính.** Bước cài đặt (Developer mode) chỉ làm được trên bản web chatgpt.com, không làm được trong app điện thoại.
 - **Javis có địa chỉ https.** ChatGPT không nhận địa chỉ kiểu `http://12.34.56.78:7777`. Gắn tên miền riêng trước (Cài đặt, mục Giọng nói, thương hiệu và truy cập).
@@ -115,7 +115,7 @@ Javis tự chặn ở phía mình theo mức đã chọn. ChatGPT không tự n�
 | Không có mục Developer mode | Gói miễn phí, hoặc đang ở app điện thoại | Dùng gói trả phí, mở chatgpt.com trên máy tính |
 | Không có nút Create connector (gói Business) | Quản trị viên chưa cho phép | Làm bước 2 |
 | ChatGPT báo không kết nối được server | Địa chỉ không phải https, plugin đang tắt, hoặc Javis chưa có mật khẩu | Xem lại "Cần có gì" và bước 1 |
-| Thẻ plugin không có nút Mở trang | Javis cũ hơn 0.64.22, hoặc plugin đang tắt | Cập nhật Javis, bật plugin |
+| Thẻ plugin không có nút Mở trang | Javis cũ hơn 0.64.26, hoặc plugin đang tắt | Cập nhật Javis, bật plugin |
 | Trang Javis báo "Yêu cầu này đã quá hạn" | Để trang Cho phép mở quá 10 phút | Kết nối lại từ ChatGPT |
 | Đang dùng tốt bỗng bắt kết nối lại | 30 ngày không dùng, hoặc đã bấm Ngắt mọi kết nối | Kết nối lại từ ChatGPT |
 

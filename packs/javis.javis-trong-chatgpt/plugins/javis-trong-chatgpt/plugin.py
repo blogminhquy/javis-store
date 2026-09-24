@@ -2,7 +2,7 @@
 
 Vì sao là một gói, không phải tính năng có sẵn
 ----------------------------------------------
-Bản 0.64.21 đưa cửa này vào lõi Javis. Chủ repo gỡ nó ở 0.64.22 vì nó đi ngược nguyên tắc của
+Bản 0.64.21 đưa cửa này vào lõi Javis. Chủ repo gỡ nó ở 0.64.26 vì nó đi ngược nguyên tắc của
 Javis: mọi cuộc chat nằm chung MỘT nền tảng. Ai vẫn muốn chat trên chatgpt.com bằng gói của
 mình thì cài gói này, và việc cài là lựa chọn có chủ ý của họ.
 
@@ -19,7 +19,7 @@ Claude Code và Codex dùng); gói này chỉ thêm CỬA: OAuth 2.1 tối giả
 
 Bước "Cho phép" dựa vào ĐĂNG NHẬP DASHBOARD sẵn có (mật khẩu + 2FA), không thêm bí mật nào.
 
-Cần Javis 0.64.22 trở lên: bản đó mở `ctx.register_http` và `ctx.register_well_known`.
+Cần Javis 0.64.26 trở lên: bản đó mở `ctx.register_http` và `ctx.register_well_known`.
 
 Ranh giới an toàn
 -----------------
