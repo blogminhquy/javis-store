@@ -1,20 +1,37 @@
 {
   "_doc": [
-    "Ba truy vấn GraphQL của TTS Dropship, tách ra thành DỮ LIỆU chứ không nhúng cứng vào mã.",
+    "Bốn truy vấn GraphQL của TTS Dropship, tách ra thành DỮ LIỆU chứ không nhúng cứng vào mã.",
     "",
     "Vì sao: api.thitruongsi.com là API NỘI BỘ của sàn, không có tài liệu chính thức và không",
-    "cam kết giữ nguyên. Ngày 05/09/2026 sàn đã đổi thật: kết quả thôi trả phẳng mà bọc vào một",
-    "type con (ProductSearchResponse có trường `products`, OrdersQueryResponse có trường danh",
-    "sách của nó), nên truy vấn cũ chọn thẳng `id` bị từ chối kèm HTTP 422.",
+    "cam kết giữ nguyên. Sàn đã đổi thật hai lần:",
     "",
-    "Bản dưới đây đã lồng theo hình dạng mới. Nhưng đừng tin nó là chân lý: khi sàn đổi tiếp,",
-    "plugin TỰ soi lược đồ (`__type`) để tìm lớp bọc mới, lồng lại truy vấn, thử lại một lần và",
-    "ghi bản sửa ra thư mục state. Muốn tự tay làm thì gọi tool `tts_graphql`: action=introspect",
-    "để xem hình dạng THẬT, rồi action=set để ghi. Cả hai đường đều không cần cài lại gói.",
+    "  05/09/2026 - kết quả thôi trả phẳng mà bọc vào một type con (`ProductSearchResponse` có",
+    "  trường `products`, `OrdersQueryResponse` có trường `items`), nên truy vấn cũ chọn thẳng",
+    "  `id` bị từ chối kèm HTTP 422.",
+    "",
+    "  07/09/2026 - đổi tên và đổi kiểu từng trường: `dropship_selling_price` của một dòng hàng",
+    "  thành `dropship_supplier_price`, và `bill_of_lading` thôi là chuỗi mã vận đơn mà thành",
+    "  một khối phải chọn tiếp trường con.",
+    "",
+    "Bản dưới đây đã theo hình dạng mới nhất. Nhưng đừng tin nó là chân lý: khi sàn đổi tiếp,",
+    "plugin TỰ soi lược đồ (`__type`), sửa đúng những trường sàn kêu sai - đổi tên theo gợi ý",
+    "của chính sàn, điền trường con cho trường vừa thành khối, lồng thêm lớp bọc, hoặc bỏ hẳn",
+    "một trường sàn không còn khai - rồi thử lại tối đa ba vòng và ghi bản sửa ra thư mục state.",
+    "Nguyên tắc của phần đó: thà mất MỘT TRƯỜNG còn hơn mất cả truy vấn.",
+    "",
+    "Muốn tự tay làm thì gọi tool `tts_graphql`: action=introspect để xem hình dạng THẬT, rồi",
+    "action=set để ghi. Cả hai đường đều không cần cài lại gói. Phần tự sửa chỉ chạy được khi",
+    "sàn còn cho soi lược đồ - chạy `tts_health_check` và đọc dòng `soi_luoc_do` là biết.",
     "",
     "`root` là tên trường gốc trong kết quả, dùng để bóc dữ liệu ra khỏi lớp `data`.",
     "Mọi operation đều nhận đúng một biến $query kiểu String, và chuỗi đó là một QUERY STRING",
-    "kiểu `?keyword=...&limit=40`, không phải object. Xem `_build_qs` trong plugin.py."
+    "kiểu `?keyword=...&limit=40`, không phải object. Xem `_build_qs` trong plugin.py.",
+    "",
+    "MỘT LƯU Ý VỀ TIỀN: trong `OrderListQuery`, `price` là giá KHÁCH TRẢ cho một đơn vị, còn",
+    "`dropship_supplier_price` là giá trả cho NHÀ CUNG CẤP. Đây là hai khoản khác nhau và tên",
+    "cũ (`dropship_selling_price`) mang nghĩa của cái thứ nhất, nên đừng đọc số mới bằng thói",
+    "quen cũ. Lãi THẬT của một đơn nằm ở khối hoa hồng của `tts_orders action=get`, không tính",
+    "ra được từ danh sách này."
   ],
   "searchProductsQuery": {
     "root": "searchProducts",
@@ -30,6 +47,6 @@
   },
   "OrderListQuery": {
     "root": "orders",
-    "doc": "query OrderListQuery($query: String!) { orders(query: $query) { items { id name status confirm_status financial_status fulfillment_status shipment_status shipment_status_text status_label total_price created_at escrow_release_at rate_expires_at customer { id name phone } line_items { id title quantity variant_title price dropship_selling_price } shipping { bill_of_lading } } } }"
+    "doc": "query OrderListQuery($query: String!) { orders(query: $query) { items { id name status confirm_status financial_status fulfillment_status shipment_status shipment_status_text status_label total_price created_at escrow_release_at rate_expires_at customer { id name phone } line_items { id title quantity variant_title price dropship_supplier_price } shipping { bill_of_lading } } } }"
   }
 }
