@@ -12,7 +12,8 @@ Không cần làm gì với repo này. Mở Javis, vào tab **Kho cài đặt** 
 (Trợ lý, Kỹ năng, Quy trình, Plugin, Kết nối), rồi bấm **Cài đặt**.
 
 Javis tải gói về, **mở ra cho bạn xem bên trong có gì rồi mới hỏi**. Gói có chứa mã Python thì
-màn hình xác nhận nói thẳng điều đó và bắt gõ lại mã gói trước khi cho cài.
+màn hình xác nhận hiện khối cảnh báo đỏ nói thẳng điều đó, kèm tên từng tệp mã, và gói cài xong
+ở trạng thái tắt cho tới khi bạn bật.
 
 Kho không tới được cũng không sao: gói đã cài chạy bình thường, và bạn vẫn cài được từ tệp `.zip`.
 
