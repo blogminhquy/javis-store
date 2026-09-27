@@ -1484,7 +1484,9 @@ async def _customer_write(args, ctx):
             than = {"customer": {
                 "name": ten, "phone": sdt,
                 "first_name": ho_ten[0], "last_name": " ".join(ho_ten[1:]),
-                "addresses": [dia_chi], "dropship": True,
+                # Ghi rõ tên và số điện thoại vào địa chỉ: thiếu hai trường này thì sàn tự điền
+                # tên người nhận từ last_name, tức "Minh Quý" thay vì "Nguyễn Minh Quý".
+                "addresses": [{**dia_chi, "name": ten, "phone": sdt}], "dropship": True,
             }}
         d, loi = await _api("POST", "/v2/order/api/customers.json", body=than)
         if loi:
@@ -1706,6 +1708,11 @@ async def _chuan_don(ctx, o, cart_token, nho):
     if not cid or not sa.get("id"):
         return None, None, ("địa chỉ giao hàng phải là địa chỉ ĐÃ LƯU của khách (có id và "
                             "customer_id). Lấy nguyên từ tts_customers.")
+    ten_nhan = str(o.get("recipient_name") or "").strip()
+    if ten_nhan:
+        # Địa chỉ đã lưu mang tên sai (khách tạo trước bản 1.1.1 hay tạo trên web sàn) thì sửa
+        # đúng tên người nhận của ĐƠN NÀY, không phải tạo lại khách.
+        sa = {**sa, "name": ten_nhan}
     don.update(customer={"id": cid}, shipping_address=sa)
 
     ncc_tra = bool(o.get("dropshipper_pays_shipping"))
@@ -2260,6 +2267,8 @@ def register(ctx):
            "customer_address_id": {"type": "string",
                                    "description": "Chọn địa chỉ khi khách có nhiều địa chỉ"},
            "customer_id": {"type": "string"},
+           "recipient_name": {"type": "string",
+                              "description": "Tên người nhận đầy đủ, dùng khi tên trên địa chỉ đã lưu bị thiếu"},
            "shipping_address": {"type": "object",
                                 "description": "Hoặc nguyên object địa chỉ đã lưu của khách"},
            "line_items": {"type": "array", "items": {"type": "object"},

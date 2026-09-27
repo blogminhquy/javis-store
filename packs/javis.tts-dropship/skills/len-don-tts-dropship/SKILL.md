@@ -72,6 +72,9 @@ và `items` như bước 5. Chọn một mục trong `rates` (web sàn mặc đ�
 người dùng: tên người nhận, số điện thoại, địa chỉ đầy đủ, từng món, phí ship, tổng khách trả,
 lãi ước tính. Người dùng đồng ý thì gọi lại ĐÚNG các tham số đó kèm `confirm=true`.
 
+Tên người nhận trong bản xem trước thiếu họ hay sai (khách tạo trước bản 1.1.1 hoặc tạo trên
+web sàn) thì thêm `recipient_name` với tên đầy đủ, rồi xem trước lại. Không cần tạo lại khách.
+
 Giỏ nhiều shop thì truyền mảng `orders`, mỗi mục một shop. Kết quả trả trạng thái từng đơn:
 có đơn lỗi thì **chỉ lên lại đúng đơn đó** sau khi kiểm `tts_orders action=list`, vì các đơn đã
 tạo là thật. Gọi lại y hệt một đơn vừa tạo thì tool tự chặn; khách đặt thêm thật thì mới truyền

@@ -1993,7 +1993,7 @@
       "description": {
         "vi": "Bán dropship trên sàn TTS: tìm hàng theo lợi nhuận, thêm vào giỏ, tách địa chỉ từ tin nhắn khách, tạo khách, báo giá ship, LÊN ĐƠN, theo dõi vận đơn và xem tiền về. Sàn không phát hành API key nên đăng nhập bằng token lấy từ trình duyệt, dán thêm refresh token là tự gia hạn. Sàn đổi tên trường dữ liệu thì gói TỰ soi lược đồ và sửa lại truy vấn, không phải cài lại. Tạo đơn và huỷ đơn luôn phải xác nhận hai bước."
       },
-      "version": "1.1.0",
+      "version": "1.1.1",
       "author": {
         "name": "Javis"
       },
@@ -2012,9 +2012,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-tts-dropship-1.1.0.zip",
-        "sha256": "212f760531d1967add6758c16341bb8b5f2766739ea84cc1c3b6accab958ab62",
-        "size": 64490
+        "url": "dist/javis-tts-dropship-1.1.1.zip",
+        "sha256": "a24ba98ff9e8526e9d3508ea0063784ecf4b05834e44c288e21209daa091cc3b",
+        "size": 64796
       }
     },
     {
