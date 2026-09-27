@@ -22,6 +22,7 @@ Kho không tới được cũng không sao: gói đã cài chạy bình thườn
     packs/<id>/         MÃ NGUỒN từng gói, để ai cũng đọc được trước khi cài
     packs/<id>/assets/  logo của gói: thẻ trong Kho cài đặt và trang Kết nối cùng dùng tệp này
     dist/<id>-<ver>.zip tệp Javis thật sự tải về
+    huong-dan/<tên>.md  hướng dẫn cho người dùng, trang Kết nối trỏ link tới đây
     tools/dong-goi.py   đóng gói một thư mục thành .zip và in dấu vân tay
 
 Mã nguồn nằm ngay cạnh tệp phát hành là có chủ ý: gói **chạy được mã Python trong máy chủ Javis
