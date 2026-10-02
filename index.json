@@ -1,7 +1,7 @@
 {
   "format": "javis-pack-index",
   "format_version": 1,
-  "updated": "2026-09-24",
+  "updated": "2026-10-02",
   "store": {
     "name": "Kho cài đặt Javis",
     "url": "https://github.com/blogminhquy/javis-store"
@@ -2046,6 +2046,105 @@
         "url": "dist/javis-javis-trong-chatgpt-1.0.0.zip",
         "sha256": "cb86e0714a2f5000c5ea78dcb7b197a6db5ed40afa62fca6c764b4baccdcb708",
         "size": 43809
+      }
+    },
+    {
+      "id": "javis.github",
+      "kind": "connector",
+      "name": {
+        "vi": "GitHub"
+      },
+      "description": {
+        "vi": "Làm việc với code trên GitHub qua MCP chính chủ: đọc và sửa file, tạo nhánh, đẩy commit, mở và trộn Pull Request, issue, review, xem và chạy GitHub Actions, đọc log CI, cảnh báo bảo mật. Bật đủ mọi bộ công cụ, dán Personal Access Token là xong."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "lap-trinh",
+      "category_label": {
+        "vi": "Lập trình"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-10-02",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.github",
+      "icon": "packs/javis.github/assets/github.png",
+      "provides": {
+        "connectors": [
+          "github"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-github-1.0.0.zip",
+        "sha256": "6c0a1133a10be890c5522fd44551ab3101b81bb6960a232b0877f2e992a9221a",
+        "size": 9133
+      }
+    },
+    {
+      "id": "javis.supabase",
+      "kind": "connector",
+      "name": {
+        "vi": "Supabase"
+      },
+      "description": {
+        "vi": "Quản lý Supabase qua MCP chính chủ: xem dự án, bảng, chạy SQL, tạo migration, deploy Edge Function, nhánh cơ sở dữ liệu, storage, đọc log và cảnh báo bảo mật, sinh kiểu TypeScript. Dán Personal Access Token là xong."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "lap-trinh",
+      "category_label": {
+        "vi": "Lập trình"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-10-02",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.supabase",
+      "icon": "packs/javis.supabase/assets/supabase.png",
+      "provides": {
+        "connectors": [
+          "supabase"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-supabase-1.0.0.zip",
+        "sha256": "b6f4a93d32fe2d06bd7a7a43f056dc5aa36da9f56465b9ac0c113ceb55d27c45",
+        "size": 8878
+      }
+    },
+    {
+      "id": "javis.cloudflare",
+      "kind": "connector",
+      "name": {
+        "vi": "Cloudflare"
+      },
+      "description": {
+        "vi": "Toàn bộ API Cloudflare ngay trong chat qua MCP chính chủ: DNS, Workers, Pages, KV, R2, D1, tường lửa, SSL, cache, thống kê lưu lượng, Zero Trust. Dán API token là xong, quyền của token quyết định Javis được làm gì."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "lap-trinh",
+      "category_label": {
+        "vi": "Lập trình"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-10-02",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.cloudflare",
+      "icon": "packs/javis.cloudflare/assets/cloudflare.jpg",
+      "provides": {
+        "connectors": [
+          "cloudflare"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-cloudflare-1.0.0.zip",
+        "sha256": "8cbdc90a5fdeb2486132ac0ab3fa8a209905b6a509b408d5b75bc5e3d3e67b49",
+        "size": 5105
       }
     }
   ]
