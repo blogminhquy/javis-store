@@ -1,0 +1,12 @@
+format: javis-pack
+spec: 1
+id: javis.github
+version: 1.0.0
+name: {vi: "GitHub"}
+description: {vi: "Làm việc với code trên GitHub qua MCP chính chủ: đọc và sửa file, tạo nhánh, đẩy commit, mở và trộn Pull Request, issue, review, xem và chạy GitHub Actions, đọc log CI, cảnh báo bảo mật. Bật đủ mọi bộ công cụ, dán Personal Access Token là xong."}
+author: {name: Javis}
+license: MIT
+homepage: "https://github.com/blogminhquy/javis-store"
+compat: {app: ">=0.55.27"}
+provides:
+  connectors: [connectors/github.json]

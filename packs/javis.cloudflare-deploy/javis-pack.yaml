@@ -1,0 +1,15 @@
+format: javis-pack
+spec: 1
+id: javis.cloudflare-deploy
+version: 1.0.0
+name: {vi: "Cloudflare Deploy (Wrangler)"}
+description: {vi: "Deploy Worker và trang web tĩnh lên Cloudflare bằng Wrangler ngay trong chat, bộ não nào cũng dùng được. Dùng lại API token của gói Cloudflare, không phải dán lần hai. Deploy thật chỉ chạy khi kết nối Cloudflare ở mức Toàn quyền. Cần Node.js 20+ trên máy chạy Javis."}
+author: {name: Javis}
+license: MIT
+homepage: "https://github.com/blogminhquy/javis-store"
+compat: {app: ">=0.55.27"}
+provides:
+  plugins:
+    - plugins/cloudflare-deploy
+  skills:
+    - skills/deploy-cloudflare

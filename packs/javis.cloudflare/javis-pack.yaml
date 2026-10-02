@@ -1,0 +1,12 @@
+format: javis-pack
+spec: 1
+id: javis.cloudflare
+version: 1.0.0
+name: {vi: "Cloudflare"}
+description: {vi: "Toàn bộ API Cloudflare ngay trong chat qua MCP chính chủ: DNS, Workers, Pages, KV, R2, D1, tường lửa, SSL, cache, thống kê lưu lượng, Zero Trust. Dán API token là xong, quyền của token quyết định Javis được làm gì."}
+author: {name: Javis}
+license: MIT
+homepage: "https://github.com/blogminhquy/javis-store"
+compat: {app: ">=0.55.27"}
+provides:
+  connectors: [connectors/cloudflare.json]
