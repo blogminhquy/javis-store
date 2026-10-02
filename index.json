@@ -2143,8 +2143,44 @@
       },
       "download": {
         "url": "dist/javis-cloudflare-1.0.0.zip",
-        "sha256": "8cbdc90a5fdeb2486132ac0ab3fa8a209905b6a509b408d5b75bc5e3d3e67b49",
-        "size": 5105
+        "sha256": "9c2957c3cae63a1c0cf3f5042e448f56ba1d1093c60b365a37328a195c35d750",
+        "size": 5258
+      }
+    },
+    {
+      "id": "javis.cloudflare-deploy",
+      "kind": "tool",
+      "name": {
+        "vi": "Cloudflare Deploy (Wrangler)"
+      },
+      "description": {
+        "vi": "Deploy Worker và trang web tĩnh lên Cloudflare bằng Wrangler ngay trong chat, bộ não nào cũng dùng được. Dùng lại API token của gói Cloudflare, không phải dán lần hai. Deploy thật chỉ chạy khi kết nối Cloudflare ở mức Toàn quyền. Cần Node.js 20+ trên máy chạy Javis."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "lap-trinh",
+      "category_label": {
+        "vi": "Lập trình"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-10-02",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.cloudflare-deploy",
+      "icon": "packs/javis.cloudflare-deploy/assets/cloudflare-deploy.jpg",
+      "provides": {
+        "plugins": [
+          "cloudflare-deploy"
+        ],
+        "skills": [
+          "deploy-cloudflare"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-cloudflare-deploy-1.0.0.zip",
+        "sha256": "47632c844aad721d3fb0bf9b3c7b58219df5ccb1dbc3d0cb9b0a7f794dc8e2e5",
+        "size": 13318
       }
     }
   ]

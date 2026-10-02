@@ -15,9 +15,15 @@
         "label": "API token (Cloudflare)",
         "placeholder": "Dán API token tạo ở dash.cloudflare.com...",
         "header": "Authorization: Bearer {api_token}"
+      },
+      {
+        "key": "account_id",
+        "label": "Account ID (tuỳ chọn)",
+        "placeholder": "Chỉ cần khi token thấy nhiều tài khoản. Lấy ở trang tổng quan Cloudflare, cột bên phải",
+        "optional": true
       }
     ],
-    "guide": "Làm 1 lần:\n1. Vào dash.cloudflare.com > Hồ sơ (My Profile) > API Tokens > Create Token.\n2. Muốn Javis làm được mọi việc thì chọn Create Custom Token, thêm quyền Edit cho những mảng bạn dùng (Zone, DNS, Workers Scripts, Pages, Workers KV, R2, D1, Firewall...) và Account Resources : Read. Chỉ muốn xem thì chọn quyền Read.\n3. Ở Zone Resources chọn All zones hoặc đúng các tên miền cần quản lý.\n4. KHÔNG bật lọc theo IP (Client IP Address Filtering): MCP của Cloudflare chưa hỗ trợ token có lọc IP.\n5. Bấm tạo, copy token NGAY lúc đó (đóng là không xem lại được) rồi dán vào ô dưới.\n\nToken là hàng rào thật: Javis chỉ làm được đúng những gì token cho phép. Lỡ lộ token thì vào lại trang đó bấm Roll hoặc Delete.",
+    "guide": "Làm 1 lần:\n1. Vào dash.cloudflare.com > Hồ sơ (My Profile) > API Tokens > Create Token.\n2. Muốn Javis làm được mọi việc thì chọn Create Custom Token, thêm quyền Edit cho những mảng bạn dùng (Zone, DNS, Workers Scripts, Pages, Workers KV, R2, D1, Firewall...) và Account Resources : Read. Chỉ muốn xem thì chọn quyền Read.\n3. Ở Zone Resources chọn All zones hoặc đúng các tên miền cần quản lý.\n4. Muốn deploy bằng gói 'Cloudflare Deploy (Wrangler)' thì token cần thêm Workers Scripts : Edit và Cloudflare Pages : Edit.\n5. KHÔNG bật lọc theo IP (Client IP Address Filtering): MCP của Cloudflare chưa hỗ trợ token có lọc IP.\n6. Bấm tạo, copy token NGAY lúc đó (đóng là không xem lại được) rồi dán vào ô dưới. Ô Account ID chỉ cần điền khi token thấy nhiều tài khoản.\n\nToken là hàng rào thật: Javis chỉ làm được đúng những gì token cho phép. Lỡ lộ token thì vào lại trang đó bấm Roll hoặc Delete.",
     "guide_url": "https://github.com/cloudflare/mcp#readme",
     "steps": [
       {
