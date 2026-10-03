@@ -1,7 +1,7 @@
 {
   "format": "javis-pack-index",
   "format_version": 1,
-  "updated": "2026-10-02",
+  "updated": "2026-10-04",
   "store": {
     "name": "Kho cài đặt Javis",
     "url": "https://github.com/blogminhquy/javis-store"
@@ -760,6 +760,39 @@
         "url": "dist/javis-higgsfield-1.0.0.zip",
         "sha256": "5021689623f95050febad984bfc6b9b1f1a8c0978ea1ea775b48ef63ae194584",
         "size": 91932
+      }
+    },
+    {
+      "id": "javis.capcut",
+      "kind": "connector",
+      "name": {
+        "vi": "CapCut"
+      },
+      "description": {
+        "vi": "Tạo ảnh và video bằng AI của CapCut từ mô tả chữ, tìm template CapCut theo ý tưởng, qua MCP chính chủ của CapCut. Đăng nhập CapCut 1 chạm - không cần tạo app hay dán key. Lưu ý: mỗi lần tạo tiêu credit CapCut của bạn, CapCut không phục vụ mạng đặt ở Mỹ, và chưa hỗ trợ tải file từ máy lên để dựng."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "sang-tao",
+      "category_label": {
+        "vi": "Sáng tạo"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-10-04",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.capcut",
+      "icon": "packs/javis.capcut/assets/capcut.png",
+      "provides": {
+        "connectors": [
+          "capcut"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-capcut-1.0.0.zip",
+        "sha256": "43489e30cf592f190ec5bb36eea402f0126042d3f7d5cc6c96daa4b75bbcbc84",
+        "size": 8942
       }
     },
     {
