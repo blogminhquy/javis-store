@@ -1,0 +1,12 @@
+format: javis-pack
+spec: 1
+id: javis.capcut
+version: 1.0.0
+name: {vi: "CapCut"}
+description: {vi: "Tạo ảnh và video bằng AI của CapCut từ mô tả chữ, tìm template CapCut theo ý tưởng, qua MCP chính chủ của CapCut. Đăng nhập CapCut 1 chạm - không cần tạo app hay dán key. Lưu ý: mỗi lần tạo tiêu credit CapCut của bạn, CapCut không phục vụ mạng đặt ở Mỹ, và chưa hỗ trợ tải file từ máy lên để dựng."}
+author: {name: Javis}
+license: MIT
+homepage: "https://github.com/blogminhquy/javis-store"
+compat: {app: ">=0.55.27"}
+provides:
+  connectors: [connectors/capcut.json]
