@@ -1,4 +1,4 @@
-"""Reading images posted in a Zalo group (0.72.0).
+"""Reading images posted in a Zalo group (Javis 0.73.0).
 
     JAVIS_OS_DIR=../javis-os python tests/javis.zalo/test_zalo_read_images.py   (NO network: fake CLI, buffer, httpx)
 

@@ -2257,8 +2257,8 @@
         "en": "Zalo extras"
       },
       "description": {
-        "vi": "Đi kèm kết nối Zalo: gửi ảnh và file, tag đúng người trong nhóm, tạo ghi chú, nhắc hẹn, poll, và đọc ảnh người ta gửi trong nhóm (ChatGPT trên gói của bạn tả lại nội dung ảnh cho mọi bộ não). Cần Javis 0.72.0 trở lên và đã quét QR Zalo ở trang Kết nối.",
-        "en": "Goes with the Zalo connection: send images and files, tag the right people in a group, create notes, reminders and polls, and read the images people post in a group (ChatGPT on your plan describes them for every brain). Needs Javis 0.72.0 or newer and Zalo scanned on the Connections page."
+        "vi": "Đi kèm kết nối Zalo: gửi ảnh và file, tag đúng người trong nhóm, tạo ghi chú, nhắc hẹn, poll, và đọc ảnh người ta gửi trong nhóm (ChatGPT trên gói của bạn tả lại nội dung ảnh cho mọi bộ não). Cần Javis 0.73.0 trở lên và đã quét QR Zalo ở trang Kết nối.",
+        "en": "Goes with the Zalo connection: send images and files, tag the right people in a group, create notes, reminders and polls, and read the images people post in a group (ChatGPT on your plan describes them for every brain). Needs Javis 0.73.0 or newer and Zalo scanned on the Connections page."
       },
       "version": "1.0.0",
       "author": {
@@ -2283,8 +2283,8 @@
       },
       "download": {
         "url": "dist/javis-zalo-1.0.0.zip",
-        "sha256": "ef33d876023a70a0f5eefe85148639951008a411efb09363de39bea56a92fc7d",
-        "size": 32211
+        "sha256": "e52b0a198a5f4b2fdf420a413424d3b0ee6c131684bc3c14c775f5ff2b8bb7f2",
+        "size": 32212
       }
     }
   ]
