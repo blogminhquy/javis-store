@@ -1,0 +1,103 @@
+{
+  "id": "resend",
+  "name": "Resend",
+  "icon": "assets/resend.png",
+  "category": "Marketing",
+  "description": "Gửi và quản lý email qua MCP chính chủ của Resend: email giao dịch, email hàng loạt (broadcast), mẫu email, danh bạ và phân khúc, tên miền gửi, thống kê và nhật ký gửi. Chạy trên máy chủ của Resend, chỉ cần dán API key.",
+  "status": "beta",
+  "transport": "http",
+  "url": "https://mcp.resend.com/mcp",
+  "auth": {
+    "type": "apikey",
+    "fields": [
+      {
+        "key": "api_key",
+        "label": "API key (Resend)",
+        "placeholder": "Ví dụ: re_...",
+        "header": "Authorization: Bearer {api_key}"
+      }
+    ],
+    "guide": "Làm 1 lần:\n1. Đăng nhập resend.com (có gói miễn phí).\n2. Domains > Add Domain: thêm tên miền bạn sẽ gửi mail (vd mail.congty.vn) và tạo các bản ghi DNS Resend đưa ra. Chưa xác minh tên miền thì chỉ gửi được tới chính email đăng ký Resend.\n3. API Keys > Create API Key. Muốn Javis chỉ gửi mail thì chọn quyền Sending access; muốn Javis quản lý cả danh bạ, broadcast, tên miền thì chọn Full access.\n4. Dán key (dạng re_...) vào đây, bấm Kết nối.\n\nKhi bảo Javis gửi mail, nói rõ địa chỉ người gửi thuộc tên miền đã xác minh, vd 'gửi từ hello@mail.congty.vn'.",
+    "guide_url": "https://resend.com/docs/knowledge-base/mcp-server"
+  },
+  "tool_meta": {
+    "read": [
+      "get-*",
+      "list-*"
+    ],
+    "write": [
+      "create-template",
+      "update-template",
+      "duplicate-template",
+      "compose-template",
+      "create-broadcast",
+      "update-broadcast",
+      "duplicate-broadcast",
+      "compose-broadcast",
+      "create-contact",
+      "update-contact",
+      "update-contact-topics",
+      "create-contact-import",
+      "add-contact-to-segment",
+      "remove-contact-from-segment",
+      "create-segment",
+      "update-segment",
+      "create-topic",
+      "update-topic",
+      "create-contact-property",
+      "update-contact-property",
+      "add-suppression",
+      "connect-to-editor",
+      "disconnect-from-editor"
+    ],
+    "danger": [
+      "send-email",
+      "send-batch-emails",
+      "send-broadcast",
+      "cancel-broadcast",
+      "cancel-email",
+      "update-email",
+      "share-email",
+      "send-event",
+      "manage-events",
+      "publish-template",
+      "create-automation",
+      "update-automation",
+      "duplicate-automation",
+      "remove-api-key",
+      "remove-automation",
+      "remove-broadcast",
+      "remove-contact",
+      "remove-contact-property",
+      "remove-domain",
+      "remove-segment",
+      "remove-suppression",
+      "remove-template",
+      "remove-topic",
+      "remove-webhook",
+      "batch-add-suppressions",
+      "batch-remove-suppressions",
+      "create-api-key",
+      "update-api-key",
+      "create-domain",
+      "update-domain",
+      "verify-domain",
+      "create-domain-claim",
+      "verify-domain-claim",
+      "create-webhook",
+      "update-webhook",
+      "rotate-webhook-signing-secret",
+      "replay-webhook-event",
+      "revoke-oauth-grant"
+    ]
+  },
+  "ghi_da_can_nhac": [
+    "create-broadcast",
+    "update-broadcast",
+    "duplicate-broadcast",
+    "compose-broadcast",
+    "remove-contact-from-segment"
+  ],
+  "default_perm": "readonly",
+  "risk": "Resend gửi email THẬT tới người nhận thật: email đã gửi không thu hồi được, và gửi sai hàng loạt có thể làm tên miền của bạn bị đánh dấu spam.\n\nMặc định để Chỉ đọc: Javis xem được email đã gửi và nhận, thống kê, nhật ký, mẫu, danh bạ, phân khúc, broadcast và tên miền, nhưng không gửi hay sửa gì.\n\nNâng lên Ghi nháp thì Javis soạn và sửa mẫu email, tạo và sửa broadcast ở dạng nháp (chưa gửi), thêm và sửa danh bạ, phân khúc, chủ đề. Vẫn chặn mọi việc gửi mail (email lẻ, hàng loạt, broadcast, event kích hoạt automation), huỷ hay hẹn lại email, xuất bản mẫu, bật hoặc sửa automation, xoá bất cứ thứ gì, và đổi API key, tên miền, webhook.\n\nMuốn Javis tự gửi mail thì nâng Toàn quyền, và nên tạo API key loại Sending access chỉ cho đúng tên miền dùng để gửi.\n\ncreate-broadcast, update-broadcast, duplicate-broadcast, compose-broadcast chỉ tạo hoặc sửa bản nháp, phải gọi send-broadcast mới gửi; remove-contact-from-segment chỉ gỡ danh bạ khỏi một phân khúc và thêm lại được, nên xếp vào Ghi nháp.\n\nCác tool Hộp thư (Inboxes, đang beta) không có trong danh sách trên nên Javis coi là nguy hiểm.\n\nTên tool lấy từ mã nguồn máy chủ MCP chính chủ của Resend (github.com/resend/resend-mcp); phân loại quyền dựa trên các tên đó."
+}
