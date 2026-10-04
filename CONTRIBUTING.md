@@ -76,6 +76,16 @@ Khai `danger` thì khuôn phải có câu `risk` nói bằng lời thường chu
 - Gói làm thay việc đã có MCP chính chủ. Đấu MCP đó vào còn hơn.
 - Gói tự ý gửi dữ liệu người dùng đi đâu đó, kể cả "để thống kê".
 
+## Test cho gói có mã
+
+Plugin chạy bên trong máy chủ Javis và gọi module của lõi, nên test của nó đặt ở `tests/<id gói>/test_*.py`
+(ngoài `packs/`, nên không vào tệp `.zip`) và chạy trên một bản checkout Javis OS:
+
+    JAVIS_OS_DIR=../javis-os python tests/javis.zalo/test_zalo_read_images.py
+
+CI chạy mọi tệp đó trên nhánh `main` của Javis OS ở mỗi Pull Request và mỗi ngày một lần, để lõi đổi mà
+gói gãy thì biết ngay. Xem `tests/javis.zalo/` làm mẫu.
+
 ## Ra bản mới
 
 Tăng `version` ở **cả hai** chỗ: manifest trong gói và mục trong `index.json`. Thêm tệp `.zip`

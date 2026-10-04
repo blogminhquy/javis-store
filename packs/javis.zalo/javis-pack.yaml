@@ -1,0 +1,38 @@
+# Gói "Zalo mở rộng": các tool đi kèm kết nối Zalo Agent MCP (zalo-agent-cli) của Javis OS.
+#
+# Kết nối Zalo và phần quét QR nằm trong LÕI Javis (đăng nhập QR không khai bằng gói được), nên
+# gói này không chứa connector. Nó chỉ chứa ba plugin bù chỗ MCP chuẩn còn thiếu: gửi ảnh/file,
+# tag người + ghi chú + nhắc hẹn + poll trong nhóm, và ĐỌC ẢNH người ta gửi trong nhóm. Cả ba gọi
+# lại chính CLI zalo-agent-cli bằng phiên đã quét QR (`server/zalo_cli.py` của lõi), không đăng
+# nhập lần hai, không gọi đi đâu ngoài Zalo (và ChatGPT của chính người dùng khi tả ảnh).
+#
+# Trước 0.72.0 ba plugin này nằm sẵn trong app và bật cho MỌI người, kể cả người không dùng Zalo.
+# Chủ dự án chốt 2026-10-04: dọn sang kho, ai đấu Zalo thì Javis mời cài gói này ngay sau khi quét QR.
+format: javis-pack
+spec: 1
+
+id: javis.zalo
+version: 1.0.0
+
+name:
+  vi: Zalo mở rộng
+  en: Zalo extras
+description:
+  vi: Đi kèm kết nối Zalo. Gửi ảnh và file, tag đúng người trong nhóm, tạo ghi chú, nhắc hẹn, poll, và đọc ảnh người ta gửi trong nhóm. Cần Javis 0.72.0 trở lên và đã quét QR Zalo ở trang Kết nối.
+  en: Goes with the Zalo connection. Send images and files, tag the right people in a group, create notes, reminders and polls, and read the images people post in a group. Needs Javis 0.72.0 or newer and Zalo scanned on the Connections page.
+
+author:
+  name: Javis
+license: MIT
+homepage: https://github.com/blogminhquy/javis-store/tree/main/packs/javis.zalo
+
+# Plugin đọc ảnh dùng `image_vision` của lõi, có từ 0.72.0. Bản cũ hơn vẫn còn ba plugin này
+# nằm sẵn trong app, nên cài gói vào đó sẽ trùng tên tool: chặn bằng compat thay vì để trùng.
+compat:
+  app: ">=0.72.0"
+
+provides:
+  plugins:
+    - plugins/zalo-image
+    - plugins/zalo-group
+    - plugins/zalo-read-images

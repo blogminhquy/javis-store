@@ -2248,6 +2248,44 @@
         "sha256": "47632c844aad721d3fb0bf9b3c7b58219df5ccb1dbc3d0cb9b0a7f794dc8e2e5",
         "size": 13318
       }
+    },
+    {
+      "id": "javis.zalo",
+      "kind": "tool",
+      "name": {
+        "vi": "Zalo mở rộng",
+        "en": "Zalo extras"
+      },
+      "description": {
+        "vi": "Đi kèm kết nối Zalo: gửi ảnh và file, tag đúng người trong nhóm, tạo ghi chú, nhắc hẹn, poll, và đọc ảnh người ta gửi trong nhóm (ChatGPT trên gói của bạn tả lại nội dung ảnh cho mọi bộ não). Cần Javis 0.72.0 trở lên và đã quét QR Zalo ở trang Kết nối.",
+        "en": "Goes with the Zalo connection: send images and files, tag the right people in a group, create notes, reminders and polls, and read the images people post in a group (ChatGPT on your plan describes them for every brain). Needs Javis 0.72.0 or newer and Zalo scanned on the Connections page."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "nhan-tin",
+      "category_label": {
+        "vi": "Nhắn tin",
+        "en": "Messaging"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-10-04",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.zalo",
+      "icon": "packs/javis.zalo/assets/zalo.png",
+      "provides": {
+        "plugins": [
+          "zalo-image",
+          "zalo-group",
+          "zalo-read-images"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-zalo-1.0.0.zip",
+        "sha256": "ef33d876023a70a0f5eefe85148639951008a411efb09363de39bea56a92fc7d",
+        "size": 32211
+      }
     }
   ]
 }
