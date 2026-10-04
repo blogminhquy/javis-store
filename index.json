@@ -796,6 +796,39 @@
       }
     },
     {
+      "id": "javis.mineflow",
+      "kind": "connector",
+      "name": {
+        "vi": "Mineflow"
+      },
+      "description": {
+        "vi": "Nền tảng dữ liệu khách hàng (CDP) & tự động hóa marketing all-in-one trên Zalo, qua MCP chính chủ của Mineflow. Để AI xem và dựng landing page, mini app, biểu mẫu, bảng dữ liệu khách hàng và workflow tự động hóa trên Zalo. Đăng nhập Mineflow 1 chạm - không cần dán key. Ưu đãi riêng cho người dùng Javis: tặng 3 tháng gói Pro và các gói setup Zalo OA, ZNS, Mini App - xem hướng dẫn."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "marketing",
+      "category_label": {
+        "vi": "Marketing"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-10-04",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.mineflow",
+      "icon": "packs/javis.mineflow/assets/mineflow.png",
+      "provides": {
+        "connectors": [
+          "mineflow"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-mineflow-1.0.0.zip",
+        "sha256": "a2a39edc3353589d494ee5f2d695b04597686a11a311450e1ed4551472ae009a",
+        "size": 54666
+      }
+    },
+    {
       "id": "javis.x-twitter",
       "kind": "connector",
       "name": {
