@@ -70,6 +70,38 @@ mức Ghi nháp, im lặng, cho tới lúc nó xoá thật.
 
 Khai `danger` thì khuôn phải có câu `risk` nói bằng lời thường chuyện gì có thể mất.
 
+## MCP của bên thứ 3: đi theo bản chính thức
+
+Chủ kho chốt ngày 2026-10-05: **bên thứ 3 có bản phát hành chính thức thì gói phải đi theo bản
+đó**. Với connector chạy MCP qua `npx` hoặc `uvx`, nghĩa là:
+
+- Lấy MCP từ kênh phát hành chính thức (npm, PyPI). Không chạy code thẳng từ GitHub
+  (`git+https://...`): code trên nhánh `main` là code chưa ai phát hành.
+- Viết tên gói kèm `@latest`, ví dụ `npx -y hostinger-api-mcp@latest` hay
+  `uvx google-ads-mcp@latest`. Để trống phiên bản là CHƯA đủ: `npx` và `uvx` dùng lại bản đã
+  tải, nên máy nào tải lần đầu ở bản nào là kẹt ở bản đó mãi.
+
+Bên thứ 3 ra bản mới thì mọi máy chạy bản đó ở lần khởi động kế tiếp, không cần ra bản gói.
+Hai ngoại lệ, khai bằng `ngoai_le_ban_chinh_thuc` ở gốc khuôn connector, một câu nói rõ vì sao:
+
+- Bên thứ 3 chưa phát hành bản nào, nên chỉ có đường GitHub.
+- Code của Javis đọc thẳng định dạng của một bản cụ thể, đổi bản là vỡ (ví dụ Zalo trong app).
+
+`tools/kiem-tra.py` chặn mọi connector `npx`/`uvx` không theo luật này.
+
+Cái giá của luật là bản mới có thể mang **tool mới chưa ai phân loại**, và Javis xếp một tool
+không khai, tên không chứa từ gợi ý ghi nào, vào nhóm **đọc** (vụ thật lúc đặt luật:
+`workspace-mcp` 2.x thêm `run_script_function`). Vì vậy CI có thêm job `soi-ban-moi`, chạy mỗi
+ngày: nó chạy thử bản mới nhất thật của từng MCP, phân loại tool thật bằng đúng hàm của Javis,
+và đỏ khi có tool phá huỷ hay tiêu tiền chưa nằm ở nhóm `danger`. Thấy đỏ thì khai tool đó trong
+`tool_meta` rồi ra bản gói mới. Chạy tay:
+
+    JAVIS_OS_DIR=../javis-os python tools/soi-ban-moi.py
+
+MCP dạng **cổng** (một tool chạy được mọi lệnh, như `execute` của Hostinger 2.x) thì phân loại
+theo từng lệnh con bằng `call_rules`, xem khuôn `packs/javis.hostinger/` làm mẫu. Lệnh con
+không có trong danh sách đọc phải rơi về `danger`, để lệnh bên thứ 3 thêm sau này không tự chạy.
+
 ## Điều gì bị từ chối
 
 - `transport: internal` và `auth.type: qr` - hai đường riêng của lõi Javis, không khai bằng gói.
@@ -92,5 +124,7 @@ Tăng `version` ở **cả hai** chỗ: manifest trong gói và mục trong `ind
 mới vào `dist/` (giữ tệp cũ lại, đừng ghi đè - người dùng cần tải được bản cũ), rồi đổi
 `download.url` và `sha256`.
 
-Người đã cài sẽ thấy nút đổi thành **Có bản mới**. Javis **không bao giờ tự cập nhật một gói có
-mã** - bản mới có thể đổi mã, và mã đổi mà không ai xem thì chốt chữ ký nội dung thành vô nghĩa.
+Người đã cài sẽ thấy nút đổi thành **Có bản mới**. Javis **không tự cài đè một gói có mã**: mã
+Python hay khuôn connector trong gói đổi thì người dùng phải mở ra xem rồi mới cài, nếu không chốt
+chữ ký nội dung thành vô nghĩa. MCP của bên thứ 3 mà gói gọi tới thì khác: nó đi theo bản chính
+thức mới nhất của bên đó (xem mục trên), không cần ra bản gói.

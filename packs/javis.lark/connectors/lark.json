@@ -9,7 +9,7 @@
   "command": "npx",
   "args": [
     "-y",
-    "@larksuiteoapi/lark-mcp",
+    "@larksuiteoapi/lark-mcp@latest",
     "mcp",
     "-d",
     "https://open.larksuite.com"

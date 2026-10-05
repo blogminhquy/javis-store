@@ -49,3 +49,27 @@ jobs:
           set -e
           shopt -s nullglob
           for f in tests/*/test_*.py; do echo "== $f"; python "$f"; done
+
+  # MCP bên thứ 3 đi theo bản chính thức mới nhất (@latest), nên bên đó ra bản mới là mọi máy chạy
+  # bản đó ngay. Job này chạy thử bản mới nhất THẬT của từng MCP, phân loại tool thật bằng đúng hàm
+  # của Javis, và đỏ khi có tool phá huỷ hay tiêu tiền chưa được xếp vào nhóm nguy hiểm. Chạy mỗi
+  # ngày (lịch ở trên) là để bản mới của bên thứ 3 lộ ra trong một ngày.
+  soi-ban-moi:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: blogminhquy/javis-os
+          path: javis-os
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: astral-sh/setup-uv@v6
+      - name: Soi bản mới nhất của từng MCP bên thứ 3
+        env:
+          JAVIS_OS_DIR: ${{ github.workspace }}/javis-os
+        run: python tools/soi-ban-moi.py

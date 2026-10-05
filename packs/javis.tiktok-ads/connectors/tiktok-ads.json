@@ -10,7 +10,7 @@
   "args": [
     "--with",
     "mcp<2",
-    "tiktok-ads-mcp"
+    "tiktok-ads-mcp@latest"
   ],
   "auth": {
     "type": "apikey",

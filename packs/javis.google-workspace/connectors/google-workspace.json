@@ -10,7 +10,7 @@
   "transport": "stdio",
   "command": "uvx",
   "args": [
-    "workspace-mcp",
+    "workspace-mcp@latest",
     "--tool-tier",
     "core"
   ],
@@ -91,13 +91,18 @@
       "*move*",
       "*add*",
       "*set*",
-      "*manage*"
+      "*manage*",
+      "import_*"
     ],
     "danger": [
       "*send*",
-      "*delete*"
+      "*delete*",
+      "run_*"
     ]
   },
   "default_perm": "safe",
-  "risk": "Mức Ghi nháp (mặc định) cho phép Javis soạn nháp thư, tạo lịch, tạo tài liệu, và cả SỬA tài liệu có sẵn lẫn DI CHUYỂN file trong Drive.\nCác tool gộp (manage_event, manage_task...) cũng thuộc mức này, nên Javis sửa và xoá được từng sự kiện lịch hay việc cần làm lẻ.\n\nMức Toàn quyền thêm quyền GỬI EMAIL THẬT và XOÁ file, thư bằng tài khoản Google của bạn.\n\nChỉ cần đọc thì hạ xuống Chỉ đọc."
+  "risk": "Mức Ghi nháp (mặc định) cho phép Javis soạn nháp thư, tạo lịch, tạo tài liệu, và cả SỬA tài liệu có sẵn lẫn DI CHUYỂN file trong Drive.\nCác tool gộp (manage_event, manage_task...) cũng thuộc mức này, nên Javis sửa và xoá được từng sự kiện lịch hay việc cần làm lẻ.\n\nMức Toàn quyền thêm quyền GỬI EMAIL THẬT và XOÁ file, thư bằng tài khoản Google của bạn.\n\nChỉ cần đọc thì hạ xuống Chỉ đọc.",
+  "ghi_da_can_nhac": [
+    "generate_trigger_code"
+  ]
 }

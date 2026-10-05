@@ -10,7 +10,7 @@
   "transport": "stdio",
   "command": "uvx",
   "args": [
-    "workspace-mcp",
+    "workspace-mcp@latest",
     "--tools",
     "tasks",
     "--tool-tier",

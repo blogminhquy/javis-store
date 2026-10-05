@@ -9,7 +9,7 @@
   "command": "npx",
   "args": [
     "-y",
-    "mcp-server-gsc"
+    "mcp-server-gsc@latest"
   ],
   "requires": {
     "node": ">=18"

@@ -9,7 +9,7 @@
   "command": "uvx",
   "args": [
     "--from",
-    "notebooklm-py[mcp]",
+    "notebooklm-py[mcp]@latest",
     "notebooklm-mcp"
   ],
   "requires": {
@@ -112,6 +112,7 @@
     "calls_per_min": 20
   },
   "ghi_da_can_nhac": [
+    "chat_cancel",
     "research_cancel"
   ]
 }
