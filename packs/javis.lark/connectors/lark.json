@@ -14,6 +14,18 @@
     "-d",
     "https://open.larksuite.com"
   ],
+  "lenh_cu": [
+    {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@larksuiteoapi/lark-mcp",
+        "mcp",
+        "-d",
+        "https://open.larksuite.com"
+      ]
+    }
+  ],
   "requires": {
     "node": ">=18"
   },

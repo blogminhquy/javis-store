@@ -197,8 +197,8 @@
    },
    "download": {
     "url": "dist/javis-webcake-landing-1.0.1.zip",
-    "sha256": "a178aadc9a2e79b7c5f5a58b0c7e965f99cf34640f685a1b5717f21c2c42a440",
-    "size": 10372
+    "sha256": "60289d10a738b3fa4bddf0d14e4adb5ccc8b94f084baa1061181a402fc424fbe",
+    "size": 10403
    }
   },
   {
@@ -243,7 +243,7 @@
    "description": {
     "vi": "Đọc/ghi bảng tính Google: đổ báo cáo doanh thu, tồn kho, công nợ ra Sheets tự động. Đấu bằng service account - không cần đăng nhập."
    },
-   "version": "1.0.0",
+   "version": "1.0.1",
    "author": {
     "name": "Javis"
    },
@@ -253,7 +253,7 @@
    },
    "tier": "code",
    "verified": true,
-   "updated": "2026-09-05",
+   "updated": "2026-10-05",
    "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-sheets",
    "icon": "packs/javis.google-sheets/assets/google-sheets.png",
    "provides": {
@@ -262,9 +262,9 @@
     ]
    },
    "download": {
-    "url": "dist/javis-google-sheets-1.0.0.zip",
-    "sha256": "f44add021760f4afe78111f304dfc7bda0928bc676ff22620c4a5e7edb41a9b0",
-    "size": 7486
+    "url": "dist/javis-google-sheets-1.0.1.zip",
+    "sha256": "61a4b2984dfef716d7fb855f1f458c161dc5fb7a4c8db183a19db2860f0ccc1f",
+    "size": 7516
    }
   },
   {
@@ -296,8 +296,8 @@
    },
    "download": {
     "url": "dist/javis-google-search-console-1.0.3.zip",
-    "sha256": "06ea1c0f017e1e94a042dba12ef92ce53871fdcae393a5e25b8ce36c48163a0f",
-    "size": 9891
+    "sha256": "6fbaaf2835d485a07bdbf4e84bf4bfdc8f68f9caae73a79d6250691cde28fd45",
+    "size": 9920
    }
   },
   {
@@ -329,8 +329,8 @@
    },
    "download": {
     "url": "dist/javis-google-workspace-1.0.3.zip",
-    "sha256": "51cb523c9bdf02c7c667c22a3be62a4c2ccf6fd401f2d2e7a0162b4ce14d5866",
-    "size": 13170
+    "sha256": "cc6c3435b1d4bc88042e3ef0dc1f5d3e851fc404a37b307ead7f42cc98a844d7",
+    "size": 13201
    }
   },
   {
@@ -362,8 +362,8 @@
    },
    "download": {
     "url": "dist/javis-google-tasks-1.0.3.zip",
-    "sha256": "5ef4e4b0d2b187f3d35ecca2d1327556a4b82dabac52c610a2a19ebcd3597eee",
-    "size": 14150
+    "sha256": "5e7feb26aeded6905e6953a5f4290f0dcd92fec5ca272f2c1189cff76525c535",
+    "size": 14188
    }
   },
   {
@@ -527,8 +527,8 @@
    },
    "download": {
     "url": "dist/javis-google-ads-1.0.1.zip",
-    "sha256": "5ca5a76961d6d1b2ed0321793a30ab1a25f318e58af92348868ab66ef8fd149f",
-    "size": 28284
+    "sha256": "8a6573613a25c6a057b2da7166d1317e5804c4c1ecd70a42c226f8b5a2ce26f4",
+    "size": 28344
    }
   },
   {
@@ -560,8 +560,8 @@
    },
    "download": {
     "url": "dist/javis-tiktok-ads-1.0.1.zip",
-    "sha256": "80ddb356ae8ad991c4d904f23e4a1513cfdfbc2b1d4a0c902ca37b667cb3c364",
-    "size": 8763
+    "sha256": "f08f8c68502f9d4154825c047f09ddbd2901d4ee26d2a8bb75372492bf3ddf30",
+    "size": 8802
    }
   },
   {
@@ -725,8 +725,8 @@
    },
    "download": {
     "url": "dist/javis-lark-1.0.1.zip",
-    "sha256": "934cd36d741b003320e0af17f6eeead9e754358e0af49bf5b4055030aae87658",
-    "size": 51817
+    "sha256": "a2f951f30b7694174011882c71fcb596118b5b2db9d57651f17e3bc81e31350b",
+    "size": 51858
    }
   },
   {
@@ -890,8 +890,8 @@
    },
    "download": {
     "url": "dist/javis-google-keep-1.0.3.zip",
-    "sha256": "cc091b432ef832a7c0ef099f0b42056b0bb97eb0d0f3869fc0104b3c6b22e90e",
-    "size": 9349
+    "sha256": "b949882e176cf531d9ed578a44c7d51b71bcd44b7449d752aa6adbcc2727e11e",
+    "size": 9381
    }
   },
   {
@@ -923,8 +923,8 @@
    },
    "download": {
     "url": "dist/javis-notebooklm-1.0.3.zip",
-    "sha256": "94bb308d8030b070583c463a0be8cf3fe737d4b9c71097b3596de3a7bb63f803",
-    "size": 14278
+    "sha256": "34152d0b05ce3e3b292472c09ae85da22b28298f601b9521d068c52a08fffb1c",
+    "size": 14309
    }
   },
   {
@@ -989,8 +989,8 @@
    },
    "download": {
     "url": "dist/javis-hostinger-1.0.3.zip",
-    "sha256": "812b29eea9b3e1003c76d6e4096f6b521a05d7a88ded4e8f0d2be2741812fb17",
-    "size": 11165
+    "sha256": "db02dd41b688de30bd2448493524c864527dc6878d34587e51c33f62c6b21f02",
+    "size": 11189
    }
   },
   {

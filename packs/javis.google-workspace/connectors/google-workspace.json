@@ -14,6 +14,16 @@
     "--tool-tier",
     "core"
   ],
+  "lenh_cu": [
+    {
+      "command": "uvx",
+      "args": [
+        "workspace-mcp",
+        "--tool-tier",
+        "core"
+      ]
+    }
+  ],
   "env": {
     "OAUTHLIB_INSECURE_TRANSPORT": "1"
   },

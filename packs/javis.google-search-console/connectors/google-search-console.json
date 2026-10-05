@@ -11,6 +11,15 @@
     "-y",
     "mcp-server-gsc@latest"
   ],
+  "lenh_cu": [
+    {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-server-gsc"
+      ]
+    }
+  ],
   "requires": {
     "node": ">=18"
   },

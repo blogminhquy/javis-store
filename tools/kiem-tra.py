@@ -209,6 +209,14 @@ for tm in thu_muc_goi:
         # 7. Bản chính thức: xem `ban_chinh_thuc.py`.
         for l in loi_ban(con):
             sai(f"{ten}/{cid}: {l}")
+        # `lenh_cu`: lệnh mặc định đã từng phát hành. Kết nối tạo từ bản cũ còn lưu đúng lệnh đó thì
+        # Javis (từ 0.82.0) chạy lệnh hiện hành; lệnh hiện hành mà nằm trong danh sách là vô nghĩa.
+        for cu in (con.get("lenh_cu") or []):
+            check(f"{ten}/{cid}: mỗi mục `lenh_cu` có command và args",
+                  isinstance(cu, dict) and cu.get("command") and isinstance(cu.get("args"), list), cu)
+            check(f"{ten}/{cid}: `lenh_cu` không chứa chính lệnh hiện hành",
+                  not (isinstance(cu, dict) and cu.get("command") == con.get("command")
+                       and cu.get("args") == con.get("args")))
 
 # ============================================================
 # 5. Danh mục khớp gói và khớp zip

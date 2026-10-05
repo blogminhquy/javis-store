@@ -12,6 +12,22 @@
     "mcp<2",
     "tiktok-ads-mcp@latest"
   ],
+  "lenh_cu": [
+    {
+      "command": "uvx",
+      "args": [
+        "--with",
+        "mcp<2",
+        "tiktok-ads-mcp"
+      ]
+    },
+    {
+      "command": "uvx",
+      "args": [
+        "tiktok-ads-mcp"
+      ]
+    }
+  ],
   "auth": {
     "type": "apikey",
     "fields": [

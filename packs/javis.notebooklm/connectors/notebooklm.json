@@ -12,6 +12,16 @@
     "notebooklm-py[mcp]@latest",
     "notebooklm-mcp"
   ],
+  "lenh_cu": [
+    {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "notebooklm-py[mcp]",
+        "notebooklm-mcp"
+      ]
+    }
+  ],
   "requires": {
     "uv": true
   },

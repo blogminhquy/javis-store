@@ -10,6 +10,16 @@
   "args": [
     "google-ads-mcp@latest"
   ],
+  "lenh_cu": [
+    {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/googleads/google-ads-mcp.git",
+        "google-ads-mcp"
+      ]
+    }
+  ],
   "auth": {
     "type": "oauth",
     "provider": "google",

@@ -11,6 +11,15 @@
     "-y",
     "hostinger-api-mcp@latest"
   ],
+  "lenh_cu": [
+    {
+      "command": "npx",
+      "args": [
+        "-y",
+        "hostinger-api-mcp"
+      ]
+    }
+  ],
   "requires": {
     "node": ">=20"
   },
