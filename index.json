@@ -1,2291 +1,2291 @@
 {
- "format": "javis-pack-index",
- "format_version": 1,
- "updated": "2026-10-04",
- "store": {
-  "name": "Kho cài đặt Javis",
-  "url": "https://github.com/blogminhquy/javis-store"
- },
- "_doc": "Danh mục Javis đọc thẳng. Thêm một mục ở đây là mọi máy đang chạy Javis thấy ngay, không cần bản cập nhật. Cách gửi gói: xem CONTRIBUTING.md. Trường _doc và mọi khoá lạ khác đều bị Javis bỏ qua khi đọc.",
- "packs": [
-  {
-   "id": "javis.tinh-gia",
-   "kind": "tool",
-   "name": {
-    "vi": "Tính giá bán",
-    "en": "Pricing helper"
-   },
-   "description": {
-    "vi": "Từ giá vốn ra giá niêm yết: chọn biên lợi nhuận hoặc markup, cộng VAT, làm tròn lên số đẹp. Trả về biên thực tế sau khi làm tròn.",
-    "en": "Turn cost into a shelf price: margin or markup, VAT, rounded up to a tidy number. Reports the real margin after rounding."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "ban-hang",
-   "category_label": {
-    "vi": "Bán hàng",
-    "en": "Sales"
-   },
-   "tier": "code",
-   "verified": true,
-   "updated": "2026-09-04",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.tinh-gia",
-   "download": {
-    "url": "dist/javis-tinh-gia-1.0.0.zip",
-    "sha256": "2efc5b73e55c98573bae20d765a6cfeabe062646f6dcb9d890fd56bb557e1cdb",
-    "size": 5289
-   }
+  "format": "javis-pack-index",
+  "format_version": 1,
+  "updated": "2026-10-04",
+  "store": {
+    "name": "Kho cài đặt Javis",
+    "url": "https://github.com/blogminhquy/javis-store"
   },
-  {
-   "id": "javis.khach-hang-crm",
-   "kind": "bundle",
-   "name": {
-    "vi": "Quản lý khách hàng (CRM)",
-    "en": "Customer management (CRM)"
-   },
-   "description": {
-    "vi": "Sổ khách hàng đặt lên trang Hội thoại: khách từ Telegram, Zalo Bot, Zalo cá nhân; hồ sơ và lịch sử từng người, gắn tag, ghi chú, khách chờ trả lời, thống kê, xuất Excel. Kèm trợ lý CSKH và quy trình rà soát mỗi ngày. Cần Javis 0.60.1 trở lên.",
-    "en": "A customer book on top of the Conversations page: customers from Telegram, Zalo Bot and personal Zalo; per-person profile and history, tags, notes, unanswered queue, stats, Excel export. Ships a support agent and a daily review workflow. Needs Javis 0.60.1 or newer."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "ban-hang",
-   "category_label": {
-    "vi": "Bán hàng",
-    "en": "Sales"
-   },
-   "tier": "code",
-   "verified": true,
-   "updated": "2026-09-20",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.khach-hang-crm",
-   "icon": "packs/javis.khach-hang-crm/assets/khach-hang-crm.png",
-   "download": {
-    "url": "dist/javis-khach-hang-crm-1.0.0.zip",
-    "sha256": "78e638637bc1b8ca4a46c9311fa2461cfbc7fb63324a6035db75ffebe6506719",
-    "size": 14086
-   }
-  },
-  {
-   "id": "javis.composio",
-   "kind": "connector",
-   "name": {
-    "vi": "Composio"
-   },
-   "description": {
-    "vi": "Cổng đa ứng dụng của Composio: một kết nối mở ra hơn 500 app (Gmail, Notion, Google Sheets, GitHub, Linear, Slack...). Javis tìm tool, nối tài khoản từng app và chạy hành động qua Composio, không cần Javis viết connector riêng cho mỗi app. Dán API key (ck_...) là xong."
-   },
-   "version": "1.0.2",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "kho-ung-dung",
-   "category_label": {
-    "vi": "Kho ứng dụng"
-   },
-   "tier": "data",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.composio",
-   "icon": "packs/javis.composio/assets/composio.png",
-   "provides": {
-    "connectors": [
-     "composio"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-composio-1.0.2.zip",
-    "sha256": "724d03c5771e7f233884575439b85bbfff3a4989b251f4511db16c31793e17e3",
-    "size": 16145
-   }
-  },
-  {
-   "id": "javis.pancake-pos",
-   "kind": "connector",
-   "name": {
-    "vi": "Pancake POS"
-   },
-   "description": {
-    "vi": "Đơn hàng, doanh thu, khách hàng, tồn kho, quảng cáo từ Pancake POS. Mỗi cửa hàng 1 API key - thêm nhiều tài khoản cho nhiều shop."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "ban-hang",
-   "category_label": {
-    "vi": "Bán hàng"
-   },
-   "tier": "data",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.pancake-pos",
-   "icon": "packs/javis.pancake-pos/assets/pancake-pos.png",
-   "provides": {
-    "connectors": [
-     "pancake-pos"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-pancake-pos-1.0.0.zip",
-    "sha256": "93bf26951f5bdf0f2c1635f16ebcd1f4b3334d5f358abe65578667a6ae15229e",
-    "size": 8799
-   }
-  },
-  {
-   "id": "javis.shopify",
-   "kind": "connector",
-   "name": {
-    "vi": "Shopify"
-   },
-   "description": {
-    "vi": "Tra cứu sản phẩm, giá, tồn kho và dựng sẵn giỏ hàng của MỘT cửa hàng Shopify qua MCP chính chủ (chuẩn UCP). Không cần API key, không cần cài app, không cần là chủ shop - chỉ cần địa chỉ cửa hàng."
-   },
-   "version": "1.0.2",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "ban-hang",
-   "category_label": {
-    "vi": "Bán hàng"
-   },
-   "tier": "data",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.shopify",
-   "icon": "packs/javis.shopify/assets/shopify.png",
-   "provides": {
-    "connectors": [
-     "shopify"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-shopify-1.0.2.zip",
-    "sha256": "b4ffb838c94d096d529d0c2edb9923e60cbe953da8de00a77fa25863d23f6418",
-    "size": 15152
-   }
-  },
-  {
-   "id": "javis.webcake-landing",
-   "kind": "connector",
-   "name": {
-    "vi": "Webcake Landing"
-   },
-   "description": {
-    "vi": "Để AI tự thiết kế và sửa landing page Webcake bằng lời nói (tạo trang, sửa section, publish...). Chạy local qua npx, mỗi tài khoản 1 JWT."
-   },
-   "version": "1.0.1",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "marketing",
-   "category_label": {
-    "vi": "Marketing"
-   },
-   "tier": "code",
-   "verified": true,
-   "updated": "2026-10-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.webcake-landing",
-   "icon": "packs/javis.webcake-landing/assets/webcake.jpg",
-   "provides": {
-    "connectors": [
-     "webcake-landing"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-webcake-landing-1.0.1.zip",
-    "sha256": "60289d10a738b3fa4bddf0d14e4adb5ccc8b94f084baa1061181a402fc424fbe",
-    "size": 10403
-   }
-  },
-  {
-   "id": "javis.webcake-landing-web",
-   "kind": "connector",
-   "name": {
-    "vi": "Webcake Landing (đăng nhập web)"
-   },
-   "description": {
-    "vi": "Cùng bộ công cụ landing Webcake nhưng chạy trên máy chủ sẵn: bấm Kết nối rồi đăng nhập, không dán JWT, không cần Node.js trên máy."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "marketing",
-   "category_label": {
-    "vi": "Marketing"
-   },
-   "tier": "data",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.webcake-landing-web",
-   "icon": "packs/javis.webcake-landing-web/assets/webcake.jpg",
-   "provides": {
-    "connectors": [
-     "webcake-landing-web"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-webcake-landing-web-1.0.0.zip",
-    "sha256": "64a4110545934cead5ec181fc278a7e82c18299678d484550578fc938b7d7748",
-    "size": 10388
-   }
-  },
-  {
-   "id": "javis.google-sheets",
-   "kind": "connector",
-   "name": {
-    "vi": "Google Sheets"
-   },
-   "description": {
-    "vi": "Đọc/ghi bảng tính Google: đổ báo cáo doanh thu, tồn kho, công nợ ra Sheets tự động. Đấu bằng service account - không cần đăng nhập."
-   },
-   "version": "1.0.1",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "van-phong",
-   "category_label": {
-    "vi": "Văn phòng"
-   },
-   "tier": "code",
-   "verified": true,
-   "updated": "2026-10-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-sheets",
-   "icon": "packs/javis.google-sheets/assets/google-sheets.png",
-   "provides": {
-    "connectors": [
-     "google-sheets"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-google-sheets-1.0.1.zip",
-    "sha256": "61a4b2984dfef716d7fb855f1f458c161dc5fb7a4c8db183a19db2860f0ccc1f",
-    "size": 7516
-   }
-  },
-  {
-   "id": "javis.google-search-console",
-   "kind": "connector",
-   "name": {
-    "vi": "Google Search Console"
-   },
-   "description": {
-    "vi": "Số liệu SEO website: khách tìm từ khoá gì ra trang của bạn, lượt hiển thị, lượt bấm, trang top."
-   },
-   "version": "1.0.3",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "marketing",
-   "category_label": {
-    "vi": "Marketing"
-   },
-   "tier": "code",
-   "verified": true,
-   "updated": "2026-10-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-search-console",
-   "icon": "packs/javis.google-search-console/assets/google-search-console.png",
-   "provides": {
-    "connectors": [
-     "google-search-console"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-google-search-console-1.0.3.zip",
-    "sha256": "6fbaaf2835d485a07bdbf4e84bf4bfdc8f68f9caae73a79d6250691cde28fd45",
-    "size": 9920
-   }
-  },
-  {
-   "id": "javis.google-workspace",
-   "kind": "connector",
-   "name": {
-    "vi": "Google Workspace (Gmail, Lịch, Drive, Docs)"
-   },
-   "description": {
-    "vi": "Gmail, Calendar, Drive, Docs, Sheets, Slides, Forms, Tasks... trong MỘT kết nối. Tạo OAuth client 1 lần, khoảng 10 phút, có hướng dẫn từng bước. Lần đầu gọi tool Google, trình duyệt TRÊN MÁY CHẠY JAVIS mở ra để bấm đồng ý, nên máy phải có màn hình."
-   },
-   "version": "1.0.3",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "van-phong",
-   "category_label": {
-    "vi": "Văn phòng"
-   },
-   "tier": "code",
-   "verified": true,
-   "updated": "2026-10-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-workspace",
-   "icon": "packs/javis.google-workspace/assets/google-workspace.png",
-   "provides": {
-    "connectors": [
-     "google-workspace"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-google-workspace-1.0.3.zip",
-    "sha256": "cc6c3435b1d4bc88042e3ef0dc1f5d3e851fc404a37b307ead7f42cc98a844d7",
-    "size": 13201
-   }
-  },
-  {
-   "id": "javis.google-tasks",
-   "kind": "connector",
-   "name": {
-    "vi": "Google Tasks"
-   },
-   "description": {
-    "vi": "Việc cần làm trong Google Tasks: xem danh sách, thêm việc, đặt hạn, đánh dấu xong. Chỉ xin quyền Tasks, không đụng Gmail hay Drive. Đăng nhập Google bằng OAuth client tự tạo (~10 phút, có hướng dẫn)."
-   },
-   "version": "1.0.3",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "van-phong",
-   "category_label": {
-    "vi": "Văn phòng"
-   },
-   "tier": "code",
-   "verified": true,
-   "updated": "2026-10-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-tasks",
-   "icon": "packs/javis.google-tasks/assets/google-tasks.png",
-   "provides": {
-    "connectors": [
-     "google-tasks"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-google-tasks-1.0.3.zip",
-    "sha256": "5e7feb26aeded6905e6953a5f4290f0dcd92fec5ca272f2c1189cff76525c535",
-    "size": 14188
-   }
-  },
-  {
-   "id": "javis.meta-ads",
-   "kind": "connector",
-   "name": {
-    "vi": "Meta Ads (Facebook & Instagram)"
-   },
-   "description": {
-    "vi": "Số liệu quảng cáo Facebook/Instagram qua MCP chính chủ của Meta (tài khoản ads, hiệu suất chiến dịch, benchmark ngành, catalog sản phẩm). LƯU Ý: đang là beta GIỚI HẠN của Meta - chỉ vài ứng dụng được Meta cấp phép sẵn kết nối được, kết nối tự phục vụ CHƯA khả dụng."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "quang-cao",
-   "category_label": {
-    "vi": "Quảng cáo"
-   },
-   "tier": "data",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.meta-ads",
-   "icon": "packs/javis.meta-ads/assets/meta-ads.webp",
-   "provides": {
-    "connectors": [
-     "meta-ads"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-meta-ads-1.0.0.zip",
-    "sha256": "5d406f2a226f4defe5b88be375c404029fff48d79d1d6f7e915f498e10b06543",
-    "size": 16925
-   }
-  },
-  {
-   "id": "javis.meta-ads-graph",
-   "kind": "connector",
-   "name": {
-    "vi": "Meta Ads (tự tạo app - Graph API)"
-   },
-   "description": {
-    "vi": "Số liệu quảng cáo Facebook/Instagram gọi THẲNG Marketing API của Meta (KHÔNG qua MCP beta bị khoá). Bạn tạo 1 Facebook App, dán App ID + App Secret, Javis đọc tài khoản ads, chiến dịch và hiệu suất của bạn. CHỈ ĐỌC - không tạo/sửa chiến dịch, không tiêu tiền. Đây là cách các nền tảng như Composio dùng."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "quang-cao",
-   "category_label": {
-    "vi": "Quảng cáo"
-   },
-   "tier": "data",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.meta-ads-graph",
-   "icon": "packs/javis.meta-ads-graph/assets/meta-ads.webp",
-   "provides": {
-    "connectors": [
-     "meta-ads-graph"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-meta-ads-graph-1.0.0.zip",
-    "sha256": "058b674a3c56eb402da214ff40b5370b05ac72ccbb851c66fc79ff8bd09b5bce",
-    "size": 18753
-   }
-  },
-  {
-   "id": "javis.facebook-pages",
-   "kind": "connector",
-   "name": {
-    "vi": "Facebook Trang (tự tạo app - Graph API)"
-   },
-   "description": {
-    "vi": "Quản lý Trang/Fanpage Facebook của bạn qua Graph API chính chủ: xem danh sách Trang, đọc bài và bình luận (chỉ đọc), đăng bài chữ, ẢNH, ALBUM nhiều ảnh, VIDEO, SỬA bài đã đăng và trả lời bình luận (toàn quyền). Bạn tạo 1 Facebook App (dùng lại app đang có cho Meta Ads cũng được), dán App ID + App Secret. Đăng và sửa bài là hành động THẬT nên chỉ chạy ở mức Toàn quyền, không tự làm lén."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "mang-xa-hoi",
-   "category_label": {
-    "vi": "Mạng xã hội"
-   },
-   "tier": "data",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.facebook-pages",
-   "icon": "packs/javis.facebook-pages/assets/meta-ads.webp",
-   "provides": {
-    "connectors": [
-     "facebook-pages"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-facebook-pages-1.0.0.zip",
-    "sha256": "af64306ef56265574d8201d7daf72308be865f43a1ebf5b21581fc5db45a4983",
-    "size": 18957
-   }
-  },
-  {
-   "id": "javis.facebook-monitor",
-   "kind": "connector",
-   "name": {
-    "vi": "Theo dõi Facebook (Apify)"
-   },
-   "description": {
-    "vi": "Theo dõi Trang và Nhóm CÔNG KHAI trên Facebook để tìm bài viral (nhiều share), qua dịch vụ quét Apify. KHÔNG dùng tài khoản cá nhân của bạn nên không lo khoá; chạy tốt trên VPS 24/7. Trả về bài kèm số share/react/bình luận để lọc bài hot. Cần token Apify (đăng ký free, trả theo lượt quét ~2.6 USD/1000 bài). Nhóm KÍN là bước sau (cần thêm cookie)."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "mang-xa-hoi",
-   "category_label": {
-    "vi": "Mạng xã hội"
-   },
-   "tier": "data",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.facebook-monitor",
-   "icon": "packs/javis.facebook-monitor/assets/meta-ads.webp",
-   "provides": {
-    "connectors": [
-     "facebook-monitor"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-facebook-monitor-1.0.0.zip",
-    "sha256": "9f1bc6d88aacdf8741330c620680bba66fcdc881fafa32393c8e7cf7b4669647",
-    "size": 16844
-   }
-  },
-  {
-   "id": "javis.google-ads",
-   "kind": "connector",
-   "name": {
-    "vi": "Google Ads"
-   },
-   "description": {
-    "vi": "Số liệu Google Ads qua MCP chính chủ của Google (chỉ đọc): chiến dịch, chi phí, chuyển đổi, từ khoá qua truy vấn GAQL. Chạy local; cần developer token + Google Cloud, cài 1 lần hơi kỹ thuật."
-   },
-   "version": "1.0.1",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "quang-cao",
-   "category_label": {
-    "vi": "Quảng cáo"
-   },
-   "tier": "code",
-   "verified": true,
-   "updated": "2026-10-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-ads",
-   "icon": "packs/javis.google-ads/assets/google-ads.webp",
-   "provides": {
-    "connectors": [
-     "google-ads"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-google-ads-1.0.1.zip",
-    "sha256": "8a6573613a25c6a057b2da7166d1317e5804c4c1ecd70a42c226f8b5a2ce26f4",
-    "size": 28344
-   }
-  },
-  {
-   "id": "javis.tiktok-ads",
-   "kind": "connector",
-   "name": {
-    "vi": "TikTok Ads"
-   },
-   "description": {
-    "vi": "Số liệu quảng cáo TikTok (chỉ đọc): tài khoản, chiến dịch, nhóm quảng cáo, creative, báo cáo hiệu suất. Server cộng đồng chạy local trên Marketing API chính thức - dán App ID + Secret + Access Token."
-   },
-   "version": "1.0.1",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "quang-cao",
-   "category_label": {
-    "vi": "Quảng cáo"
-   },
-   "tier": "code",
-   "verified": true,
-   "updated": "2026-10-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.tiktok-ads",
-   "icon": "packs/javis.tiktok-ads/assets/tiktok-ads.webp",
-   "provides": {
-    "connectors": [
-     "tiktok-ads"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-tiktok-ads-1.0.1.zip",
-    "sha256": "f08f8c68502f9d4154825c047f09ddbd2901d4ee26d2a8bb75372492bf3ddf30",
-    "size": 8802
-   }
-  },
-  {
-   "id": "javis.google-calendar",
-   "kind": "connector",
-   "name": {
-    "vi": "Google Calendar"
-   },
-   "description": {
-    "vi": "Lịch Google qua MCP chính chủ của Google: xem lịch, tìm chỗ trống, tạo/sửa sự kiện, nhắc hẹn. Đăng nhập Google trong dashboard, chạy được cả trên VPS. Cần tạo OAuth client + ghi danh Developer Preview của Google 1 lần (~10 phút)."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "van-phong",
-   "category_label": {
-    "vi": "Văn phòng"
-   },
-   "tier": "data",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-calendar",
-   "icon": "packs/javis.google-calendar/assets/google-calendar.png",
-   "provides": {
-    "connectors": [
-     "google-calendar"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-google-calendar-1.0.0.zip",
-    "sha256": "f3204f20a48c9e63959b2678de408e3c6843eceda12f5265d10a60aa1eae6323",
-    "size": 12536
-   }
-  },
-  {
-   "id": "javis.gmail",
-   "kind": "connector",
-   "name": {
-    "vi": "Gmail"
-   },
-   "description": {
-    "vi": "Gmail qua MCP chính chủ của Google: đọc và tìm thư, soạn NHÁP, gắn nhãn sắp xếp hộp thư. Server chính chủ KHÔNG có tool gửi thẳng - luôn dừng ở bản nháp để bạn tự bấm gửi. Cần tạo OAuth client + ghi danh Developer Preview của Google 1 lần."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "van-phong",
-   "category_label": {
-    "vi": "Văn phòng"
-   },
-   "tier": "data",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.gmail",
-   "icon": "packs/javis.gmail/assets/gmail.webp",
-   "provides": {
-    "connectors": [
-     "gmail"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-gmail-1.0.0.zip",
-    "sha256": "0c8669e18a4443f0a370fc12ca984db6f1dbc0c60586382e48f7e137197db675",
-    "size": 16670
-   }
-  },
-  {
-   "id": "javis.slack",
-   "kind": "connector",
-   "name": {
-    "vi": "Slack"
-   },
-   "description": {
-    "vi": "Tìm kiếm và đọc/gửi tin nhắn Slack, xem kênh và thành viên, quản lý canvas qua MCP chính chủ của Slack. Cần tạo một Slack app trong workspace và được admin duyệt (đây là yêu cầu bắt buộc của Slack)."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "nhan-tin",
-   "category_label": {
-    "vi": "Nhắn tin"
-   },
-   "tier": "data",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.slack",
-   "icon": "packs/javis.slack/assets/slack.webp",
-   "provides": {
-    "connectors": [
-     "slack"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-slack-1.0.0.zip",
-    "sha256": "405dc29f944384259c11e086a063d4f9dedc49cf613433799422a4aad3b0e377",
-    "size": 26088
-   }
-  },
-  {
-   "id": "javis.systeme-io",
-   "kind": "connector",
-   "name": {
-    "vi": "Systeme.io"
-   },
-   "description": {
-    "vi": "Quản lý liên hệ, tag, trường tuỳ biến, newsletter và phễu từ Systeme.io qua MCP chính chủ. Dán MCP key là xong (key có hạn tối đa 90 ngày, tối đa 2 key mỗi tài khoản)."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "marketing",
-   "category_label": {
-    "vi": "Marketing"
-   },
-   "tier": "data",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.systeme-io",
-   "icon": "packs/javis.systeme-io/assets/systeme-io.png",
-   "provides": {
-    "connectors": [
-     "systeme-io"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-systeme-io-1.0.0.zip",
-    "sha256": "7886621cf1702fe73d7b4a7f663468dc2bd66d03d48d57693eee1d657dc4d194",
-    "size": 12770
-   }
-  },
-  {
-   "id": "javis.lark",
-   "kind": "connector",
-   "name": {
-    "vi": "Lark"
-   },
-   "description": {
-    "vi": "Nhắn tin, tài liệu (Docs), bảng dữ liệu (Base/Bitable), wiki và danh bạ trong Lark qua MCP chính chủ. Chạy local bằng app của bạn (dán App ID + App Secret). Cần tạo một Lark app và cấp quyền tương ứng."
-   },
-   "version": "1.0.1",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "van-phong",
-   "category_label": {
-    "vi": "Văn phòng"
-   },
-   "tier": "code",
-   "verified": true,
-   "updated": "2026-10-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.lark",
-   "icon": "packs/javis.lark/assets/lark.png",
-   "provides": {
-    "connectors": [
-     "lark"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-lark-1.0.1.zip",
-    "sha256": "a2f951f30b7694174011882c71fcb596118b5b2db9d57651f17e3bc81e31350b",
-    "size": 51858
-   }
-  },
-  {
-   "id": "javis.higgsfield",
-   "kind": "connector",
-   "name": {
-    "vi": "Higgsfield"
-   },
-   "description": {
-    "vi": "Tạo và chỉnh ảnh/video bằng AI của Higgsfield qua MCP chính chủ: sinh ảnh, sinh video, nâng nét (upscale), mở rộng khung hình, xoá nền, cắt nhân vật, điều khiển chuyển động. Đăng nhập Higgsfield 1 chạm - không cần tạo app hay dán key. Lưu ý: mỗi lần tạo/chỉnh tiêu credit Higgsfield của bạn."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "sang-tao",
-   "category_label": {
-    "vi": "Sáng tạo"
-   },
-   "tier": "data",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.higgsfield",
-   "icon": "packs/javis.higgsfield/assets/higgsfield.png",
-   "provides": {
-    "connectors": [
-     "higgsfield"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-higgsfield-1.0.0.zip",
-    "sha256": "5021689623f95050febad984bfc6b9b1f1a8c0978ea1ea775b48ef63ae194584",
-    "size": 91932
-   }
-  },
-  {
-   "id": "javis.capcut",
-   "kind": "connector",
-   "name": {
-    "vi": "CapCut"
-   },
-   "description": {
-    "vi": "Tạo ảnh và video bằng AI của CapCut từ mô tả chữ, tìm template CapCut theo ý tưởng, qua MCP chính chủ của CapCut. Đăng nhập CapCut 1 chạm - không cần tạo app hay dán key. Lưu ý: mỗi lần tạo tiêu credit CapCut của bạn, CapCut không phục vụ mạng đặt ở Mỹ, và chưa hỗ trợ tải file từ máy lên để dựng."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "sang-tao",
-   "category_label": {
-    "vi": "Sáng tạo"
-   },
-   "tier": "data",
-   "verified": true,
-   "updated": "2026-10-04",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.capcut",
-   "icon": "packs/javis.capcut/assets/capcut.png",
-   "provides": {
-    "connectors": [
-     "capcut"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-capcut-1.0.0.zip",
-    "sha256": "43489e30cf592f190ec5bb36eea402f0126042d3f7d5cc6c96daa4b75bbcbc84",
-    "size": 8942
-   }
-  },
-  {
-   "id": "javis.mineflow",
-   "kind": "connector",
-   "name": {
-    "vi": "Mineflow"
-   },
-   "description": {
-    "vi": "Nền tảng dữ liệu khách hàng (CDP) & tự động hóa marketing all-in-one trên Zalo, qua MCP chính chủ của Mineflow. Để AI xem và dựng landing page, mini app, biểu mẫu, bảng dữ liệu khách hàng và workflow tự động hóa trên Zalo. Đăng nhập Mineflow 1 chạm - không cần dán key. Ưu đãi riêng cho người dùng Javis: tặng 3 tháng gói Pro và các gói setup Zalo OA, ZNS, Mini App - xem hướng dẫn."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "marketing",
-   "category_label": {
-    "vi": "Marketing"
-   },
-   "tier": "data",
-   "verified": true,
-   "updated": "2026-10-04",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.mineflow",
-   "icon": "packs/javis.mineflow/assets/mineflow.png",
-   "provides": {
-    "connectors": [
-     "mineflow"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-mineflow-1.0.0.zip",
-    "sha256": "a2a39edc3353589d494ee5f2d695b04597686a11a311450e1ed4551472ae009a",
-    "size": 54666
-   }
-  },
-  {
-   "id": "javis.x-twitter",
-   "kind": "connector",
-   "name": {
-    "vi": "X (Twitter)"
-   },
-   "description": {
-    "vi": "Tìm kiếm và đọc bài đăng, xem hồ sơ và số liệu công khai trên X (Twitter) qua MCP chính chủ của X. Dán Bearer Token (App-only) từ X Developer Portal - dùng để đọc/tìm; đăng bài cần OAuth người dùng (sẽ bổ sung nếu cần)."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "mang-xa-hoi",
-   "category_label": {
-    "vi": "Mạng xã hội"
-   },
-   "tier": "data",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.x-twitter",
-   "icon": "packs/javis.x-twitter/assets/x.png",
-   "provides": {
-    "connectors": [
-     "x-twitter"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-x-twitter-1.0.0.zip",
-    "sha256": "5ab9a99da5e6412f24c9ee3ab89d7bc4594385afdba3c28210164b7193aadde9",
-    "size": 271235
-   }
-  },
-  {
-   "id": "javis.google-keep",
-   "kind": "connector",
-   "name": {
-    "vi": "Google Keep"
-   },
-   "description": {
-    "vi": "Đọc và sửa ghi chú Google Keep: tìm note, tạo note và danh sách việc, gắn nhãn, ghim, lưu trữ. LƯU Ý: Keep không có API chính chủ nên phải dùng master token có TOÀN QUYỀN tài khoản Google, không phải OAuth giới hạn phạm vi như Gmail hay Lịch. Javis chỉ thao tác được ghi chú, nhưng token thì mở cả tài khoản nếu bị lộ."
-   },
-   "version": "1.0.3",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "van-phong",
-   "category_label": {
-    "vi": "Văn phòng"
-   },
-   "tier": "code",
-   "verified": true,
-   "updated": "2026-10-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-keep",
-   "icon": "packs/javis.google-keep/assets/google-keep.png",
-   "provides": {
-    "connectors": [
-     "google-keep"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-google-keep-1.0.3.zip",
-    "sha256": "b949882e176cf531d9ed578a44c7d51b71bcd44b7449d752aa6adbcc2727e11e",
-    "size": 9381
-   }
-  },
-  {
-   "id": "javis.notebooklm",
-   "kind": "connector",
-   "name": {
-    "vi": "Google NotebookLM"
-   },
-   "description": {
-    "vi": "Đọc và thao tác notebook trên Google NotebookLM: liệt kê notebook, đọc nguồn, hỏi đáp ngay trong notebook, thêm nguồn, lưu ghi chú, tạo tóm tắt/audio ở Studio. LƯU Ý: NotebookLM chưa có API chính chủ nên phải mượn PHIÊN ĐĂNG NHẬP trình duyệt (cookie Google), không phải OAuth giới hạn phạm vi như Gmail hay Lịch."
-   },
-   "version": "1.0.3",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "van-phong",
-   "category_label": {
-    "vi": "Văn phòng"
-   },
-   "tier": "code",
-   "verified": true,
-   "updated": "2026-10-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.notebooklm",
-   "icon": "packs/javis.notebooklm/assets/notebooklm.png",
-   "provides": {
-    "connectors": [
-     "notebooklm"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-notebooklm-1.0.3.zip",
-    "sha256": "34152d0b05ce3e3b292472c09ae85da22b28298f601b9521d068c52a08fffb1c",
-    "size": 14309
-   }
-  },
-  {
-   "id": "javis.n8n",
-   "kind": "connector",
-   "name": {
-    "vi": "n8n"
-   },
-   "description": {
-    "vi": "Điều khiển n8n của bạn: tìm và đọc workflow, xem lịch sử chạy, tạo và sửa workflow, chạy workflow - qua MCP chính chủ của n8n. Cần địa chỉ n8n của bạn + MCP Access Token."
-   },
-   "version": "1.0.2",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "van-phong",
-   "category_label": {
-    "vi": "Văn phòng"
-   },
-   "tier": "data",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.n8n",
-   "icon": "packs/javis.n8n/assets/n8n.png",
-   "provides": {
-    "connectors": [
-     "n8n"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-n8n-1.0.2.zip",
-    "sha256": "26bf976685b3512240b40fa08547f48b916cd6826c5d9670dd9f4745f3960040",
-    "size": 10911
-   }
-  },
-  {
-   "id": "javis.hostinger",
-   "kind": "connector",
-   "name": {
-    "vi": "Hostinger"
-   },
-   "description": {
-    "vi": "Quản lý hosting Hostinger ngay trong chat: xem tên miền và ngày hết hạn, sửa bản ghi DNS, xem website và WordPress, VPS, hộp thư, hoá đơn và gói đang chạy. MCP chính chủ của Hostinger, dán API token là xong."
-   },
-   "version": "1.0.3",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "website",
-   "category_label": {
-    "vi": "Website"
-   },
-   "tier": "code",
-   "verified": true,
-   "updated": "2026-10-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hostinger",
-   "icon": "packs/javis.hostinger/assets/hostinger.png",
-   "provides": {
-    "connectors": [
-     "hostinger"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-hostinger-1.0.3.zip",
-    "sha256": "db02dd41b688de30bd2448493524c864527dc6878d34587e51c33f62c6b21f02",
-    "size": 11189
-   }
-  },
-  {
-   "id": "javis.hermes-creative",
-   "kind": "skill",
-   "name": {
-    "vi": "Hermes: Sáng tạo & thiết kế",
-    "en": "Hermes: Creative & design"
-   },
-   "description": {
-    "vi": "10 skill sáng tạo của Hermes Agent (Nous Research): sơ đồ kiến trúc SVG, infographic, HTML artifact, video Manim, sketch p5.js, 54 design system thật, viết lời nhạc Suno, và bộ lọc bỏ giọng văn AI.",
-    "en": "10 creative skills from Hermes Agent: SVG architecture diagrams, infographics, HTML artifacts, Manim videos, p5.js sketches, 54 real design systems, Suno song prompts, and an AI-slop remover."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Nous Research",
-    "url": "https://github.com/NousResearch/hermes-agent"
-   },
-   "category": "sang-tao",
-   "category_label": {
-    "vi": "Sáng tạo",
-    "en": "Creative"
-   },
-   "tier": "data",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-creative",
-   "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
-   "license": "MIT",
-   "provides": {
-    "skills": [
-     "architecture-diagram",
-     "ascii-video",
-     "baoyu-infographic",
-     "claude-design",
-     "design-md",
-     "humanizer",
-     "manim-video",
-     "p5js",
-     "popular-web-designs",
-     "songwriting-and-ai-music"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-hermes-creative-1.0.0.zip",
-    "sha256": "e3efc8703f63046fa7d99a64edf8ad0b67125ee6bbe4228dd5dab8b7a8cd637e",
-    "size": 666747
-   }
-  },
-  {
-   "id": "javis.hermes-office",
-   "kind": "skill",
-   "name": {
-    "vi": "Hermes: Tài liệu văn phòng",
-    "en": "Hermes: Office documents"
-   },
-   "description": {
-    "vi": "6 skill xử lý tài liệu của Hermes Agent: Word .docx, Excel .xlsx, PowerPoint .pptx, PDF (tạo/ghép/OCR/điền form), và hai skill bóc việc cần làm kèm trích dẫn từ tài liệu hoặc biên bản họp.",
-    "en": "6 document skills from Hermes Agent: Word .docx, Excel .xlsx, PowerPoint .pptx, PDF (create, merge, OCR, fill), plus two skills that extract cited action items from documents and meeting notes."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Nous Research",
-    "url": "https://github.com/NousResearch/hermes-agent"
-   },
-   "category": "van-phong",
-   "category_label": {
-    "vi": "Văn phòng",
-    "en": "Office"
-   },
-   "tier": "code",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-office",
-   "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
-   "license": "MIT",
-   "provides": {
-    "skills": [
-     "docx",
-     "xlsx",
-     "powerpoint",
-     "pdf",
-     "document-to-action-items",
-     "meeting-action-items"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-hermes-office-1.0.0.zip",
-    "sha256": "c03ed689bf03ffb73d3b400dc326fa4195c0d00e92060e53f89a84ae158f094b",
-    "size": 134379
-   }
-  },
-  {
-   "id": "javis.hermes-productivity",
-   "kind": "skill",
-   "name": {
-    "vi": "Hermes: Năng suất & công cụ",
-    "en": "Hermes: Productivity tools"
-   },
-   "description": {
-    "vi": "8 skill năng suất của Hermes Agent: Airtable, Box, Notion, Obsidian, Google Workspace, Microsoft Teams, bản đồ OpenStreetMap, và quy trình tổng kết tuần.",
-    "en": "8 productivity skills from Hermes Agent: Airtable, Box, Notion, Obsidian, Google Workspace, Microsoft Teams, OpenStreetMap routing, and a weekly review routine."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Nous Research",
-    "url": "https://github.com/NousResearch/hermes-agent"
-   },
-   "category": "van-phong",
-   "category_label": {
-    "vi": "Văn phòng",
-    "en": "Office"
-   },
-   "tier": "code",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-productivity",
-   "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
-   "license": "MIT",
-   "provides": {
-    "skills": [
-     "airtable",
-     "box",
-     "notion",
-     "obsidian",
-     "google-workspace",
-     "teams-meeting-pipeline",
-     "maps",
-     "weekly-review-planning"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-hermes-productivity-1.0.0.zip",
-    "sha256": "0d657f8ef7ff516dd1b74f0c8080ff7a9e5d641690e082c9f3143ad723238cf5",
-    "size": 91078
-   }
-  },
-  {
-   "id": "javis.hermes-research",
-   "kind": "skill",
-   "name": {
-    "vi": "Hermes: Nghiên cứu & theo dõi",
-    "en": "Hermes: Research & monitoring"
-   },
-   "description": {
-    "vi": "5 skill nghiên cứu của Hermes Agent: tìm bài arXiv, theo dõi tin đối thủ, canh giá sản phẩm/vé máy bay, dựng wiki kiến thức kiểu Karpathy, và ép mọi câu trả lời phải có nguồn kiểm chứng được.",
-    "en": "5 research skills from Hermes Agent: arXiv search, competitor news monitoring, price watching, a Karpathy-style LLM wiki, and grounding every answer in verifiable citations."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Nous Research",
-    "url": "https://github.com/NousResearch/hermes-agent"
-   },
-   "category": "nghien-cuu",
-   "category_label": {
-    "vi": "Nghiên cứu",
-    "en": "Research"
-   },
-   "tier": "code",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-research",
-   "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
-   "license": "MIT",
-   "provides": {
-    "skills": [
-     "arxiv",
-     "competitor-news-monitor",
-     "grounded-citations",
-     "llm-wiki",
-     "product-price-monitor"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-hermes-research-1.0.0.zip",
-    "sha256": "3e01a83ce7789aff5d04cb490375940213d46427ea4926378859d10b08f8ca81",
-    "size": 39217
-   }
-  },
-  {
-   "id": "javis.hermes-dev",
-   "kind": "skill",
-   "name": {
-    "vi": "Hermes: Quy trình lập trình",
-    "en": "Hermes: Dev workflow"
-   },
-   "description": {
-    "vi": "8 skill quy trình code của Hermes Agent: GitHub qua gh CLI, TDD RED-GREEN-REFACTOR, gỡ lỗi 4 pha tìm gốc rễ, review trước khi commit, dọn code, spike thử ý tưởng, đo quy mô codebase, và điều phối Kanban.",
-    "en": "8 engineering-workflow skills from Hermes Agent: GitHub via gh CLI, RED-GREEN-REFACTOR TDD, 4-phase root-cause debugging, pre-commit review, code cleanup, spikes, codebase sizing, and Kanban handoffs."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Nous Research",
-    "url": "https://github.com/NousResearch/hermes-agent"
-   },
-   "category": "lap-trinh",
-   "category_label": {
-    "vi": "Lập trình",
-    "en": "Development"
-   },
-   "tier": "code",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-dev",
-   "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
-   "license": "MIT",
-   "provides": {
-    "skills": [
-     "github",
-     "test-driven-development",
-     "systematic-debugging",
-     "requesting-code-review",
-     "simplify-code",
-     "spike",
-     "codebase-inspection",
-     "sdlc-review"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-hermes-dev-1.0.0.zip",
-    "sha256": "d122a466b426681381ff6c1581a5c36676707db64a1aca87cbaa2e82a7025589",
-    "size": 72020
-   }
-  },
-  {
-   "id": "javis.hermes-debug",
-   "kind": "skill",
-   "name": {
-    "vi": "Hermes: Gỡ lỗi & kiểm thử",
-    "en": "Hermes: Debugging & QA"
-   },
-   "description": {
-    "vi": "3 skill gỡ lỗi của Hermes Agent: debug Node.js qua --inspect và Chrome DevTools Protocol, debug Python bằng pdb + debugpy (DAP), và kiểm thử khám phá web app để tìm bug kèm bằng chứng.",
-    "en": "3 debugging skills from Hermes Agent: Node.js via --inspect and the Chrome DevTools Protocol, Python via pdb + debugpy (DAP), and exploratory QA of web apps with evidence-backed bug reports."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Nous Research",
-    "url": "https://github.com/NousResearch/hermes-agent"
-   },
-   "category": "lap-trinh",
-   "category_label": {
-    "vi": "Lập trình",
-    "en": "Development"
-   },
-   "tier": "data",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-debug",
-   "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
-   "license": "MIT",
-   "provides": {
-    "skills": [
-     "node-inspect-debugger",
-     "python-debugpy",
-     "dogfood"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-hermes-debug-1.0.0.zip",
-    "sha256": "09e42f488c174e14d794abf5ecc5324f7273c18ef5877e3877e30d7dd831ca14",
-    "size": 19312
-   }
-  },
-  {
-   "id": "javis.hermes-media",
-   "kind": "skill",
-   "name": {
-    "vi": "Hermes: Âm thanh & video",
-    "en": "Hermes: Audio & video"
-   },
-   "description": {
-    "vi": "3 skill media của Hermes Agent: lấy transcript YouTube rồi viết tóm tắt/thread/blog, tìm và tải GIF từ Tenor, và phân tích phổ âm thanh (mel, chroma, MFCC).",
-    "en": "3 media skills from Hermes Agent: turn YouTube transcripts into summaries, threads and blogs; search and download GIFs from Tenor; and analyse audio spectrograms (mel, chroma, MFCC)."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Nous Research",
-    "url": "https://github.com/NousResearch/hermes-agent"
-   },
-   "category": "sang-tao",
-   "category_label": {
-    "vi": "Sáng tạo",
-    "en": "Creative"
-   },
-   "tier": "code",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-media",
-   "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
-   "license": "MIT",
-   "provides": {
-    "skills": [
-     "youtube-content",
-     "gif-search",
-     "songsee"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-hermes-media-1.0.0.zip",
-    "sha256": "f0071ad9f350024336a389ed95a682501688274f7d47515d57546e857b7679fe",
-    "size": 10116
-   }
-  },
-  {
-   "id": "javis.hermes-apple",
-   "kind": "skill",
-   "name": {
-    "vi": "Hermes: Apple (chỉ macOS)",
-    "en": "Hermes: Apple (macOS only)"
-   },
-   "description": {
-    "vi": "4 skill Apple của Hermes Agent: Notes, Reminders, Find My và iMessage/SMS. CHỈ CHẠY TRÊN macOS - mỗi skill cần một CLI riêng cài sẵn trên máy (memo, remindctl, imsg).",
-    "en": "4 Apple skills from Hermes Agent: Notes, Reminders, Find My and iMessage/SMS. macOS ONLY - each one needs its own CLI installed on the machine (memo, remindctl, imsg)."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Nous Research",
-    "url": "https://github.com/NousResearch/hermes-agent"
-   },
-   "category": "van-phong",
-   "category_label": {
-    "vi": "Văn phòng",
-    "en": "Office"
-   },
-   "tier": "data",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-apple",
-   "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
-   "license": "MIT",
-   "provides": {
-    "skills": [
-     "apple-notes",
-     "apple-reminders",
-     "findmy",
-     "apple-imessage"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-hermes-apple-1.0.0.zip",
-    "sha256": "5b3c253aecc1583d8683be3fcdfebcbe4ccc6fa7dda866e0b7d2b44d82285fe0",
-    "size": 9173
-   }
-  },
-  {
-   "id": "javis.hermes-ai-agents",
-   "kind": "skill",
-   "name": {
-    "vi": "Hermes: Điều phối agent AI",
-    "en": "Hermes: AI agent orchestration"
-   },
-   "description": {
-    "vi": "7 skill của Hermes Agent về giao việc cho agent khác: Claude Code, OpenAI Codex, OpenCode, computer use, cùng ba skill về chính Hermes Agent (cấu hình, viết skill, soi DOM desktop).",
-    "en": "7 Hermes Agent skills for delegating to other agents: Claude Code, OpenAI Codex, OpenCode, computer use, plus three about Hermes Agent itself (config, skill authoring, desktop DOM inspection)."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Nous Research",
-    "url": "https://github.com/NousResearch/hermes-agent"
-   },
-   "category": "tro-ly-ai",
-   "category_label": {
-    "vi": "Trợ lý AI",
-    "en": "AI assistants"
-   },
-   "tier": "data",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-ai-agents",
-   "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
-   "license": "MIT",
-   "provides": {
-    "skills": [
-     "claude-code",
-     "codex",
-     "opencode",
-     "computer-use",
-     "hermes-agent",
-     "hermes-agent-skill-authoring",
-     "inspecting-hermes-desktop-dom"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-hermes-ai-agents-1.0.0.zip",
-    "sha256": "aca524713504c3a76677bd36a99edee96aafb49ade270a1b2b3e5de824f6c5a9",
-    "size": 98703
-   }
-  },
-  {
-   "id": "javis.hermes-inbox-web",
-   "kind": "skill",
-   "name": {
-    "vi": "Hermes: Hộp thư & web",
-    "en": "Hermes: Inbox & web"
-   },
-   "description": {
-    "vi": "4 skill hộp thư và web của Hermes Agent: phân loại inbox rồi soạn thư nháp an toàn, đọc/gửi mail IMAP-SMTP bằng Himalaya CLI, dùng X/Twitter qua xurl, và cứu trang bị chặn 403/429/paywall/WAF.",
-    "en": "4 inbox and web skills from Hermes Agent: triage an inbox and draft replies safely, IMAP/SMTP mail via the Himalaya CLI, X/Twitter via xurl, and recovering pages blocked by 403/429, paywalls or WAFs."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Nous Research",
-    "url": "https://github.com/NousResearch/hermes-agent"
-   },
-   "category": "nhan-tin",
-   "category_label": {
-    "vi": "Nhắn tin",
-    "en": "Messaging"
-   },
-   "tier": "code",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-inbox-web",
-   "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
-   "license": "MIT",
-   "provides": {
-    "skills": [
-     "email-inbox-triage",
-     "himalaya",
-     "xurl",
-     "blocked-page-recovery"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-hermes-inbox-web-1.0.0.zip",
-    "sha256": "61586a463ca4740599ed8189ba297e62c9c5ee8f8a665a577126ef8166479312",
-    "size": 24810
-   }
-  },
-  {
-   "id": "javis.anthropic-plugin-dev",
-   "kind": "skill",
-   "name": {
-    "vi": "Claude: Viết plugin",
-    "en": "Claude: Plugin development"
-   },
-   "description": {
-    "vi": "7 skill chính chủ Anthropic để viết plugin cho Claude Code: cấu trúc plugin, slash command, subagent, hook, tích hợp MCP, cài đặt người dùng chỉnh được, và cách viết SKILL.md.",
-    "en": "Anthropic's 7 official skills for building Claude Code plugins: plugin structure, slash commands, subagents, hooks, MCP integration, user-configurable settings, and writing SKILL.md files."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Anthropic",
-    "url": "https://github.com/anthropics/claude-plugins-official"
-   },
-   "category": "lap-trinh",
-   "category_label": {
-    "vi": "Lập trình",
-    "en": "Development"
-   },
-   "tier": "data",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.anthropic-plugin-dev",
-   "source": "https://github.com/anthropics/claude-plugins-official",
-   "license": "Apache-2.0",
-   "provides": {
-    "skills": [
-     "plugin-structure",
-     "command-development",
-     "agent-development",
-     "hook-development",
-     "mcp-integration",
-     "plugin-settings",
-     "skill-development"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-anthropic-plugin-dev-1.0.0.zip",
-    "sha256": "118963e64b81795a227a320a40c52308317b83cad681b943aeeb1240d71926b0",
-    "size": 190584
-   }
-  },
-  {
-   "id": "javis.anthropic-mcp-dev",
-   "kind": "skill",
-   "name": {
-    "vi": "Claude: Viết MCP server",
-    "en": "Claude: MCP server development"
-   },
-   "description": {
-    "vi": "3 skill chính chủ Anthropic để dựng MCP server: bọc một API thành server (tool, resource, transport, test), thêm widget giao diện tương tác (MCP app), và đóng gói thành .mcpb cài một chạm.",
-    "en": "Anthropic's 3 official skills for MCP servers: wrap an API into a server (tools, resources, transports, testing), add interactive UI widgets (MCP apps), and package it as a one-click .mcpb bundle."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Anthropic",
-    "url": "https://github.com/anthropics/claude-plugins-official"
-   },
-   "category": "lap-trinh",
-   "category_label": {
-    "vi": "Lập trình",
-    "en": "Development"
-   },
-   "tier": "data",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.anthropic-mcp-dev",
-   "source": "https://github.com/anthropics/claude-plugins-official",
-   "license": "Apache-2.0",
-   "provides": {
-    "skills": [
-     "build-mcp-server",
-     "build-mcp-app",
-     "build-mcpb"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-anthropic-mcp-dev-1.0.0.zip",
-    "sha256": "71043b9b4a7da025e42942aff9477552b85ff0b5c560410634d04d5a424ce0d0",
-    "size": 62235
-   }
-  },
-  {
-   "id": "javis.anthropic-claude-setup",
-   "kind": "skill",
-   "name": {
-    "vi": "Claude: Thiết lập & bảo mật",
-    "en": "Claude: Setup & security"
-   },
-   "description": {
-    "vi": "5 skill chính chủ Anthropic để chỉnh chính Claude Code: tạo và đo hiệu quả skill, gợi ý tự động hoá cho một codebase, soát lại CLAUDE.md, viết luật hookify, và quét bảo mật repo hoặc nhánh.",
-    "en": "Anthropic's 5 official skills for tuning Claude Code itself: create and benchmark skills, recommend automations for a codebase, audit CLAUDE.md, write hookify rules, and run security scans."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Anthropic",
-    "url": "https://github.com/anthropics/claude-plugins-official"
-   },
-   "category": "tro-ly-ai",
-   "category_label": {
-    "vi": "Trợ lý AI",
-    "en": "AI assistants"
-   },
-   "tier": "code",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.anthropic-claude-setup",
-   "source": "https://github.com/anthropics/claude-plugins-official",
-   "license": "Apache-2.0",
-   "provides": {
-    "skills": [
-     "skill-creator",
-     "claude-automation-recommender",
-     "claude-md-improver",
-     "writing-hookify-rules",
-     "claude-security"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-anthropic-claude-setup-1.0.0.zip",
-    "sha256": "febd2921fdfc2610ab68c3f885668606f3ded32e44d0fc1e5cf3d8f9f853fc0d",
-    "size": 152711
-   }
-  },
-  {
-   "id": "javis.anthropic-ui-report",
-   "kind": "skill",
-   "name": {
-    "vi": "Claude: Giao diện & báo cáo",
-    "en": "Claude: UI & reports"
-   },
-   "description": {
-    "vi": "5 skill chính chủ Anthropic về thứ nhìn được: định hướng thiết kế UI, playground HTML tương tác, trang trạng thái dự án nhiều tab, báo cáo phiên làm việc, và bản tổng kết mức dùng Claude Code.",
-    "en": "Anthropic's 5 official skills for visible output: deliberate UI design direction, interactive HTML playgrounds, tabbed project status pages, session usage reports, and Claude Code usage receipts."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Anthropic",
-    "url": "https://github.com/anthropics/claude-plugins-official"
-   },
-   "category": "sang-tao",
-   "category_label": {
-    "vi": "Sáng tạo",
-    "en": "Creative"
-   },
-   "tier": "data",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.anthropic-ui-report",
-   "source": "https://github.com/anthropics/claude-plugins-official",
-   "license": "Apache-2.0",
-   "provides": {
-    "skills": [
-     "frontend-design",
-     "playground",
-     "project-artifact",
-     "session-report",
-     "receipts"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-anthropic-ui-report-1.0.0.zip",
-    "sha256": "0f814aea327d715152293ec5c32fe30b883fb674e1b7a39d8c4b789efe33e9a2",
-    "size": 99417
-   }
-  },
-  {
-   "id": "javis.anthropic-chat-channels",
-   "kind": "skill",
-   "name": {
-    "vi": "Claude: Kênh chat (Discord/Telegram/iMessage)",
-    "en": "Claude: Chat channels (Discord/Telegram/iMessage)"
-   },
-   "description": {
-    "vi": "6 skill từ plugin đối tác trong kho Anthropic: thiết lập và quản lý quyền truy cập cho ba kênh chat Discord, Telegram, iMessage - duyệt ghép cặp, sửa allowlist, đặt chính sách DM/nhóm.",
-    "en": "6 skills from partner plugins in Anthropic's directory: set up and manage access for the Discord, Telegram and iMessage channels - approve pairings, edit allowlists, set DM/group policy."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Anthropic",
-    "url": "https://github.com/anthropics/claude-plugins-official"
-   },
-   "category": "nhan-tin",
-   "category_label": {
-    "vi": "Nhắn tin",
-    "en": "Messaging"
-   },
-   "tier": "data",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.anthropic-chat-channels",
-   "source": "https://github.com/anthropics/claude-plugins-official",
-   "license": "Apache-2.0",
-   "provides": {
-    "skills": [
-     "discord-configure",
-     "discord-access",
-     "telegram-configure",
-     "telegram-access",
-     "imessage-configure",
-     "imessage-access"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-anthropic-chat-channels-1.0.0.zip",
-    "sha256": "adb127ac344bd8a569051cc5c0c53c6a0fb876b2a3047a3be0ab327a725e94d9",
-    "size": 20597
-   }
-  },
-  {
-   "id": "javis.anthropic-lab",
-   "kind": "skill",
-   "name": {
-    "vi": "Claude: Toán olympiad & phần cứng M5",
-    "en": "Claude: Math olympiad & M5 hardware"
-   },
-   "description": {
-    "vi": "3 skill chính chủ Anthropic: giải toán olympiad (IMO, Putnam, USAMO) có bộ phản biện riêng và mức tin cậy hiệu chỉnh, cùng hai skill nạp firmware và lập trình MicroPython cho thiết bị M5Stack ESP32.",
-    "en": "3 Anthropic skills: solve olympiad problems (IMO, Putnam, USAMO) with an adversarial verifier and calibrated confidence, plus two for flashing and programming M5Stack ESP32 devices in MicroPython."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Anthropic",
-    "url": "https://github.com/anthropics/claude-plugins-official"
-   },
-   "category": "nghien-cuu",
-   "category_label": {
-    "vi": "Nghiên cứu",
-    "en": "Research"
-   },
-   "tier": "data",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.anthropic-lab",
-   "source": "https://github.com/anthropics/claude-plugins-official",
-   "license": "Apache-2.0",
-   "provides": {
-    "skills": [
-     "math-olympiad",
-     "m5-onboard",
-     "cardputer-buddy"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-anthropic-lab-1.0.0.zip",
-    "sha256": "c7f1c3b6dacff1fa9b64cfbef803fb5b1fcc1b9277f6fe8dcc5d81c479f04b0e",
-    "size": 48415
-   }
-  },
-  {
-   "id": "javis.deepseek-review",
-   "kind": "skill",
-   "name": {
-    "vi": "DeepSeek: Review & chuẩn viết",
-    "en": "DeepSeek: Review & prose standard"
-   },
-   "description": {
-    "vi": "4 skill dùng chung được, lọc từ deepseek-harness: review pull request theo thứ tự đúng-đắn trước, chuẩn viết comment và tài liệu, tìm chỗ code rút gọn được, và quay lại phiên trình duyệt thành GIF.",
-    "en": "4 reusable skills lifted from deepseek-harness: review a pull request correctness-first, an editorial standard for comments and docs, find code that can be simplified, and record a browser session as a GIF."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "DeepSeek",
-    "url": "https://github.com/deepseek-ai/deepseek-harness"
-   },
-   "category": "lap-trinh",
-   "category_label": {
-    "vi": "Lập trình",
-    "en": "Development"
-   },
-   "tier": "code",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.deepseek-review",
-   "source": "https://github.com/deepseek-ai/deepseek-harness/tree/master/.agents/skills",
-   "license": "MIT",
-   "provides": {
-    "skills": [
-     "dsh-code-review",
-     "dsh-prose-standard",
-     "dsh-find-simplifications",
-     "record-browser-gif"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-deepseek-review-1.0.0.zip",
-    "sha256": "56a9a85a6e3e8028baf7e165566a126245c71dd55cd6a586a4bb48346499cb70",
-    "size": 31782
-   }
-  },
-  {
-   "id": "javis.superpowers",
-   "kind": "skill",
-   "name": {
-    "vi": "Superpowers",
-    "en": "Superpowers"
-   },
-   "description": {
-    "vi": "14 skill quy trình làm việc của Jesse Vincent (obra/superpowers): brainstorm trước khi code, viết và thực thi plan, TDD, gỡ lỗi có hệ thống, review code hai chiều, git worktree, và bắt buộc chạy lệnh kiểm chứng trước khi báo xong.",
-    "en": "14 workflow skills by Jesse Vincent (obra/superpowers): brainstorm before coding, write and execute plans, TDD, systematic debugging, both sides of code review, git worktrees, and verifying before claiming done."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Jesse Vincent",
-    "url": "https://github.com/obra/superpowers"
-   },
-   "category": "lap-trinh",
-   "category_label": {
-    "vi": "Lập trình",
-    "en": "Development"
-   },
-   "tier": "data",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.superpowers",
-   "source": "https://github.com/obra/superpowers",
-   "license": "MIT",
-   "provides": {
-    "skills": [
-     "brainstorming",
-     "dispatching-parallel-agents",
-     "executing-plans",
-     "finishing-a-development-branch",
-     "receiving-code-review",
-     "sp-requesting-code-review",
-     "sp-systematic-debugging",
-     "sp-test-driven-development",
-     "subagent-driven-development",
-     "using-git-worktrees",
-     "using-superpowers",
-     "verification-before-completion",
-     "writing-plans",
-     "writing-skills"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-superpowers-1.0.0.zip",
-    "sha256": "52976388955248e9b021a5ab5cec2eefa04d75b954d4c740327ee7cbc1caaacd",
-    "size": 161040
-   }
-  },
-  {
-   "id": "javis.playwright",
-   "kind": "connector",
-   "name": {
-    "vi": "Playwright",
-    "en": "Playwright"
-   },
-   "description": {
-    "vi": "Điều khiển trình duyệt thật qua Playwright MCP chính chủ của Microsoft: mở trang, đọc cấu trúc trang, điền form, bấm nút, chụp màn hình, xuất PDF, chạy kiểm thử đầu-cuối. Không cần API key. Mặc định chạy hồ sơ TÁCH BIỆT và ẩn cửa sổ.",
-    "en": "Drive a real browser through Microsoft's official Playwright MCP: open pages, read page structure, fill forms, click, screenshot, export PDF, run end-to-end tests. No API key. Defaults to an isolated, headless profile."
-   },
-   "version": "1.0.2",
-   "author": {
-    "name": "Microsoft",
-    "url": "https://github.com/microsoft/playwright-mcp"
-   },
-   "category": "website",
-   "category_label": {
-    "vi": "Website",
-    "en": "Website"
-   },
-   "tier": "code",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.playwright",
-   "icon": "packs/javis.playwright/assets/playwright.png",
-   "source": "https://github.com/microsoft/playwright-mcp",
-   "license": "Apache-2.0",
-   "provides": {
-    "connectors": [
-     "playwright"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-playwright-1.0.2.zip",
-    "sha256": "413409d9169b6bdaa43ea41c4eb10241858e2ddf47632ebd861cca7cb03228d3",
-    "size": 21077
-   }
-  },
-  {
-   "id": "javis.quang-cao-so-lieu",
-   "kind": "workflow",
-   "name": {
-    "vi": "Quảng cáo & số liệu",
-    "en": "Ads & analytics"
-   },
-   "description": {
-    "vi": "3 trợ lý và 3 quy trình đọc số quảng cáo: báo cáo Meta/Google/TikTok Ads hàng tuần, săn ngân sách đang đốt vô ích, và đọc Google Search Console hàng tháng. Mọi con số đều phải chỉ ra nguồn, và bước cuối luôn có một trợ lý kiểm chứng độc lập.",
-    "en": "3 agents and 3 workflows for ad analytics: weekly Meta/Google/TikTok reports, wasted-spend hunting, and a monthly Search Console read. Every number must cite its source, and an independent verifier checks the final step."
-   },
-   "version": "1.0.1",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "quang-cao",
-   "category_label": {
-    "vi": "Quảng cáo"
-   },
-   "tier": "data",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.quang-cao-so-lieu",
-   "license": "MIT",
-   "provides": {
-    "agents": [
-     "qc-kiem-chung",
-     "qc-phan-tich-quang-cao",
-     "qc-phan-tich-so-lieu"
-    ],
-    "workflows": [
-     "bao-cao-quang-cao-tuan",
-     "doc-search-console-thang",
-     "san-ngan-sach-lang-phi"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-quang-cao-so-lieu-1.0.1.zip",
-    "sha256": "37bacacc1b4dc7f0c547e1b6df88d9c9b8f64e22364c83ffe704d60af01f987b",
-    "size": 8136
-   }
-  },
-  {
-   "id": "javis.noi-dung-social",
-   "kind": "workflow",
-   "name": {
-    "vi": "Nội dung & mạng xã hội",
-    "en": "Content & social"
-   },
-   "description": {
-    "vi": "4 trợ lý và 3 quy trình làm nội dung: từ một ý tưởng ra bài đăng hoàn chỉnh, bẻ bài dài thành chuỗi post, và lên lịch nội dung một tháng. Có bước tìm góc tiếp cận trước khi viết, và bước biên tập cắt chữ thừa sau khi viết.",
-    "en": "4 agents and 3 workflows for content: turn one idea into a finished post, split a long piece into a post series, and plan a month of content. Angle-finding before writing, editing after."
-   },
-   "version": "1.0.1",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "mang-xa-hoi",
-   "category_label": {
-    "vi": "Mạng xã hội"
-   },
-   "tier": "data",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.noi-dung-social",
-   "license": "MIT",
-   "provides": {
-    "agents": [
-     "nd-bien-tap",
-     "nd-goc-nhin",
-     "nd-kiem-chung",
-     "nd-viet-bai"
-    ],
-    "workflows": [
-     "bai-dai-thanh-chuoi-post",
-     "lich-noi-dung-thang",
-     "y-tuong-thanh-bai-dang"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-noi-dung-social-1.0.1.zip",
-    "sha256": "315da242baa6de3f5a00f7cd3f7ff0539ede1779060e79e1daf5c4548b4efeb4",
-    "size": 9102
-   }
-  },
-  {
-   "id": "javis.email-pheu",
-   "kind": "workflow",
-   "name": {
-    "vi": "Email & phễu",
-    "en": "Email & funnel"
-   },
-   "description": {
-    "vi": "3 trợ lý và 3 quy trình cho email marketing: chuỗi email nuôi dưỡng sau khi khách tải tài liệu miễn phí, chuỗi kích hoạt lại danh sách đã nguội, và chẩn đoán phễu đang rò ở khâu nào. Viết chuỗi mà không lộ hết nội dung sản phẩm trả phí.",
-    "en": "3 agents and 3 workflows for email marketing: a nurture sequence after a lead magnet, a re-engagement sequence for a cold list, and a funnel leak diagnosis."
-   },
-   "version": "1.0.1",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "marketing",
-   "category_label": {
-    "vi": "Marketing"
-   },
-   "tier": "data",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.email-pheu",
-   "license": "MIT",
-   "provides": {
-    "agents": [
-     "em-chien-luoc-pheu",
-     "em-kiem-chung",
-     "em-viet-email"
-    ],
-    "workflows": [
-     "chan-doan-pheu",
-     "chuoi-email-sau-lead-magnet",
-     "kich-hoat-lai-danh-sach"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-email-pheu-1.0.1.zip",
-    "sha256": "f5b57fb05812360e8c88160ea8f5476f04ce7266b8e194f6d5334afab430a860",
-    "size": 7879
-   }
-  },
-  {
-   "id": "javis.san-pham-ban-hang",
-   "kind": "workflow",
-   "name": {
-    "vi": "Sản phẩm số & bán hàng",
-    "en": "Digital products & sales"
-   },
-   "description": {
-    "vi": "4 trợ lý và 3 quy trình cho sản phẩm số: từ kỹ năng sẵn có ra ý tưởng sản phẩm bán được, dựng trang bán hàng từ hồ sơ khách, và chuỗi chăm khách sau mua để đổi lấy lời chứng thực. Mọi lời hứa bán hàng đều bị soát lại xem sản phẩm có giao nổi không.",
-    "en": "4 agents and 3 workflows for digital products: turn existing skills into a sellable product, build a sales page from a customer profile, and run a post-purchase sequence that earns testimonials."
-   },
-   "version": "1.0.1",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "ban-hang",
-   "category_label": {
-    "vi": "Bán hàng",
-    "en": "Sales"
-   },
-   "tier": "data",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.san-pham-ban-hang",
-   "license": "MIT",
-   "provides": {
-    "agents": [
-     "bh-cham-khach",
-     "bh-chien-luoc-offer",
-     "bh-kiem-chung",
-     "bh-viet-ban-hang"
-    ],
-    "workflows": [
-     "cham-khach-sau-mua",
-     "dung-trang-ban-hang",
-     "y-tuong-thanh-san-pham-so"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-san-pham-ban-hang-1.0.1.zip",
-    "sha256": "a72e6eb97342818eb2a8617038e88da21b8d6fe578f5ef81abcf5d352b65ccfe",
-    "size": 9418
-   }
-  },
-  {
-   "id": "javis.tro-ly-hang-ngay",
-   "kind": "agent",
-   "name": {
-    "vi": "Trợ lý hàng ngày",
-    "en": "Everyday assistants"
-   },
-   "description": {
-    "vi": "3 trợ lý dùng mỗi ngày, không cần quy trình đi kèm: một thư ký dọn hộp thư và sắp việc trong ngày, một người tóm tắt tài liệu dài thành quyết định và việc cần làm, một người phản biện soi lỗ hổng trong kế hoạch trước khi bạn bắt tay vào làm.",
-    "en": "3 everyday agents that work standalone: a secretary who triages the inbox and orders the day, a summariser who turns long documents into decisions and actions, and a devil's advocate who finds the holes in a plan before you commit to it."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "van-phong",
-   "category_label": {
-    "vi": "Văn phòng",
-    "en": "Office"
-   },
-   "tier": "data",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.tro-ly-hang-ngay",
-   "license": "MIT",
-   "provides": {
-    "agents": [
-     "tl-phan-bien",
-     "tl-thu-ky",
-     "tl-tom-tat"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-tro-ly-hang-ngay-1.0.0.zip",
-    "sha256": "ff680c1d2f542eff604f03683e059fcdf516c0c38defd9b77b274ec9a8ca4822",
-    "size": 5290
-   }
-  },
-  {
-   "id": "javis.tro-ly-nghien-cuu",
-   "kind": "agent",
-   "name": {
-    "vi": "Trợ lý nghiên cứu & ngôn ngữ",
-    "en": "Research & language assistants"
-   },
-   "description": {
-    "vi": "3 trợ lý cho việc học và việc viết đa ngôn ngữ: một người nghiên cứu trả lời có trích dẫn rồi nạp vào Second Brain, một người dịch và bản địa hoá nội dung marketing Việt-Anh giữ nguyên sức bán, một người bóc khái niệm khó thành thứ hiểu được rồi mới dùng.",
-    "en": "3 agents for learning and multilingual writing: a researcher who answers with citations and files findings into the Second Brain, a translator who localises marketing copy between Vietnamese and English without losing its selling power, and an explainer who unpacks a hard concept before you rely on it."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "nghien-cuu",
-   "category_label": {
-    "vi": "Nghiên cứu",
-    "en": "Research"
-   },
-   "tier": "data",
-   "verified": true,
-   "updated": "2026-09-05",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.tro-ly-nghien-cuu",
-   "license": "MIT",
-   "provides": {
-    "agents": [
-     "tl-dich-ban-dia",
-     "tl-giai-thich",
-     "tl-nghien-cuu"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-tro-ly-nghien-cuu-1.0.0.zip",
-    "sha256": "38bf9df7bc81d7f241d38add9f7e70482818ba98121584ccb070eb18b60ab8fa",
-    "size": 5320
-   }
-  },
-  {
-   "id": "javis.tts-dropship",
-   "kind": "connector",
-   "name": {
-    "vi": "TTS Dropship (thitruongsi.com)"
-   },
-   "description": {
-    "vi": "Bán dropship trên sàn TTS: tìm hàng theo lợi nhuận, thêm vào giỏ, tách địa chỉ từ tin nhắn khách, tạo khách, báo giá ship, LÊN ĐƠN, theo dõi vận đơn và xem tiền về. Sàn không phát hành API key nên đăng nhập bằng token lấy từ trình duyệt, dán thêm refresh token là tự gia hạn. Sàn đổi tên trường dữ liệu thì gói TỰ soi lược đồ và sửa lại truy vấn, không phải cài lại. Tạo đơn và huỷ đơn luôn phải xác nhận hai bước."
-   },
-   "version": "1.1.1",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "ban-hang",
-   "category_label": {
-    "vi": "Bán hàng"
-   },
-   "tier": "code",
-   "verified": true,
-   "updated": "2026-09-27",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.tts-dropship",
-   "icon": "packs/javis.tts-dropship/assets/tts-dropship.png",
-   "provides": {
-    "connectors": [
-     "tts-dropship"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-tts-dropship-1.1.1.zip",
-    "sha256": "a24ba98ff9e8526e9d3508ea0063784ecf4b05834e44c288e21209daa091cc3b",
-    "size": 64796
-   }
-  },
-  {
-   "id": "javis.javis-trong-chatgpt",
-   "kind": "tool",
-   "name": {
-    "vi": "Javis trong ChatGPT",
-    "en": "Javis in ChatGPT"
-   },
-   "description": {
-    "vi": "Chat trên chatgpt.com bằng gói ChatGPT của bạn, và ChatGPT tự gọi công cụ của Javis: số liệu, brain, nhắc lịch, Zalo. Chọn mức quyền, ngắt kết nối bất cứ lúc nào. Cần Javis 0.64.26 trở lên, mật khẩu quản trị và tên miền https.",
-    "en": "Chat on chatgpt.com with your own ChatGPT plan while ChatGPT calls Javis's tools: numbers, brain, reminders, Zalo. Pick the permission level, disconnect any time. Needs Javis 0.64.26 or newer, an admin password and an https domain."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "tro-ly-ai",
-   "category_label": {
-    "vi": "Trợ lý AI",
-    "en": "AI assistants"
-   },
-   "tier": "code",
-   "verified": true,
-   "updated": "2026-09-24",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.javis-trong-chatgpt",
-   "icon": "packs/javis.javis-trong-chatgpt/assets/javis-trong-chatgpt.png",
-   "download": {
-    "url": "dist/javis-javis-trong-chatgpt-1.0.0.zip",
-    "sha256": "cb86e0714a2f5000c5ea78dcb7b197a6db5ed40afa62fca6c764b4baccdcb708",
-    "size": 43809
-   }
-  },
-  {
-   "id": "javis.github",
-   "kind": "connector",
-   "name": {
-    "vi": "GitHub"
-   },
-   "description": {
-    "vi": "Làm việc với code trên GitHub qua MCP chính chủ: đọc và sửa file, tạo nhánh, đẩy commit, mở và trộn Pull Request, issue, review, xem và chạy GitHub Actions, đọc log CI, cảnh báo bảo mật. Bật đủ mọi bộ công cụ, dán Personal Access Token là xong."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "lap-trinh",
-   "category_label": {
-    "vi": "Lập trình"
-   },
-   "tier": "data",
-   "verified": true,
-   "updated": "2026-10-02",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.github",
-   "icon": "packs/javis.github/assets/github.png",
-   "provides": {
-    "connectors": [
-     "github"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-github-1.0.0.zip",
-    "sha256": "6c0a1133a10be890c5522fd44551ab3101b81bb6960a232b0877f2e992a9221a",
-    "size": 9133
-   }
-  },
-  {
-   "id": "javis.supabase",
-   "kind": "connector",
-   "name": {
-    "vi": "Supabase"
-   },
-   "description": {
-    "vi": "Quản lý Supabase qua MCP chính chủ: xem dự án, bảng, chạy SQL, tạo migration, deploy Edge Function, nhánh cơ sở dữ liệu, storage, đọc log và cảnh báo bảo mật, sinh kiểu TypeScript. Dán Personal Access Token là xong."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "lap-trinh",
-   "category_label": {
-    "vi": "Lập trình"
-   },
-   "tier": "data",
-   "verified": true,
-   "updated": "2026-10-02",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.supabase",
-   "icon": "packs/javis.supabase/assets/supabase.png",
-   "provides": {
-    "connectors": [
-     "supabase"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-supabase-1.0.0.zip",
-    "sha256": "b6f4a93d32fe2d06bd7a7a43f056dc5aa36da9f56465b9ac0c113ceb55d27c45",
-    "size": 8878
-   }
-  },
-  {
-   "id": "javis.cloudflare",
-   "kind": "connector",
-   "name": {
-    "vi": "Cloudflare"
-   },
-   "description": {
-    "vi": "Toàn bộ API Cloudflare ngay trong chat qua MCP chính chủ: DNS, Workers, Pages, KV, R2, D1, tường lửa, SSL, cache, thống kê lưu lượng, Zero Trust. Dán API token là xong, quyền của token quyết định Javis được làm gì."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "lap-trinh",
-   "category_label": {
-    "vi": "Lập trình"
-   },
-   "tier": "data",
-   "verified": true,
-   "updated": "2026-10-02",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.cloudflare",
-   "icon": "packs/javis.cloudflare/assets/cloudflare.jpg",
-   "provides": {
-    "connectors": [
-     "cloudflare"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-cloudflare-1.0.0.zip",
-    "sha256": "9c2957c3cae63a1c0cf3f5042e448f56ba1d1093c60b365a37328a195c35d750",
-    "size": 5258
-   }
-  },
-  {
-   "id": "javis.cloudflare-deploy",
-   "kind": "tool",
-   "name": {
-    "vi": "Cloudflare Deploy (Wrangler)"
-   },
-   "description": {
-    "vi": "Deploy Worker và trang web tĩnh lên Cloudflare bằng Wrangler ngay trong chat, bộ não nào cũng dùng được. Dùng lại API token của gói Cloudflare, không phải dán lần hai. Deploy thật chỉ chạy khi kết nối Cloudflare ở mức Toàn quyền. Cần Node.js 20+ trên máy chạy Javis."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "lap-trinh",
-   "category_label": {
-    "vi": "Lập trình"
-   },
-   "tier": "code",
-   "verified": true,
-   "updated": "2026-10-02",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.cloudflare-deploy",
-   "icon": "packs/javis.cloudflare-deploy/assets/cloudflare-deploy.jpg",
-   "provides": {
-    "plugins": [
-     "cloudflare-deploy"
-    ],
-    "skills": [
-     "deploy-cloudflare"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-cloudflare-deploy-1.0.0.zip",
-    "sha256": "47632c844aad721d3fb0bf9b3c7b58219df5ccb1dbc3d0cb9b0a7f794dc8e2e5",
-    "size": 13318
-   }
-  },
-  {
-   "id": "javis.zalo",
-   "kind": "tool",
-   "name": {
-    "vi": "Zalo mở rộng",
-    "en": "Zalo extras"
-   },
-   "description": {
-    "vi": "Đi kèm kết nối Zalo: gửi ảnh và file, tag đúng người trong nhóm, tạo ghi chú, nhắc hẹn, poll, và đọc ảnh người ta gửi trong nhóm (ChatGPT trên gói của bạn tả lại nội dung ảnh cho mọi bộ não). Cần Javis 0.73.0 trở lên và đã quét QR Zalo ở trang Kết nối.",
-    "en": "Goes with the Zalo connection: send images and files, tag the right people in a group, create notes, reminders and polls, and read the images people post in a group (ChatGPT on your plan describes them for every brain). Needs Javis 0.73.0 or newer and Zalo scanned on the Connections page."
-   },
-   "version": "1.0.0",
-   "author": {
-    "name": "Javis"
-   },
-   "category": "nhan-tin",
-   "category_label": {
-    "vi": "Nhắn tin",
-    "en": "Messaging"
-   },
-   "tier": "code",
-   "verified": true,
-   "updated": "2026-10-04",
-   "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.zalo",
-   "icon": "packs/javis.zalo/assets/zalo.png",
-   "provides": {
-    "plugins": [
-     "zalo-image",
-     "zalo-group",
-     "zalo-read-images"
-    ]
-   },
-   "download": {
-    "url": "dist/javis-zalo-1.0.0.zip",
-    "sha256": "e52b0a198a5f4b2fdf420a413424d3b0ee6c131684bc3c14c775f5ff2b8bb7f2",
-    "size": 32212
-   }
-  }
- ]
+  "_doc": "Danh mục Javis đọc thẳng. Thêm một mục ở đây là mọi máy đang chạy Javis thấy ngay, không cần bản cập nhật. Cách gửi gói: xem CONTRIBUTING.md. Trường _doc và mọi khoá lạ khác đều bị Javis bỏ qua khi đọc.",
+  "packs": [
+    {
+      "id": "javis.tinh-gia",
+      "kind": "tool",
+      "name": {
+        "vi": "Tính giá bán",
+        "en": "Pricing helper"
+      },
+      "description": {
+        "vi": "Từ giá vốn ra giá niêm yết: chọn biên lợi nhuận hoặc markup, cộng VAT, làm tròn lên số đẹp. Trả về biên thực tế sau khi làm tròn.",
+        "en": "Turn cost into a shelf price: margin or markup, VAT, rounded up to a tidy number. Reports the real margin after rounding."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "ban-hang",
+      "category_label": {
+        "vi": "Bán hàng",
+        "en": "Sales"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-09-04",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.tinh-gia",
+      "download": {
+        "url": "dist/javis-tinh-gia-1.0.0.zip",
+        "sha256": "2efc5b73e55c98573bae20d765a6cfeabe062646f6dcb9d890fd56bb557e1cdb",
+        "size": 5289
+      }
+    },
+    {
+      "id": "javis.khach-hang-crm",
+      "kind": "bundle",
+      "name": {
+        "vi": "Quản lý khách hàng (CRM)",
+        "en": "Customer management (CRM)"
+      },
+      "description": {
+        "vi": "Sổ khách hàng đặt lên trang Hội thoại: khách từ Telegram, Zalo Bot, Zalo cá nhân; hồ sơ và lịch sử từng người, gắn tag, ghi chú, khách chờ trả lời, thống kê, xuất Excel. Kèm trợ lý CSKH và quy trình rà soát mỗi ngày. Cần Javis 0.60.1 trở lên.",
+        "en": "A customer book on top of the Conversations page: customers from Telegram, Zalo Bot and personal Zalo; per-person profile and history, tags, notes, unanswered queue, stats, Excel export. Ships a support agent and a daily review workflow. Needs Javis 0.60.1 or newer."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "ban-hang",
+      "category_label": {
+        "vi": "Bán hàng",
+        "en": "Sales"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-09-20",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.khach-hang-crm",
+      "icon": "packs/javis.khach-hang-crm/assets/khach-hang-crm.png",
+      "download": {
+        "url": "dist/javis-khach-hang-crm-1.0.0.zip",
+        "sha256": "78e638637bc1b8ca4a46c9311fa2461cfbc7fb63324a6035db75ffebe6506719",
+        "size": 14086
+      }
+    },
+    {
+      "id": "javis.composio",
+      "kind": "connector",
+      "name": {
+        "vi": "Composio"
+      },
+      "description": {
+        "vi": "Cổng đa ứng dụng của Composio: một kết nối mở ra hơn 500 app (Gmail, Notion, Google Sheets, GitHub, Linear, Slack...). Javis tìm tool, nối tài khoản từng app và chạy hành động qua Composio, không cần Javis viết connector riêng cho mỗi app. Dán API key (ck_...) là xong."
+      },
+      "version": "1.0.2",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "kho-ung-dung",
+      "category_label": {
+        "vi": "Kho ứng dụng"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.composio",
+      "icon": "packs/javis.composio/assets/composio.png",
+      "provides": {
+        "connectors": [
+          "composio"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-composio-1.0.2.zip",
+        "sha256": "724d03c5771e7f233884575439b85bbfff3a4989b251f4511db16c31793e17e3",
+        "size": 16145
+      }
+    },
+    {
+      "id": "javis.pancake-pos",
+      "kind": "connector",
+      "name": {
+        "vi": "Pancake POS"
+      },
+      "description": {
+        "vi": "Đơn hàng, doanh thu, khách hàng, tồn kho, quảng cáo từ Pancake POS. Mỗi cửa hàng 1 API key - thêm nhiều tài khoản cho nhiều shop."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "ban-hang",
+      "category_label": {
+        "vi": "Bán hàng"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.pancake-pos",
+      "icon": "packs/javis.pancake-pos/assets/pancake-pos.png",
+      "provides": {
+        "connectors": [
+          "pancake-pos"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-pancake-pos-1.0.0.zip",
+        "sha256": "93bf26951f5bdf0f2c1635f16ebcd1f4b3334d5f358abe65578667a6ae15229e",
+        "size": 8799
+      }
+    },
+    {
+      "id": "javis.shopify",
+      "kind": "connector",
+      "name": {
+        "vi": "Shopify"
+      },
+      "description": {
+        "vi": "Tra cứu sản phẩm, giá, tồn kho và dựng sẵn giỏ hàng của MỘT cửa hàng Shopify qua MCP chính chủ (chuẩn UCP). Không cần API key, không cần cài app, không cần là chủ shop - chỉ cần địa chỉ cửa hàng."
+      },
+      "version": "1.0.2",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "ban-hang",
+      "category_label": {
+        "vi": "Bán hàng"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.shopify",
+      "icon": "packs/javis.shopify/assets/shopify.png",
+      "provides": {
+        "connectors": [
+          "shopify"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-shopify-1.0.2.zip",
+        "sha256": "b4ffb838c94d096d529d0c2edb9923e60cbe953da8de00a77fa25863d23f6418",
+        "size": 15152
+      }
+    },
+    {
+      "id": "javis.webcake-landing",
+      "kind": "connector",
+      "name": {
+        "vi": "Webcake Landing"
+      },
+      "description": {
+        "vi": "Để AI tự thiết kế và sửa landing page Webcake bằng lời nói (tạo trang, sửa section, publish...). Chạy local qua npx, mỗi tài khoản 1 JWT."
+      },
+      "version": "1.0.1",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "marketing",
+      "category_label": {
+        "vi": "Marketing"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-10-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.webcake-landing",
+      "icon": "packs/javis.webcake-landing/assets/webcake.jpg",
+      "provides": {
+        "connectors": [
+          "webcake-landing"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-webcake-landing-1.0.1.zip",
+        "sha256": "60289d10a738b3fa4bddf0d14e4adb5ccc8b94f084baa1061181a402fc424fbe",
+        "size": 10403
+      }
+    },
+    {
+      "id": "javis.webcake-landing-web",
+      "kind": "connector",
+      "name": {
+        "vi": "Webcake Landing (đăng nhập web)"
+      },
+      "description": {
+        "vi": "Cùng bộ công cụ landing Webcake nhưng chạy trên máy chủ sẵn: bấm Kết nối rồi đăng nhập, không dán JWT, không cần Node.js trên máy."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "marketing",
+      "category_label": {
+        "vi": "Marketing"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.webcake-landing-web",
+      "icon": "packs/javis.webcake-landing-web/assets/webcake.jpg",
+      "provides": {
+        "connectors": [
+          "webcake-landing-web"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-webcake-landing-web-1.0.0.zip",
+        "sha256": "64a4110545934cead5ec181fc278a7e82c18299678d484550578fc938b7d7748",
+        "size": 10388
+      }
+    },
+    {
+      "id": "javis.google-sheets",
+      "kind": "connector",
+      "name": {
+        "vi": "Google Sheets"
+      },
+      "description": {
+        "vi": "Đọc/ghi bảng tính Google: đổ báo cáo doanh thu, tồn kho, công nợ ra Sheets tự động. Đấu bằng service account - không cần đăng nhập."
+      },
+      "version": "1.0.1",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "van-phong",
+      "category_label": {
+        "vi": "Văn phòng"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-10-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-sheets",
+      "icon": "packs/javis.google-sheets/assets/google-sheets.png",
+      "provides": {
+        "connectors": [
+          "google-sheets"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-google-sheets-1.0.1.zip",
+        "sha256": "61a4b2984dfef716d7fb855f1f458c161dc5fb7a4c8db183a19db2860f0ccc1f",
+        "size": 7516
+      }
+    },
+    {
+      "id": "javis.google-search-console",
+      "kind": "connector",
+      "name": {
+        "vi": "Google Search Console"
+      },
+      "description": {
+        "vi": "Số liệu SEO website: khách tìm từ khoá gì ra trang của bạn, lượt hiển thị, lượt bấm, trang top."
+      },
+      "version": "1.0.3",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "marketing",
+      "category_label": {
+        "vi": "Marketing"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-10-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-search-console",
+      "icon": "packs/javis.google-search-console/assets/google-search-console.png",
+      "provides": {
+        "connectors": [
+          "google-search-console"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-google-search-console-1.0.3.zip",
+        "sha256": "6fbaaf2835d485a07bdbf4e84bf4bfdc8f68f9caae73a79d6250691cde28fd45",
+        "size": 9920
+      }
+    },
+    {
+      "id": "javis.google-workspace",
+      "kind": "connector",
+      "name": {
+        "vi": "Google Workspace (Gmail, Lịch, Drive, Docs)"
+      },
+      "description": {
+        "vi": "Gmail, Calendar, Drive, Docs, Sheets, Slides, Forms, Tasks... trong MỘT kết nối. Tạo OAuth client 1 lần, khoảng 10 phút, có hướng dẫn từng bước. Lần đầu gọi tool Google, trình duyệt TRÊN MÁY CHẠY JAVIS mở ra để bấm đồng ý, nên máy phải có màn hình."
+      },
+      "version": "1.0.3",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "van-phong",
+      "category_label": {
+        "vi": "Văn phòng"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-10-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-workspace",
+      "icon": "packs/javis.google-workspace/assets/google-workspace.png",
+      "provides": {
+        "connectors": [
+          "google-workspace"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-google-workspace-1.0.3.zip",
+        "sha256": "cc6c3435b1d4bc88042e3ef0dc1f5d3e851fc404a37b307ead7f42cc98a844d7",
+        "size": 13201
+      }
+    },
+    {
+      "id": "javis.google-tasks",
+      "kind": "connector",
+      "name": {
+        "vi": "Google Tasks"
+      },
+      "description": {
+        "vi": "Việc cần làm trong Google Tasks: xem danh sách, thêm việc, đặt hạn, đánh dấu xong. Chỉ xin quyền Tasks, không đụng Gmail hay Drive. Đăng nhập Google bằng OAuth client tự tạo (~10 phút, có hướng dẫn)."
+      },
+      "version": "1.0.3",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "van-phong",
+      "category_label": {
+        "vi": "Văn phòng"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-10-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-tasks",
+      "icon": "packs/javis.google-tasks/assets/google-tasks.png",
+      "provides": {
+        "connectors": [
+          "google-tasks"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-google-tasks-1.0.3.zip",
+        "sha256": "5e7feb26aeded6905e6953a5f4290f0dcd92fec5ca272f2c1189cff76525c535",
+        "size": 14188
+      }
+    },
+    {
+      "id": "javis.meta-ads",
+      "kind": "connector",
+      "name": {
+        "vi": "Meta Ads (Facebook & Instagram)"
+      },
+      "description": {
+        "vi": "Số liệu quảng cáo Facebook/Instagram qua MCP chính chủ của Meta (tài khoản ads, hiệu suất chiến dịch, benchmark ngành, catalog sản phẩm). LƯU Ý: đang là beta GIỚI HẠN của Meta - chỉ vài ứng dụng được Meta cấp phép sẵn kết nối được, kết nối tự phục vụ CHƯA khả dụng."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "quang-cao",
+      "category_label": {
+        "vi": "Quảng cáo"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.meta-ads",
+      "icon": "packs/javis.meta-ads/assets/meta-ads.webp",
+      "provides": {
+        "connectors": [
+          "meta-ads"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-meta-ads-1.0.0.zip",
+        "sha256": "5d406f2a226f4defe5b88be375c404029fff48d79d1d6f7e915f498e10b06543",
+        "size": 16925
+      }
+    },
+    {
+      "id": "javis.meta-ads-graph",
+      "kind": "connector",
+      "name": {
+        "vi": "Meta Ads (tự tạo app - Graph API)"
+      },
+      "description": {
+        "vi": "Số liệu quảng cáo Facebook/Instagram gọi THẲNG Marketing API của Meta (KHÔNG qua MCP beta bị khoá). Bạn tạo 1 Facebook App, dán App ID + App Secret, Javis đọc tài khoản ads, chiến dịch và hiệu suất của bạn. CHỈ ĐỌC - không tạo/sửa chiến dịch, không tiêu tiền. Đây là cách các nền tảng như Composio dùng."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "quang-cao",
+      "category_label": {
+        "vi": "Quảng cáo"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.meta-ads-graph",
+      "icon": "packs/javis.meta-ads-graph/assets/meta-ads.webp",
+      "provides": {
+        "connectors": [
+          "meta-ads-graph"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-meta-ads-graph-1.0.0.zip",
+        "sha256": "058b674a3c56eb402da214ff40b5370b05ac72ccbb851c66fc79ff8bd09b5bce",
+        "size": 18753
+      }
+    },
+    {
+      "id": "javis.facebook-pages",
+      "kind": "connector",
+      "name": {
+        "vi": "Facebook Trang (tự tạo app - Graph API)"
+      },
+      "description": {
+        "vi": "Quản lý Trang/Fanpage Facebook của bạn qua Graph API chính chủ: xem danh sách Trang, đọc bài và bình luận (chỉ đọc), đăng bài chữ, ẢNH, ALBUM nhiều ảnh, VIDEO, SỬA bài đã đăng và trả lời bình luận (toàn quyền). Bạn tạo 1 Facebook App (dùng lại app đang có cho Meta Ads cũng được), dán App ID + App Secret. Đăng và sửa bài là hành động THẬT nên chỉ chạy ở mức Toàn quyền, không tự làm lén."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "mang-xa-hoi",
+      "category_label": {
+        "vi": "Mạng xã hội"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.facebook-pages",
+      "icon": "packs/javis.facebook-pages/assets/meta-ads.webp",
+      "provides": {
+        "connectors": [
+          "facebook-pages"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-facebook-pages-1.0.0.zip",
+        "sha256": "af64306ef56265574d8201d7daf72308be865f43a1ebf5b21581fc5db45a4983",
+        "size": 18957
+      }
+    },
+    {
+      "id": "javis.facebook-monitor",
+      "kind": "connector",
+      "name": {
+        "vi": "Theo dõi Facebook (Apify)"
+      },
+      "description": {
+        "vi": "Theo dõi Trang và Nhóm CÔNG KHAI trên Facebook để tìm bài viral (nhiều share), qua dịch vụ quét Apify. KHÔNG dùng tài khoản cá nhân của bạn nên không lo khoá; chạy tốt trên VPS 24/7. Trả về bài kèm số share/react/bình luận để lọc bài hot. Cần token Apify (đăng ký free, trả theo lượt quét ~2.6 USD/1000 bài). Nhóm KÍN là bước sau (cần thêm cookie)."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "mang-xa-hoi",
+      "category_label": {
+        "vi": "Mạng xã hội"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.facebook-monitor",
+      "icon": "packs/javis.facebook-monitor/assets/meta-ads.webp",
+      "provides": {
+        "connectors": [
+          "facebook-monitor"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-facebook-monitor-1.0.0.zip",
+        "sha256": "9f1bc6d88aacdf8741330c620680bba66fcdc881fafa32393c8e7cf7b4669647",
+        "size": 16844
+      }
+    },
+    {
+      "id": "javis.google-ads",
+      "kind": "connector",
+      "name": {
+        "vi": "Google Ads"
+      },
+      "description": {
+        "vi": "Số liệu Google Ads qua MCP chính chủ của Google (chỉ đọc): chiến dịch, chi phí, chuyển đổi, từ khoá qua truy vấn GAQL. Chạy local; cần developer token + Google Cloud, cài 1 lần hơi kỹ thuật."
+      },
+      "version": "1.0.1",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "quang-cao",
+      "category_label": {
+        "vi": "Quảng cáo"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-10-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-ads",
+      "icon": "packs/javis.google-ads/assets/google-ads.webp",
+      "provides": {
+        "connectors": [
+          "google-ads"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-google-ads-1.0.1.zip",
+        "sha256": "8a6573613a25c6a057b2da7166d1317e5804c4c1ecd70a42c226f8b5a2ce26f4",
+        "size": 28344
+      }
+    },
+    {
+      "id": "javis.tiktok-ads",
+      "kind": "connector",
+      "name": {
+        "vi": "TikTok Ads"
+      },
+      "description": {
+        "vi": "Số liệu quảng cáo TikTok (chỉ đọc): tài khoản, chiến dịch, nhóm quảng cáo, creative, báo cáo hiệu suất. Server cộng đồng chạy local trên Marketing API chính thức - dán App ID + Secret + Access Token."
+      },
+      "version": "1.0.1",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "quang-cao",
+      "category_label": {
+        "vi": "Quảng cáo"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-10-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.tiktok-ads",
+      "icon": "packs/javis.tiktok-ads/assets/tiktok-ads.webp",
+      "provides": {
+        "connectors": [
+          "tiktok-ads"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-tiktok-ads-1.0.1.zip",
+        "sha256": "f08f8c68502f9d4154825c047f09ddbd2901d4ee26d2a8bb75372492bf3ddf30",
+        "size": 8802
+      }
+    },
+    {
+      "id": "javis.google-calendar",
+      "kind": "connector",
+      "name": {
+        "vi": "Google Calendar"
+      },
+      "description": {
+        "vi": "Lịch Google qua MCP chính chủ của Google: xem lịch, tìm chỗ trống, tạo/sửa sự kiện, nhắc hẹn. Đăng nhập Google trong dashboard, chạy được cả trên VPS. Cần tạo OAuth client + ghi danh Developer Preview của Google 1 lần (~10 phút)."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "van-phong",
+      "category_label": {
+        "vi": "Văn phòng"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-calendar",
+      "icon": "packs/javis.google-calendar/assets/google-calendar.png",
+      "provides": {
+        "connectors": [
+          "google-calendar"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-google-calendar-1.0.0.zip",
+        "sha256": "f3204f20a48c9e63959b2678de408e3c6843eceda12f5265d10a60aa1eae6323",
+        "size": 12536
+      }
+    },
+    {
+      "id": "javis.gmail",
+      "kind": "connector",
+      "name": {
+        "vi": "Gmail"
+      },
+      "description": {
+        "vi": "Gmail qua MCP chính chủ của Google: đọc và tìm thư, soạn NHÁP, gắn nhãn sắp xếp hộp thư. Server chính chủ KHÔNG có tool gửi thẳng - luôn dừng ở bản nháp để bạn tự bấm gửi. Cần tạo OAuth client + ghi danh Developer Preview của Google 1 lần."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "van-phong",
+      "category_label": {
+        "vi": "Văn phòng"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.gmail",
+      "icon": "packs/javis.gmail/assets/gmail.webp",
+      "provides": {
+        "connectors": [
+          "gmail"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-gmail-1.0.0.zip",
+        "sha256": "0c8669e18a4443f0a370fc12ca984db6f1dbc0c60586382e48f7e137197db675",
+        "size": 16670
+      }
+    },
+    {
+      "id": "javis.slack",
+      "kind": "connector",
+      "name": {
+        "vi": "Slack"
+      },
+      "description": {
+        "vi": "Tìm kiếm và đọc/gửi tin nhắn Slack, xem kênh và thành viên, quản lý canvas qua MCP chính chủ của Slack. Cần tạo một Slack app trong workspace và được admin duyệt (đây là yêu cầu bắt buộc của Slack)."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "nhan-tin",
+      "category_label": {
+        "vi": "Nhắn tin"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.slack",
+      "icon": "packs/javis.slack/assets/slack.webp",
+      "provides": {
+        "connectors": [
+          "slack"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-slack-1.0.0.zip",
+        "sha256": "405dc29f944384259c11e086a063d4f9dedc49cf613433799422a4aad3b0e377",
+        "size": 26088
+      }
+    },
+    {
+      "id": "javis.systeme-io",
+      "kind": "connector",
+      "name": {
+        "vi": "Systeme.io"
+      },
+      "description": {
+        "vi": "Quản lý liên hệ, tag, trường tuỳ biến, newsletter và phễu từ Systeme.io qua MCP chính chủ. Dán MCP key là xong (key có hạn tối đa 90 ngày, tối đa 2 key mỗi tài khoản)."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "marketing",
+      "category_label": {
+        "vi": "Marketing"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.systeme-io",
+      "icon": "packs/javis.systeme-io/assets/systeme-io.png",
+      "provides": {
+        "connectors": [
+          "systeme-io"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-systeme-io-1.0.0.zip",
+        "sha256": "7886621cf1702fe73d7b4a7f663468dc2bd66d03d48d57693eee1d657dc4d194",
+        "size": 12770
+      }
+    },
+    {
+      "id": "javis.lark",
+      "kind": "connector",
+      "name": {
+        "vi": "Lark"
+      },
+      "description": {
+        "vi": "Nhắn tin, tài liệu (Docs), bảng dữ liệu (Base/Bitable), wiki và danh bạ trong Lark qua MCP chính chủ. Chạy local bằng app của bạn (dán App ID + App Secret). Cần tạo một Lark app và cấp quyền tương ứng."
+      },
+      "version": "1.0.1",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "van-phong",
+      "category_label": {
+        "vi": "Văn phòng"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-10-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.lark",
+      "icon": "packs/javis.lark/assets/lark.png",
+      "provides": {
+        "connectors": [
+          "lark"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-lark-1.0.1.zip",
+        "sha256": "a2f951f30b7694174011882c71fcb596118b5b2db9d57651f17e3bc81e31350b",
+        "size": 51858
+      }
+    },
+    {
+      "id": "javis.higgsfield",
+      "kind": "connector",
+      "name": {
+        "vi": "Higgsfield"
+      },
+      "description": {
+        "vi": "Tạo và chỉnh ảnh/video bằng AI của Higgsfield qua MCP chính chủ: sinh ảnh, sinh video, nâng nét (upscale), mở rộng khung hình, xoá nền, cắt nhân vật, điều khiển chuyển động. Đăng nhập Higgsfield 1 chạm - không cần tạo app hay dán key. Lưu ý: mỗi lần tạo/chỉnh tiêu credit Higgsfield của bạn."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "sang-tao",
+      "category_label": {
+        "vi": "Sáng tạo"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.higgsfield",
+      "icon": "packs/javis.higgsfield/assets/higgsfield.png",
+      "provides": {
+        "connectors": [
+          "higgsfield"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-higgsfield-1.0.0.zip",
+        "sha256": "5021689623f95050febad984bfc6b9b1f1a8c0978ea1ea775b48ef63ae194584",
+        "size": 91932
+      }
+    },
+    {
+      "id": "javis.capcut",
+      "kind": "connector",
+      "name": {
+        "vi": "CapCut"
+      },
+      "description": {
+        "vi": "Tạo ảnh và video bằng AI của CapCut từ mô tả chữ, tìm template CapCut theo ý tưởng, qua MCP chính chủ của CapCut. Đăng nhập CapCut 1 chạm - không cần tạo app hay dán key. Lưu ý: mỗi lần tạo tiêu credit CapCut của bạn, CapCut không phục vụ mạng đặt ở Mỹ, và chưa hỗ trợ tải file từ máy lên để dựng."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "sang-tao",
+      "category_label": {
+        "vi": "Sáng tạo"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-10-04",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.capcut",
+      "icon": "packs/javis.capcut/assets/capcut.png",
+      "provides": {
+        "connectors": [
+          "capcut"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-capcut-1.0.0.zip",
+        "sha256": "43489e30cf592f190ec5bb36eea402f0126042d3f7d5cc6c96daa4b75bbcbc84",
+        "size": 8942
+      }
+    },
+    {
+      "id": "javis.mineflow",
+      "kind": "connector",
+      "name": {
+        "vi": "Mineflow"
+      },
+      "description": {
+        "vi": "Nền tảng dữ liệu khách hàng (CDP) & tự động hóa marketing all-in-one trên Zalo, qua MCP chính chủ của Mineflow. Để AI xem và dựng landing page, mini app, biểu mẫu, bảng dữ liệu khách hàng và workflow tự động hóa trên Zalo. Đăng nhập Mineflow 1 chạm - không cần dán key. Ưu đãi riêng cho người dùng Javis: tặng 3 tháng gói Pro và các gói setup Zalo OA, ZNS, Mini App - xem hướng dẫn."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "marketing",
+      "category_label": {
+        "vi": "Marketing"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-10-04",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.mineflow",
+      "icon": "packs/javis.mineflow/assets/mineflow.png",
+      "provides": {
+        "connectors": [
+          "mineflow"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-mineflow-1.0.0.zip",
+        "sha256": "a2a39edc3353589d494ee5f2d695b04597686a11a311450e1ed4551472ae009a",
+        "size": 54666
+      }
+    },
+    {
+      "id": "javis.x-twitter",
+      "kind": "connector",
+      "name": {
+        "vi": "X (Twitter)"
+      },
+      "description": {
+        "vi": "Tìm kiếm và đọc bài đăng, xem hồ sơ và số liệu công khai trên X (Twitter) qua MCP chính chủ của X. Dán Bearer Token (App-only) từ X Developer Portal - dùng để đọc/tìm; đăng bài cần OAuth người dùng (sẽ bổ sung nếu cần)."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "mang-xa-hoi",
+      "category_label": {
+        "vi": "Mạng xã hội"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.x-twitter",
+      "icon": "packs/javis.x-twitter/assets/x.png",
+      "provides": {
+        "connectors": [
+          "x-twitter"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-x-twitter-1.0.0.zip",
+        "sha256": "5ab9a99da5e6412f24c9ee3ab89d7bc4594385afdba3c28210164b7193aadde9",
+        "size": 271235
+      }
+    },
+    {
+      "id": "javis.google-keep",
+      "kind": "connector",
+      "name": {
+        "vi": "Google Keep"
+      },
+      "description": {
+        "vi": "Đọc và sửa ghi chú Google Keep: tìm note, tạo note và danh sách việc, gắn nhãn, ghim, lưu trữ. LƯU Ý: Keep không có API chính chủ nên phải dùng master token có TOÀN QUYỀN tài khoản Google, không phải OAuth giới hạn phạm vi như Gmail hay Lịch. Javis chỉ thao tác được ghi chú, nhưng token thì mở cả tài khoản nếu bị lộ."
+      },
+      "version": "1.0.3",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "van-phong",
+      "category_label": {
+        "vi": "Văn phòng"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-10-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-keep",
+      "icon": "packs/javis.google-keep/assets/google-keep.png",
+      "provides": {
+        "connectors": [
+          "google-keep"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-google-keep-1.0.3.zip",
+        "sha256": "b949882e176cf531d9ed578a44c7d51b71bcd44b7449d752aa6adbcc2727e11e",
+        "size": 9381
+      }
+    },
+    {
+      "id": "javis.notebooklm",
+      "kind": "connector",
+      "name": {
+        "vi": "Google NotebookLM"
+      },
+      "description": {
+        "vi": "Đọc và thao tác notebook trên Google NotebookLM: liệt kê notebook, đọc nguồn, hỏi đáp ngay trong notebook, thêm nguồn, lưu ghi chú, tạo tóm tắt/audio ở Studio. LƯU Ý: NotebookLM chưa có API chính chủ nên phải mượn PHIÊN ĐĂNG NHẬP trình duyệt (cookie Google), không phải OAuth giới hạn phạm vi như Gmail hay Lịch."
+      },
+      "version": "1.0.3",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "van-phong",
+      "category_label": {
+        "vi": "Văn phòng"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-10-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.notebooklm",
+      "icon": "packs/javis.notebooklm/assets/notebooklm.png",
+      "provides": {
+        "connectors": [
+          "notebooklm"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-notebooklm-1.0.3.zip",
+        "sha256": "34152d0b05ce3e3b292472c09ae85da22b28298f601b9521d068c52a08fffb1c",
+        "size": 14309
+      }
+    },
+    {
+      "id": "javis.n8n",
+      "kind": "connector",
+      "name": {
+        "vi": "n8n"
+      },
+      "description": {
+        "vi": "Điều khiển n8n của bạn: tìm và đọc workflow, xem lịch sử chạy, tạo và sửa workflow, chạy workflow - qua MCP chính chủ của n8n. Cần địa chỉ n8n của bạn + MCP Access Token."
+      },
+      "version": "1.0.2",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "van-phong",
+      "category_label": {
+        "vi": "Văn phòng"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.n8n",
+      "icon": "packs/javis.n8n/assets/n8n.png",
+      "provides": {
+        "connectors": [
+          "n8n"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-n8n-1.0.2.zip",
+        "sha256": "26bf976685b3512240b40fa08547f48b916cd6826c5d9670dd9f4745f3960040",
+        "size": 10911
+      }
+    },
+    {
+      "id": "javis.hostinger",
+      "kind": "connector",
+      "name": {
+        "vi": "Hostinger"
+      },
+      "description": {
+        "vi": "Quản lý hosting Hostinger ngay trong chat: xem tên miền và ngày hết hạn, sửa bản ghi DNS, xem website và WordPress, VPS, hộp thư, hoá đơn và gói đang chạy. MCP chính chủ của Hostinger, dán API token là xong."
+      },
+      "version": "1.0.3",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "website",
+      "category_label": {
+        "vi": "Website"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-10-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hostinger",
+      "icon": "packs/javis.hostinger/assets/hostinger.png",
+      "provides": {
+        "connectors": [
+          "hostinger"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-hostinger-1.0.3.zip",
+        "sha256": "db02dd41b688de30bd2448493524c864527dc6878d34587e51c33f62c6b21f02",
+        "size": 11189
+      }
+    },
+    {
+      "id": "javis.hermes-creative",
+      "kind": "skill",
+      "name": {
+        "vi": "Hermes: Sáng tạo & thiết kế",
+        "en": "Hermes: Creative & design"
+      },
+      "description": {
+        "vi": "10 skill sáng tạo của Hermes Agent (Nous Research): sơ đồ kiến trúc SVG, infographic, HTML artifact, video Manim, sketch p5.js, 54 design system thật, viết lời nhạc Suno, và bộ lọc bỏ giọng văn AI.",
+        "en": "10 creative skills from Hermes Agent: SVG architecture diagrams, infographics, HTML artifacts, Manim videos, p5.js sketches, 54 real design systems, Suno song prompts, and an AI-slop remover."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Nous Research",
+        "url": "https://github.com/NousResearch/hermes-agent"
+      },
+      "category": "sang-tao",
+      "category_label": {
+        "vi": "Sáng tạo",
+        "en": "Creative"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-creative",
+      "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
+      "license": "MIT",
+      "provides": {
+        "skills": [
+          "architecture-diagram",
+          "ascii-video",
+          "baoyu-infographic",
+          "claude-design",
+          "design-md",
+          "humanizer",
+          "manim-video",
+          "p5js",
+          "popular-web-designs",
+          "songwriting-and-ai-music"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-hermes-creative-1.0.0.zip",
+        "sha256": "e3efc8703f63046fa7d99a64edf8ad0b67125ee6bbe4228dd5dab8b7a8cd637e",
+        "size": 666747
+      }
+    },
+    {
+      "id": "javis.hermes-office",
+      "kind": "skill",
+      "name": {
+        "vi": "Hermes: Tài liệu văn phòng",
+        "en": "Hermes: Office documents"
+      },
+      "description": {
+        "vi": "6 skill xử lý tài liệu của Hermes Agent: Word .docx, Excel .xlsx, PowerPoint .pptx, PDF (tạo/ghép/OCR/điền form), và hai skill bóc việc cần làm kèm trích dẫn từ tài liệu hoặc biên bản họp.",
+        "en": "6 document skills from Hermes Agent: Word .docx, Excel .xlsx, PowerPoint .pptx, PDF (create, merge, OCR, fill), plus two skills that extract cited action items from documents and meeting notes."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Nous Research",
+        "url": "https://github.com/NousResearch/hermes-agent"
+      },
+      "category": "van-phong",
+      "category_label": {
+        "vi": "Văn phòng",
+        "en": "Office"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-office",
+      "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
+      "license": "MIT",
+      "provides": {
+        "skills": [
+          "docx",
+          "xlsx",
+          "powerpoint",
+          "pdf",
+          "document-to-action-items",
+          "meeting-action-items"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-hermes-office-1.0.0.zip",
+        "sha256": "c03ed689bf03ffb73d3b400dc326fa4195c0d00e92060e53f89a84ae158f094b",
+        "size": 134379
+      }
+    },
+    {
+      "id": "javis.hermes-productivity",
+      "kind": "skill",
+      "name": {
+        "vi": "Hermes: Năng suất & công cụ",
+        "en": "Hermes: Productivity tools"
+      },
+      "description": {
+        "vi": "8 skill năng suất của Hermes Agent: Airtable, Box, Notion, Obsidian, Google Workspace, Microsoft Teams, bản đồ OpenStreetMap, và quy trình tổng kết tuần.",
+        "en": "8 productivity skills from Hermes Agent: Airtable, Box, Notion, Obsidian, Google Workspace, Microsoft Teams, OpenStreetMap routing, and a weekly review routine."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Nous Research",
+        "url": "https://github.com/NousResearch/hermes-agent"
+      },
+      "category": "van-phong",
+      "category_label": {
+        "vi": "Văn phòng",
+        "en": "Office"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-productivity",
+      "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
+      "license": "MIT",
+      "provides": {
+        "skills": [
+          "airtable",
+          "box",
+          "notion",
+          "obsidian",
+          "google-workspace",
+          "teams-meeting-pipeline",
+          "maps",
+          "weekly-review-planning"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-hermes-productivity-1.0.0.zip",
+        "sha256": "0d657f8ef7ff516dd1b74f0c8080ff7a9e5d641690e082c9f3143ad723238cf5",
+        "size": 91078
+      }
+    },
+    {
+      "id": "javis.hermes-research",
+      "kind": "skill",
+      "name": {
+        "vi": "Hermes: Nghiên cứu & theo dõi",
+        "en": "Hermes: Research & monitoring"
+      },
+      "description": {
+        "vi": "5 skill nghiên cứu của Hermes Agent: tìm bài arXiv, theo dõi tin đối thủ, canh giá sản phẩm/vé máy bay, dựng wiki kiến thức kiểu Karpathy, và ép mọi câu trả lời phải có nguồn kiểm chứng được.",
+        "en": "5 research skills from Hermes Agent: arXiv search, competitor news monitoring, price watching, a Karpathy-style LLM wiki, and grounding every answer in verifiable citations."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Nous Research",
+        "url": "https://github.com/NousResearch/hermes-agent"
+      },
+      "category": "nghien-cuu",
+      "category_label": {
+        "vi": "Nghiên cứu",
+        "en": "Research"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-research",
+      "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
+      "license": "MIT",
+      "provides": {
+        "skills": [
+          "arxiv",
+          "competitor-news-monitor",
+          "grounded-citations",
+          "llm-wiki",
+          "product-price-monitor"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-hermes-research-1.0.0.zip",
+        "sha256": "3e01a83ce7789aff5d04cb490375940213d46427ea4926378859d10b08f8ca81",
+        "size": 39217
+      }
+    },
+    {
+      "id": "javis.hermes-dev",
+      "kind": "skill",
+      "name": {
+        "vi": "Hermes: Quy trình lập trình",
+        "en": "Hermes: Dev workflow"
+      },
+      "description": {
+        "vi": "8 skill quy trình code của Hermes Agent: GitHub qua gh CLI, TDD RED-GREEN-REFACTOR, gỡ lỗi 4 pha tìm gốc rễ, review trước khi commit, dọn code, spike thử ý tưởng, đo quy mô codebase, và điều phối Kanban.",
+        "en": "8 engineering-workflow skills from Hermes Agent: GitHub via gh CLI, RED-GREEN-REFACTOR TDD, 4-phase root-cause debugging, pre-commit review, code cleanup, spikes, codebase sizing, and Kanban handoffs."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Nous Research",
+        "url": "https://github.com/NousResearch/hermes-agent"
+      },
+      "category": "lap-trinh",
+      "category_label": {
+        "vi": "Lập trình",
+        "en": "Development"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-dev",
+      "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
+      "license": "MIT",
+      "provides": {
+        "skills": [
+          "github",
+          "test-driven-development",
+          "systematic-debugging",
+          "requesting-code-review",
+          "simplify-code",
+          "spike",
+          "codebase-inspection",
+          "sdlc-review"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-hermes-dev-1.0.0.zip",
+        "sha256": "d122a466b426681381ff6c1581a5c36676707db64a1aca87cbaa2e82a7025589",
+        "size": 72020
+      }
+    },
+    {
+      "id": "javis.hermes-debug",
+      "kind": "skill",
+      "name": {
+        "vi": "Hermes: Gỡ lỗi & kiểm thử",
+        "en": "Hermes: Debugging & QA"
+      },
+      "description": {
+        "vi": "3 skill gỡ lỗi của Hermes Agent: debug Node.js qua --inspect và Chrome DevTools Protocol, debug Python bằng pdb + debugpy (DAP), và kiểm thử khám phá web app để tìm bug kèm bằng chứng.",
+        "en": "3 debugging skills from Hermes Agent: Node.js via --inspect and the Chrome DevTools Protocol, Python via pdb + debugpy (DAP), and exploratory QA of web apps with evidence-backed bug reports."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Nous Research",
+        "url": "https://github.com/NousResearch/hermes-agent"
+      },
+      "category": "lap-trinh",
+      "category_label": {
+        "vi": "Lập trình",
+        "en": "Development"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-debug",
+      "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
+      "license": "MIT",
+      "provides": {
+        "skills": [
+          "node-inspect-debugger",
+          "python-debugpy",
+          "dogfood"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-hermes-debug-1.0.0.zip",
+        "sha256": "09e42f488c174e14d794abf5ecc5324f7273c18ef5877e3877e30d7dd831ca14",
+        "size": 19312
+      }
+    },
+    {
+      "id": "javis.hermes-media",
+      "kind": "skill",
+      "name": {
+        "vi": "Hermes: Âm thanh & video",
+        "en": "Hermes: Audio & video"
+      },
+      "description": {
+        "vi": "3 skill media của Hermes Agent: lấy transcript YouTube rồi viết tóm tắt/thread/blog, tìm và tải GIF từ Tenor, và phân tích phổ âm thanh (mel, chroma, MFCC).",
+        "en": "3 media skills from Hermes Agent: turn YouTube transcripts into summaries, threads and blogs; search and download GIFs from Tenor; and analyse audio spectrograms (mel, chroma, MFCC)."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Nous Research",
+        "url": "https://github.com/NousResearch/hermes-agent"
+      },
+      "category": "sang-tao",
+      "category_label": {
+        "vi": "Sáng tạo",
+        "en": "Creative"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-media",
+      "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
+      "license": "MIT",
+      "provides": {
+        "skills": [
+          "youtube-content",
+          "gif-search",
+          "songsee"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-hermes-media-1.0.0.zip",
+        "sha256": "f0071ad9f350024336a389ed95a682501688274f7d47515d57546e857b7679fe",
+        "size": 10116
+      }
+    },
+    {
+      "id": "javis.hermes-apple",
+      "kind": "skill",
+      "name": {
+        "vi": "Hermes: Apple (chỉ macOS)",
+        "en": "Hermes: Apple (macOS only)"
+      },
+      "description": {
+        "vi": "4 skill Apple của Hermes Agent: Notes, Reminders, Find My và iMessage/SMS. CHỈ CHẠY TRÊN macOS - mỗi skill cần một CLI riêng cài sẵn trên máy (memo, remindctl, imsg).",
+        "en": "4 Apple skills from Hermes Agent: Notes, Reminders, Find My and iMessage/SMS. macOS ONLY - each one needs its own CLI installed on the machine (memo, remindctl, imsg)."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Nous Research",
+        "url": "https://github.com/NousResearch/hermes-agent"
+      },
+      "category": "van-phong",
+      "category_label": {
+        "vi": "Văn phòng",
+        "en": "Office"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-apple",
+      "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
+      "license": "MIT",
+      "provides": {
+        "skills": [
+          "apple-notes",
+          "apple-reminders",
+          "findmy",
+          "apple-imessage"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-hermes-apple-1.0.0.zip",
+        "sha256": "5b3c253aecc1583d8683be3fcdfebcbe4ccc6fa7dda866e0b7d2b44d82285fe0",
+        "size": 9173
+      }
+    },
+    {
+      "id": "javis.hermes-ai-agents",
+      "kind": "skill",
+      "name": {
+        "vi": "Hermes: Điều phối agent AI",
+        "en": "Hermes: AI agent orchestration"
+      },
+      "description": {
+        "vi": "7 skill của Hermes Agent về giao việc cho agent khác: Claude Code, OpenAI Codex, OpenCode, computer use, cùng ba skill về chính Hermes Agent (cấu hình, viết skill, soi DOM desktop).",
+        "en": "7 Hermes Agent skills for delegating to other agents: Claude Code, OpenAI Codex, OpenCode, computer use, plus three about Hermes Agent itself (config, skill authoring, desktop DOM inspection)."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Nous Research",
+        "url": "https://github.com/NousResearch/hermes-agent"
+      },
+      "category": "tro-ly-ai",
+      "category_label": {
+        "vi": "Trợ lý AI",
+        "en": "AI assistants"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-ai-agents",
+      "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
+      "license": "MIT",
+      "provides": {
+        "skills": [
+          "claude-code",
+          "codex",
+          "opencode",
+          "computer-use",
+          "hermes-agent",
+          "hermes-agent-skill-authoring",
+          "inspecting-hermes-desktop-dom"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-hermes-ai-agents-1.0.0.zip",
+        "sha256": "aca524713504c3a76677bd36a99edee96aafb49ade270a1b2b3e5de824f6c5a9",
+        "size": 98703
+      }
+    },
+    {
+      "id": "javis.hermes-inbox-web",
+      "kind": "skill",
+      "name": {
+        "vi": "Hermes: Hộp thư & web",
+        "en": "Hermes: Inbox & web"
+      },
+      "description": {
+        "vi": "4 skill hộp thư và web của Hermes Agent: phân loại inbox rồi soạn thư nháp an toàn, đọc/gửi mail IMAP-SMTP bằng Himalaya CLI, dùng X/Twitter qua xurl, và cứu trang bị chặn 403/429/paywall/WAF.",
+        "en": "4 inbox and web skills from Hermes Agent: triage an inbox and draft replies safely, IMAP/SMTP mail via the Himalaya CLI, X/Twitter via xurl, and recovering pages blocked by 403/429, paywalls or WAFs."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Nous Research",
+        "url": "https://github.com/NousResearch/hermes-agent"
+      },
+      "category": "nhan-tin",
+      "category_label": {
+        "vi": "Nhắn tin",
+        "en": "Messaging"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hermes-inbox-web",
+      "source": "https://github.com/NousResearch/hermes-agent/tree/main/skills",
+      "license": "MIT",
+      "provides": {
+        "skills": [
+          "email-inbox-triage",
+          "himalaya",
+          "xurl",
+          "blocked-page-recovery"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-hermes-inbox-web-1.0.0.zip",
+        "sha256": "61586a463ca4740599ed8189ba297e62c9c5ee8f8a665a577126ef8166479312",
+        "size": 24810
+      }
+    },
+    {
+      "id": "javis.anthropic-plugin-dev",
+      "kind": "skill",
+      "name": {
+        "vi": "Claude: Viết plugin",
+        "en": "Claude: Plugin development"
+      },
+      "description": {
+        "vi": "7 skill chính chủ Anthropic để viết plugin cho Claude Code: cấu trúc plugin, slash command, subagent, hook, tích hợp MCP, cài đặt người dùng chỉnh được, và cách viết SKILL.md.",
+        "en": "Anthropic's 7 official skills for building Claude Code plugins: plugin structure, slash commands, subagents, hooks, MCP integration, user-configurable settings, and writing SKILL.md files."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Anthropic",
+        "url": "https://github.com/anthropics/claude-plugins-official"
+      },
+      "category": "lap-trinh",
+      "category_label": {
+        "vi": "Lập trình",
+        "en": "Development"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.anthropic-plugin-dev",
+      "source": "https://github.com/anthropics/claude-plugins-official",
+      "license": "Apache-2.0",
+      "provides": {
+        "skills": [
+          "plugin-structure",
+          "command-development",
+          "agent-development",
+          "hook-development",
+          "mcp-integration",
+          "plugin-settings",
+          "skill-development"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-anthropic-plugin-dev-1.0.0.zip",
+        "sha256": "118963e64b81795a227a320a40c52308317b83cad681b943aeeb1240d71926b0",
+        "size": 190584
+      }
+    },
+    {
+      "id": "javis.anthropic-mcp-dev",
+      "kind": "skill",
+      "name": {
+        "vi": "Claude: Viết MCP server",
+        "en": "Claude: MCP server development"
+      },
+      "description": {
+        "vi": "3 skill chính chủ Anthropic để dựng MCP server: bọc một API thành server (tool, resource, transport, test), thêm widget giao diện tương tác (MCP app), và đóng gói thành .mcpb cài một chạm.",
+        "en": "Anthropic's 3 official skills for MCP servers: wrap an API into a server (tools, resources, transports, testing), add interactive UI widgets (MCP apps), and package it as a one-click .mcpb bundle."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Anthropic",
+        "url": "https://github.com/anthropics/claude-plugins-official"
+      },
+      "category": "lap-trinh",
+      "category_label": {
+        "vi": "Lập trình",
+        "en": "Development"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.anthropic-mcp-dev",
+      "source": "https://github.com/anthropics/claude-plugins-official",
+      "license": "Apache-2.0",
+      "provides": {
+        "skills": [
+          "build-mcp-server",
+          "build-mcp-app",
+          "build-mcpb"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-anthropic-mcp-dev-1.0.0.zip",
+        "sha256": "71043b9b4a7da025e42942aff9477552b85ff0b5c560410634d04d5a424ce0d0",
+        "size": 62235
+      }
+    },
+    {
+      "id": "javis.anthropic-claude-setup",
+      "kind": "skill",
+      "name": {
+        "vi": "Claude: Thiết lập & bảo mật",
+        "en": "Claude: Setup & security"
+      },
+      "description": {
+        "vi": "5 skill chính chủ Anthropic để chỉnh chính Claude Code: tạo và đo hiệu quả skill, gợi ý tự động hoá cho một codebase, soát lại CLAUDE.md, viết luật hookify, và quét bảo mật repo hoặc nhánh.",
+        "en": "Anthropic's 5 official skills for tuning Claude Code itself: create and benchmark skills, recommend automations for a codebase, audit CLAUDE.md, write hookify rules, and run security scans."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Anthropic",
+        "url": "https://github.com/anthropics/claude-plugins-official"
+      },
+      "category": "tro-ly-ai",
+      "category_label": {
+        "vi": "Trợ lý AI",
+        "en": "AI assistants"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.anthropic-claude-setup",
+      "source": "https://github.com/anthropics/claude-plugins-official",
+      "license": "Apache-2.0",
+      "provides": {
+        "skills": [
+          "skill-creator",
+          "claude-automation-recommender",
+          "claude-md-improver",
+          "writing-hookify-rules",
+          "claude-security"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-anthropic-claude-setup-1.0.0.zip",
+        "sha256": "febd2921fdfc2610ab68c3f885668606f3ded32e44d0fc1e5cf3d8f9f853fc0d",
+        "size": 152711
+      }
+    },
+    {
+      "id": "javis.anthropic-ui-report",
+      "kind": "skill",
+      "name": {
+        "vi": "Claude: Giao diện & báo cáo",
+        "en": "Claude: UI & reports"
+      },
+      "description": {
+        "vi": "5 skill chính chủ Anthropic về thứ nhìn được: định hướng thiết kế UI, playground HTML tương tác, trang trạng thái dự án nhiều tab, báo cáo phiên làm việc, và bản tổng kết mức dùng Claude Code.",
+        "en": "Anthropic's 5 official skills for visible output: deliberate UI design direction, interactive HTML playgrounds, tabbed project status pages, session usage reports, and Claude Code usage receipts."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Anthropic",
+        "url": "https://github.com/anthropics/claude-plugins-official"
+      },
+      "category": "sang-tao",
+      "category_label": {
+        "vi": "Sáng tạo",
+        "en": "Creative"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.anthropic-ui-report",
+      "source": "https://github.com/anthropics/claude-plugins-official",
+      "license": "Apache-2.0",
+      "provides": {
+        "skills": [
+          "frontend-design",
+          "playground",
+          "project-artifact",
+          "session-report",
+          "receipts"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-anthropic-ui-report-1.0.0.zip",
+        "sha256": "0f814aea327d715152293ec5c32fe30b883fb674e1b7a39d8c4b789efe33e9a2",
+        "size": 99417
+      }
+    },
+    {
+      "id": "javis.anthropic-chat-channels",
+      "kind": "skill",
+      "name": {
+        "vi": "Claude: Kênh chat (Discord/Telegram/iMessage)",
+        "en": "Claude: Chat channels (Discord/Telegram/iMessage)"
+      },
+      "description": {
+        "vi": "6 skill từ plugin đối tác trong kho Anthropic: thiết lập và quản lý quyền truy cập cho ba kênh chat Discord, Telegram, iMessage - duyệt ghép cặp, sửa allowlist, đặt chính sách DM/nhóm.",
+        "en": "6 skills from partner plugins in Anthropic's directory: set up and manage access for the Discord, Telegram and iMessage channels - approve pairings, edit allowlists, set DM/group policy."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Anthropic",
+        "url": "https://github.com/anthropics/claude-plugins-official"
+      },
+      "category": "nhan-tin",
+      "category_label": {
+        "vi": "Nhắn tin",
+        "en": "Messaging"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.anthropic-chat-channels",
+      "source": "https://github.com/anthropics/claude-plugins-official",
+      "license": "Apache-2.0",
+      "provides": {
+        "skills": [
+          "discord-configure",
+          "discord-access",
+          "telegram-configure",
+          "telegram-access",
+          "imessage-configure",
+          "imessage-access"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-anthropic-chat-channels-1.0.0.zip",
+        "sha256": "adb127ac344bd8a569051cc5c0c53c6a0fb876b2a3047a3be0ab327a725e94d9",
+        "size": 20597
+      }
+    },
+    {
+      "id": "javis.anthropic-lab",
+      "kind": "skill",
+      "name": {
+        "vi": "Claude: Toán olympiad & phần cứng M5",
+        "en": "Claude: Math olympiad & M5 hardware"
+      },
+      "description": {
+        "vi": "3 skill chính chủ Anthropic: giải toán olympiad (IMO, Putnam, USAMO) có bộ phản biện riêng và mức tin cậy hiệu chỉnh, cùng hai skill nạp firmware và lập trình MicroPython cho thiết bị M5Stack ESP32.",
+        "en": "3 Anthropic skills: solve olympiad problems (IMO, Putnam, USAMO) with an adversarial verifier and calibrated confidence, plus two for flashing and programming M5Stack ESP32 devices in MicroPython."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Anthropic",
+        "url": "https://github.com/anthropics/claude-plugins-official"
+      },
+      "category": "nghien-cuu",
+      "category_label": {
+        "vi": "Nghiên cứu",
+        "en": "Research"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.anthropic-lab",
+      "source": "https://github.com/anthropics/claude-plugins-official",
+      "license": "Apache-2.0",
+      "provides": {
+        "skills": [
+          "math-olympiad",
+          "m5-onboard",
+          "cardputer-buddy"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-anthropic-lab-1.0.0.zip",
+        "sha256": "c7f1c3b6dacff1fa9b64cfbef803fb5b1fcc1b9277f6fe8dcc5d81c479f04b0e",
+        "size": 48415
+      }
+    },
+    {
+      "id": "javis.deepseek-review",
+      "kind": "skill",
+      "name": {
+        "vi": "DeepSeek: Review & chuẩn viết",
+        "en": "DeepSeek: Review & prose standard"
+      },
+      "description": {
+        "vi": "4 skill dùng chung được, lọc từ deepseek-harness: review pull request theo thứ tự đúng-đắn trước, chuẩn viết comment và tài liệu, tìm chỗ code rút gọn được, và quay lại phiên trình duyệt thành GIF.",
+        "en": "4 reusable skills lifted from deepseek-harness: review a pull request correctness-first, an editorial standard for comments and docs, find code that can be simplified, and record a browser session as a GIF."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "DeepSeek",
+        "url": "https://github.com/deepseek-ai/deepseek-harness"
+      },
+      "category": "lap-trinh",
+      "category_label": {
+        "vi": "Lập trình",
+        "en": "Development"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.deepseek-review",
+      "source": "https://github.com/deepseek-ai/deepseek-harness/tree/master/.agents/skills",
+      "license": "MIT",
+      "provides": {
+        "skills": [
+          "dsh-code-review",
+          "dsh-prose-standard",
+          "dsh-find-simplifications",
+          "record-browser-gif"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-deepseek-review-1.0.0.zip",
+        "sha256": "56a9a85a6e3e8028baf7e165566a126245c71dd55cd6a586a4bb48346499cb70",
+        "size": 31782
+      }
+    },
+    {
+      "id": "javis.superpowers",
+      "kind": "skill",
+      "name": {
+        "vi": "Superpowers",
+        "en": "Superpowers"
+      },
+      "description": {
+        "vi": "14 skill quy trình làm việc của Jesse Vincent (obra/superpowers): brainstorm trước khi code, viết và thực thi plan, TDD, gỡ lỗi có hệ thống, review code hai chiều, git worktree, và bắt buộc chạy lệnh kiểm chứng trước khi báo xong.",
+        "en": "14 workflow skills by Jesse Vincent (obra/superpowers): brainstorm before coding, write and execute plans, TDD, systematic debugging, both sides of code review, git worktrees, and verifying before claiming done."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Jesse Vincent",
+        "url": "https://github.com/obra/superpowers"
+      },
+      "category": "lap-trinh",
+      "category_label": {
+        "vi": "Lập trình",
+        "en": "Development"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.superpowers",
+      "source": "https://github.com/obra/superpowers",
+      "license": "MIT",
+      "provides": {
+        "skills": [
+          "brainstorming",
+          "dispatching-parallel-agents",
+          "executing-plans",
+          "finishing-a-development-branch",
+          "receiving-code-review",
+          "sp-requesting-code-review",
+          "sp-systematic-debugging",
+          "sp-test-driven-development",
+          "subagent-driven-development",
+          "using-git-worktrees",
+          "using-superpowers",
+          "verification-before-completion",
+          "writing-plans",
+          "writing-skills"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-superpowers-1.0.0.zip",
+        "sha256": "52976388955248e9b021a5ab5cec2eefa04d75b954d4c740327ee7cbc1caaacd",
+        "size": 161040
+      }
+    },
+    {
+      "id": "javis.playwright",
+      "kind": "connector",
+      "name": {
+        "vi": "Playwright",
+        "en": "Playwright"
+      },
+      "description": {
+        "vi": "Điều khiển trình duyệt thật qua Playwright MCP chính chủ của Microsoft: mở trang, đọc cấu trúc trang, điền form, bấm nút, chụp màn hình, xuất PDF, chạy kiểm thử đầu-cuối. Không cần API key. Mặc định chạy hồ sơ TÁCH BIỆT và ẩn cửa sổ.",
+        "en": "Drive a real browser through Microsoft's official Playwright MCP: open pages, read page structure, fill forms, click, screenshot, export PDF, run end-to-end tests. No API key. Defaults to an isolated, headless profile."
+      },
+      "version": "1.0.2",
+      "author": {
+        "name": "Microsoft",
+        "url": "https://github.com/microsoft/playwright-mcp"
+      },
+      "category": "website",
+      "category_label": {
+        "vi": "Website",
+        "en": "Website"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.playwright",
+      "icon": "packs/javis.playwright/assets/playwright.png",
+      "source": "https://github.com/microsoft/playwright-mcp",
+      "license": "Apache-2.0",
+      "provides": {
+        "connectors": [
+          "playwright"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-playwright-1.0.2.zip",
+        "sha256": "413409d9169b6bdaa43ea41c4eb10241858e2ddf47632ebd861cca7cb03228d3",
+        "size": 21077
+      }
+    },
+    {
+      "id": "javis.quang-cao-so-lieu",
+      "kind": "workflow",
+      "name": {
+        "vi": "Quảng cáo & số liệu",
+        "en": "Ads & analytics"
+      },
+      "description": {
+        "vi": "3 trợ lý và 3 quy trình đọc số quảng cáo: báo cáo Meta/Google/TikTok Ads hàng tuần, săn ngân sách đang đốt vô ích, và đọc Google Search Console hàng tháng. Mọi con số đều phải chỉ ra nguồn, và bước cuối luôn có một trợ lý kiểm chứng độc lập.",
+        "en": "3 agents and 3 workflows for ad analytics: weekly Meta/Google/TikTok reports, wasted-spend hunting, and a monthly Search Console read. Every number must cite its source, and an independent verifier checks the final step."
+      },
+      "version": "1.0.1",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "quang-cao",
+      "category_label": {
+        "vi": "Quảng cáo"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.quang-cao-so-lieu",
+      "license": "MIT",
+      "provides": {
+        "agents": [
+          "qc-kiem-chung",
+          "qc-phan-tich-quang-cao",
+          "qc-phan-tich-so-lieu"
+        ],
+        "workflows": [
+          "bao-cao-quang-cao-tuan",
+          "doc-search-console-thang",
+          "san-ngan-sach-lang-phi"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-quang-cao-so-lieu-1.0.1.zip",
+        "sha256": "37bacacc1b4dc7f0c547e1b6df88d9c9b8f64e22364c83ffe704d60af01f987b",
+        "size": 8136
+      }
+    },
+    {
+      "id": "javis.noi-dung-social",
+      "kind": "workflow",
+      "name": {
+        "vi": "Nội dung & mạng xã hội",
+        "en": "Content & social"
+      },
+      "description": {
+        "vi": "4 trợ lý và 3 quy trình làm nội dung: từ một ý tưởng ra bài đăng hoàn chỉnh, bẻ bài dài thành chuỗi post, và lên lịch nội dung một tháng. Có bước tìm góc tiếp cận trước khi viết, và bước biên tập cắt chữ thừa sau khi viết.",
+        "en": "4 agents and 3 workflows for content: turn one idea into a finished post, split a long piece into a post series, and plan a month of content. Angle-finding before writing, editing after."
+      },
+      "version": "1.0.1",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "mang-xa-hoi",
+      "category_label": {
+        "vi": "Mạng xã hội"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.noi-dung-social",
+      "license": "MIT",
+      "provides": {
+        "agents": [
+          "nd-bien-tap",
+          "nd-goc-nhin",
+          "nd-kiem-chung",
+          "nd-viet-bai"
+        ],
+        "workflows": [
+          "bai-dai-thanh-chuoi-post",
+          "lich-noi-dung-thang",
+          "y-tuong-thanh-bai-dang"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-noi-dung-social-1.0.1.zip",
+        "sha256": "315da242baa6de3f5a00f7cd3f7ff0539ede1779060e79e1daf5c4548b4efeb4",
+        "size": 9102
+      }
+    },
+    {
+      "id": "javis.email-pheu",
+      "kind": "workflow",
+      "name": {
+        "vi": "Email & phễu",
+        "en": "Email & funnel"
+      },
+      "description": {
+        "vi": "3 trợ lý và 3 quy trình cho email marketing: chuỗi email nuôi dưỡng sau khi khách tải tài liệu miễn phí, chuỗi kích hoạt lại danh sách đã nguội, và chẩn đoán phễu đang rò ở khâu nào. Viết chuỗi mà không lộ hết nội dung sản phẩm trả phí.",
+        "en": "3 agents and 3 workflows for email marketing: a nurture sequence after a lead magnet, a re-engagement sequence for a cold list, and a funnel leak diagnosis."
+      },
+      "version": "1.0.1",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "marketing",
+      "category_label": {
+        "vi": "Marketing"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.email-pheu",
+      "license": "MIT",
+      "provides": {
+        "agents": [
+          "em-chien-luoc-pheu",
+          "em-kiem-chung",
+          "em-viet-email"
+        ],
+        "workflows": [
+          "chan-doan-pheu",
+          "chuoi-email-sau-lead-magnet",
+          "kich-hoat-lai-danh-sach"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-email-pheu-1.0.1.zip",
+        "sha256": "f5b57fb05812360e8c88160ea8f5476f04ce7266b8e194f6d5334afab430a860",
+        "size": 7879
+      }
+    },
+    {
+      "id": "javis.san-pham-ban-hang",
+      "kind": "workflow",
+      "name": {
+        "vi": "Sản phẩm số & bán hàng",
+        "en": "Digital products & sales"
+      },
+      "description": {
+        "vi": "4 trợ lý và 3 quy trình cho sản phẩm số: từ kỹ năng sẵn có ra ý tưởng sản phẩm bán được, dựng trang bán hàng từ hồ sơ khách, và chuỗi chăm khách sau mua để đổi lấy lời chứng thực. Mọi lời hứa bán hàng đều bị soát lại xem sản phẩm có giao nổi không.",
+        "en": "4 agents and 3 workflows for digital products: turn existing skills into a sellable product, build a sales page from a customer profile, and run a post-purchase sequence that earns testimonials."
+      },
+      "version": "1.0.1",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "ban-hang",
+      "category_label": {
+        "vi": "Bán hàng",
+        "en": "Sales"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.san-pham-ban-hang",
+      "license": "MIT",
+      "provides": {
+        "agents": [
+          "bh-cham-khach",
+          "bh-chien-luoc-offer",
+          "bh-kiem-chung",
+          "bh-viet-ban-hang"
+        ],
+        "workflows": [
+          "cham-khach-sau-mua",
+          "dung-trang-ban-hang",
+          "y-tuong-thanh-san-pham-so"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-san-pham-ban-hang-1.0.1.zip",
+        "sha256": "a72e6eb97342818eb2a8617038e88da21b8d6fe578f5ef81abcf5d352b65ccfe",
+        "size": 9418
+      }
+    },
+    {
+      "id": "javis.tro-ly-hang-ngay",
+      "kind": "agent",
+      "name": {
+        "vi": "Trợ lý hàng ngày",
+        "en": "Everyday assistants"
+      },
+      "description": {
+        "vi": "3 trợ lý dùng mỗi ngày, không cần quy trình đi kèm: một thư ký dọn hộp thư và sắp việc trong ngày, một người tóm tắt tài liệu dài thành quyết định và việc cần làm, một người phản biện soi lỗ hổng trong kế hoạch trước khi bạn bắt tay vào làm.",
+        "en": "3 everyday agents that work standalone: a secretary who triages the inbox and orders the day, a summariser who turns long documents into decisions and actions, and a devil's advocate who finds the holes in a plan before you commit to it."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "van-phong",
+      "category_label": {
+        "vi": "Văn phòng",
+        "en": "Office"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.tro-ly-hang-ngay",
+      "license": "MIT",
+      "provides": {
+        "agents": [
+          "tl-phan-bien",
+          "tl-thu-ky",
+          "tl-tom-tat"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-tro-ly-hang-ngay-1.0.0.zip",
+        "sha256": "ff680c1d2f542eff604f03683e059fcdf516c0c38defd9b77b274ec9a8ca4822",
+        "size": 5290
+      }
+    },
+    {
+      "id": "javis.tro-ly-nghien-cuu",
+      "kind": "agent",
+      "name": {
+        "vi": "Trợ lý nghiên cứu & ngôn ngữ",
+        "en": "Research & language assistants"
+      },
+      "description": {
+        "vi": "3 trợ lý cho việc học và việc viết đa ngôn ngữ: một người nghiên cứu trả lời có trích dẫn rồi nạp vào Second Brain, một người dịch và bản địa hoá nội dung marketing Việt-Anh giữ nguyên sức bán, một người bóc khái niệm khó thành thứ hiểu được rồi mới dùng.",
+        "en": "3 agents for learning and multilingual writing: a researcher who answers with citations and files findings into the Second Brain, a translator who localises marketing copy between Vietnamese and English without losing its selling power, and an explainer who unpacks a hard concept before you rely on it."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "nghien-cuu",
+      "category_label": {
+        "vi": "Nghiên cứu",
+        "en": "Research"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-09-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.tro-ly-nghien-cuu",
+      "license": "MIT",
+      "provides": {
+        "agents": [
+          "tl-dich-ban-dia",
+          "tl-giai-thich",
+          "tl-nghien-cuu"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-tro-ly-nghien-cuu-1.0.0.zip",
+        "sha256": "38bf9df7bc81d7f241d38add9f7e70482818ba98121584ccb070eb18b60ab8fa",
+        "size": 5320
+      }
+    },
+    {
+      "id": "javis.tts-dropship",
+      "kind": "connector",
+      "name": {
+        "vi": "TTS Dropship (thitruongsi.com)"
+      },
+      "description": {
+        "vi": "Bán dropship trên sàn TTS: tìm hàng theo lợi nhuận, thêm vào giỏ, tách địa chỉ từ tin nhắn khách, tạo khách, báo giá ship, LÊN ĐƠN, theo dõi vận đơn và xem tiền về. Sàn không phát hành API key nên đăng nhập bằng token lấy từ trình duyệt, dán thêm refresh token là tự gia hạn. Sàn đổi tên trường dữ liệu thì gói TỰ soi lược đồ và sửa lại truy vấn, không phải cài lại. Tạo đơn và huỷ đơn luôn phải xác nhận hai bước."
+      },
+      "version": "1.1.1",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "ban-hang",
+      "category_label": {
+        "vi": "Bán hàng"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-09-27",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.tts-dropship",
+      "icon": "packs/javis.tts-dropship/assets/tts-dropship.png",
+      "provides": {
+        "connectors": [
+          "tts-dropship"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-tts-dropship-1.1.1.zip",
+        "sha256": "a24ba98ff9e8526e9d3508ea0063784ecf4b05834e44c288e21209daa091cc3b",
+        "size": 64796
+      }
+    },
+    {
+      "id": "javis.javis-trong-chatgpt",
+      "kind": "tool",
+      "name": {
+        "vi": "Javis trong ChatGPT",
+        "en": "Javis in ChatGPT"
+      },
+      "description": {
+        "vi": "Chat trên chatgpt.com bằng gói ChatGPT của bạn, và ChatGPT tự gọi công cụ của Javis: số liệu, brain, nhắc lịch, Zalo. Chọn mức quyền, ngắt kết nối bất cứ lúc nào. Cần Javis 0.64.26 trở lên, mật khẩu quản trị và tên miền https.",
+        "en": "Chat on chatgpt.com with your own ChatGPT plan while ChatGPT calls Javis's tools: numbers, brain, reminders, Zalo. Pick the permission level, disconnect any time. Needs Javis 0.64.26 or newer, an admin password and an https domain."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "tro-ly-ai",
+      "category_label": {
+        "vi": "Trợ lý AI",
+        "en": "AI assistants"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-09-24",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.javis-trong-chatgpt",
+      "icon": "packs/javis.javis-trong-chatgpt/assets/javis-trong-chatgpt.png",
+      "download": {
+        "url": "dist/javis-javis-trong-chatgpt-1.0.0.zip",
+        "sha256": "cb86e0714a2f5000c5ea78dcb7b197a6db5ed40afa62fca6c764b4baccdcb708",
+        "size": 43809
+      }
+    },
+    {
+      "id": "javis.github",
+      "kind": "connector",
+      "name": {
+        "vi": "GitHub"
+      },
+      "description": {
+        "vi": "Làm việc với code trên GitHub qua MCP chính chủ: đọc và sửa file, tạo nhánh, đẩy commit, mở và trộn Pull Request, issue, review, xem và chạy GitHub Actions, đọc log CI, cảnh báo bảo mật. Bật đủ mọi bộ công cụ, dán Personal Access Token là xong."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "lap-trinh",
+      "category_label": {
+        "vi": "Lập trình"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-10-02",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.github",
+      "icon": "packs/javis.github/assets/github.png",
+      "provides": {
+        "connectors": [
+          "github"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-github-1.0.0.zip",
+        "sha256": "6c0a1133a10be890c5522fd44551ab3101b81bb6960a232b0877f2e992a9221a",
+        "size": 9133
+      }
+    },
+    {
+      "id": "javis.supabase",
+      "kind": "connector",
+      "name": {
+        "vi": "Supabase"
+      },
+      "description": {
+        "vi": "Quản lý Supabase qua MCP chính chủ: xem dự án, bảng, chạy SQL, tạo migration, deploy Edge Function, nhánh cơ sở dữ liệu, storage, đọc log và cảnh báo bảo mật, sinh kiểu TypeScript. Dán Personal Access Token là xong."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "lap-trinh",
+      "category_label": {
+        "vi": "Lập trình"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-10-02",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.supabase",
+      "icon": "packs/javis.supabase/assets/supabase.png",
+      "provides": {
+        "connectors": [
+          "supabase"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-supabase-1.0.0.zip",
+        "sha256": "b6f4a93d32fe2d06bd7a7a43f056dc5aa36da9f56465b9ac0c113ceb55d27c45",
+        "size": 8878
+      }
+    },
+    {
+      "id": "javis.cloudflare",
+      "kind": "connector",
+      "name": {
+        "vi": "Cloudflare"
+      },
+      "description": {
+        "vi": "Toàn bộ API Cloudflare ngay trong chat qua MCP chính chủ: DNS, Workers, Pages, KV, R2, D1, tường lửa, SSL, cache, thống kê lưu lượng, Zero Trust. Dán API token là xong, quyền của token quyết định Javis được làm gì."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "lap-trinh",
+      "category_label": {
+        "vi": "Lập trình"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-10-02",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.cloudflare",
+      "icon": "packs/javis.cloudflare/assets/cloudflare.jpg",
+      "provides": {
+        "connectors": [
+          "cloudflare"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-cloudflare-1.0.0.zip",
+        "sha256": "9c2957c3cae63a1c0cf3f5042e448f56ba1d1093c60b365a37328a195c35d750",
+        "size": 5258
+      }
+    },
+    {
+      "id": "javis.cloudflare-deploy",
+      "kind": "tool",
+      "name": {
+        "vi": "Cloudflare Deploy (Wrangler)"
+      },
+      "description": {
+        "vi": "Deploy Worker và trang web tĩnh lên Cloudflare bằng Wrangler ngay trong chat, bộ não nào cũng dùng được. Dùng lại API token của gói Cloudflare, không phải dán lần hai. Deploy thật chỉ chạy khi kết nối Cloudflare ở mức Toàn quyền. Cần Node.js 20+ trên máy chạy Javis."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "lap-trinh",
+      "category_label": {
+        "vi": "Lập trình"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-10-02",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.cloudflare-deploy",
+      "icon": "packs/javis.cloudflare-deploy/assets/cloudflare-deploy.jpg",
+      "provides": {
+        "plugins": [
+          "cloudflare-deploy"
+        ],
+        "skills": [
+          "deploy-cloudflare"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-cloudflare-deploy-1.0.0.zip",
+        "sha256": "47632c844aad721d3fb0bf9b3c7b58219df5ccb1dbc3d0cb9b0a7f794dc8e2e5",
+        "size": 13318
+      }
+    },
+    {
+      "id": "javis.zalo",
+      "kind": "tool",
+      "name": {
+        "vi": "Zalo mở rộng",
+        "en": "Zalo extras"
+      },
+      "description": {
+        "vi": "Đi kèm kết nối Zalo: gửi ảnh và file, tag đúng người trong nhóm, tạo ghi chú, nhắc hẹn, poll, và đọc ảnh người ta gửi trong nhóm (ChatGPT trên gói của bạn tả lại nội dung ảnh cho mọi bộ não). Cần Javis 0.73.0 trở lên và đã quét QR Zalo ở trang Kết nối.",
+        "en": "Goes with the Zalo connection: send images and files, tag the right people in a group, create notes, reminders and polls, and read the images people post in a group (ChatGPT on your plan describes them for every brain). Needs Javis 0.73.0 or newer and Zalo scanned on the Connections page."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "nhan-tin",
+      "category_label": {
+        "vi": "Nhắn tin",
+        "en": "Messaging"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-10-04",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.zalo",
+      "icon": "packs/javis.zalo/assets/zalo.png",
+      "provides": {
+        "plugins": [
+          "zalo-image",
+          "zalo-group",
+          "zalo-read-images"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-zalo-1.0.0.zip",
+        "sha256": "e52b0a198a5f4b2fdf420a413424d3b0ee6c131684bc3c14c775f5ff2b8bb7f2",
+        "size": 32212
+      }
+    }
+  ]
 }
