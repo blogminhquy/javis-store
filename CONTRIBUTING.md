@@ -85,7 +85,8 @@ Bên thứ 3 ra bản mới thì mọi máy chạy bản đó ở lần khởi �
 Hai ngoại lệ, khai bằng `ngoai_le_ban_chinh_thuc` ở gốc khuôn connector, một câu nói rõ vì sao:
 
 - Bên thứ 3 chưa phát hành bản nào, nên chỉ có đường GitHub.
-- Code của Javis đọc thẳng định dạng của một bản cụ thể, đổi bản là vỡ (ví dụ Zalo trong app).
+- Javis đã dựng phần riêng của mình trên một bản cụ thể và không đi theo bản gốc nữa. Ví dụ duy nhất
+  hiện có: Zalo trong app, bản dành riêng cho Javis, ghim vĩnh viễn ở `zalo-agent-cli@1.6.2`.
 
 `tools/kiem-tra.py` chặn mọi connector `npx`/`uvx` không theo luật này.
 
