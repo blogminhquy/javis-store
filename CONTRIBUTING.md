@@ -85,8 +85,9 @@ Bên thứ 3 ra bản mới thì mọi máy chạy bản đó ở lần khởi �
 Hai ngoại lệ, khai bằng `ngoai_le_ban_chinh_thuc` ở gốc khuôn connector, một câu nói rõ vì sao:
 
 - Bên thứ 3 chưa phát hành bản nào, nên chỉ có đường GitHub.
-- Javis thôi đi theo bản gốc và tự giữ một bản riêng. Ví dụ duy nhất hiện có: Zalo trong app, chuyển
-  sang bản CLI riêng của Javis, chỉ thư viện `zca-js` bên dưới là còn đi theo bản chính thức.
+- Javis thôi đi theo bản gốc và tự giữ một bản riêng. Ví dụ duy nhất hiện có: Zalo trong app, từ
+  Javis 0.83.0 chạy [`javis-zalo`](https://github.com/blogminhquy/javis-zalo) (bản CLI riêng, ghim
+  theo tag phát hành), chỉ thư viện `zca-js` bên dưới là còn đi theo bản chính thức.
 
 `tools/kiem-tra.py` chặn mọi connector `npx`/`uvx` không theo luật này.
 

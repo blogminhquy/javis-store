@@ -107,7 +107,8 @@ r = goi({"thread_id": "t1", "paths": ["attachments/anh.jpg", "attachments/anh2.p
 d = json.loads(r)
 argv = _da_chay[0]["argv"]
 check("gửi thành công trả JSON đọc được", d.get("ok") and d["sent"] == 2 and d["kind"] == "image")
-check("chạy đúng package đã ghim", "zalo-agent-cli@1.6.2" in argv)
+# Hỏi lõi bản nào đang ghim thay vì chép chuỗi: lõi đổi CLI (0.83.0: zalo-agent-cli 1.6.2 -> javis-zalo) thì test vẫn đúng.
+check("chạy đúng package đã ghim", P.zalo_cli.CLI_PACKAGE in argv)
 check("dùng lệnh con send-image cho ảnh", "send-image" in argv and "msg" in argv)
 # --json phải đứng TRƯỚC lệnh con: nó là cờ toàn cục của program (commander), đặt sau
 # "msg send-image" là commander coi như tham số lạ của lệnh con.
