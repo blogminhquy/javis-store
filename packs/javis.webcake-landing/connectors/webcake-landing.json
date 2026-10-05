@@ -11,7 +11,16 @@
   "command": "npx",
   "args": [
     "-y",
-    "webcake-landing-mcp"
+    "webcake-landing-mcp@latest"
+  ],
+  "lenh_cu": [
+    {
+      "command": "npx",
+      "args": [
+        "-y",
+        "webcake-landing-mcp"
+      ]
+    }
   ],
   "requires": {
     "node": ">=18"

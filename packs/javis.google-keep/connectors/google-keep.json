@@ -11,10 +11,22 @@
   "command": "uvx",
   "args": [
     "--from",
-    "keep-mcp",
+    "keep-mcp@latest",
     "python",
     "-m",
     "server"
+  ],
+  "lenh_cu": [
+    {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "keep-mcp",
+        "python",
+        "-m",
+        "server"
+      ]
+    }
   ],
   "requires": {
     "uv": true

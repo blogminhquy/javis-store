@@ -177,7 +177,7 @@
       "description": {
         "vi": "Để AI tự thiết kế và sửa landing page Webcake bằng lời nói (tạo trang, sửa section, publish...). Chạy local qua npx, mỗi tài khoản 1 JWT."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Javis"
       },
@@ -187,7 +187,7 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-09-05",
+      "updated": "2026-10-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.webcake-landing",
       "icon": "packs/javis.webcake-landing/assets/webcake.jpg",
       "provides": {
@@ -196,9 +196,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-webcake-landing-1.0.0.zip",
-        "sha256": "c40be7627ec5462728ba5376b0cbc7fe913cd42927e59ead705cc87fffcf6cf0",
-        "size": 10366
+        "url": "dist/javis-webcake-landing-1.0.1.zip",
+        "sha256": "60289d10a738b3fa4bddf0d14e4adb5ccc8b94f084baa1061181a402fc424fbe",
+        "size": 10403
       }
     },
     {
@@ -243,7 +243,7 @@
       "description": {
         "vi": "Đọc/ghi bảng tính Google: đổ báo cáo doanh thu, tồn kho, công nợ ra Sheets tự động. Đấu bằng service account - không cần đăng nhập."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Javis"
       },
@@ -253,7 +253,7 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-09-05",
+      "updated": "2026-10-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-sheets",
       "icon": "packs/javis.google-sheets/assets/google-sheets.png",
       "provides": {
@@ -262,9 +262,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-google-sheets-1.0.0.zip",
-        "sha256": "f44add021760f4afe78111f304dfc7bda0928bc676ff22620c4a5e7edb41a9b0",
-        "size": 7486
+        "url": "dist/javis-google-sheets-1.0.1.zip",
+        "sha256": "61a4b2984dfef716d7fb855f1f458c161dc5fb7a4c8db183a19db2860f0ccc1f",
+        "size": 7516
       }
     },
     {
@@ -276,7 +276,7 @@
       "description": {
         "vi": "Số liệu SEO website: khách tìm từ khoá gì ra trang của bạn, lượt hiển thị, lượt bấm, trang top."
       },
-      "version": "1.0.2",
+      "version": "1.0.3",
       "author": {
         "name": "Javis"
       },
@@ -286,7 +286,7 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-09-05",
+      "updated": "2026-10-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-search-console",
       "icon": "packs/javis.google-search-console/assets/google-search-console.png",
       "provides": {
@@ -295,9 +295,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-google-search-console-1.0.2.zip",
-        "sha256": "3f8e14f3b89b0d01ade3f8268de9058dc5d79c982579d9bde930f8c760b2f555",
-        "size": 9885
+        "url": "dist/javis-google-search-console-1.0.3.zip",
+        "sha256": "6fbaaf2835d485a07bdbf4e84bf4bfdc8f68f9caae73a79d6250691cde28fd45",
+        "size": 9920
       }
     },
     {
@@ -309,7 +309,7 @@
       "description": {
         "vi": "Gmail, Calendar, Drive, Docs, Sheets, Slides, Forms, Tasks... trong MỘT kết nối. Tạo OAuth client 1 lần, khoảng 10 phút, có hướng dẫn từng bước. Lần đầu gọi tool Google, trình duyệt TRÊN MÁY CHẠY JAVIS mở ra để bấm đồng ý, nên máy phải có màn hình."
       },
-      "version": "1.0.2",
+      "version": "1.0.3",
       "author": {
         "name": "Javis"
       },
@@ -319,7 +319,7 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-09-05",
+      "updated": "2026-10-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-workspace",
       "icon": "packs/javis.google-workspace/assets/google-workspace.png",
       "provides": {
@@ -328,9 +328,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-google-workspace-1.0.2.zip",
-        "sha256": "040b289b95f7f25beb721c3891a8eb57b3b0c7905e7abe103db70a7de5430e3f",
-        "size": 13118
+        "url": "dist/javis-google-workspace-1.0.3.zip",
+        "sha256": "cc6c3435b1d4bc88042e3ef0dc1f5d3e851fc404a37b307ead7f42cc98a844d7",
+        "size": 13201
       }
     },
     {
@@ -342,7 +342,7 @@
       "description": {
         "vi": "Việc cần làm trong Google Tasks: xem danh sách, thêm việc, đặt hạn, đánh dấu xong. Chỉ xin quyền Tasks, không đụng Gmail hay Drive. Đăng nhập Google bằng OAuth client tự tạo (~10 phút, có hướng dẫn)."
       },
-      "version": "1.0.2",
+      "version": "1.0.3",
       "author": {
         "name": "Javis"
       },
@@ -352,7 +352,7 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-09-05",
+      "updated": "2026-10-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-tasks",
       "icon": "packs/javis.google-tasks/assets/google-tasks.png",
       "provides": {
@@ -361,9 +361,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-google-tasks-1.0.2.zip",
-        "sha256": "c8cca302a9290dbacbd968933d2baee0144287d04471c18e5a8cb834242e6bc2",
-        "size": 14143
+        "url": "dist/javis-google-tasks-1.0.3.zip",
+        "sha256": "5e7feb26aeded6905e6953a5f4290f0dcd92fec5ca272f2c1189cff76525c535",
+        "size": 14188
       }
     },
     {
@@ -507,7 +507,7 @@
       "description": {
         "vi": "Số liệu Google Ads qua MCP chính chủ của Google (chỉ đọc): chiến dịch, chi phí, chuyển đổi, từ khoá qua truy vấn GAQL. Chạy local; cần developer token + Google Cloud, cài 1 lần hơi kỹ thuật."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Javis"
       },
@@ -517,7 +517,7 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-09-05",
+      "updated": "2026-10-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-ads",
       "icon": "packs/javis.google-ads/assets/google-ads.webp",
       "provides": {
@@ -526,9 +526,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-google-ads-1.0.0.zip",
-        "sha256": "78a2ef3abc14fab5be6a304df7a0e72d0d50b14d170abb06e6aa3a8d80f45f2f",
-        "size": 28341
+        "url": "dist/javis-google-ads-1.0.1.zip",
+        "sha256": "8a6573613a25c6a057b2da7166d1317e5804c4c1ecd70a42c226f8b5a2ce26f4",
+        "size": 28344
       }
     },
     {
@@ -540,7 +540,7 @@
       "description": {
         "vi": "Số liệu quảng cáo TikTok (chỉ đọc): tài khoản, chiến dịch, nhóm quảng cáo, creative, báo cáo hiệu suất. Server cộng đồng chạy local trên Marketing API chính thức - dán App ID + Secret + Access Token."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Javis"
       },
@@ -550,7 +550,7 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-09-05",
+      "updated": "2026-10-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.tiktok-ads",
       "icon": "packs/javis.tiktok-ads/assets/tiktok-ads.webp",
       "provides": {
@@ -559,9 +559,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-tiktok-ads-1.0.0.zip",
-        "sha256": "841e9919dc955b6040cdd40b4fa556c02ddcf8307b070635dd1aad540bf9951c",
-        "size": 8759
+        "url": "dist/javis-tiktok-ads-1.0.1.zip",
+        "sha256": "f08f8c68502f9d4154825c047f09ddbd2901d4ee26d2a8bb75372492bf3ddf30",
+        "size": 8802
       }
     },
     {
@@ -705,7 +705,7 @@
       "description": {
         "vi": "Nhắn tin, tài liệu (Docs), bảng dữ liệu (Base/Bitable), wiki và danh bạ trong Lark qua MCP chính chủ. Chạy local bằng app của bạn (dán App ID + App Secret). Cần tạo một Lark app và cấp quyền tương ứng."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Javis"
       },
@@ -715,7 +715,7 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-09-05",
+      "updated": "2026-10-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.lark",
       "icon": "packs/javis.lark/assets/lark.png",
       "provides": {
@@ -724,9 +724,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-lark-1.0.0.zip",
-        "sha256": "fcd23dc9495219f9d38be517d2d07d43e83196d4e134aac360c03009a33372b7",
-        "size": 51811
+        "url": "dist/javis-lark-1.0.1.zip",
+        "sha256": "a2f951f30b7694174011882c71fcb596118b5b2db9d57651f17e3bc81e31350b",
+        "size": 51858
       }
     },
     {
@@ -870,7 +870,7 @@
       "description": {
         "vi": "Đọc và sửa ghi chú Google Keep: tìm note, tạo note và danh sách việc, gắn nhãn, ghim, lưu trữ. LƯU Ý: Keep không có API chính chủ nên phải dùng master token có TOÀN QUYỀN tài khoản Google, không phải OAuth giới hạn phạm vi như Gmail hay Lịch. Javis chỉ thao tác được ghi chú, nhưng token thì mở cả tài khoản nếu bị lộ."
       },
-      "version": "1.0.2",
+      "version": "1.0.3",
       "author": {
         "name": "Javis"
       },
@@ -880,7 +880,7 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-09-05",
+      "updated": "2026-10-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-keep",
       "icon": "packs/javis.google-keep/assets/google-keep.png",
       "provides": {
@@ -889,9 +889,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-google-keep-1.0.2.zip",
-        "sha256": "2878a2ec405138b7ec103bc59f1b581988161d51e588c98f92515e4608aab489",
-        "size": 9340
+        "url": "dist/javis-google-keep-1.0.3.zip",
+        "sha256": "b949882e176cf531d9ed578a44c7d51b71bcd44b7449d752aa6adbcc2727e11e",
+        "size": 9381
       }
     },
     {
@@ -903,7 +903,7 @@
       "description": {
         "vi": "Đọc và thao tác notebook trên Google NotebookLM: liệt kê notebook, đọc nguồn, hỏi đáp ngay trong notebook, thêm nguồn, lưu ghi chú, tạo tóm tắt/audio ở Studio. LƯU Ý: NotebookLM chưa có API chính chủ nên phải mượn PHIÊN ĐĂNG NHẬP trình duyệt (cookie Google), không phải OAuth giới hạn phạm vi như Gmail hay Lịch."
       },
-      "version": "1.0.2",
+      "version": "1.0.3",
       "author": {
         "name": "Javis"
       },
@@ -913,7 +913,7 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-09-05",
+      "updated": "2026-10-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.notebooklm",
       "icon": "packs/javis.notebooklm/assets/notebooklm.png",
       "provides": {
@@ -922,9 +922,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-notebooklm-1.0.2.zip",
-        "sha256": "3380c43633ff91698c4d353e097ecea5c2bf6116cdb386cd8ca2520283504098",
-        "size": 14266
+        "url": "dist/javis-notebooklm-1.0.3.zip",
+        "sha256": "34152d0b05ce3e3b292472c09ae85da22b28298f601b9521d068c52a08fffb1c",
+        "size": 14309
       }
     },
     {
@@ -969,7 +969,7 @@
       "description": {
         "vi": "Quản lý hosting Hostinger ngay trong chat: xem tên miền và ngày hết hạn, sửa bản ghi DNS, xem website và WordPress, VPS, hộp thư, hoá đơn và gói đang chạy. MCP chính chủ của Hostinger, dán API token là xong."
       },
-      "version": "1.0.2",
+      "version": "1.0.3",
       "author": {
         "name": "Javis"
       },
@@ -979,7 +979,7 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-09-05",
+      "updated": "2026-10-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hostinger",
       "icon": "packs/javis.hostinger/assets/hostinger.png",
       "provides": {
@@ -988,9 +988,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-hostinger-1.0.2.zip",
-        "sha256": "59d3a1dcaaa02ad161e0fb28d7f032848d97d333c35a6565748506b9b26b4ed2",
-        "size": 9578
+        "url": "dist/javis-hostinger-1.0.3.zip",
+        "sha256": "db02dd41b688de30bd2448493524c864527dc6878d34587e51c33f62c6b21f02",
+        "size": 11189
       }
     },
     {

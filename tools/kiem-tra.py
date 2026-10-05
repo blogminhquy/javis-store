@@ -31,6 +31,8 @@ Kiểm những gì
 5. Danh mục: mọi mục trong `index.json` có gói thật, có tệp zip thật, sha256 và size khớp,
    nội dung zip khớp thư mục nguồn, và mục kết nối có `icon` trỏ vào logo thật nằm trong gói.
 6. Không có ký tự em dash (luật của chủ kho, vì nó làm trình đọc màn hình vấp).
+7. MCP của bên thứ 3 chạy qua npx/uvx đi theo bản chính thức mới nhất (`@latest`), không chạy code
+   chưa phát hành trên GitHub. Lý do và ngoại lệ ở `ban_chinh_thuc.py`.
 """
 import hashlib
 import json
@@ -54,45 +56,9 @@ def check(ten, dieu_kien, chi_tiet=""):
     return bool(dieu_kien)
 
 
-# ============================================================
-# Tên tool nghe là biết KHÔNG hoàn tác được, hoặc tiêu tiền thật.
-#
-# Danh sách này cố ý RỘNG và cố ý gây phiền: một cái tên bị bắt oan thì tác giả gói khai lại
-# một dòng là xong, còn một cái lọt lưới thì người dùng mất dữ liệu hoặc mất tiền. Đổi cân
-# bằng đó theo hướng ngược lại là đổi sai chiều.
-# ============================================================
-# TIỀN, hoặc mất mát không dựng lại được bằng thao tác thường. Không có ngoại lệ: một tool tên
-# kiểu này mà nằm ở nhóm ghi nghĩa là mức "Ghi nháp" tiêu được tiền của người dùng.
-TIEN = [r"purchase", r"buy", r"pay", r"payment", r"checkout", r"charge", r"refund",
-        r"invoice", r"billing", r"subscribe", r"renew", r"transfer"]
-
-# PHÁ HUỶ hoặc gây tác động ra ngoài. Khác nhóm trên ở chỗ mức độ THẬT SỰ phụ thuộc dịch vụ:
-# xoá một dòng trong ghi chú Google Keep rơi vào thùng rác, còn xoá một bản ghi DNS thì hạ cả
-# website. Máy không phân biệt được, người viết gói thì có.
-#
-# Nên luật ở đây là: mặc định CHẶN, và tác giả gói gỡ chặn bằng cách liệt kê tên tool vào
-# `ghi_da_can_nhac` của khuôn. Không phải để cho dễ - mà để quyết định đó có tên, nằm trong
-# dữ liệu, và người review đọc được. Một cảnh báo in ra rồi trôi đi thì không ai đọc.
-PHA = [r"delete", r"remove", r"destroy", r"drop", r"purge", r"wipe", r"erase",
-       r"order", r"execute", r"run", r"trigger", r"deploy", r"restart", r"reboot",
-       r"reset", r"send", r"publish", r"post", r"broadcast", r"cancel", r"restore",
-       r"revoke", r"migrate", r"rotate"]
-
-# Tên CHỨA một từ trên nhưng thật ra chỉ đọc. Liệt kê từng cái, không nới thành mẫu chung -
-# nới một lần là thủng cả hàng rào.
-THA = {
-    "get_order", "list_orders", "search_orders", "get_invoice", "list_invoices",
-    "get_payment", "list_payments", "get_execution", "search_executions", "list_executions",
-    "get_deployment", "list_deployments", "get_post", "list_posts", "search_posts",
-    "get_subscription", "list_subscriptions", "get_transfer", "list_transfers",
-}
-
-
-def _khop(ten, mau):
-    t = str(ten or "").lower()
-    if t in THA or "*" in t or "?" in t:
-        return False
-    return any(re.search(p, t) for p in mau)
+# Luật tên tool (TIEN, PHA, THA, _khop) nằm ở `luat_ten_tool.py`, dùng chung với `soi-ban-moi.py`.
+from luat_ten_tool import PHA, TIEN, _khop  # noqa: E402
+from ban_chinh_thuc import loi_ban  # noqa: E402
 
 
 def doc_manifest(thu_muc: Path):
@@ -239,6 +205,18 @@ for tm in thu_muc_goi:
         if meta.get("danger"):
             check(f"{ten}/{cid}: khai tool nguy hiểm thì phải có câu cảnh báo `risk`",
                   bool(str(con.get("risk") or "").strip()))
+
+        # 7. Bản chính thức: xem `ban_chinh_thuc.py`.
+        for l in loi_ban(con):
+            sai(f"{ten}/{cid}: {l}")
+        # `lenh_cu`: lệnh mặc định đã từng phát hành. Kết nối tạo từ bản cũ còn lưu đúng lệnh đó thì
+        # Javis (từ 0.82.0) chạy lệnh hiện hành; lệnh hiện hành mà nằm trong danh sách là vô nghĩa.
+        for cu in (con.get("lenh_cu") or []):
+            check(f"{ten}/{cid}: mỗi mục `lenh_cu` có command và args",
+                  isinstance(cu, dict) and cu.get("command") and isinstance(cu.get("args"), list), cu)
+            check(f"{ten}/{cid}: `lenh_cu` không chứa chính lệnh hiện hành",
+                  not (isinstance(cu, dict) and cu.get("command") == con.get("command")
+                       and cu.get("args") == con.get("args")))
 
 # ============================================================
 # 5. Danh mục khớp gói và khớp zip
