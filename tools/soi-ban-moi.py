@@ -21,6 +21,14 @@ SỰ có, phân loại bằng đúng hàm `classify` của Javis, rồi áp cùn
   `tool_meta` của khuôn rồi ra bản gói mới.
 - Cảnh báo: MCP không khởi động được khi thiếu tài khoản đăng nhập (vài server đòi credential
   ngay lúc mở), và tool chưa khai nằm ở nhóm đọc nhờ đoán theo tên, để người review liếc qua.
+
+MCP CHÍNH CHỦ chạy từ xa (GitHub) không chạy thử được vì cần đăng nhập. Với chúng script đọc
+danh sách tool bên đó công bố trong mã nguồn của bản phát hành mới nhất, áp cùng luật trên cộng
+nhãn đọc/ghi/phá huỷ của chính bên đó, và đỏ khi bộ tool khác bộ kho đã soát. Chi tiết và cách
+ghi lại bộ đã soát ở `chinh_chu.py`.
+
+    python tools/soi-ban-moi.py --chi-chinh-chu                 # chỉ soi phần chính chủ, khỏi npx/uvx
+    python tools/soi-ban-moi.py --chi-chinh-chu --ghi-da-soat   # soát xong thì ghi lại
 """
 import json
 import os
@@ -33,6 +41,7 @@ from fnmatch import fnmatch
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import chinh_chu  # noqa: E402
 from ban_chinh_thuc import LENH  # noqa: E402
 from luat_ten_tool import PHA, TIEN, _khop  # noqa: E402
 
@@ -132,11 +141,101 @@ def liet_ke_tool(con):
         p.kill()
 
 
+def soi_ten(classify, con, nhan_goi, ten, nhan=None):
+    """(lỗi đỏ, tool chưa khai đang được đoán là đọc) cho bộ tên tool THẬT của một MCP.
+
+    `nhan`: {tên: nhãn} do bên chính chủ gắn (xem `chinh_chu.py`), nếu có. Nhãn đó mạnh hơn mọi
+    luật tên: vụ có thật lúc viết là `hide_issue_comment` của GitHub, tên không chứa từ ghi nào
+    nên Javis xếp vào nhóm đọc, trong khi chính GitHub ghi rõ nó không chỉ đọc."""
+    meta = con.get("tool_meta") or {}
+    da_can_nhac = {str(x) for x in (con.get("ghi_da_can_nhac") or [])}
+    khai = [str(p).lower() for k in ("read", "write", "danger") for p in (meta.get(k) or [])]
+    do, chua_khai_doc = [], []
+    for t in ten:
+        # args={} chứ không phải None: phân loại như LÚC GỌI THẬT. Với args=None, tool cổng
+        # (`call_rules`) và tool đa hành động (`arg_rules`) tạm coi là đọc để còn liệt kê
+        # được; lúc gọi, args thiếu tên lệnh con thì chúng rơi về mức fail-closed.
+        nhom = classify(con, t, {})
+        if nhom == "danger":
+            continue
+        cua_ho = (nhan or {}).get(t, "?")
+        if _khop(t, TIEN):
+            do.append(f"{nhan_goi}: tool '{t}' đụng tới TIỀN mà Javis xếp vào nhóm {nhom}")
+        elif cua_ho in ("write", "destructive") and nhom == "read":
+            do.append(f"{nhan_goi}: tool '{t}' được bên chính chủ ghi là KHÔNG chỉ đọc mà Javis xếp "
+                      f"vào nhóm đọc, tức chạy được ở mức Chỉ đọc. Khai nó trong tool_meta")
+        elif (cua_ho == "destructive" or _khop(t, PHA)) and t not in da_can_nhac:
+            ly_do = ("được bên chính chủ ghi là có thể PHÁ HUỶ" if cua_ho == "destructive"
+                     else "nghe như phá huỷ hay tác động ra ngoài")
+            do.append(f"{nhan_goi}: tool '{t}' {ly_do} mà Javis xếp vào nhóm {nhom}. Khai nó là "
+                      f"danger trong tool_meta, hoặc thêm vào `ghi_da_can_nhac` nếu đã cân nhắc "
+                      f"và thấy nó nhẹ")
+        elif nhom == "read" and not any(fnmatch(t.lower(), p) for p in khai):
+            chua_khai_doc.append(t)
+    return do, chua_khai_doc
+
+
+def soi_chinh_chu(classify, ghi_da_soat=False):
+    """(lỗi đỏ, cảnh báo, số MCP đã soi) cho các MCP chính chủ chạy từ xa, xem `chinh_chu.py`."""
+    do, canh, so = [], [], 0
+    for tep in chinh_chu.cac_tep():
+        d = chinh_chu.doc(tep)
+        loi_ct = chinh_chu.loi_cau_truc(d)
+        if loi_ct:
+            do += [f"{tep.name}: {l}" for l in loi_ct]
+            continue
+        so += 1
+        con = json.loads((GOC / d["connector"]).read_text(encoding="utf-8"))
+        nhan_goi = f"{Path(d['connector']).parts[1]}/{con.get('id')} (chính chủ {d['repo']})"
+        try:
+            the = chinh_chu.ban_moi_nhat(d["repo"])
+            moi = chinh_chu.bo_tool(d["repo"], the, d["snapshots"])
+        except Exception as e:  # mạng, GitHub đổi cấu trúc thư mục...
+            canh.append(f"{nhan_goi}: không đọc được bản mới nhất ({e})")
+            print(f"?? {nhan_goi}: {e}")
+            continue
+        ten = sorted(set(moi) | set(d.get("tool_chi_o_ban_tu_xa") or []))
+        do_ten, chua_khai_doc = soi_ten(classify, con, nhan_goi, ten, moi)
+        do += do_ten
+        if chua_khai_doc:
+            canh.append(f"{nhan_goi}: {len(chua_khai_doc)} tool chưa khai, đang được ĐOÁN là đọc: "
+                        + ", ".join(chua_khai_doc))
+
+        them, bot, doi = chinh_chu.khac_biet(d["tools"], moi)
+        if ghi_da_soat:
+            if do_ten:
+                print(f"!! {nhan_goi}: KHÔNG ghi bộ đã soát vì còn lỗi phân loại, sửa tool_meta trước")
+            elif (them or bot or doi or d["da_soat"] != the):
+                d["da_soat"], d["tools"] = the, dict(sorted(moi.items()))
+                chinh_chu.ghi(tep, d)
+                print(f"ghi {tep.name}: đã soát {the}, {len(moi)} tool")
+                them = bot = doi = []
+        if them or bot or doi:
+            phan = []
+            if them:
+                phan.append("thêm " + ", ".join(f"{t} ({moi[t]})" for t in them))
+            if bot:
+                phan.append("bớt " + ", ".join(bot))
+            if doi:
+                phan.append("đổi nhãn " + ", ".join(f"{t} ({d['tools'][t]} -> {moi[t]})" for t in doi))
+            do.append(f"{nhan_goi}: bản chính chủ {the} (kho mới soát tới {d['da_soat']}) đổi bộ tool: "
+                      + "; ".join(phan) + f". Đọc ghi chú phát hành https://github.com/{d['repo']}"
+                      f"/releases/tag/{the}, sửa tool_meta nếu cần (ra bản gói mới), rồi ghi lại "
+                      f"bộ đã soát: python tools/soi-ban-moi.py --chi-chinh-chu --ghi-da-soat")
+        elif d["da_soat"] != the:
+            print(f"ok {nhan_goi}: bản mới {the} không đổi tool so với {d['da_soat']} đã soát")
+        print(f"ok {nhan_goi}: {the}, {len(ten)} tool")
+    return do, canh, so
+
+
 def main():
     classify = _nap_classify()
+    chi_chinh_chu = "--chi-chinh-chu" in sys.argv[1:]
     do, canh = [], []
     so = 0
     for f in sorted((GOC / "packs").glob("*/connectors/*.json")):
+        if chi_chinh_chu:
+            break
         con = json.loads(f.read_text(encoding="utf-8"))
         if str(con.get("command") or "").lower() not in LENH:
             continue
@@ -147,29 +246,17 @@ def main():
             canh.append(f"{nhan_goi}: không mở được để soi ({e})")
             print(f"?? {nhan_goi}: {e}")
             continue
-        meta = con.get("tool_meta") or {}
-        da_can_nhac = {str(x) for x in (con.get("ghi_da_can_nhac") or [])}
-        khai = [str(p).lower() for k in ("read", "write", "danger") for p in (meta.get(k) or [])]
-        chua_khai_doc = []
-        for t in ten:
-            # args={} chứ không phải None: phân loại như LÚC GỌI THẬT. Với args=None, tool cổng
-            # (`call_rules`) và tool đa hành động (`arg_rules`) tạm coi là đọc để còn liệt kê
-            # được; lúc gọi, args thiếu tên lệnh con thì chúng rơi về mức fail-closed.
-            nhom = classify(con, t, {})
-            if nhom == "danger":
-                continue
-            if _khop(t, TIEN):
-                do.append(f"{nhan_goi}: tool '{t}' đụng tới TIỀN mà Javis xếp vào nhóm {nhom}")
-            elif _khop(t, PHA) and t not in da_can_nhac:
-                do.append(f"{nhan_goi}: tool '{t}' nghe như phá huỷ hay tác động ra ngoài mà Javis "
-                          f"xếp vào nhóm {nhom}. Khai nó là danger trong tool_meta, hoặc thêm vào "
-                          f"`ghi_da_can_nhac` nếu đã cân nhắc và thấy nó nhẹ")
-            elif nhom == "read" and not any(fnmatch(t.lower(), p) for p in khai):
-                chua_khai_doc.append(t)
+        do_ten, chua_khai_doc = soi_ten(classify, con, nhan_goi, ten)
+        do += do_ten
         if chua_khai_doc:
             canh.append(f"{nhan_goi}: {len(chua_khai_doc)} tool chưa khai, đang được ĐOÁN là đọc: "
                         + ", ".join(chua_khai_doc))
         print(f"ok {nhan_goi}: {len(ten)} tool")
+
+    do_cc, canh_cc, so_cc = soi_chinh_chu(classify, "--ghi-da-soat" in sys.argv[1:])
+    do += do_cc
+    canh += canh_cc
+    so += so_cc
 
     print()
     for c in canh:
@@ -179,7 +266,8 @@ def main():
         for l in do:
             print("  - " + l)
         sys.exit(1)
-    print(f"XANH - soi {so} MCP bên thứ 3 ở bản mới nhất, không tool nguy hiểm nào lọt nhóm")
+    print(f"XANH - soi {so} MCP bên thứ 3 ở bản mới nhất, không tool nguy hiểm nào lọt nhóm, "
+          f"bộ tool chính chủ khớp bản đã soát")
 
 
 if __name__ == "__main__":
