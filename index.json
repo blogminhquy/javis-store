@@ -2123,7 +2123,7 @@
       "description": {
         "vi": "Làm việc với code trên GitHub qua MCP chính chủ: đọc và sửa file, tạo nhánh, đẩy commit, mở và trộn Pull Request, issue, review, xem và chạy GitHub Actions, đọc log CI, cảnh báo bảo mật. Bật đủ mọi bộ công cụ, dán Personal Access Token là xong."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Javis"
       },
@@ -2133,7 +2133,7 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-10-02",
+      "updated": "2026-10-13",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.github",
       "icon": "packs/javis.github/assets/github.png",
       "provides": {
@@ -2142,9 +2142,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-github-1.0.0.zip",
-        "sha256": "6c0a1133a10be890c5522fd44551ab3101b81bb6960a232b0877f2e992a9221a",
-        "size": 9133
+        "url": "dist/javis-github-1.0.1.zip",
+        "sha256": "d1fe83f0aa7b81f27e4e0543e7c43d449bc9c6d2b4686b558ca2c8a09505f8ac",
+        "size": 9375
       }
     },
     {

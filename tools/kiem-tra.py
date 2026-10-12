@@ -33,6 +33,8 @@ Kiểm những gì
 6. Không có ký tự em dash (luật của chủ kho, vì nó làm trình đọc màn hình vấp).
 7. MCP của bên thứ 3 chạy qua npx/uvx đi theo bản chính thức mới nhất (`@latest`), không chạy code
    chưa phát hành trên GitHub. Lý do và ngoại lệ ở `ban_chinh_thuc.py`.
+8. Tệp nối MCP chính chủ chạy từ xa (`chinh-chu/*.json`) đúng cấu trúc và trỏ đúng khuôn. Lý do ở
+   `chinh_chu.py`.
 """
 import hashlib
 import json
@@ -59,6 +61,7 @@ def check(ten, dieu_kien, chi_tiet=""):
 # Luật tên tool (TIEN, PHA, THA, _khop) nằm ở `luat_ten_tool.py`, dùng chung với `soi-ban-moi.py`.
 from luat_ten_tool import PHA, TIEN, _khop  # noqa: E402
 from ban_chinh_thuc import loi_ban  # noqa: E402
+import chinh_chu  # noqa: E402
 
 
 def doc_manifest(thu_muc: Path):
@@ -278,6 +281,19 @@ for tm in thu_muc_goi:
     check(f"gói {tm.name} có mặt trong index.json", tm.name in ids)
 
 # ============================================================
+# 8. Nối với MCP chính chủ chạy từ xa (`chinh-chu/*.json`, xem `chinh_chu.py`). Ở đây chỉ kiểm
+#    cấu trúc; so với bản phát hành mới nhất là việc của `soi-ban-moi.py` (cần mạng).
+# ============================================================
+for tep in chinh_chu.cac_tep():
+    try:
+        d_cc = chinh_chu.doc(tep)
+    except ValueError as e:
+        sai(f"chinh-chu/{tep.name}: không phải JSON hợp lệ", e)
+        continue
+    for l in chinh_chu.loi_cau_truc(d_cc, GOC):
+        sai(f"chinh-chu/{tep.name}: {l}")
+
+# ============================================================
 # 6. Em dash
 #
 # Luật của chủ kho, và lý do là kỹ thuật: trình đọc màn hình lẫn bộ đọc thành tiếng vấp ở ký
@@ -287,7 +303,7 @@ for tm in thu_muc_goi:
 # ============================================================
 EM = chr(0x2014)
 SOI = ["index.json", "README.md", "CONTRIBUTING.md"]
-for f in sorted(GOC.rglob("javis-pack.yaml")) + sorted((GOC / "packs").rglob("connectors/*.json"))         + sorted((GOC / "tools").glob("*.py")) + [GOC / x for x in SOI]:
+for f in sorted(GOC.rglob("javis-pack.yaml")) + sorted((GOC / "packs").rglob("connectors/*.json"))         + sorted((GOC / "tools").glob("*.py")) + chinh_chu.cac_tep() + [GOC / x for x in SOI]:
     if not f.is_file():
         continue
     try:

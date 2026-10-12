@@ -100,6 +100,17 @@ và đỏ khi có tool phá huỷ hay tiêu tiền chưa nằm ở nhóm `danger
 
     JAVIS_OS_DIR=../javis-os python tools/soi-ban-moi.py
 
+MCP **chính chủ chạy từ xa** (`transport: http`, ví dụ GitHub) không chạy thử được vì cần đăng
+nhập. Nếu bên đó công bố danh sách tool trong mã nguồn mỗi bản phát hành, nối khuôn với nguồn đó
+bằng một tệp `chinh-chu/<id>.json` (xem `chinh-chu/github.json` làm mẫu, lý do ở
+`tools/chinh_chu.py`). Job `soi-ban-moi` khi ấy đọc bộ tool của bản phát hành mới nhất mỗi ngày,
+áp cùng luật cộng nhãn đọc/ghi/phá huỷ của chính bên đó, và đỏ khi bộ tool khác bộ kho đã soát.
+Đọc ghi chú phát hành, sửa `tool_meta` nếu cần, rồi ghi lại bộ đã soát:
+
+    JAVIS_OS_DIR=../javis-os python tools/soi-ban-moi.py --chi-chinh-chu --ghi-da-soat
+
+Ghi lại bộ đã soát không cần ra bản gói, vì `chinh-chu/` nằm ngoài `packs/`.
+
 MCP dạng **cổng** (một tool chạy được mọi lệnh, như `execute` của Hostinger 2.x) thì phân loại
 theo từng lệnh con bằng `call_rules`, xem khuôn `packs/javis.hostinger/` làm mẫu. Lệnh con
 không có trong danh sách đọc phải rơi về `danger`, để lệnh bên thứ 3 thêm sau này không tự chạy.
