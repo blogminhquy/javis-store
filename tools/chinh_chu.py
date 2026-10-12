@@ -77,14 +77,25 @@ def ban_moi_nhat(repo):
     return urllib.parse.unquote(url.rsplit("/releases/tag/", 1)[1])
 
 
-def bo_tool(repo, the, snapshots):
-    """{tên tool: nhãn} đọc từ snapshot trong mã nguồn của đúng thẻ phát hành `the`."""
+def lenh_can_theo_doi(con):
+    """{tên tool: tham số chọn lệnh} cho các tool khuôn phân loại theo TỪNG LỆNH (`call_rules` không
+    có `items`, ví dụ GitHub `label_write` chọn lệnh bằng `method`). Bên chính chủ thêm một lệnh
+    vào những tool này thì Javis xếp lệnh đó về mức `else` của luật: an toàn, nhưng kho phải biết."""
+    return {t: str(r.get("key")) for t, r in ((con or {}).get("call_rules") or {}).items()
+            if isinstance(r, dict) and r.get("key") and not r.get("items")}
+
+
+def bo_tool(repo, the, snapshots, lenh_can=None):
+    """({tên tool: nhãn}, {tên tool: [lệnh]}) đọc từ snapshot trong mã nguồn của đúng thẻ phát
+    hành `the`. Phần lệnh chỉ có cho các tool trong `lenh_can` ({tool: tham số}), lấy từ `enum`
+    của tham số đó trong schema."""
+    lenh_can = lenh_can or {}
     url = f"https://codeload.github.com/{repo}/tar.gz/refs/tags/{urllib.parse.quote(the)}"
     req = urllib.request.Request(url, headers=_UA)
     with urllib.request.urlopen(req, timeout=TRAN_GIAY * 3) as r:
         du_lieu = r.read()
     goc = snapshots.strip("/") + "/"
-    kq = {}
+    kq, lenh = {}, {}
     with tarfile.open(fileobj=io.BytesIO(du_lieu), mode="r:gz") as tar:
         for m in tar:
             # Tệp trong tarball của GitHub nằm dưới một thư mục `<repo>-<sha>/`.
@@ -100,9 +111,26 @@ def bo_tool(repo, the, snapshots):
                 kq[ten] = n
             else:
                 kq.setdefault(ten, n)
+            if ten in lenh_can:
+                tham = (((j.get("inputSchema") or {}).get("properties") or {})
+                        .get(lenh_can[ten]) or {})
+                lenh[ten] = sorted(set(lenh.get(ten, [])) | {str(v) for v in tham.get("enum") or []})
     if not kq:
         raise RuntimeError(f"không thấy snapshot tool nào ở {repo}@{the}/{goc}")
-    return kq
+    return kq, lenh
+
+
+def khac_biet_lenh(cu, moi):
+    """Danh sách mô tả lệnh thêm/bớt trong các tool theo dõi lệnh, rỗng nếu không đổi."""
+    ra = []
+    for t in sorted(set(cu) | set(moi)):
+        them = sorted(set(moi.get(t, [])) - set(cu.get(t, [])))
+        bot = sorted(set(cu.get(t, [])) - set(moi.get(t, [])))
+        if them:
+            ra.append(f"{t} thêm lệnh " + ", ".join(them))
+        if bot:
+            ra.append(f"{t} bớt lệnh " + ", ".join(bot))
+    return ra
 
 
 def khac_biet(cu, moi):
@@ -139,6 +167,10 @@ def loi_cau_truc(d, goc=GOC):
     tools = d.get("tools")
     if tools is not None and not (isinstance(tools, dict) and all(v in NHAN for v in tools.values())):
         loi.append(f"`tools` phải là {{tên: nhãn}} với nhãn thuộc {list(NHAN)}")
+    lenh = d.get("lenh")
+    if lenh is not None and not (isinstance(lenh, dict) and all(
+            isinstance(v, list) and all(isinstance(x, str) for x in v) for v in lenh.values())):
+        loi.append("`lenh` phải là {tên tool: [lệnh]}")
     them = d.get("tool_chi_o_ban_tu_xa")
     if them is not None and not (isinstance(them, list) and all(isinstance(x, str) for x in them)):
         loi.append("`tool_chi_o_ban_tu_xa` phải là danh sách tên tool")

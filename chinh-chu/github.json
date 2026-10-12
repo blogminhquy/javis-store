@@ -142,5 +142,32 @@
     "update_pull_request_draft_state": "write",
     "update_pull_request_state": "write",
     "update_pull_request_title": "write"
+  },
+  "lenh": {
+    "discussion_comment_write": [
+      "add",
+      "delete",
+      "mark_answer",
+      "reply",
+      "unmark_answer",
+      "update"
+    ],
+    "label_write": [
+      "create",
+      "delete",
+      "update"
+    ],
+    "projects_write": [
+      "add_project_item",
+      "create_iteration_field",
+      "create_project",
+      "create_project_status_update",
+      "create_project_view",
+      "delete_project_item",
+      "delete_project_view",
+      "update_project_item",
+      "update_project_items",
+      "update_project_view"
+    ]
   }
 }

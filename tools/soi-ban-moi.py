@@ -189,7 +189,8 @@ def soi_chinh_chu(classify, ghi_da_soat=False):
         nhan_goi = f"{Path(d['connector']).parts[1]}/{con.get('id')} (chính chủ {d['repo']})"
         try:
             the = chinh_chu.ban_moi_nhat(d["repo"])
-            moi = chinh_chu.bo_tool(d["repo"], the, d["snapshots"])
+            moi, moi_lenh = chinh_chu.bo_tool(d["repo"], the, d["snapshots"],
+                                              chinh_chu.lenh_can_theo_doi(con))
         except Exception as e:  # mạng, GitHub đổi cấu trúc thư mục...
             canh.append(f"{nhan_goi}: không đọc được bản mới nhất ({e})")
             print(f"?? {nhan_goi}: {e}")
@@ -201,17 +202,31 @@ def soi_chinh_chu(classify, ghi_da_soat=False):
             canh.append(f"{nhan_goi}: {len(chua_khai_doc)} tool chưa khai, đang được ĐOÁN là đọc: "
                         + ", ".join(chua_khai_doc))
 
+        for t, ds in sorted(moi_lenh.items()):
+            luat = (con.get("call_rules") or {}).get(t) or {}
+            khai = {str(x).lower() for k in ("read_values", "write_values", "danger_values")
+                    for x in luat.get(k) or []}
+            chua = [v for v in ds if v.lower() not in khai]
+            if chua:
+                canh.append(f"{nhan_goi}: {t} có lệnh chưa khai trong call_rules, đang rơi về mức "
+                            f"{luat.get('else') or 'danger'}: " + ", ".join(chua))
+
         them, bot, doi = chinh_chu.khac_biet(d["tools"], moi)
+        doi_lenh =chinh_chu.khac_biet_lenh(d.get("lenh") or {}, moi_lenh)
         if ghi_da_soat:
             if do_ten:
                 print(f"!! {nhan_goi}: KHÔNG ghi bộ đã soát vì còn lỗi phân loại, sửa tool_meta trước")
-            elif (them or bot or doi or d["da_soat"] != the):
+            elif (them or bot or doi or doi_lenh or d["da_soat"] != the):
                 d["da_soat"], d["tools"] = the, dict(sorted(moi.items()))
+                if moi_lenh:
+                    d["lenh"] = dict(sorted(moi_lenh.items()))
+                else:
+                    d.pop("lenh", None)
                 chinh_chu.ghi(tep, d)
                 print(f"ghi {tep.name}: đã soát {the}, {len(moi)} tool")
-                them = bot = doi = []
-        if them or bot or doi:
-            phan = []
+                them = bot = doi = doi_lenh = []
+        if them or bot or doi or doi_lenh:
+            phan = list(doi_lenh)
             if them:
                 phan.append("thêm " + ", ".join(f"{t} ({moi[t]})" for t in them))
             if bot:
@@ -220,7 +235,7 @@ def soi_chinh_chu(classify, ghi_da_soat=False):
                 phan.append("đổi nhãn " + ", ".join(f"{t} ({d['tools'][t]} -> {moi[t]})" for t in doi))
             do.append(f"{nhan_goi}: bản chính chủ {the} (kho mới soát tới {d['da_soat']}) đổi bộ tool: "
                       + "; ".join(phan) + f". Đọc ghi chú phát hành https://github.com/{d['repo']}"
-                      f"/releases/tag/{the}, sửa tool_meta nếu cần (ra bản gói mới), rồi ghi lại "
+                      f"/releases/tag/{the}, sửa tool_meta hay call_rules nếu cần (ra bản gói mới), rồi ghi lại "
                       f"bộ đã soát: python tools/soi-ban-moi.py --chi-chinh-chu --ghi-da-soat")
         elif d["da_soat"] != the:
             print(f"ok {nhan_goi}: bản mới {the} không đổi tool so với {d['da_soat']} đã soát")
