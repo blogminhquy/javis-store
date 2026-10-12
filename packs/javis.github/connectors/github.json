@@ -104,6 +104,35 @@
       "discussion_comment_write"
     ]
   },
+  "call_rules": {
+    "label_write": {
+      "key": "method",
+      "else": "danger",
+      "write_values": ["create", "update"],
+      "danger_values": ["delete"]
+    },
+    "projects_write": {
+      "key": "method",
+      "else": "danger",
+      "write_values": [
+        "add_project_item",
+        "update_project_item",
+        "update_project_items",
+        "create_project_status_update",
+        "create_project_view",
+        "update_project_view",
+        "create_project",
+        "create_iteration_field"
+      ],
+      "danger_values": ["delete_project_item", "delete_project_view"]
+    },
+    "discussion_comment_write": {
+      "key": "method",
+      "else": "danger",
+      "write_values": ["add", "reply", "update", "mark_answer", "unmark_answer"],
+      "danger_values": ["delete"]
+    }
+  },
   "ghi_da_can_nhac": [
     "run_secret_scanning",
     "remove_issue_reaction",
@@ -114,5 +143,5 @@
     "manage_repository_notification_subscription"
   ],
   "default_perm": "readonly",
-  "risk": "Mức Chỉ đọc: đọc code, issue, Pull Request, log CI, tìm kiếm. Không đổi gì.\n\nMức Ghi nháp: Javis SỬA THẬT trên GitHub, gồm đẩy commit thẳng vào nhánh, tạo nhánh, sửa file, mở Pull Request, viết issue và bình luận, gửi review, ẩn hoặc hiện bình luận, mời người review, gỡ reaction và gỡ issue con. Mọi thứ vẫn nằm trong lịch sử git nên quay lại được, nhưng bình luận và review thì người khác đã thấy.\n\nMức Toàn quyền mở thêm nhóm nguy hiểm: TRỘN Pull Request vào nhánh chính, CHẠY lại hoặc huỷ workflow GitHub Actions (có thể deploy thật, tốn phút Actions), xoá file, XOÁ REPO, xoá nhãn, xoá mục và view trong Project, xoá bình luận thảo luận (ba việc này đi chung tool với tạo và sửa, nên tạo nhãn hay thêm mục Project cũng cần mức này), đặt luật bảo vệ nhánh, giao việc cho Copilot (tiêu lượt Copilot trả phí).\n\nToken là hàng rào thật: chỉ chọn những repo và quyền bạn muốn Javis đụng tới. Không cấp Administration thì Javis không xoá được repo dù đang ở Toàn quyền."
+  "risk": "Mức Chỉ đọc: đọc code, issue, Pull Request, log CI, tìm kiếm. Không đổi gì.\n\nMức Ghi nháp: Javis SỬA THẬT trên GitHub, gồm đẩy commit thẳng vào nhánh, tạo nhánh, sửa file, mở Pull Request, viết issue và bình luận, gửi review, ẩn hoặc hiện bình luận, mời người review, gỡ reaction và gỡ issue con, tạo và sửa nhãn, thêm và sửa mục Project, trả lời thảo luận. Mọi thứ vẫn nằm trong lịch sử git nên quay lại được, nhưng bình luận và review thì người khác đã thấy.\n\nMức Toàn quyền mở thêm nhóm nguy hiểm: TRỘN Pull Request vào nhánh chính, CHẠY lại hoặc huỷ workflow GitHub Actions (có thể deploy thật, tốn phút Actions), xoá file, XOÁ REPO, xoá nhãn, xoá mục và view trong Project, xoá bình luận thảo luận, đặt luật bảo vệ nhánh, giao việc cho Copilot (tiêu lượt Copilot trả phí).\n\nToken là hàng rào thật: chỉ chọn những repo và quyền bạn muốn Javis đụng tới. Không cấp Administration thì Javis không xoá được repo dù đang ở Toàn quyền."
 }

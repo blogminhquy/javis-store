@@ -118,16 +118,40 @@ chinh_chu.urllib.request.urlopen = lambda req, timeout=None: _Tra(_tarball({
     SNAP + "list_branches.snap": {"name": "list_branches", "annotations": {"readOnlyHint": True}},
     SNAP + "list_branches_output.snap": {"name": "list_branches"},
     SNAP + "x_ff_flag.snap": {"name": "x", "annotations": {"readOnlyHint": False, "destructiveHint": True}},
-    SNAP + "x.snap": {"name": "x", "annotations": {"readOnlyHint": False}},
+    SNAP + "x.snap": {"name": "x", "annotations": {"readOnlyHint": False},
+                      "inputSchema": {"properties": {"method": {"enum": ["create", "delete"]}}}},
+    SNAP + "x_output.snap": {"name": "x",
+                             "inputSchema": {"properties": {"method": {"enum": ["create", "archive"]}}}},
     "README.md": {"name": "khong_phai_tool"},
 }))
 try:
-    bo = chinh_chu.bo_tool("github/github-mcp-server", "v9.9.9", "pkg/github/__toolsnaps__")
+    bo, lenh = chinh_chu.bo_tool("github/github-mcp-server", "v9.9.9", "pkg/github/__toolsnaps__",
+                                 {"x": "method"})
 finally:
     chinh_chu.urllib.request.urlopen = goc_urlopen
 check("bản không gắn nhãn không đè bản có nhãn", bo.get("list_branches") == "read", bo)
 check("gộp biến thể lấy nhãn nặng nhất", bo.get("x") == "destructive", bo)
 check("chỉ đọc tệp trong thư mục snapshot", "khong_phai_tool" not in bo, bo)
+check("đọc danh sách lệnh, gộp mọi biến thể", lenh == {"x": ["archive", "create", "delete"]}, lenh)
+check("tool không theo dõi lệnh thì không ghi lệnh", "list_branches" not in lenh, lenh)
+
+# Lệnh của tool gộp.
+check("khuôn GitHub theo dõi lệnh của đúng ba tool gộp",
+      chinh_chu.lenh_can_theo_doi(con) == {"label_write": "method", "projects_write": "method",
+                                           "discussion_comment_write": "method"},
+      chinh_chu.lenh_can_theo_doi(con))
+check("bộ đã soát có lệnh của ba tool gộp", set(d.get("lenh") or {}) == set(chinh_chu.lenh_can_theo_doi(con)),
+      d.get("lenh"))
+for t, ds in (d.get("lenh") or {}).items():
+    luat = con["call_rules"][t]
+    khai = {x for k in ("read_values", "write_values", "danger_values") for x in luat.get(k) or []}
+    check(f"{t}: mọi lệnh đã soát đều được khai trong call_rules", set(ds) <= khai, set(ds) - khai)
+    check(f"{t}: lệnh có chữ delete là danger",
+          all(classify(con, t, {"method": v}) == "danger" for v in ds if "delete" in v))
+check("lệnh thêm và bớt được nêu đúng",
+      chinh_chu.khac_biet_lenh({"x": ["create", "delete"]}, {"x": ["create", "archive"]})
+      == ["x thêm lệnh archive", "x bớt lệnh delete"])
+check("lệnh không đổi thì không có khác biệt", chinh_chu.khac_biet_lenh(d.get("lenh") or {}, d.get("lenh") or {}) == [])
 
 # 4. Khác biệt giữa bản đã soát và bản mới.
 them, bot, doi = chinh_chu.khac_biet({"a": "read", "b": "write", "c": "read"},
