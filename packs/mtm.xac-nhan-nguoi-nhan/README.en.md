@@ -6,7 +6,7 @@ A tutoring centre sends homework, documents and links only to students and paren
 
 ## Requirements
 
-- Javis OS with the `chatbot_turn_context` hook (PR javis-os#TBD). On older versions the pack installs but does nothing.
+- Javis OS with the `chatbot_turn_context` hook (PR javis-os#662). On older versions the pack installs but does nothing.
 - A dedicated bot on **personal Zalo**.
 
 ## Turning it on (opt-in, does nothing by default)

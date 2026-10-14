@@ -148,7 +148,7 @@ if hook:
 import plugins_host  # noqa: E402
 
 if not hasattr(plugins_host, "CHATBOT_TURN_CONTEXT"):
-    print("SKIP end-to-end: this Javis OS has no chatbot_turn_context hook yet (javis-os#TBD)")
+    print("SKIP end-to-end: this Javis OS has no chatbot_turn_context hook yet (javis-os#662)")
 else:
     import chatbot_runtime  # noqa: E402
     import chatbot_store  # noqa: E402

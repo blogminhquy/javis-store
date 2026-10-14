@@ -6,7 +6,7 @@ Trung tâm chỉ gửi bài tập, tài liệu, link cho học sinh và phụ hu
 
 ## Cần gì
 
-- Javis OS có hook `chatbot_turn_context` (PR javis-os#TBD). Bản cũ hơn: gói cài được nhưng không làm gì.
+- Javis OS có hook `chatbot_turn_context` (PR javis-os#662). Bản cũ hơn: gói cài được nhưng không làm gì.
 - Bot chuyên trách trực **Zalo cá nhân**.
 
 ## Bật thế nào (tự chọn, mặc định không làm gì)

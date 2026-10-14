@@ -2,7 +2,7 @@
 # nhắn chat riêng có nằm trong sổ học sinh, phụ huynh đã xác nhận hay không.
 #
 # Gói này là phần riêng ngành giáo dục tách ra khỏi lõi (PR blogminhquy/javis-os#659 bị đóng vì đặt mô hình
-# của một trung tâm vào lõi). Lõi chỉ giữ một chỗ cắm chung: hook `chatbot_turn_context` (javis-os#TBD), báo
+# của một trung tâm vào lõi). Lõi chỉ giữ một chỗ cắm chung: hook `chatbot_turn_context` (javis-os#662), báo
 # cho plugin kênh và mã tài khoản người gửi của lượt bot, nhận lại một dòng ngữ cảnh. Javis bản cũ chưa có
 # hook đó thì plugin vẫn nạp được nhưng không bao giờ được gọi, tức không có tác dụng gì (không hỏng gì).
 # Khi PR lõi có số phiên bản, thêm `compat: app: ">=<số đó>"` để Kho cài đặt nói rõ lý do.
