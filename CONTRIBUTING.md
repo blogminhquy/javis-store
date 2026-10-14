@@ -98,6 +98,12 @@ trong `mcp/`. Connector chạy `npx -y --package=<URL tệp trong mcp/> <lệnh>
 `mcp/nguon.json`; build lại bằng `python tools/mcp_dong_goi.py <tên>`. Không bao giờ ghi đè tệp
 cũ: đổi commit là ra tệp mới và bản gói mới. Lý do đầy đủ ở đầu `tools/mcp_dong_goi.py`.
 
+Không có MCP nào dùng được (cả bản cộng đồng cũng không: thiếu giấy phép, lấy token từ trình duyệt, gửi
+token ra máy khác), thì kho tự viết một MCP nhỏ trong `mcp-nguon/<tên>/`, như `pancake-chat-mcp`. Luật
+riêng: KHÔNG thư viện phụ thuộc (đọc hết được trong một lần), chỉ gọi đúng máy chủ của dịch vụ, không ghi
+token ra log. `tools/mcp_dong_goi.py <tên>` đóng `.tgz` ra đúng một sha256, trình kiểm so từng tệp trong
+`.tgz` với thư mục nguồn, và test của nó đặt ở `tests/<id gói>/` chạy chính tệp đã đóng gói.
+
 Cái giá của luật là bản mới có thể mang **tool mới chưa ai phân loại**, và Javis xếp một tool
 không khai, tên không chứa từ gợi ý ghi nào, vào nhóm **đọc** (vụ thật lúc đặt luật:
 `workspace-mcp` 2.x thêm `run_script_function`). Vì vậy CI có thêm job `soi-ban-moi`, chạy mỗi

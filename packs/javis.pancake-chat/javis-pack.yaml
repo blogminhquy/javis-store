@@ -1,0 +1,12 @@
+format: javis-pack
+spec: 1
+id: javis.pancake-chat
+version: 1.0.0
+name: {vi: "Pancake hội thoại"}
+description: {vi: "Hộp thư fanpage trên Pancake (pages.fm): đọc hội thoại, tin nhắn, bình luận, khách hàng, thẻ và thống kê nhân viên; gắn thẻ, phân công, ghi chú khách, trả lời khách. Mỗi page một kết nối, dán Page ID và Page Access Token là xong."}
+author: {name: Javis}
+license: MIT
+homepage: "https://github.com/blogminhquy/javis-store"
+compat: {app: ">=0.55.27"}
+provides:
+  connectors: [connectors/pancake-chat.json]
