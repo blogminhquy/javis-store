@@ -36,6 +36,10 @@ THA = {
     "get_payment", "list_payments", "get_execution", "search_executions", "list_executions",
     "get_deployment", "list_deployments", "get_post", "list_posts", "search_posts",
     "get_subscription", "list_subscriptions", "get_transfer", "list_transfers",
+    # KiotViet: hoá đơn bán hàng là nguồn doanh thu, chỉ GET (kiotviet-mcp, tools/invoices.ts).
+    "kiotviet_invoices_list", "kiotviet_invoices_get_by_id", "kiotviet_invoices_get_by_code",
+    # Sapo: xem phiếu hoàn tiền của một đơn, chỉ GET (sapo-omni-mcp, tools/orders/refunds.ts).
+    "list_refunds",
 }
 
 
