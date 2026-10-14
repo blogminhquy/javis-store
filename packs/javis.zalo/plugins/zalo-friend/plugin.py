@@ -6,8 +6,13 @@ vào nhóm thì tự kết bạn", không tự nhận mọi lời mời). Ai đ�
 mọi mức, tool hành động là `min_mode: full` như `zalo_send_message`, vì lời mời đã gửi đi thì người kia thấy ngay dưới tên chủ.
 
 Cùng cách với plugin `zalo-group`: gọi lại chính CLI `javis-zalo` bằng phiên đã quét QR (`server/zalo_cli.py` của lõi), không đăng
-nhập lần hai, không gọi đi đâu ngoài Zalo. Lệnh dùng: `friend find`, `friend find-username`, `friend request-status`,
-`friend add`, `friend accept`, `friend reject` (src/commands/friend.js của javis-zalo).
+nhập lần hai, không gọi đi đâu ngoài Zalo. Lệnh dùng: `friend find`, `friend find-username`, `friend find-phones`,
+`friend search`, `friend request-status`, `friend recommendations`, `friend sent-requests`, `friend add`, `friend accept`,
+`friend reject`, `friend undo-request` (src/commands/friend.js của javis-zalo).
+
+Gói 1.3.0 (chủ dự án 14/10/2026: làm nốt các lệnh kết bạn thành công cụ) thêm: tìm theo TÊN trong danh sách bạn bè, xem lời mời
+đang chờ mình duyệt và lời mời mình đã gửi, rút lại lời mời, tra nhiều số điện thoại một lượt. Tìm người LẠ theo tên thì Zalo
+không cho: chỉ số điện thoại hoặc username.
 
 Duyệt người xin vào NHÓM không nằm ở đây: MCP chuẩn của kết nối Zalo đã có `zalo_list_join_requests` và
 `zalo_review_join_requests`.
@@ -24,6 +29,8 @@ MAX_MSG = 150                       # lời nhắn kèm lời mời kết bạn:
 _UID_RE = re.compile(r"^\d{4,25}$")
 _PHONE_RE = re.compile(r"^\+?\d[\d .-]{6,18}\d$")
 _USERNAME_RE = re.compile(r"^@?[A-Za-z0-9._-]{3,40}$")
+MAX_LIST = 50                       # trần số người trả về một lượt: đủ để chọn, không đổ cả danh bạ vào ngữ cảnh model
+MAX_PHONES = 20                     # trần số điện thoại tra một lượt: tra hàng loạt quá dày là kiểu Zalo coi như quét danh bạ
 
 
 # ============================================================
@@ -138,6 +145,114 @@ async def _status(args, ctx):
                  raw=_short(d))
 
 
+def _nguoi(u: Any) -> dict:
+    """Một người trong danh sách (bạn bè, lời mời) -> {user_id, name}. zca-js đặt tên trường khác nhau tuỳ lệnh."""
+    u = u if isinstance(u, dict) else {}
+    return {"user_id": str(u.get("userId") or u.get("uid") or u.get("user_id") or ""),
+            "name": str(u.get("displayName") or u.get("display_name") or u.get("zaloName") or u.get("zalo_name") or "")}
+
+
+async def _search_friends(args, ctx):
+    args = args or {}
+    conn, why = _ready(args)
+    if not conn:
+        return why
+    name = str(args.get("name") or "").strip()
+    if len(name) < 2:
+        return "ERROR: thiếu name (ít nhất 2 ký tự của tên bạn bè cần tìm)."
+    ok, data, err = await zalo_cli.run_cli(conn, ["friend", "search"], [name])
+    if not ok:
+        return f"ERROR: không tìm được trong danh sách bạn bè. {err}"
+    ds = [p for p in (_nguoi(u) for u in (data if isinstance(data, list) else [])) if p["user_id"]]
+    return _done(account=conn["label"], name=name, count=len(ds), friends=ds[:MAX_LIST],
+                 truncated=len(ds) > MAX_LIST,
+                 note="" if ds else "Không có bạn bè nào có tên này. Người chưa kết bạn thì tìm bằng zalo_find_user "
+                                    "(số điện thoại hoặc username).")
+
+
+async def _incoming(args, ctx):
+    args = args or {}
+    conn, why = _ready(args)
+    if not conn:
+        return why
+    ok, data, err = await zalo_cli.run_cli(conn, ["friend", "recommendations"], [])
+    if not ok:
+        return f"ERROR: không đọc được lời mời kết bạn. {err}"
+    items = (data or {}).get("recommItems") if isinstance(data, dict) else None
+    moi = []
+    for it in items or []:
+        d = (it or {}).get("dataInfo") or {}
+        # recommType 2 = người ta gửi lời mời cho mình; còn lại là Zalo gợi ý kết bạn, không phải lời mời.
+        if d.get("recommType") != 2:
+            continue
+        p = _nguoi(d)
+        if p["user_id"]:
+            p["message"] = str((d.get("recommInfo") or {}).get("message") or "")
+            moi.append(p)
+    return _done(account=conn["label"], count=len(moi), requests=moi[:MAX_LIST], truncated=len(moi) > MAX_LIST)
+
+
+async def _sent(args, ctx):
+    args = args or {}
+    conn, why = _ready(args)
+    if not conn:
+        return why
+    ok, data, err = await zalo_cli.run_cli(conn, ["friend", "sent-requests"], [])
+    if not ok:
+        # Zalo trả mã 112 khi chưa gửi lời mời nào; CLI in "No sent friend requests" thay vì JSON.
+        if "No sent friend requests" in str(err) or "(112)" in str(err):
+            return _done(account=conn["label"], count=0, requests=[])
+        return f"ERROR: không đọc được lời mời đã gửi. {err}"
+    ds = []
+    for uid, u in (data.items() if isinstance(data, dict) else []):
+        p = _nguoi(u)
+        p["user_id"] = p["user_id"] or str(uid)
+        if _UID_RE.match(p["user_id"]):
+            ds.append(p)
+    return _done(account=conn["label"], count=len(ds), requests=ds[:MAX_LIST], truncated=len(ds) > MAX_LIST)
+
+
+def _so(q: str) -> str:
+    return re.sub(r"[ .-]", "", q)
+
+
+async def _find_phones(args, ctx):
+    args = args or {}
+    conn, why = _ready(args)
+    if not conn:
+        return why
+    raw = args.get("phones")
+    if isinstance(raw, str):
+        raw = re.split(r"[,;\n]+", raw)
+    phones, sai = [], []
+    for x in raw or []:
+        q = str(x or "").strip()
+        if not q:
+            continue
+        if _PHONE_RE.match(q):
+            phones.append(_so(q))
+        else:
+            sai.append(q)
+    phones = list(dict.fromkeys(phones))
+    if sai:
+        return f"ERROR: không phải số điện thoại: {', '.join(sai[:5])}."
+    if not phones:
+        return "ERROR: thiếu phones (danh sách số điện thoại)."
+    if len(phones) > MAX_PHONES:
+        return f"ERROR: tối đa {MAX_PHONES} số một lượt (tra dày quá Zalo có thể coi là quét danh bạ). Chia thành nhiều lượt."
+    ok, data, err = await zalo_cli.run_cli(conn, ["friend", "find-phones"], phones)
+    if not ok:
+        return f"ERROR: không tra được các số điện thoại. {err}"
+    found = []
+    for phone, u in (data.items() if isinstance(data, dict) else []):
+        p = _nguoi(u)
+        if p["user_id"]:
+            found.append(dict(phone=str(phone), **p))
+    # Zalo có thể trả số ở dạng 84xxxxxxxxx dù hỏi 0xxxxxxxxx: so 9 chữ số cuối.
+    co = {f["phone"][-9:] for f in found}
+    return _done(account=conn["label"], found=found, not_found=[x for x in phones if x[-9:] not in co])
+
+
 # ============================================================
 # Tool hành động
 # ============================================================
@@ -186,6 +301,20 @@ async def _reject(args, ctx):
     return _done(account=conn["label"], user_id=uid, result=_short(data))
 
 
+async def _undo(args, ctx):
+    args = args or {}
+    conn, why = _ready(args)
+    if not conn:
+        return why
+    uid, why = _uid(args)
+    if not uid:
+        return why
+    ok, data, err = await zalo_cli.run_cli(conn, ["friend", "undo-request"], [uid])
+    if not _thanh_cong(ok, err):
+        return _fail("rút lại lời mời kết bạn", err)
+    return _done(account=conn["label"], user_id=uid, result=_short(data))
+
+
 # ============================================================
 # Đăng ký
 # ============================================================
@@ -215,6 +344,46 @@ def register(ctx):
         schema={"type": "object", "properties": {**_USER, **_CONN}, "required": ["user_id"]},
     )
     ctx.register_tool(
+        name="zalo_search_friends",
+        description=(
+            "Tìm theo TÊN trong danh sách bạn bè Zalo của tài khoản đã kết nối, trả user_id (dùng làm threadId để nhắn) "
+            "và tên. Chỉ đọc. Người chưa là bạn thì dùng zalo_find_user."
+        ),
+        handler=_search_friends, min_mode="readonly", check_fn=zalo_cli.check,
+        schema={"type": "object", "properties": {
+            "name": {"type": "string", "description": "một phần tên hiển thị hoặc tên Zalo"}, **_CONN},
+            "required": ["name"]},
+    )
+    ctx.register_tool(
+        name="zalo_friend_requests",
+        description=(
+            "Danh sách lời mời kết bạn người khác đang gửi tới tài khoản Zalo đã kết nối, chờ duyệt (user_id, tên, lời "
+            "nhắn). Chỉ đọc. Nhận hay từ chối bằng zalo_accept_friend / zalo_reject_friend."
+        ),
+        handler=_incoming, min_mode="readonly", check_fn=zalo_cli.check,
+        schema={"type": "object", "properties": {**_CONN}},
+    )
+    ctx.register_tool(
+        name="zalo_sent_friend_requests",
+        description=(
+            "Danh sách lời mời kết bạn tài khoản Zalo đã kết nối đã gửi đi mà người kia chưa nhận. Chỉ đọc. Rút lại bằng "
+            "zalo_undo_friend_request."
+        ),
+        handler=_sent, min_mode="readonly", check_fn=zalo_cli.check,
+        schema={"type": "object", "properties": {**_CONN}},
+    )
+    ctx.register_tool(
+        name="zalo_find_phones",
+        description=(
+            "Tra nhiều số điện thoại một lượt (tối đa 20), trả số nào có Zalo kèm user_id và tên, số nào không tìm thấy. "
+            "Chỉ đọc."
+        ),
+        handler=_find_phones, min_mode="readonly", check_fn=zalo_cli.check,
+        schema={"type": "object", "properties": {
+            "phones": {"type": "array", "items": {"type": "string"}, "description": "các số điện thoại"}, **_CONN},
+            "required": ["phones"]},
+    )
+    ctx.register_tool(
         name="zalo_add_friend",
         description=(
             "Gửi lời mời kết bạn Zalo tới một người, bằng tài khoản Zalo đã kết nối. Tham số: user_id, message (lời nhắn "
@@ -235,5 +404,11 @@ def register(ctx):
         name="zalo_reject_friend",
         description="Từ chối lời mời kết bạn Zalo mà một người đã gửi tới tài khoản Zalo đã kết nối. Tham số: user_id.",
         handler=_reject, min_mode="full", check_fn=zalo_cli.check,
+        schema={"type": "object", "properties": {**_USER, **_CONN}, "required": ["user_id"]},
+    )
+    ctx.register_tool(
+        name="zalo_undo_friend_request",
+        description="Rút lại lời mời kết bạn Zalo mà tài khoản đã kết nối đã gửi cho một người. Tham số: user_id.",
+        handler=_undo, min_mode="full", check_fn=zalo_cli.check,
         schema={"type": "object", "properties": {**_USER, **_CONN}, "required": ["user_id"]},
     )

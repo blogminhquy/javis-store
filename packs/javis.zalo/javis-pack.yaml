@@ -12,14 +12,14 @@ format: javis-pack
 spec: 1
 
 id: javis.zalo
-version: 1.2.0
+version: 1.3.0
 
 name:
   vi: Zalo mở rộng
   en: Zalo extras
 description:
-  vi: Đi kèm kết nối Zalo. Gửi ảnh và file, tag đúng người trong nhóm, tạo ghi chú, nhắc hẹn, poll, đọc ảnh người ta gửi trong nhóm, và kết bạn (tìm người, gửi, nhận, từ chối lời mời). Cần Javis 0.73.0 trở lên và đã quét QR Zalo ở trang Kết nối.
-  en: Goes with the Zalo connection. Send images and files, tag the right people in a group, create notes, reminders and polls, read the images people post in a group, and handle friends (find people, send, accept and reject requests). Needs Javis 0.73.0 or newer and Zalo scanned on the Connections page.
+  vi: Đi kèm kết nối Zalo. Gửi ảnh và file, tag đúng người trong nhóm, tạo ghi chú, nhắc hẹn, poll, đọc ảnh người ta gửi trong nhóm, và kết bạn (tìm người theo số điện thoại hay tên bạn bè, xem lời mời chờ duyệt và đã gửi, gửi, nhận, từ chối, rút lại lời mời). Cần Javis 0.73.0 trở lên và đã quét QR Zalo ở trang Kết nối.
+  en: Goes with the Zalo connection. Send images and files, tag the right people in a group, create notes, reminders and polls, read the images people post in a group, and handle friends (find people by phone or by a friend's name, see pending and sent requests, send, accept, reject and withdraw requests). Needs Javis 0.73.0 or newer and Zalo scanned on the Connections page.
 
 author:
   name: Javis
