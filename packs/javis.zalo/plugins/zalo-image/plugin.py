@@ -16,7 +16,7 @@ lại, để một nguồn sự thật duy nhất về "phiên Zalo nằm ở đ
 `min_mode: full`: gửi tin ra ngoài là hành động THẬT và không rút lại được, đúng hạng với
 `zalo_send_message` vốn đã nằm trong nhóm `danger` của connector.
 
-FILE (không phải ảnh) KHÔNG đi đường CLI nữa (gói 1.2.0, cần Javis 0.126.0+). Zalo chỉ báo "đã tải
+FILE (không phải ảnh) KHÔNG đi đường CLI nữa (gói 1.2.0, cần Javis 0.139.0+). Zalo chỉ báo "đã tải
 lên xong" cho file qua kết nối thời gian thực, mà lệnh CLI chạy một lần không mở kết nối đó, nên
 `msg send-file` treo tới khi bị giết ở 120 giây và file không tới (14/10/2026, bảng Excel 11 KB).
 File đi qua `zalo_cli.send_files` của lõi: tool MCP `zalo_send_file` trong chính tiến trình đang giữ
@@ -40,7 +40,7 @@ _TIMEOUT = zalo_cli.DEFAULT_TIMEOUT      # tải file lên Zalo có thể lâu, 
 # Đuôi zca-js tải lên như ẢNH (link về ngay qua HTTP). Còn lại là FILE, kể cả .bmp: zca-js coi .bmp là file
 # thường, nên đưa nó vào đây là gửi ảnh .bmp cũng treo như file.
 _ANH = {".png", ".jpg", ".jpeg", ".gif", ".webp"}
-_CAN_JAVIS = "0.126.0"                   # bản lõi đầu tiên có zalo_cli.send_files
+_CAN_JAVIS = "0.139.0"                   # bản lõi đầu tiên có zalo_cli.send_files
 
 
 def _ket_noi_zalo():

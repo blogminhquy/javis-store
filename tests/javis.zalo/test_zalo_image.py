@@ -125,7 +125,7 @@ check("CANARY: chạy trong HOME của đúng kết nối Zalo (nếu không CLI
 # 3b. FILE đi qua MCP (zalo_cli.send_files), KHÔNG qua CLI send-file
 # ============================================================
 # 14/10/2026: `msg send-file` treo tới 120 giây với một file Excel 11 KB, vì Zalo chỉ xác nhận file qua kết nối thời
-# gian thực mà lệnh CLI chạy một lần không mở. Từ gói 1.2.0 file đi qua tool MCP của lõi (Javis 0.126.0+).
+# gian thực mà lệnh CLI chạy một lần không mở. Từ gói 1.2.0 file đi qua tool MCP của lõi (Javis 0.139.0+).
 (VAULT / "danh-sach.xlsx").write_bytes(b"PK")
 (VAULT / "attachments" / "so-do.bmp").write_bytes(b"BM")
 _gui = []
@@ -167,7 +167,7 @@ del P.zalo_cli.send_files
 _gui.clear()
 r = goi({"thread_id": "t1", "paths": ["danh-sach.xlsx"]})
 check("CANARY: Javis cũ chưa có send_files thì báo cập nhật NGAY, không chạy CLI (không treo 120 giây)",
-      r.startswith("ERROR") and "0.126.0" in r and not _da_chay and not _gui)
+      r.startswith("ERROR") and "0.139.0" in r and not _da_chay and not _gui)
 if co_san is not None:
     P.zalo_cli.send_files = co_san
 
