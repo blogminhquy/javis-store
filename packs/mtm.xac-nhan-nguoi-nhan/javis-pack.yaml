@@ -1,0 +1,31 @@
+# Gói "Xác nhận người nhắn": bot chăm sóc phụ huynh, học sinh của một trung tâm dạy học biết người đang
+# nhắn chat riêng có nằm trong sổ học sinh, phụ huynh đã xác nhận hay không.
+#
+# Gói này là phần riêng ngành giáo dục tách ra khỏi lõi (PR blogminhquy/javis-os#659 bị đóng vì đặt mô hình
+# của một trung tâm vào lõi). Lõi chỉ giữ một chỗ cắm chung: hook `chatbot_turn_context` (javis-os#662), báo
+# cho plugin kênh và mã tài khoản người gửi của lượt bot, nhận lại một dòng ngữ cảnh. Javis bản cũ chưa có
+# hook đó thì plugin vẫn nạp được nhưng không bao giờ được gọi, tức không có tác dụng gì (không hỏng gì).
+# Khi PR lõi có số phiên bản, thêm `compat: app: ">=<số đó>"` để Kho cài đặt nói rõ lý do.
+#
+# Không đọc mạng, không ghi gì: chỉ đọc một tệp Markdown trong brain của bot.
+format: javis-pack
+spec: 1
+
+id: mtm.xac-nhan-nguoi-nhan
+version: 1.0.0
+
+name:
+  vi: Xác nhận người nhắn (trung tâm dạy học)
+  en: Verified sender (tutoring centre)
+description:
+  vi: Bot Zalo cá nhân biết người nhắn chat riêng có trong sổ học sinh, phụ huynh đã xác nhận hay không, dựa trên tài khoản gửi tin chứ không dựa lời tự giới thiệu. Bot chỉ thấy kết luận, không thấy mã tài khoản hay sổ. Tự bật khi brain của bot có sổ. Cần Javis có hook chatbot_turn_context.
+  en: A personal-Zalo bot knows whether the person in a private chat is on the centre's verified student and parent roster, from the sending account rather than what they claim. The bot sees only the verdict, never the account ID or the roster. Active once the bot's brain has a roster. Needs Javis with the chatbot_turn_context hook.
+
+author:
+  name: Tô Minh Thành (Minh Thành Math)
+license: MIT
+homepage: https://github.com/blogminhquy/javis-store/tree/main/packs/mtm.xac-nhan-nguoi-nhan
+
+provides:
+  plugins:
+    - plugins/xac-nhan-nguoi-nhan

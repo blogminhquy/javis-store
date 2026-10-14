@@ -1,0 +1,14 @@
+name: Xác nhận người nhắn (sổ học sinh, phụ huynh)
+name_en: "Verified sender (student and parent roster)"
+slug: xac-nhan-nguoi-nhan
+version: 1.0.0
+description: Ở chat riêng Zalo cá nhân, đối chiếu tài khoản gửi tin với sổ xác nhận trong brain của bot và chỉ đưa cho bot một dòng kết luận (ĐÃ XÁC NHẬN, vai trò, lớp hoặc CHƯA XÁC NHẬN). Không đưa mã tài khoản hay dòng nào khác của sổ vào prompt. Bot không có sổ thì không thêm gì.
+description_en: "In personal-Zalo private chats, checks the sending account against the roster in the bot's brain and gives the bot one verdict line (VERIFIED, role, class or NOT VERIFIED). Never puts the account ID or any other roster row in the prompt. A bot without a roster gets nothing."
+author: Tô Minh Thành (Minh Thành Math)
+# Pack plugins load only when this is true: the Store installer, where the owner reads the code and
+# agrees, is the opt-in. The feature itself stays silent until a bot's brain has a roster file.
+enabled: true
+min_mode: readonly
+tools: []
+hooks:
+  - chatbot_turn_context

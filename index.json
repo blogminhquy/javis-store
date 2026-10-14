@@ -2452,6 +2452,41 @@
         "sha256": "0ab452b92720971d5b36a2cf1e6eca891b258bb7a9f3c9d60b51df1d65a411fa",
         "size": 39114
       }
+    },
+    {
+      "id": "mtm.xac-nhan-nguoi-nhan",
+      "kind": "tool",
+      "name": {
+        "vi": "Xác nhận người nhắn (trung tâm dạy học)",
+        "en": "Verified sender (tutoring centre)"
+      },
+      "description": {
+        "vi": "Bot Zalo cá nhân biết người nhắn chat riêng có trong sổ học sinh, phụ huynh đã xác nhận hay không, dựa trên tài khoản gửi tin chứ không dựa lời tự giới thiệu. Bot chỉ thấy kết luận, không thấy mã tài khoản hay sổ. Tự bật khi brain của bot có sổ. Cần Javis có hook chatbot_turn_context.",
+        "en": "A personal-Zalo bot knows whether the person in a private chat is on the centre's verified student and parent roster, from the sending account rather than what they claim. The bot sees only the verdict, never the account ID or the roster. Active once the bot's brain has a roster. Needs Javis with the chatbot_turn_context hook."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Tô Minh Thành (Minh Thành Math)"
+      },
+      "category": "nhan-tin",
+      "category_label": {
+        "vi": "Nhắn tin",
+        "en": "Messaging"
+      },
+      "tier": "code",
+      "verified": false,
+      "updated": "2026-10-15",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/mtm.xac-nhan-nguoi-nhan",
+      "provides": {
+        "plugins": [
+          "xac-nhan-nguoi-nhan"
+        ]
+      },
+      "download": {
+        "url": "dist/mtm-xac-nhan-nguoi-nhan-1.0.0.zip",
+        "sha256": "a7c942e5f38a4ea6506e10002131497ec4c5401e76d507113e807387663ca11b",
+        "size": 8915
+      }
     }
   ]
 }
