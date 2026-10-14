@@ -32,6 +32,14 @@ Ba điều giữ cho cách này đọc được và kiểm được:
 
 Khi bên thứ 3 phát hành lên npm, bỏ đường này: đổi connector về `ten-goi@latest`, xoá khoá
 `ngoai_le_ban_chinh_thuc`, ra bản gói mới.
+
+MCP kho TỰ VIẾT (mục có `thu_muc` thay cho `repo` + `commit`, ví dụ `mcp-nguon/pancake-chat-mcp`)
+---------------------------------------------------------------------------------------------
+Khi không có MCP nào dùng được cho một dịch vụ, kho viết một cái nhỏ, mã nguồn nằm ngay trong
+`mcp-nguon/<tên>/`. Nó KHÔNG được có thư viện phụ thuộc: tệp `.tgz` đóng bằng Python ở đây (không qua
+npm), ghim ngày giờ và quyền tệp, nên đóng lại luôn ra đúng một sha256, và trình kiểm so được từng
+tệp trong `.tgz` với thư mục nguồn. Sửa mã mà quên đóng lại là CI đỏ. Đổi mã thì tăng `phien_ban`
+(tên tệp mang số bản, không bao giờ ghi đè) và ra bản gói mới.
 """
 import hashlib
 import json
@@ -56,7 +64,51 @@ def doc_nguon():
 
 
 def ten_tep(m):
+    if m.get("thu_muc"):
+        return f"{m['ten']}-{m['phien_ban']}.tgz"
     return f"{m['ten']}-{m['phien_ban']}-{m['commit'][:7]}.tgz"
+
+
+def _tep_nguon(thu_muc: Path):
+    """Tệp của một MCP tự viết, theo đúng `files` của package.json (cộng package.json), sắp theo tên."""
+    pj = json.loads((thu_muc / "package.json").read_text(encoding="utf-8"))
+    if pj.get("dependencies"):
+        raise ValueError(f"{thu_muc.name}: MCP tự viết không được có dependencies")
+    ten = sorted(set(["package.json"] + list(pj.get("files") or [])))
+    return [(t, thu_muc / t) for t in ten]
+
+
+def _dong_tu_thu_muc(thu_muc: Path, dich: Path) -> None:
+    """Đóng `.tgz` dạng npm (mọi tệp dưới `package/`) với ngày giờ, chủ sở hữu và quyền GHIM, để đóng lại
+    ở đâu cũng ra cùng byte. Tệp `bin` được quyền chạy."""
+    import gzip
+    import io
+    import tarfile
+    pj = json.loads((thu_muc / "package.json").read_text(encoding="utf-8"))
+    chay = set((pj.get("bin") or {}).values()) if isinstance(pj.get("bin"), dict) else set()
+    raw = io.BytesIO()
+    with tarfile.open(fileobj=raw, mode="w", format=tarfile.USTAR_FORMAT) as tar:
+        for ten, p in _tep_nguon(thu_muc):
+            b = p.read_bytes()
+            ti = tarfile.TarInfo("package/" + ten)
+            ti.size, ti.mtime, ti.uid, ti.gid, ti.uname, ti.gname = len(b), 499162500, 0, 0, "", ""
+            ti.mode = 0o755 if ten in chay else 0o644
+            tar.addfile(ti, io.BytesIO(b))
+    with open(dich, "wb") as f, gzip.GzipFile(filename="", mode="wb", fileobj=f, mtime=0) as gz:
+        gz.write(raw.getvalue())
+
+
+def _lech_voi_nguon(m, tep: Path):
+    """Tên các tệp trong `.tgz` của MCP tự viết KHÁC thư mục nguồn (thiếu, thừa hay khác byte)."""
+    import tarfile
+    goc = GOC / m["thu_muc"]
+    can = {"package/" + t: p.read_bytes() for t, p in _tep_nguon(goc)}
+    co = {}
+    with tarfile.open(tep, "r:gz") as tar:
+        for ti in tar.getmembers():
+            if ti.isfile():
+                co[ti.name] = tar.extractfile(ti).read()
+    return sorted(k for k in set(can) | set(co) if can.get(k) != co.get(k))
 
 
 def sha256(p: Path) -> str:
@@ -68,10 +120,14 @@ def doi_chieu():
     loi = []
     biet = set()
     for m in doc_nguon():
-        for k in ("ten", "repo", "commit", "phien_ban", "sha256", "lenh"):
+        tu_viet = bool(m.get("thu_muc"))
+        for k in ("ten", "phien_ban", "sha256", "lenh") + (() if tu_viet else ("repo", "commit")):
             if not m.get(k):
                 loi.append(f"mcp/nguon.json: mục {m.get('ten', '?')} thiếu `{k}`")
-        if len(str(m.get("commit") or "")) != 40:
+        if tu_viet and not (GOC / str(m["thu_muc"]) / "package.json").is_file():
+            loi.append(f"mcp/nguon.json: {m.get('ten')} trỏ tới thư mục nguồn không có package.json")
+            continue
+        if not tu_viet and len(str(m.get("commit") or "")) != 40:
             loi.append(f"mcp/nguon.json: {m.get('ten')} phải ghim commit đủ 40 ký tự")
             continue
         tep = THU_MUC / ten_tep(m)
@@ -80,6 +136,14 @@ def doi_chieu():
             loi.append(f"mcp/{tep.name}: không có tệp (chạy tools/mcp_dong_goi.py {m['ten']})")
         elif sha256(tep) != m.get("sha256"):
             loi.append(f"mcp/{tep.name}: sha256 không khớp mcp/nguon.json")
+        elif tu_viet:
+            try:
+                lech = _lech_voi_nguon(m, tep)
+            except (OSError, ValueError) as e:
+                lech = [str(e)]
+            if lech:
+                loi.append(f"mcp/{tep.name}: khác mã nguồn {m['thu_muc']} ở {', '.join(lech)} "
+                           f"(sửa mã thì tăng phien_ban rồi chạy tools/mcp_dong_goi.py {m['ten']})")
     for p in THU_MUC.glob("*.tgz") if THU_MUC.is_dir() else []:
         if p.name not in biet:
             loi.append(f"mcp/{p.name}: tệp lạ, không có trong mcp/nguon.json")
@@ -125,6 +189,17 @@ def dong(ten):
     m = next((x for x in ds if x["ten"] == ten), None)
     if not m:
         raise SystemExit(f"{ten} không có trong mcp/nguon.json")
+    if m.get("thu_muc"):
+        THU_MUC.mkdir(exist_ok=True)
+        dich = THU_MUC / ten_tep(m)
+        with tempfile.TemporaryDirectory(prefix="javis-mcp-") as tmp:
+            moi = Path(tmp) / dich.name
+            _dong_tu_thu_muc(GOC / m["thu_muc"], moi)
+            if dich.exists() and sha256(dich) != sha256(moi):
+                raise SystemExit(f"mcp/{dich.name} đã phát hành với nội dung khác; đổi mã thì tăng phien_ban "
+                                 f"trong mcp/nguon.json và package.json (không ghi đè tệp đã phát hành)")
+            shutil.copyfile(moi, dich)
+        return _xong(ds, m, dich)
     with tempfile.TemporaryDirectory(prefix="javis-mcp-") as tmp:
         src = Path(tmp) / "src"
         _chay(["git", "clone", "-q", m["repo"], str(src)], tmp)
@@ -141,6 +216,10 @@ def dong(ten):
         THU_MUC.mkdir(exist_ok=True)
         dich = THU_MUC / ten_tep(m)
         shutil.copyfile(ra, dich)
+    return _xong(ds, m, dich)
+
+
+def _xong(ds, m, dich):
     m["sha256"] = sha256(dich)
     NGUON.write_text(json.dumps({"_doc": json.loads(NGUON.read_text(encoding="utf-8")).get("_doc"),
                                  "mcp": ds}, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
@@ -155,7 +234,8 @@ if __name__ == "__main__":
         dong(sys.argv[1])
     else:
         for m in doc_nguon():
-            print(f"{m['ten']:<16} {m['repo']} @ {m['commit'][:7]}  -> mcp/{ten_tep(m)}")
+            nguon = m["thu_muc"] if m.get("thu_muc") else f"{m['repo']} @ {m['commit'][:7]}"
+            print(f"{m['ten']:<18} {nguon}  -> mcp/{ten_tep(m)}")
         loi = doi_chieu()
         for l in loi:
             print("  - " + l)

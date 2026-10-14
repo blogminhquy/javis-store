@@ -52,6 +52,17 @@
         }
       ],
       "sha256": "31bee95c2afd8d7811a0b92e76f8cd3139f9b279089fe1409c6ffbc226860aa1"
+    },
+    {
+      "ten": "pancake-chat-mcp",
+      "thu_muc": "mcp-nguon/pancake-chat-mcp",
+      "phien_ban": "1.0.0",
+      "giay_phep": "MIT",
+      "ghi_chu": "Kho tự viết: không có MCP Pancake hội thoại nào dùng được (2026-10-14).",
+      "lenh": [
+        "pancake-chat-mcp"
+      ],
+      "sha256": "1d9dc80721fab647775813c36b0d75740eb44d88f8f3f5297004a75022598ee6"
     }
   ]
 }

@@ -136,6 +136,39 @@
       }
     },
     {
+      "id": "javis.pancake-chat",
+      "kind": "connector",
+      "name": {
+        "vi": "Pancake hội thoại"
+      },
+      "description": {
+        "vi": "Hộp thư fanpage trên Pancake (pages.fm): đọc hội thoại, tin nhắn, bình luận, khách hàng, thẻ và thống kê nhân viên; gắn thẻ, phân công, ghi chú khách, trả lời khách. Mỗi page một kết nối, dán Page ID và Page Access Token là xong."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "nhan-tin",
+      "category_label": {
+        "vi": "Nhắn tin"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-10-14",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.pancake-chat",
+      "icon": "packs/javis.pancake-chat/assets/pancake-chat.png",
+      "provides": {
+        "connectors": [
+          "pancake-chat"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-pancake-chat-1.0.0.zip",
+        "sha256": "a3ebae730db24b098378ab195f259b2c48c2751c2b99daa5c259df69326ba3d1",
+        "size": 8535
+      }
+    },
+    {
       "id": "javis.kiotviet",
       "kind": "connector",
       "name": {

@@ -25,6 +25,7 @@ Kho không tới được cũng không sao: gói đã cài chạy bình thườn
     dist/<id>-<ver>.zip tệp Javis thật sự tải về
     huong-dan/<tên>.md  hướng dẫn cho người dùng, trang Kết nối trỏ link tới đây
     mcp/                MCP bên thứ 3 chưa lên npm, kho build từ commit ghim (xem mcp/nguon.json)
+    mcp-nguon/<tên>/    mã nguồn MCP kho tự viết khi không có MCP nào dùng được
     tools/dong-goi.py   đóng gói một thư mục thành .zip và in dấu vân tay
 
 Mã nguồn nằm ngay cạnh tệp phát hành là có chủ ý: gói **chạy được mã Python trong máy chủ Javis
