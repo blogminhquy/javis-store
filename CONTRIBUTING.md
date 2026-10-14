@@ -91,6 +91,13 @@ Hai ngoại lệ, khai bằng `ngoai_le_ban_chinh_thuc` ở gốc khuôn connect
 
 `tools/kiem-tra.py` chặn mọi connector `npx`/`uvx` không theo luật này.
 
+Bên thứ 3 chưa phát hành lên npm mà `npx -y github:...` cũng không chạy được (gói cần build
+lúc cài, như KiotViet, Haravan), thì kho tự build MỘT lần từ một commit ghim và giữ tệp `.tgz`
+trong `mcp/`. Connector chạy `npx -y --package=<URL tệp trong mcp/> <lệnh>`, kèm
+`ngoai_le_ban_chinh_thuc`. Repo gốc, commit, sha256 và mọi chỗ kho sửa ghi trong
+`mcp/nguon.json`; build lại bằng `python tools/mcp_dong_goi.py <tên>`. Không bao giờ ghi đè tệp
+cũ: đổi commit là ra tệp mới và bản gói mới. Lý do đầy đủ ở đầu `tools/mcp_dong_goi.py`.
+
 Cái giá của luật là bản mới có thể mang **tool mới chưa ai phân loại**, và Javis xếp một tool
 không khai, tên không chứa từ gợi ý ghi nào, vào nhóm **đọc** (vụ thật lúc đặt luật:
 `workspace-mcp` 2.x thêm `run_script_function`). Vì vậy CI có thêm job `soi-ban-moi`, chạy mỗi

@@ -1,7 +1,7 @@
 {
   "format": "javis-pack-index",
   "format_version": 1,
-  "updated": "2026-10-04",
+  "updated": "2026-10-14",
   "store": {
     "name": "Kho cài đặt Javis",
     "url": "https://github.com/blogminhquy/javis-store"
@@ -133,6 +133,138 @@
         "url": "dist/javis-pancake-pos-1.0.0.zip",
         "sha256": "93bf26951f5bdf0f2c1635f16ebcd1f4b3334d5f358abe65578667a6ae15229e",
         "size": 8799
+      }
+    },
+    {
+      "id": "javis.kiotviet",
+      "kind": "connector",
+      "name": {
+        "vi": "KiotViet"
+      },
+      "description": {
+        "vi": "Hàng hoá, nhóm hàng, khách hàng, hoá đơn, trả hàng và chi nhánh từ KiotViet (bán lẻ và F&B). Dán Client ID, Client Secret và tên gian hàng là xong. Mỗi gian hàng một kết nối."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "ban-hang",
+      "category_label": {
+        "vi": "Bán hàng"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-10-14",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.kiotviet",
+      "icon": "packs/javis.kiotviet/assets/kiotviet.png",
+      "provides": {
+        "connectors": [
+          "kiotviet"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-kiotviet-1.0.0.zip",
+        "sha256": "310e98d83944c472e3c2eb078fc4f18254d7fa23528ff04e6180981a60860cf4",
+        "size": 12528
+      }
+    },
+    {
+      "id": "javis.sapo",
+      "kind": "connector",
+      "name": {
+        "vi": "Sapo"
+      },
+      "description": {
+        "vi": "Đơn hàng, sản phẩm, khách hàng, tồn kho, khuyến mãi và báo cáo doanh thu từ Sapo (Omni, Web). Tạo một ứng dụng riêng trong Sapo, dán API Key và API Secret là xong."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "ban-hang",
+      "category_label": {
+        "vi": "Bán hàng"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-10-14",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.sapo",
+      "icon": "packs/javis.sapo/assets/sapo.png",
+      "provides": {
+        "connectors": [
+          "sapo"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-sapo-1.0.0.zip",
+        "sha256": "e06b1d607fe36513612e87c50b2da02b1fe5476f7be395c8625c6b746d5882ea",
+        "size": 13627
+      }
+    },
+    {
+      "id": "javis.haravan",
+      "kind": "connector",
+      "name": {
+        "vi": "Haravan"
+      },
+      "description": {
+        "vi": "Đơn hàng, sản phẩm, khách hàng, tồn kho và báo cáo doanh thu, phân nhóm khách, gợi ý nhập hàng từ Haravan. Tạo một ứng dụng riêng trong Haravan, dán Access Token là xong."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "ban-hang",
+      "category_label": {
+        "vi": "Bán hàng"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-10-14",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.haravan",
+      "icon": "packs/javis.haravan/assets/haravan.png",
+      "provides": {
+        "connectors": [
+          "haravan"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-haravan-1.0.0.zip",
+        "sha256": "f1b9fe0a33790a40a8e46c69eb8d537d212d4829a3c1084bce55fb7bdfb3c189",
+        "size": 8235
+      }
+    },
+    {
+      "id": "javis.nhanh",
+      "kind": "connector",
+      "name": {
+        "vi": "Nhanh.vn"
+      },
+      "description": {
+        "vi": "Đơn hàng, doanh thu, sản phẩm bán chạy, tồn kho và khách hàng từ Nhanh.vn. Chỉ đọc, không sửa được gì trên cửa hàng. Cần Access Token, App ID và Business ID."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "ban-hang",
+      "category_label": {
+        "vi": "Bán hàng"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-10-14",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.nhanh",
+      "icon": "packs/javis.nhanh/assets/nhanh.png",
+      "provides": {
+        "connectors": [
+          "nhanh"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-nhanh-1.0.0.zip",
+        "sha256": "ab6e073afbe7ebd6a2389d2a5f647f5d5fd18d8c322923fdea5355aaf2ea44f7",
+        "size": 9419
       }
     },
     {

@@ -35,6 +35,8 @@ Kiểm những gì
    chưa phát hành trên GitHub. Lý do và ngoại lệ ở `ban_chinh_thuc.py`.
 8. Tệp nối MCP chính chủ chạy từ xa (`chinh-chu/*.json`) đúng cấu trúc và trỏ đúng khuôn. Lý do ở
    `chinh_chu.py`.
+9. MCP kho tự build trong `mcp/` khớp sha256 đã ghi, và connector chỉ trỏ vào tệp có thật. Lý do ở
+   `mcp_dong_goi.py`.
 """
 import hashlib
 import json
@@ -62,6 +64,7 @@ def check(ten, dieu_kien, chi_tiet=""):
 from luat_ten_tool import PHA, TIEN, _khop  # noqa: E402
 from ban_chinh_thuc import loi_ban  # noqa: E402
 import chinh_chu  # noqa: E402
+import mcp_dong_goi  # noqa: E402
 
 
 def doc_manifest(thu_muc: Path):
@@ -294,6 +297,25 @@ for tep in chinh_chu.cac_tep():
         sai(f"chinh-chu/{tep.name}: {l}")
 
 # ============================================================
+# 9. MCP kho tự build (`mcp/`, xem `mcp_dong_goi.py`): mọi tệp khớp sha256 ghi trong
+#    `mcp/nguon.json`, và connector trỏ vào `mcp/` thì trỏ đúng một tệp có trong đó. Tệp này
+#    là MÃ chạy trên máy người dùng, nên nó phải đúng thứ người review đã đối chiếu với commit gốc.
+# ============================================================
+for l in mcp_dong_goi.doi_chieu():
+    sai(l)
+_tep_mcp = {mcp_dong_goi.ten_tep(m) for m in mcp_dong_goi.doc_nguon()}
+for f in sorted((GOC / "packs").glob("*/connectors/*.json")):
+    try:
+        con_mcp = json.loads(f.read_text(encoding="utf-8"))
+    except ValueError:
+        continue
+    for lenh_mcp in [con_mcp] + list(con_mcp.get("lenh_cu") or []):
+        tep_mcp = mcp_dong_goi.tep_tu_args(lenh_mcp.get("args"))
+        if tep_mcp:
+            check(f"{f.relative_to(GOC).as_posix()}: trỏ vào mcp/{tep_mcp} nhưng tệp đó không có "
+                  f"trong mcp/nguon.json", tep_mcp in _tep_mcp)
+
+# ============================================================
 # 6. Em dash
 #
 # Luật của chủ kho, và lý do là kỹ thuật: trình đọc màn hình lẫn bộ đọc thành tiếng vấp ở ký
@@ -302,7 +324,7 @@ for tep in chinh_chu.cac_tep():
 # không phải việc của trình kiểm này, và một luật gõ cửa 250 tệp vendor là một luật bị tắt.
 # ============================================================
 EM = chr(0x2014)
-SOI = ["index.json", "README.md", "CONTRIBUTING.md"]
+SOI = ["index.json", "README.md", "CONTRIBUTING.md", "mcp/nguon.json"]
 for f in sorted(GOC.rglob("javis-pack.yaml")) + sorted((GOC / "packs").rglob("connectors/*.json"))         + sorted((GOC / "tools").glob("*.py")) + chinh_chu.cac_tep() + [GOC / x for x in SOI]:
     if not f.is_file():
         continue

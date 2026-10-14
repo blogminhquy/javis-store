@@ -42,6 +42,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import chinh_chu  # noqa: E402
+import mcp_dong_goi  # noqa: E402
 from ban_chinh_thuc import LENH  # noqa: E402
 from luat_ten_tool import PHA, TIEN, _khop  # noqa: E402
 
@@ -80,6 +81,9 @@ def _env_gia(con, thu_muc):
             tep = Path(thu_muc) / f"{ten}.json"
             tep.write_text(_SA_GIA, encoding="utf-8")
             env[ten] = str(tep)
+        elif ten.upper().endswith("_URL"):
+            # Vài server kiểm định dạng URL ngay lúc mở (Sapo: SAPO_STORE_URL).
+            env[ten] = "https://javis-soi-gia.invalid"
         else:
             env[ten] = "javis-soi-gia"
     return env
@@ -88,7 +92,11 @@ def _env_gia(con, thu_muc):
 def liet_ke_tool(con):
     """(danh sách tên tool, lỗi). Chạy lệnh của khuôn với credential giả, xem `_env_gia`."""
     cmd = shutil.which(con["command"]) or con["command"]
-    p = subprocess.Popen([cmd] + [str(a) for a in con.get("args") or []], stdin=subprocess.PIPE,
+    # MCP kho tự build (`mcp/`): chạy tệp trong bản checkout này thay vì URL trên nhánh main, để
+    # Pull Request thêm tệp mới soi được chính tệp đó trước khi trộn.
+    args = [str(a).replace(mcp_dong_goi.URL_GOC, str(mcp_dong_goi.THU_MUC) + os.sep)
+            for a in con.get("args") or []]
+    p = subprocess.Popen([cmd] + args, stdin=subprocess.PIPE,
                          stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
                          env=_env_gia(con, tempfile.mkdtemp(prefix="javis-soi-env-")))
     loi = []
