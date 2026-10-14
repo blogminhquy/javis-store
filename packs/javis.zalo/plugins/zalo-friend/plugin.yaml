@@ -1,16 +1,21 @@
-name: Zalo kết bạn - tìm người, gửi, nhận, từ chối lời mời
-name_en: "Zalo friends: find people, send, accept, reject requests"
+name: Zalo kết bạn - tìm người, xem và xử lý lời mời
+name_en: "Zalo friends: find people, see and handle requests"
 slug: zalo-friend
-version: 1.0.0
-description: Công cụ kết bạn trên Zalo cá nhân bằng chính tài khoản đã quét QR ở trang Kết nối - tìm người theo số điện thoại hoặc username, xem trạng thái kết bạn, gửi lời mời, nhận hoặc từ chối lời mời. Chỉ là công cụ, kết bạn với ai do model quyết định hoặc theo yêu cầu của người dùng.
-description_en: "Friend tools for a personal Zalo account, using the very account scanned on the Connections page: find people by phone number or username, check friend status, send a request, accept or reject one. Tools only: who to befriend is up to the model or the user."
+version: 1.1.0
+description: Công cụ kết bạn trên Zalo cá nhân bằng chính tài khoản đã quét QR ở trang Kết nối - tìm người theo số điện thoại (một hay nhiều số) hoặc username, tìm theo tên trong danh sách bạn bè, xem trạng thái kết bạn, xem lời mời đang chờ duyệt và lời mời đã gửi, gửi, nhận, từ chối hoặc rút lại lời mời. Chỉ là công cụ, kết bạn với ai do model quyết định hoặc theo yêu cầu của người dùng.
+description_en: "Friend tools for a personal Zalo account, using the very account scanned on the Connections page: find people by phone number (one or many) or username, search friends by name, check friend status, see pending and sent requests, send, accept, reject or withdraw a request. Tools only: who to befriend is up to the model or the user."
 author: Javis
 enabled: true
 min_mode: full
 tools:
   - zalo_find_user
+  - zalo_find_phones
+  - zalo_search_friends
   - zalo_friend_status
+  - zalo_friend_requests
+  - zalo_sent_friend_requests
   - zalo_add_friend
   - zalo_accept_friend
   - zalo_reject_friend
+  - zalo_undo_friend_request
 hooks: []
