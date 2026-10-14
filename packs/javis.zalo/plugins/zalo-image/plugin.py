@@ -15,6 +15,12 @@ lại, để một nguồn sự thật duy nhất về "phiên Zalo nằm ở đ
 
 `min_mode: full`: gửi tin ra ngoài là hành động THẬT và không rút lại được, đúng hạng với
 `zalo_send_message` vốn đã nằm trong nhóm `danger` của connector.
+
+FILE (không phải ảnh) KHÔNG đi đường CLI nữa (gói 1.2.0, cần Javis 0.126.0+). Zalo chỉ báo "đã tải
+lên xong" cho file qua kết nối thời gian thực, mà lệnh CLI chạy một lần không mở kết nối đó, nên
+`msg send-file` treo tới khi bị giết ở 120 giây và file không tới (14/10/2026, bảng Excel 11 KB).
+File đi qua `zalo_cli.send_files` của lõi: tool MCP `zalo_send_file` trong chính tiến trình đang giữ
+kết nối, có hạn chờ 60 giây. Javis cũ chưa có hàm đó thì báo ngay thay vì treo.
 """
 from __future__ import annotations
 
@@ -31,9 +37,10 @@ _CLI_PACKAGE = zalo_cli.CLI_PACKAGE
 _MAX_FILES = 10                          # gửi cả chục file một lượt đã là bất thường
 _TIMEOUT = zalo_cli.DEFAULT_TIMEOUT      # tải file lên Zalo có thể lâu, nhưng không lâu vô hạn
 
-# Đuôi Zalo hiểu là ẢNH. Còn lại đi đường send-file (docx, pdf, zip...). Gửi nhầm đường thì
-# CLI báo lỗi khó hiểu, nên chia ở đây cho rõ.
-_ANH = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".bmp"}
+# Đuôi zca-js tải lên như ẢNH (link về ngay qua HTTP). Còn lại là FILE, kể cả .bmp: zca-js coi .bmp là file
+# thường, nên đưa nó vào đây là gửi ảnh .bmp cũng treo như file.
+_ANH = {".png", ".jpg", ".jpeg", ".gif", ".webp"}
+_CAN_JAVIS = "0.126.0"                   # bản lõi đầu tiên có zalo_cli.send_files
 
 
 def _ket_noi_zalo():
@@ -83,6 +90,15 @@ def _duong_dan_that(p, vault_root):
 async def _chay(argv, home):
     """Chạy lệnh con trong HOME của phiên Zalo. Xem `zalo_cli.run` (cờ không cửa sổ console nằm ở đó)."""
     return await zalo_cli.run(argv, home, _TIMEOUT)
+
+
+async def _gui_file(conn, thread_id, files, ttype, caption):
+    """Gửi FILE qua MCP của kết nối (xem đầu file). Trả `(ok, dữ liệu, lỗi)`."""
+    send_files = getattr(zalo_cli, "send_files", None)
+    if send_files is None:
+        return False, None, (f"Javis bản này gửi file qua Zalo sẽ treo (lỗi đã biết), cần cập nhật Javis lên {_CAN_JAVIS} "
+                             "trở lên. Tạm thời gửi nội dung dưới dạng ảnh.")
+    return await send_files(conn["id"], conn["home"], thread_id, files, ttype, caption)
 
 
 async def _send(args, ctx):
@@ -141,6 +157,26 @@ async def _send(args, ctx):
         ttype = 0
     caption = str(args.get("caption") or "")
 
+    def ket_qua():
+        return json.dumps({
+            "ok": True,
+            "sent": len(thuc),
+            "kind": "image" if lenh == "send-image" else "file",
+            "thread_id": thread_id,
+            "thread_type": ttype,
+            "account": chon[0]["label"],
+            "files": [f.name for f in thuc],
+            "caption": caption,
+        }, ensure_ascii=False)
+
+    if lenh == "send-file":
+        ok, _data, loi = await _gui_file(chon[0], thread_id, thuc, ttype, caption)
+        if not ok:
+            if zalo_cli.is_timeout(loi):
+                return f"ERROR: gửi Zalo {loi}. File CÓ THỂ đã tới, kiểm tra cuộc chat trước khi gửi lại."
+            return f"ERROR: {loi}"
+        return ket_qua()
+
     options = ["-t", str(ttype)]
     if caption:
         options += ["-m", caption]
@@ -158,16 +194,7 @@ async def _send(args, ctx):
     ok, _data, loi = zalo_cli.interpret(rc, out, err)
     if not ok:
         return f"ERROR: {loi}"
-    return json.dumps({
-        "ok": True,
-        "sent": len(thuc),
-        "kind": "image" if lenh == "send-image" else "file",
-        "thread_id": thread_id,
-        "thread_type": ttype,
-        "account": chon[0]["label"],
-        "files": [f.name for f in thuc],
-        "caption": caption,
-    }, ensure_ascii=False)
+    return ket_qua()
 
 
 def register(ctx):

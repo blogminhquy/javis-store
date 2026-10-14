@@ -121,9 +121,55 @@ check("truyền lời nhắn kèm", argv[argv.index("-m") + 1] == "ảnh sản p
 check("CANARY: chạy trong HOME của đúng kết nối Zalo (nếu không CLI đòi quét QR lại)",
       _da_chay[0]["home"] == MOT[0]["home"])
 
+# ============================================================
+# 3b. FILE đi qua MCP (zalo_cli.send_files), KHÔNG qua CLI send-file
+# ============================================================
+# 14/10/2026: `msg send-file` treo tới 120 giây với một file Excel 11 KB, vì Zalo chỉ xác nhận file qua kết nối thời
+# gian thực mà lệnh CLI chạy một lần không mở. Từ gói 1.2.0 file đi qua tool MCP của lõi (Javis 0.126.0+).
+(VAULT / "danh-sach.xlsx").write_bytes(b"PK")
+(VAULT / "attachments" / "so-do.bmp").write_bytes(b"BM")
+_gui = []
+_tra = {"v": (True, {"success": True}, "")}
+
+
+async def send_files_gia(conn_id, home, thread_id, files, thread_type=0, caption=""):
+    _gui.append({"conn_id": conn_id, "home": home, "thread_id": thread_id, "files": list(files),
+                 "thread_type": thread_type, "caption": caption})
+    return _tra["v"]
+
+
+co_san = getattr(P.zalo_cli, "send_files", None)
+P.zalo_cli.send_files = send_files_gia
+r = goi({"thread_id": "t1", "paths": ["danh-sach.xlsx"], "caption": "Gửi chị danh sách", "thread_type": 0})
+check("CANARY: file Excel KHÔNG chạy lệnh CLI nào (đường đó treo)", not _da_chay)
+check("file Excel đi qua send_files của lõi, đúng tài khoản, HOME, cuộc chat, lời nhắn",
+      len(_gui) == 1 and _gui[0]["conn_id"] == "c1" and _gui[0]["home"] == MOT[0]["home"]
+      and _gui[0]["thread_id"] == "t1" and _gui[0]["caption"] == "Gửi chị danh sách"
+      and _gui[0]["files"] == [(VAULT / "danh-sach.xlsx").resolve()])
+check("thành công trả JSON kind=file", json.loads(r)["kind"] == "file" and json.loads(r)["files"] == ["danh-sach.xlsx"])
+
+_gui.clear()
 r = goi({"thread_id": "t1", "paths": ["bao-cao.pdf"]})
-check("file không phải ảnh thì đi đường send-file",
-      json.loads(r)["kind"] == "file" and "send-file" in _da_chay[0]["argv"])
+check("PDF cũng đi đường MCP", len(_gui) == 1 and not _da_chay and json.loads(r)["kind"] == "file")
+_gui.clear()
+r = goi({"thread_id": "t1", "paths": ["attachments/so-do.bmp"]})
+check("CANARY: ảnh .bmp cũng là FILE với zca-js nên đi đường MCP (đi CLI là treo)", len(_gui) == 1 and not _da_chay)
+
+_tra["v"] = (False, None, "Zalo did not confirm the upload of danh-sach.xlsx within 60s. Nothing was sent.")
+r = goi({"thread_id": "t1", "paths": ["danh-sach.xlsx"]})
+check("Zalo không xác nhận thì ERROR kèm nguyên nhân, không báo đã gửi", r.startswith("ERROR") and "Nothing was sent" in r)
+_tra["v"] = (False, None, "quá 120 " + P.zalo_cli.TIMEOUT_MARK)
+r = goi({"thread_id": "t1", "paths": ["danh-sach.xlsx"]})
+check("lời gọi MCP quá giờ thì nhắc kiểm cuộc chat trước khi gửi lại (file có thể đã tới)",
+      r.startswith("ERROR") and "kiểm tra cuộc chat" in r)
+
+del P.zalo_cli.send_files
+_gui.clear()
+r = goi({"thread_id": "t1", "paths": ["danh-sach.xlsx"]})
+check("CANARY: Javis cũ chưa có send_files thì báo cập nhật NGAY, không chạy CLI (không treo 120 giây)",
+      r.startswith("ERROR") and "0.126.0" in r and not _da_chay and not _gui)
+if co_san is not None:
+    P.zalo_cli.send_files = co_san
 
 r = goi({"thread_id": "t1", "paths": ["attachments/anh.jpg", "bao-cao.pdf"]})
 check("trộn ảnh với file thì từ chối chứ không tự đoán", r.startswith("ERROR") and not _da_chay)
