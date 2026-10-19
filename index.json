@@ -1,7 +1,7 @@
 {
   "format": "javis-pack-index",
   "format_version": 1,
-  "updated": "2026-10-14",
+  "updated": "2026-10-18",
   "store": {
     "name": "Kho cài đặt Javis",
     "url": "https://github.com/blogminhquy/javis-store"
@@ -2451,6 +2451,382 @@
         "url": "dist/javis-zalo-1.3.0.zip",
         "sha256": "0ab452b92720971d5b36a2cf1e6eca891b258bb7a9f3c9d60b51df1d65a411fa",
         "size": 39114
+      }
+    },
+    {
+      "id": "javis.ecc-marketing",
+      "kind": "skill",
+      "name": {
+        "vi": "ECC: Marketing & nội dung",
+        "en": "ECC: Marketing & content"
+      },
+      "description": {
+        "vi": "9 skill marketing của ECC: lên chiến dịch đa kênh, viết bài dài đúng giọng thương hiệu, phỏng vấn dựng brandbook, hệ thống nội dung social, đăng chéo nền tảng, SEO, tạo ảnh/video AI qua fal.ai, X API.",
+        "en": "9 marketing skills from ECC: multi-channel campaigns, long-form writing in a brand voice, a brandbook interview, social content systems, cross-posting, SEO, fal.ai media, the X API."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Affaan Mustafa",
+        "url": "https://github.com/affaan-m/ECC"
+      },
+      "category": "marketing",
+      "category_label": {
+        "vi": "Marketing",
+        "en": "Marketing"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-10-18",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.ecc-marketing",
+      "source": "https://github.com/affaan-m/ECC",
+      "license": "MIT",
+      "provides": {
+        "skills": [
+          "article-writing",
+          "brand-discovery",
+          "brand-voice",
+          "content-engine",
+          "crosspost",
+          "fal-ai-media",
+          "marketing-campaign",
+          "seo",
+          "x-api"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-ecc-marketing-1.0.0.zip",
+        "sha256": "4c517383211c0f4685065d9c8b96fac759f3194705f04b6238fed8cd65321e26",
+        "size": 37343
+      }
+    },
+    {
+      "id": "javis.ecc-kinh-doanh",
+      "kind": "skill",
+      "name": {
+        "vi": "ECC: Kinh doanh & chiến lược",
+        "en": "ECC: Business & strategy"
+      },
+      "description": {
+        "vi": "12 skill kinh doanh của ECC: nghiên cứu thị trường, quy trình phân tích đối thủ 3 bước, thẩm định sản phẩm trước khi làm, tài liệu và thư gọi vốn, tìm khách tiềm năng, hội đồng 4 góc nhìn để ra quyết định, dự báo tồn kho, xử lý đổi trả.",
+        "en": "12 business skills from ECC: market research, a 3-step competitor analysis pipeline, product validation, investor materials and outreach, lead intelligence, a 4-voice decision council, demand planning, returns handling."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Affaan Mustafa",
+        "url": "https://github.com/affaan-m/ECC"
+      },
+      "category": "ban-hang",
+      "category_label": {
+        "vi": "Bán hàng",
+        "en": "Sales"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-10-18",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.ecc-kinh-doanh",
+      "source": "https://github.com/affaan-m/ECC",
+      "license": "MIT",
+      "provides": {
+        "skills": [
+          "benchmark-methodology",
+          "competitive-platform-analysis",
+          "competitive-report-structure",
+          "council",
+          "customer-billing-ops",
+          "inventory-demand-planning",
+          "investor-materials",
+          "investor-outreach",
+          "lead-intelligence",
+          "market-research",
+          "product-lens",
+          "returns-reverse-logistics"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-ecc-kinh-doanh-1.0.0.zip",
+        "sha256": "dc98a5173b36f7e67272fd9c4c86a45e78778737e3363c2e668ddb12544bfec3",
+        "size": 62895
+      }
+    },
+    {
+      "id": "javis.ecc-nghien-cuu",
+      "kind": "skill",
+      "name": {
+        "vi": "ECC: Nghiên cứu & thu thập dữ liệu",
+        "en": "ECC: Research & data collection"
+      },
+      "description": {
+        "vi": "6 skill nghiên cứu của ECC: báo cáo nghiên cứu sâu có trích dẫn, tìm kiếm Exa, tổng quan tài liệu khoa học, chấm chất lượng bài nghiên cứu, dựng agent cào dữ liệu công khai theo lịch, bóc tách văn bản có cấu trúc rẻ mà chuẩn.",
+        "en": "6 research skills from ECC: cited deep-research reports, Exa search, literature reviews, scholarly evaluation, a scheduled public-data scraping agent, and cheap accurate structured-text extraction."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Affaan Mustafa",
+        "url": "https://github.com/affaan-m/ECC"
+      },
+      "category": "nghien-cuu",
+      "category_label": {
+        "vi": "Nghiên cứu",
+        "en": "Research"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-10-18",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.ecc-nghien-cuu",
+      "source": "https://github.com/affaan-m/ECC",
+      "license": "MIT",
+      "provides": {
+        "skills": [
+          "data-scraper-agent",
+          "deep-research",
+          "exa-search",
+          "regex-vs-llm-structured-text",
+          "scientific-thinking-literature-review",
+          "scientific-thinking-scholar-evaluation"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-ecc-nghien-cuu-1.0.0.zip",
+        "sha256": "8232740829996d49f531603182d783b9fea549740670b5eb557708d15fdc9c78",
+        "size": 27180
+      }
+    },
+    {
+      "id": "javis.ecc-ai-agents",
+      "kind": "skill",
+      "name": {
+        "vi": "ECC: Xây và vận hành AI agent",
+        "en": "ECC: Building and running AI agents"
+      },
+      "description": {
+        "vi": "12 skill của ECC cho người dựng hệ thống AI agent: kiến trúc hệ điều hành đa agent, vòng lặp tự chạy có cổng kiểm, soát lỗi thiết kế vòng lặp, tự gỡ lỗi agent, thiết kế bộ tool, bảo mật agent, giảm chi phí LLM, prompt caching, eval, kiểm chéo hai người duyệt.",
+        "en": "12 ECC skills for people building AI agent systems: multi-agent OS architecture, gated autonomous loops, loop design review, agent self-debugging, tool design, agent security, LLM cost, prompt caching, evals, dual-reviewer verification."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Affaan Mustafa",
+        "url": "https://github.com/affaan-m/ECC"
+      },
+      "category": "tro-ly-ai",
+      "category_label": {
+        "vi": "Trợ lý AI",
+        "en": "AI assistants"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-10-18",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.ecc-ai-agents",
+      "source": "https://github.com/affaan-m/ECC",
+      "license": "MIT",
+      "provides": {
+        "skills": [
+          "agent-harness-construction",
+          "agent-introspection-debugging",
+          "agent-security-hardening",
+          "agentic-os",
+          "continuous-agent-loop",
+          "cost-aware-llm-pipeline",
+          "eval-harness",
+          "iterative-retrieval",
+          "loop-design-check",
+          "prompt-caching-strategy",
+          "santa-method",
+          "token-budget-advisor"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-ecc-ai-agents-1.0.0.zip",
+        "sha256": "ae619e78905e2bd30a27ccdc675320376dc1baa6fbf1d025f7ec52f1980349ca",
+        "size": 48533
+      }
+    },
+    {
+      "id": "javis.ecc-code-chat-luong",
+      "kind": "skill",
+      "name": {
+        "vi": "ECC: Code chất lượng",
+        "en": "ECC: Code quality"
+      },
+      "description": {
+        "vi": "9 skill giữ chất lượng code của ECC: chuẩn viết code chung, xử lý lỗi, soát bảo mật, vòng kiểm chứng 6 bước trước khi mở PR, TDD, soát sẵn sàng chạy thật, tìm thư viện có sẵn trước khi tự viết, làm quen codebase lạ, quy trình git.",
+        "en": "9 code-quality skills from ECC: coding standards, error handling, security review, a 6-phase verification loop before a PR, TDD, production readiness audits, search before building, codebase onboarding, git workflow."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Affaan Mustafa",
+        "url": "https://github.com/affaan-m/ECC"
+      },
+      "category": "lap-trinh",
+      "category_label": {
+        "vi": "Lập trình",
+        "en": "Development"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-10-18",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.ecc-code-chat-luong",
+      "source": "https://github.com/affaan-m/ECC",
+      "license": "MIT",
+      "provides": {
+        "skills": [
+          "codebase-onboarding",
+          "coding-standards",
+          "ecc-security-review",
+          "error-handling",
+          "git-workflow",
+          "production-audit",
+          "search-first",
+          "tdd-workflow",
+          "verification-loop"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-ecc-code-chat-luong-1.0.0.zip",
+        "sha256": "9422ec574ac75cecf6d79414848ef745006a9e5d9c143d0aa3f20d9ea545e1ea",
+        "size": 50585
+      }
+    },
+    {
+      "id": "javis.ecc-backend-web",
+      "kind": "skill",
+      "name": {
+        "vi": "ECC: Backend & web",
+        "en": "ECC: Backend & web"
+      },
+      "description": {
+        "vi": "11 skill mẫu thiết kế của ECC cho web app: REST API, backend Node, React/Next.js, Python và pytest, PostgreSQL, migration an toàn, triển khai CI/CD, Docker, test E2E bằng Playwright, viết MCP server.",
+        "en": "11 ECC pattern skills for web apps: REST APIs, Node backends, React/Next.js, Python and pytest, PostgreSQL, safe migrations, CI/CD deployment, Docker, Playwright E2E tests, MCP servers."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Affaan Mustafa",
+        "url": "https://github.com/affaan-m/ECC"
+      },
+      "category": "lap-trinh",
+      "category_label": {
+        "vi": "Lập trình",
+        "en": "Development"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-10-18",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.ecc-backend-web",
+      "source": "https://github.com/affaan-m/ECC",
+      "license": "MIT",
+      "provides": {
+        "skills": [
+          "api-design",
+          "backend-patterns",
+          "database-migrations",
+          "deployment-patterns",
+          "docker-patterns",
+          "e2e-testing",
+          "frontend-patterns",
+          "mcp-server-patterns",
+          "postgres-patterns",
+          "python-patterns",
+          "python-testing"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-ecc-backend-web-1.0.0.zip",
+        "sha256": "37705d07cb85cb59f6169726e6f9ec5fcc7c7ead2601550cb32b8576a0a9b99f",
+        "size": 55902
+      }
+    },
+    {
+      "id": "javis.ecc-tro-ly-kinh-doanh",
+      "kind": "agent",
+      "name": {
+        "vi": "ECC: Trợ lý marketing & điều hành",
+        "en": "ECC: Marketing & operations agents"
+      },
+      "description": {
+        "vi": "4 trợ lý của ECC: chiến lược gia marketing lo trọn chiến dịch từ định vị tới bản copy, chuyên gia SEO soát kỹ thuật và nội dung, chánh văn phòng phân loại tin nhắn đa kênh rồi soạn trả lời, và người chấm chất lượng đầu ra theo 5 tiêu chí.",
+        "en": "4 ECC agents: a marketing strategist who runs a campaign from positioning to copy, an SEO specialist, a chief of staff who triages multi-channel messages and drafts replies, and an evaluator who scores output on 5 axes."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Affaan Mustafa",
+        "url": "https://github.com/affaan-m/ECC"
+      },
+      "category": "marketing",
+      "category_label": {
+        "vi": "Marketing",
+        "en": "Marketing"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-10-18",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.ecc-tro-ly-kinh-doanh",
+      "source": "https://github.com/affaan-m/ECC",
+      "license": "MIT",
+      "provides": {
+        "agents": [
+          "ecc-cham-chat-luong",
+          "ecc-chanh-van-phong",
+          "ecc-marketing",
+          "ecc-seo"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-ecc-tro-ly-kinh-doanh-1.0.0.zip",
+        "sha256": "cb10d5df9df316dc4004afd6ce54dca907e70ec823d10eae5fc28a238d21896f",
+        "size": 17454
+      }
+    },
+    {
+      "id": "javis.ecc-doi-lap-trinh",
+      "kind": "agent",
+      "name": {
+        "vi": "ECC: Đội lập trình",
+        "en": "ECC: Engineering team"
+      },
+      "description": {
+        "vi": "17 trợ lý lập trình của ECC: lập kế hoạch, kiến trúc, review code, soát bảo mật, sửa lỗi build, đơn giản hoá code, săn lỗi bị nuốt, tối ưu hiệu năng, review database, Python, TypeScript, React, TDD, dọn code chết, cập nhật tài liệu, test E2E, tra tài liệu thư viện.",
+        "en": "17 ECC engineering agents: planner, architect, code reviewer, security reviewer, build fixer, code simplifier, silent-failure hunter, performance, database, Python, TypeScript and React reviewers, TDD guide, dead-code cleaner, doc updater, E2E runner, docs lookup."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Affaan Mustafa",
+        "url": "https://github.com/affaan-m/ECC"
+      },
+      "category": "lap-trinh",
+      "category_label": {
+        "vi": "Lập trình",
+        "en": "Development"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-10-18",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.ecc-doi-lap-trinh",
+      "source": "https://github.com/affaan-m/ECC",
+      "license": "MIT",
+      "provides": {
+        "agents": [
+          "ecc-architect",
+          "ecc-build-error-resolver",
+          "ecc-code-reviewer",
+          "ecc-code-simplifier",
+          "ecc-database-reviewer",
+          "ecc-doc-updater",
+          "ecc-docs-lookup",
+          "ecc-e2e-runner",
+          "ecc-performance-optimizer",
+          "ecc-planner",
+          "ecc-python-reviewer",
+          "ecc-react-reviewer",
+          "ecc-refactor-cleaner",
+          "ecc-security-reviewer",
+          "ecc-silent-failure-hunter",
+          "ecc-tdd-guide",
+          "ecc-typescript-reviewer"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-ecc-doi-lap-trinh-1.0.0.zip",
+        "sha256": "e579a01ee7207132a947c120d80733aeb69b3f9a0f05de448ed86364af661fbd",
+        "size": 66321
       }
     }
   ]
