@@ -142,9 +142,9 @@
         "vi": "Pancake hội thoại"
       },
       "description": {
-        "vi": "Hộp thư fanpage trên Pancake (pages.fm): đọc hội thoại, tin nhắn, bình luận, khách hàng, thẻ và thống kê nhân viên; gắn thẻ, phân công, ghi chú khách, trả lời khách. Mỗi page một kết nối, dán Page ID và Page Access Token là xong."
+        "vi": "Hộp thư fanpage trên Pancake (pages.fm): đọc hội thoại, tin nhắn, bình luận, khách hàng, thẻ và thống kê nhân viên; gắn thẻ, phân công, ghi chú khách, trả lời khách bằng chữ hoặc ảnh. Mỗi page một kết nối, dán Page ID và Page Access Token là xong."
       },
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": {
         "name": "Javis"
       },
@@ -154,7 +154,7 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-10-14",
+      "updated": "2026-10-19",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.pancake-chat",
       "icon": "packs/javis.pancake-chat/assets/pancake-chat.png",
       "provides": {
@@ -163,9 +163,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-pancake-chat-1.0.0.zip",
-        "sha256": "a3ebae730db24b098378ab195f259b2c48c2751c2b99daa5c259df69326ba3d1",
-        "size": 8535
+        "url": "dist/javis-pancake-chat-1.1.0.zip",
+        "sha256": "e8203a04a630c012a1b90b9afbc1deeab0781fd6f922ef532056b867ac50ca43",
+        "size": 8616
       }
     },
     {

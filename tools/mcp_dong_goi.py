@@ -39,7 +39,8 @@ Khi không có MCP nào dùng được cho một dịch vụ, kho viết một c
 `mcp-nguon/<tên>/`. Nó KHÔNG được có thư viện phụ thuộc: tệp `.tgz` đóng bằng Python ở đây (không qua
 npm), ghim ngày giờ và quyền tệp, nên đóng lại luôn ra đúng một sha256, và trình kiểm so được từng
 tệp trong `.tgz` với thư mục nguồn. Sửa mã mà quên đóng lại là CI đỏ. Đổi mã thì tăng `phien_ban`
-(tên tệp mang số bản, không bao giờ ghi đè) và ra bản gói mới.
+(tên tệp mang số bản, không bao giờ ghi đè) và ra bản gói mới. Bản cũ ghi vào `ban_cu` (phien_ban + sha256)
+và tệp của nó ở lại `mcp/`: máy chưa cập nhật gói vẫn tải đúng URL cũ.
 """
 import hashlib
 import json
@@ -144,6 +145,15 @@ def doi_chieu():
             if lech:
                 loi.append(f"mcp/{tep.name}: khác mã nguồn {m['thu_muc']} ở {', '.join(lech)} "
                            f"(sửa mã thì tăng phien_ban rồi chạy tools/mcp_dong_goi.py {m['ten']})")
+        # Bản cũ đã phát hành (`ban_cu`): GIỮ tệp, vì máy còn cài bản gói cũ vẫn tải đúng URL đó. Mỗi bản ghi
+        # sha256 lúc phát hành, nên tệp cũ bị sửa hay mất đều đỏ như tệp hiện hành.
+        for cu in m.get("ban_cu") or []:
+            tep_cu = THU_MUC / ten_tep({**m, **cu})
+            biet.add(tep_cu.name)
+            if not tep_cu.is_file():
+                loi.append(f"mcp/{tep_cu.name}: bản cũ khai trong ban_cu nhưng không có tệp (không được xoá tệp đã phát hành)")
+            elif sha256(tep_cu) != cu.get("sha256"):
+                loi.append(f"mcp/{tep_cu.name}: sha256 không khớp ban_cu trong mcp/nguon.json")
     for p in THU_MUC.glob("*.tgz") if THU_MUC.is_dir() else []:
         if p.name not in biet:
             loi.append(f"mcp/{p.name}: tệp lạ, không có trong mcp/nguon.json")

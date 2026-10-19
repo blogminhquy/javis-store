@@ -3,13 +3,13 @@
   "name": "Pancake hội thoại",
   "icon": "assets/pancake-chat.png",
   "category": "Nhắn tin",
-  "description": "Hộp thư fanpage trên Pancake (pages.fm): đọc hội thoại, tin nhắn, bình luận, khách hàng, thẻ và thống kê nhân viên; gắn thẻ, phân công, ghi chú khách, trả lời khách. Mỗi page một kết nối, dán Page ID và Page Access Token là xong.",
+  "description": "Hộp thư fanpage trên Pancake (pages.fm): đọc hội thoại, tin nhắn, bình luận, khách hàng, thẻ và thống kê nhân viên; gắn thẻ, phân công, ghi chú khách, trả lời khách bằng chữ hoặc ảnh. Mỗi page một kết nối, dán Page ID và Page Access Token là xong.",
   "status": "beta",
   "transport": "stdio",
   "command": "npx",
   "args": [
     "-y",
-    "--package=https://raw.githubusercontent.com/blogminhquy/javis-store/main/mcp/pancake-chat-mcp-1.0.0.tgz",
+    "--package=https://raw.githubusercontent.com/blogminhquy/javis-store/main/mcp/pancake-chat-mcp-1.1.0.tgz",
     "pancake-chat-mcp"
   ],
   "ngoai_le_ban_chinh_thuc": "MCP do kho tự viết (mcp-nguon/pancake-chat-mcp) vì không có MCP Pancake hội thoại nào dùng được; không có bản npm nào để đi theo. Xem tools/mcp_dong_goi.py.",
@@ -78,6 +78,7 @@
     ],
     "danger": [
       "pancake_send_message",
+      "pancake_send_image",
       "*send*",
       "*reply*",
       "*delete*"
@@ -87,5 +88,5 @@
     "pancake_posts_list"
   ],
   "default_perm": "readonly",
-  "risk": "Mức Chỉ đọc (mặc định) chỉ xem hội thoại, tin nhắn, khách hàng và thống kê. An toàn.\n\nMức Ghi nháp cho phép Javis gắn hoặc gỡ thẻ, đánh dấu đã đọc, phân công hội thoại cho nhân viên và thêm ghi chú khách. Nhân viên của page thấy ngay các thay đổi này.\n\nMức Toàn quyền thêm quyền GỬI TIN cho khách thật dưới tên page, cả trả lời bình luận công khai. Tin đã gửi không thu hồi được.\n\nChỉ nâng quyền khi bạn thật sự muốn Javis trả lời khách thay mình."
+  "risk": "Mức Chỉ đọc (mặc định) chỉ xem hội thoại, tin nhắn, khách hàng và thống kê. An toàn.\n\nMức Ghi nháp cho phép Javis gắn hoặc gỡ thẻ, đánh dấu đã đọc, phân công hội thoại cho nhân viên và thêm ghi chú khách. Nhân viên của page thấy ngay các thay đổi này.\n\nMức Toàn quyền thêm quyền GỬI TIN và GỬI ẢNH cho khách thật dưới tên page, cả trả lời bình luận công khai. Ảnh chỉ lấy từ file ảnh trong máy (jpg, png, gif, webp). Tin đã gửi không thu hồi được.\n\nChỉ nâng quyền khi bạn thật sự muốn Javis trả lời khách thay mình."
 }
