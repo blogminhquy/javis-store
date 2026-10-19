@@ -7,6 +7,7 @@ MCP server for the conversations of ONE Pancake page (pages.fm), built for the J
 - No dependencies. Node >= 18. stdio transport.
 
 Tools: conversations, messages, customers, tags, posts, staff, page/tag/staff/engagement statistics (read);
-tag a conversation, mark read/unread, assign, add a customer note (write); send a message to a customer (danger).
+tag a conversation, mark read/unread, assign, add a customer note (write); send a message or local images to a
+customer (danger). Images (1.1.0) are checked by their first bytes (jpg/png/gif/webp, 10 MB max) before upload.
 
 Packed into `../../mcp/` by `python tools/mcp_dong_goi.py pancake-chat-mcp`.

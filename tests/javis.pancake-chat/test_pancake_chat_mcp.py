@@ -11,6 +11,8 @@ Pinned:
   3. Dates: "YYYY-MM-DD" is Vietnam time; staff/engagement reports get Pancake's "dd/mm/yyyy HH:MM:SS - ..." range.
   4. A Pancake error comes back as isError, and the token is cut out of the message.
   5. Missing credentials: a clear error, no request sent.
+  6. Images (1.1.0): upload_contents (multipart, field "file") then reply_inbox with content_ids, text in its own call
+     (Pancake rejects message + content_ids together); a file that is not an image never leaves the machine.
 """
 import json
 import shutil
@@ -41,6 +43,7 @@ def check(name, cond, detail=""):
 
 TOKEN = "tok-SECRET-123"
 SEEN = []
+UPLOADS = []
 
 
 class Fake(BaseHTTPRequestHandler):
@@ -57,9 +60,14 @@ class Fake(BaseHTTPRequestHandler):
 
     def _do(self, method):
         n = int(self.headers.get("Content-Length") or 0)
-        body = json.loads(self.rfile.read(n) or b"null") if n else None
+        raw = self.rfile.read(n) if n else b""
         u = urlparse(self.path)
         q = {k: v[0] for k, v in parse_qs(u.query).items()}
+        if u.path.endswith("/upload_contents"):
+            UPLOADS.append({"q": q, "ctype": self.headers.get("Content-Type", ""), "raw": raw})
+            SEEN.append({"method": method, "path": u.path, "q": q, "body": None})
+            return self._reply(200, {"success": True, "id": f"img{len(UPLOADS)}", "type": "PHOTO"})
+        body = json.loads(raw or b"null") if n else None
         SEEN.append({"method": method, "path": u.path, "q": q, "body": body})
         if u.path.endswith("/tags") and method == "GET" and q.get("page_access_token") != TOKEN:
             return self._reply(401, {"success": False, "message": "bad token " + q.get("page_access_token", "")})
@@ -130,10 +138,11 @@ tools, kq, err, raw = session(ENV, CALLS)
 MONG = {"pancake_conversations_list", "pancake_messages_get", "pancake_customers_list", "pancake_tags_list",
         "pancake_posts_list", "pancake_staff_list", "pancake_stats_page", "pancake_stats_tags", "pancake_stats_staff",
         "pancake_stats_engagement", "pancake_conversation_tag", "pancake_conversation_mark_read",
-        "pancake_conversation_assign", "pancake_customer_add_note", "pancake_send_message"}
-check("đủ 15 tool đúng tên", set(tools) == MONG, (sorted(set(tools) ^ MONG), err[-300:]))
+        "pancake_conversation_assign", "pancake_customer_add_note", "pancake_send_message", "pancake_send_image"}
+check("đủ 16 tool đúng tên", set(tools) == MONG, (sorted(set(tools) ^ MONG), err[-300:]))
 tl = {t["name"]: t for t in raw[2]["result"]["tools"]}
 check("tool gửi tin đánh dấu destructiveHint", tl["pancake_send_message"]["annotations"]["destructiveHint"] is True)
+check("tool gửi ảnh đánh dấu destructiveHint", tl["pancake_send_image"]["annotations"]["destructiveHint"] is True)
 check("tool đọc đánh dấu readOnlyHint", all(tl[n]["annotations"]["readOnlyHint"] for n in MONG if "_list" in n or "stats" in n))
 
 # ---- 2. paths, versions, token, bodies ----
@@ -180,6 +189,60 @@ SEEN.clear()
 _t, kq2, _e, _r = session({"PANCAKE_PAGE_ID": "", "PANCAKE_PAGE_ACCESS_TOKEN": ""}, [("pancake_tags_list", {})])
 check("thiếu token: báo lỗi rõ, không gửi request", kq2[0].get("isError") and "PANCAKE_PAGE_ACCESS_TOKEN"
       in kq2[0]["content"][0]["text"] and SEEN == [], (kq2, SEEN))
+
+# ---- 6. images ----
+import os  # noqa: E402
+import tempfile  # noqa: E402
+TMP = Path(tempfile.mkdtemp(prefix="pancake-img-"))
+PNG = b"\x89PNG\r\n\x1a\n" + b"\x00" * 64
+JPG = b"\xff\xd8\xff\xe0" + b"\x00" * 64
+(TMP / "mi.png").write_bytes(PNG)
+(TMP / "sot.jpg").write_bytes(JPG)
+(TMP / "khoa.jpg").write_text("-----BEGIN PRIVATE KEY----- not an image", encoding="utf-8")
+MSG = P.format("v1", "/conversations/pg1_77/messages")
+
+# Inbox: one call per session so the order of requests is the order the tool made them.
+SEEN.clear(); UPLOADS.clear()
+_t, ki, _e, _r = session(ENV, [("pancake_send_image", {"conversation_id": "pg1_77", "message": "Dạ gửi chị ảnh mì và sốt",
+                                                        "paths": [str(TMP / "mi.png"), str(TMP / "sot.jpg")]})])
+check("gửi ảnh inbox: thành công", not ki[0].get("isError") and '"sent_images":2' in ki[0]["content"][0]["text"], ki)
+check("tải 2 ảnh lên upload_contents (API v1) kèm token",
+      [s["path"] for s in SEEN[:2]] == [P.format("v1", "/upload_contents")] * 2
+      and all(u["q"].get("page_access_token") == TOKEN for u in UPLOADS), SEEN)
+check("tải lên dạng multipart, trường 'file', đúng nội dung ảnh",
+      all("multipart/form-data" in u["ctype"] and b'name="file"' in u["raw"] for u in UPLOADS)
+      and PNG in UPLOADS[0]["raw"] and JPG in UPLOADS[1]["raw"], [u["ctype"] for u in UPLOADS])
+gui = [s["body"] for s in SEEN if s["path"] == MSG]
+check("lời nhắn đi riêng TRƯỚC, rồi mỗi ảnh một tin content_ids (không gửi message chung với content_ids)",
+      gui == [{"action": "reply_inbox", "message": "Dạ gửi chị ảnh mì và sốt"},
+              {"action": "reply_inbox", "content_ids": ["img1"]},
+              {"action": "reply_inbox", "content_ids": ["img2"]}], gui)
+
+# Comment reply: exactly one image, with text, in one call.
+SEEN.clear(); UPLOADS.clear()
+_t, kc, _e, _r = session(ENV, [("pancake_send_image", {"conversation_id": "pg1_77", "message": "ảnh đây ạ",
+                                                        "reply_to_comment_id": "cm9", "paths": [str(TMP / "mi.png")]})])
+gui = [s["body"] for s in SEEN if s["path"] == MSG]
+check("trả lời bình luận kèm ảnh: reply_comment + message + content_ids",
+      not kc[0].get("isError") and gui == [{"action": "reply_comment", "message_id": "cm9", "message": "ảnh đây ạ",
+                                            "content_ids": ["img1"]}], (kc, gui))
+
+# Refusals: nothing uploaded, nothing sent.
+SEEN.clear(); UPLOADS.clear()
+_t, kr, _e, _r = session(ENV, [
+    ("pancake_send_image", {"conversation_id": "pg1_77", "paths": [str(TMP / "mi.png"), str(TMP / "khoa.jpg")]}),
+    ("pancake_send_image", {"conversation_id": "pg1_77", "paths": ["attachments/mi.png"]}),
+    ("pancake_send_image", {"conversation_id": "pg1_77", "paths": [str(TMP / "khong-co.png")]}),
+    ("pancake_send_image", {"conversation_id": "pg1_77", "reply_to_comment_id": "cm9", "message": "x",
+                            "paths": [str(TMP / "mi.png"), str(TMP / "sot.jpg")]}),
+])
+txt = [(r.get("content") or [{}])[0].get("text", "") for r in kr]
+check("CANARY: file không phải ảnh (đuôi .jpg giả) bị từ chối, KHÔNG tải gì lên, kể cả ảnh thật đi cùng",
+      kr[0].get("isError") and "không phải ảnh" in txt[0], txt[0])
+check("đường dẫn tương đối bị từ chối, nói cách ghép Vault root", kr[1].get("isError") and "Vault root" in txt[1], txt[1])
+check("file không có: báo rõ", kr[2].get("isError") and "không thấy file" in txt[2], txt[2])
+check("bình luận chỉ nhận đúng 1 ảnh", kr[3].get("isError") and "đúng 1 ảnh" in txt[3], txt[3])
+check("CANARY: các lượt bị từ chối không gửi request nào", SEEN == [] and UPLOADS == [], SEEN)
 
 srv.shutdown()
 print()
