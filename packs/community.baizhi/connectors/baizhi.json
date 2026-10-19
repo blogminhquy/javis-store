@@ -1,0 +1,32 @@
+{
+  "id": "baizhi",
+  "name": "Baizhi MCP (百智云工具包)",
+  "icon": "assets/baizhi.png",
+  "category": "Nghiên cứu",
+  "description": "Optional Baizhi hosted MCP for research and webpage tools, using your own Baizhi account and key. Community connector, not an official Javis or Baizhi endorsement. / Kết nối MCP Baizhi tùy chọn cho nghiên cứu và trang web, dùng tài khoản và key riêng.",
+  "status": "beta",
+  "transport": "http",
+  "url": "https://agent-toolkit.app.baizhi.cloud/mcp",
+  "auth": {
+    "type": "apikey",
+    "fields": [
+      {
+        "key": "api_key",
+        "label": "Baizhi API key / Key Baizhi",
+        "placeholder": "Paste your dedicated Baizhi key / Dán key Baizhi riêng",
+        "header": "Authorization: Bearer {api_key}"
+      }
+    ],
+    "guide": "Install adds this template only. Enter your own dedicated Baizhi key and press Connect to initialize the remote service and list its tools. Connect/Test makes HTTP requests. The key input is visible text in this Javis version. Store it only on a Javis machine you trust; encryption may fall back to plaintext if unavailable.\n\nCài gói chỉ thêm mẫu. Nhập key Baizhi riêng rồi bấm Kết nối để khởi tạo và liệt kê tool. Kết nối/Thử có gọi HTTP. Ô key hiển thị chữ; chỉ dùng máy Javis tin cậy. Mã hóa có thể lui về chữ thường nếu không khả dụng.",
+    "guide_url": "https://github.com/chaitin/baizhi-agent-toolkit"
+  },
+  "tool_meta": {
+    "read": [],
+    "write": [],
+    "danger": [
+      "*"
+    ]
+  },
+  "default_perm": "readonly",
+  "risk": "External hosted service: your requests, URLs and tool arguments go to Baizhi; use your own Baizhi account and key. Calls may consume credits or paid allowance. No free-service or read-only guarantee. This pack classifies EVERY tool as danger, including future or unknown tools, so no tool runs at Read-only or Draft. To call tools, deliberately grant this connection Full permission. Ordinary sessions require Full mode, which has no separate confirmation per call. On Javis 0.207.0 or later, gated Team steps can list Full connection tools but require owner approval of each exact call; missing or unapproved Team context is rejected. Review the actual service tool list, destination and cost before enabling calls. A real Baizhi account, live tool schema and production effects have not been verified.\n\nDịch vụ bên ngoài: yêu cầu, URL và tham số tool gửi đến Baizhi, có thể tiêu hạn mức/tiền tài khoản. Mọi tool đều xếp nguy hiểm, kể cả tool mới: Chỉ đọc và Ghi nháp không chạy tool. Chỉ nâng kết nối lên Toàn quyền sau khi xem tool và chi phí. Phiên thông thường cần chế độ Toàn quyền và không hỏi lại từng lần. Từ Javis 0.207.0, bước nhóm cần duyệt phải được chủ nhóm duyệt đúng từng lời gọi. Chưa kiểm với tài khoản Baizhi thật."
+}
