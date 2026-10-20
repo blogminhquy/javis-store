@@ -8,12 +8,15 @@
 //   - talks to https://pages.fm ONLY. The page token goes in the query string because that is how Pancake's API
 //     authenticates; it is never logged and is cut out of every error message;
 //   - one page per connection: PANCAKE_PAGE_ID + PANCAKE_PAGE_ACCESS_TOKEN (Page settings > Tools; it does not expire).
+//   - images (1.1.0): pancake_send_image reads LOCAL image files only, checks the file really is an image by its
+//     first bytes (jpg/png/gif/webp, at most 10 MB), uploads it to the page, then sends it. Anything that is not an
+//     image is refused before a byte leaves the machine, so the tool cannot be used to post a key or document out.
 //
 // API reference: Pancake's public OpenAPI (https://developer.pancake.biz), Page API v1 and v2.
 
 "use strict";
 
-const VERSION = "1.0.0";
+const VERSION = "1.1.0";
 const PAGE_ID = String(process.env.PANCAKE_PAGE_ID || "").trim();
 const TOKEN = String(process.env.PANCAKE_PAGE_ACCESS_TOKEN || "").trim();
 const MAX_OUT = 60000; // characters of JSON handed back to the model per call
@@ -92,6 +95,112 @@ async function call(method, version, path, query, body) {
     throw new Error(redact(`Pancake báo lỗi: ${typeof why === "string" ? why : JSON.stringify(why)}`));
   }
   return data;
+}
+
+// ---- images (1.1.0) ------------------------------------------------------------------------------------------------
+// Pancake's contract (public OpenAPI, Page API v1):
+//   POST /pages/{page_id}/upload_contents  multipart/form-data, field "file"  ->  { success, id, attachment_type|type }
+//   POST /pages/{page_id}/conversations/{id}/messages  { action: "reply_inbox", content_ids: [id] }
+// `message` and `content_ids` are MUTUALLY EXCLUSIVE in reply_inbox (Pancake answers 500 when both are sent), so text
+// goes in its own call. Only Facebook and a few others take several content_ids per call; one image per call works
+// on every platform, so that is what this tool does.
+const IMG_MAX = 10 * 1024 * 1024;
+const IMG_MAX_COUNT = 10;
+const fs = require("fs");
+const nodePath = require("path");
+
+function imageKind(buf) {
+  if (buf.length >= 3 && buf[0] === 0xff && buf[1] === 0xd8 && buf[2] === 0xff) return ["image/jpeg", "jpg"];
+  if (buf.length >= 8 && buf.slice(0, 8).equals(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]))) return ["image/png", "png"];
+  if (buf.length >= 6 && /^GIF8[79]a$/.test(buf.slice(0, 6).toString("latin1"))) return ["image/gif", "gif"];
+  if (buf.length >= 12 && buf.slice(0, 4).toString("latin1") === "RIFF" && buf.slice(8, 12).toString("latin1") === "WEBP") return ["image/webp", "webp"];
+  return null;
+}
+
+function readImage(p) {
+  const raw = String(p || "").trim();
+  if (!raw) throw new Error("đường dẫn ảnh rỗng");
+  if (!nodePath.isAbsolute(raw)) {
+    throw new Error(`'${raw}' không phải đường dẫn tuyệt đối. Ghép Vault root với đường dẫn trong brain, vd <Vault root>/attachments/anh.jpg`);
+  }
+  let st;
+  try {
+    st = fs.statSync(raw);
+  } catch {
+    throw new Error(`không thấy file '${raw}'`);
+  }
+  if (!st.isFile()) throw new Error(`'${raw}' không phải một file`);
+  if (st.size > IMG_MAX) throw new Error(`'${nodePath.basename(raw)}' nặng ${(st.size / 1048576).toFixed(1)} MB, tối đa 10 MB`);
+  const buf = fs.readFileSync(raw);
+  const kind = imageKind(buf);
+  if (!kind) throw new Error(`'${nodePath.basename(raw)}' không phải ảnh jpg, png, gif hay webp`);
+  return { buf, mime: kind[0], name: `${nodePath.basename(raw, nodePath.extname(raw)) || "anh"}.${kind[1]}` };
+}
+
+async function upload(img) {
+  if (!PAGE_ID || !TOKEN) throw new Error("thiếu PANCAKE_PAGE_ID hoặc PANCAKE_PAGE_ACCESS_TOKEN");
+  const url = new URL(`${apiRoot()}/api/public_api/v1/pages/${encodeURIComponent(PAGE_ID)}/upload_contents`);
+  url.searchParams.set("page_access_token", TOKEN);
+  const form = new FormData();
+  form.append("file", new Blob([img.buf], { type: img.mime }), img.name);
+  let res;
+  try {
+    res = await fetch(url, { method: "POST", body: form, headers: { Accept: "application/json" },
+      signal: AbortSignal.timeout(60000), redirect: "error" });
+  } catch (e) {
+    throw new Error(redact(`không tải được ảnh lên Pancake: ${e && e.message ? e.message : e}`));
+  }
+  const text = await res.text();
+  let data;
+  try {
+    data = text ? JSON.parse(text) : {};
+  } catch {
+    data = { raw: text.slice(0, 2000) };
+  }
+  const cid = data && typeof data.id === "string" ? data.id.trim() : "";
+  if (!res.ok || data.success === false || !cid) {
+    const why = (data && (data.message || data.error || data.error_message)) || `HTTP ${res.status}`;
+    throw new Error(redact(`Pancake không nhận ảnh ${img.name}: ${typeof why === "string" ? why : JSON.stringify(why)}`));
+  }
+  return cid;
+}
+
+async function sendImages(a) {
+  const conv = id(a.conversation_id, "conversation_id");
+  let paths = a.paths;
+  if (typeof paths === "string") paths = [paths];
+  paths = (Array.isArray(paths) ? paths : []).map((x) => String(x || "").trim()).filter(Boolean);
+  if (!paths.length) throw new Error("thiếu paths (đường dẫn tuyệt đối tới ảnh)");
+  if (paths.length > IMG_MAX_COUNT) throw new Error(`tối đa ${IMG_MAX_COUNT} ảnh mỗi lần`);
+  const text = String(a.message || "").trim();
+  const comment = String(a.reply_to_comment_id || "").trim();
+  if (comment && (paths.length !== 1 || !text)) {
+    throw new Error("trả lời bình luận kèm ảnh: đúng 1 ảnh và phải có message (Pancake bắt buộc có chữ)");
+  }
+  // Read and check EVERY file before uploading any: one bad path must not leave half the images sent.
+  const imgs = paths.map(readImage);
+  const ids = [];
+  for (const img of imgs) ids.push(await upload(img));
+  const path = `/conversations/${conv}/messages`;
+  if (comment) {
+    await call("POST", "v1", path, {}, { action: "reply_comment", message_id: comment, message: text, content_ids: ids });
+    return { ok: true, sent_images: 1, text_sent: true, kind: "reply_comment" };
+  }
+  let textSent = false;
+  if (text) {
+    await call("POST", "v1", path, {}, { action: "reply_inbox", message: text });
+    textSent = true;
+  }
+  let sent = 0;
+  for (const cid of ids) {
+    try {
+      await call("POST", "v1", path, {}, { action: "reply_inbox", content_ids: [cid] });
+      sent += 1;
+    } catch (e) {
+      throw new Error(`đã gửi ${textSent ? "lời nhắn và " : ""}${sent}/${ids.length} ảnh rồi dừng: ${e.message}`);
+    }
+  }
+  return { ok: true, sent_images: sent, text_sent: textSent, kind: "reply_inbox" };
 }
 
 const id = (v, name) => {
@@ -267,6 +376,22 @@ const TOOLS = [
         : { action: "reply_inbox", message: String(a.message) }),
   },
 ];
+
+TOOLS.push({
+  name: "pancake_send_image",
+  description: "GỬI ẢNH cho khách thật, dưới tên page: ảnh trong máy (vd ảnh trong brain), 1 đến 10 ảnh mỗi lần, " +
+    "kèm lời nhắn nếu muốn (gửi thành tin riêng trước ảnh). Trả lời bình luận kèm ảnh: reply_to_comment_id, đúng 1 ảnh " +
+    "và có message. paths là đường dẫn TUYỆT ĐỐI tới file jpg, png, gif hay webp (tối đa 10 MB). Không thu hồi được.",
+  inputSchema: S({
+    conversation_id: { type: "string" },
+    paths: { type: "array", items: { type: "string" }, minItems: 1, maxItems: IMG_MAX_COUNT,
+      description: "Đường dẫn tuyệt đối tới ảnh, vd <Vault root>/attachments/mi.jpg" },
+    message: { type: "string", description: "Lời nhắn gửi kèm (tuỳ chọn với inbox, bắt buộc khi trả lời bình luận)" },
+    reply_to_comment_id: { type: "string", description: "id bình luận cần trả lời; bỏ trống là gửi vào inbox" },
+  }, ["conversation_id", "paths"]),
+  annotations: { readOnlyHint: false, destructiveHint: true, openWorldHint: true },
+  run: sendImages,
+});
 
 // ---- MCP over stdio ------------------------------------------------------------------------------------------------
 function send(msg) {
