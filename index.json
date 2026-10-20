@@ -2828,6 +2828,42 @@
         "sha256": "e579a01ee7207132a947c120d80733aeb69b3f9a0f05de448ed86364af661fbd",
         "size": 66321
       }
+    },
+{
+      "id": "community.baizhi",
+      "kind": "connector",
+      "name": {
+        "en": "Baizhi MCP (百智云工具包)",
+        "vi": "Baizhi MCP (百智云工具包)"
+      },
+      "description": {
+        "en": "Optional Baizhi hosted research/webpage MCP, using your own account/key and credits. All tool calls require Full permission. Community pack, not official endorsement.",
+        "vi": "MCP Baizhi cho nghiên cứu và trang web, dùng key và hạn mức riêng. Mọi tool cần Toàn quyền. Gói cộng đồng."
+      },
+      "version": "0.1.0",
+      "author": {
+        "name": "ct-jaryn"
+      },
+      "category": "nghien-cuu",
+      "category_label": {
+        "en": "Research",
+        "vi": "Nghiên cứu"
+      },
+      "tier": "data",
+      "verified": false,
+      "updated": "2026-10-19",
+      "homepage": "https://github.com/chaitin/baizhi-agent-toolkit",
+      "icon": "packs/community.baizhi/assets/baizhi.png",
+      "provides": {
+        "connectors": [
+          "baizhi"
+        ]
+      },
+      "download": {
+        "url": "dist/community-baizhi-0.1.0.zip",
+        "sha256": "c6c1c0e2026459412ad6f2d6c17babb295fb75db5b641918d7a258df5f6e3b99",
+        "size": 8965
+      }
     }
-  ]
+]
 }

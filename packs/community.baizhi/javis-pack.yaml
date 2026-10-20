@@ -1,0 +1,12 @@
+format: javis-pack
+spec: 1
+id: community.baizhi
+version: 0.1.0
+name: {en: "Baizhi MCP (百智云工具包)", vi: "Baizhi MCP (百智云工具包)"}
+description: {en: "Optional Baizhi hosted MCP connection for research and webpage tools. Bring your own account and key; usage may consume credits. All tool calls require Full permission.", vi: "Kết nối MCP Baizhi cho nghiên cứu và trang web. Dùng key và hạn mức tài khoản riêng. Mọi tool cần quyền Toàn quyền."}
+author: {name: "ct-jaryn"}
+license: MIT
+homepage: "https://github.com/chaitin/baizhi-agent-toolkit"
+compat: {app: ">=0.183.0"}
+provides:
+  connectors: [connectors/baizhi.json]
