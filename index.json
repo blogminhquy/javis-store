@@ -1,7 +1,7 @@
 {
   "format": "javis-pack-index",
   "format_version": 1,
-  "updated": "2026-10-18",
+  "updated": "2026-10-21",
   "store": {
     "name": "Kho cài đặt Javis",
     "url": "https://github.com/blogminhquy/javis-store"
@@ -2827,6 +2827,54 @@
         "url": "dist/javis-ecc-doi-lap-trinh-1.0.0.zip",
         "sha256": "e579a01ee7207132a947c120d80733aeb69b3f9a0f05de448ed86364af661fbd",
         "size": 66321
+      }
+    },
+    {
+      "id": "javis.founder",
+      "kind": "skill",
+      "name": {
+        "vi": "Founder: Thử ý tưởng kinh doanh",
+        "en": "Founder: Test a business idea"
+      },
+      "description": {
+        "vi": "11 skill của Jake Schincariol (founder-skill) thử một ý tưởng kinh doanh trước khi bỏ tiền: hội đồng quản trị 3 góc nhìn, dò đối thủ, hội đồng 100 người mua giả lập, định giá, dựng offer, CFO tính biên lợi nhuận và điểm hoà vốn, marketing, thương hiệu, vận hành, kế hoạch ra mắt, và bản kế hoạch kinh doanh có kết luận tính từ số.",
+        "en": "11 skills by Jake Schincariol (founder-skill) that test a business idea before you spend: a 3-lens board, a competitor scout, a panel of 100 simulated buyers, pricing, the offer, a CFO for margins and break-even, marketing, brand, operations, a launch plan, and a business plan with a computed verdict."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Jake Schincariol",
+        "url": "https://github.com/Jakeschincariol/founder-skill"
+      },
+      "category": "ban-hang",
+      "category_label": {
+        "vi": "Bán hàng",
+        "en": "Sales"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-10-21",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.founder",
+      "source": "https://github.com/Jakeschincariol/founder-skill",
+      "license": "MIT",
+      "provides": {
+        "skills": [
+          "founder-board",
+          "founder-brand",
+          "founder-cfo",
+          "founder-competitors",
+          "founder-consumer",
+          "founder-launch",
+          "founder-marketing",
+          "founder-offer",
+          "founder-ops",
+          "founder-plan",
+          "founder-pricing"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-founder-1.0.0.zip",
+        "sha256": "48ded73d32e832ae937a832e11043afc42405ee133d3332f6f323d9f3f50c91c",
+        "size": 49505
       }
     }
   ]
