@@ -14,6 +14,11 @@ Gói 1.3.0 (chủ dự án 14/10/2026: làm nốt các lệnh kết bạn thành
 đang chờ mình duyệt và lời mời mình đã gửi, rút lại lời mời, tra nhiều số điện thoại một lượt. Tìm người LẠ theo tên thì Zalo
 không cho: chỉ số điện thoại hoặc username.
 
+Gói 1.4.0 (chủ dự án 26/10/2026: "thêm vào để javis có quyền đổi tên khách ở trên tài khoản zalo"): đặt, bỏ và xem TÊN GỢI NHỚ
+(alias) của bạn bè, bằng `friend alias`, `friend alias-remove`, `friend alias-list`. Tên gợi nhớ chỉ chủ tài khoản thấy, người kia
+không được báo và tên Zalo của họ không đổi, nên hai tool đổi tên ở mức `safe` chứ không phải `full`: không gửi gì cho ai, và bỏ đi
+là về tên cũ.
+
 Duyệt người xin vào NHÓM không nằm ở đây: MCP chuẩn của kết nối Zalo đã có `zalo_list_join_requests` và
 `zalo_review_join_requests`.
 """
@@ -30,6 +35,7 @@ _UID_RE = re.compile(r"^\d{4,25}$")
 _PHONE_RE = re.compile(r"^\+?\d[\d .-]{6,18}\d$")
 _USERNAME_RE = re.compile(r"^@?[A-Za-z0-9._-]{3,40}$")
 MAX_LIST = 50                       # trần số người trả về một lượt: đủ để chọn, không đổ cả danh bạ vào ngữ cảnh model
+MAX_ALIAS = 60                      # tên gợi nhớ: một dòng ngắn hiện thay tên Zalo trong danh sách chat
 MAX_PHONES = 20                     # trần số điện thoại tra một lượt: tra hàng loạt quá dày là kiểu Zalo coi như quét danh bạ
 
 
@@ -316,6 +322,67 @@ async def _undo(args, ctx):
 
 
 # ============================================================
+# Tên gợi nhớ (alias) của bạn bè
+# ============================================================
+async def _aliases(args, ctx):
+    args = args or {}
+    conn, why = _ready(args)
+    if not conn:
+        return why
+    try:
+        page = max(1, int(args.get("page") or 1))
+    except (TypeError, ValueError):
+        page = 1
+    ok, data, err = await zalo_cli.run_cli(conn, ["friend", "alias-list"], [], ["-c", "100", "-p", str(page)])
+    if not ok:
+        return f"ERROR: không đọc được danh sách tên gợi nhớ. {err}"
+    items = (data or {}).get("items") if isinstance(data, dict) else (data if isinstance(data, list) else [])
+    ds = []
+    for it in items or []:
+        it = it if isinstance(it, dict) else {}
+        uid = str(it.get("userId") or it.get("uid") or "")
+        if _UID_RE.match(uid):
+            ds.append({"user_id": uid, "alias": str(it.get("alias") or "")})
+    return _done(account=conn["label"], page=page, count=len(ds), aliases=ds[:MAX_LIST], truncated=len(ds) > MAX_LIST,
+                 note="Mỗi trang tối đa 100 người; còn nữa thì gọi lại với page kế tiếp." if len(ds) >= 100 else "")
+
+
+async def _set_alias(args, ctx):
+    args = args or {}
+    conn, why = _ready(args)
+    if not conn:
+        return why
+    uid, why = _uid(args)
+    if not uid:
+        return why
+    alias = " ".join(str(args.get("alias") or "").split())
+    if not alias:
+        return "ERROR: thiếu alias (tên gợi nhớ muốn đặt). Muốn bỏ tên gợi nhớ thì dùng zalo_remove_friend_alias."
+    if len(alias) > MAX_ALIAS:
+        return f"ERROR: tên gợi nhớ dài quá {MAX_ALIAS} ký tự."
+    # Tên bắt đầu bằng "-" (vd "-VIP-") thì zalo_cli.run_cli tự đặt "--" trước tham số vị trí, CLI không tưởng là cờ.
+    ok, data, err = await zalo_cli.run_cli(conn, ["friend", "alias"], [uid, alias])
+    if not _thanh_cong(ok, err):
+        return _fail("đặt tên gợi nhớ", err)
+    return _done(account=conn["label"], user_id=uid, alias=alias, result=_short(data),
+                 note="Tên gợi nhớ chỉ tài khoản này thấy; người kia không được báo.")
+
+
+async def _remove_alias(args, ctx):
+    args = args or {}
+    conn, why = _ready(args)
+    if not conn:
+        return why
+    uid, why = _uid(args)
+    if not uid:
+        return why
+    ok, data, err = await zalo_cli.run_cli(conn, ["friend", "alias-remove"], [uid])
+    if not _thanh_cong(ok, err):
+        return _fail("bỏ tên gợi nhớ", err)
+    return _done(account=conn["label"], user_id=uid, result=_short(data))
+
+
+# ============================================================
 # Đăng ký
 # ============================================================
 _CONN = {"connection_id": {"type": "string", "description": "id kết nối Zalo, chỉ cần khi đã đấu nhiều tài khoản"}}
@@ -404,6 +471,37 @@ def register(ctx):
         name="zalo_reject_friend",
         description="Từ chối lời mời kết bạn Zalo mà một người đã gửi tới tài khoản Zalo đã kết nối. Tham số: user_id.",
         handler=_reject, min_mode="full", check_fn=zalo_cli.check,
+        schema={"type": "object", "properties": {**_USER, **_CONN}, "required": ["user_id"]},
+    )
+    ctx.register_tool(
+        name="zalo_friend_aliases",
+        description=(
+            "Danh sách tên gợi nhớ (alias) tài khoản Zalo đã kết nối đặt cho bạn bè: user_id và tên gợi nhớ, 100 người "
+            "mỗi trang (tham số page). Chỉ đọc."
+        ),
+        handler=_aliases, min_mode="readonly", check_fn=zalo_cli.check,
+        schema={"type": "object", "properties": {
+            "page": {"type": "integer", "description": "trang, bắt đầu từ 1"}, **_CONN}},
+    )
+    ctx.register_tool(
+        name="zalo_set_friend_alias",
+        description=(
+            "Đổi tên một khách hay bạn bè trên tài khoản Zalo đã kết nối, bằng tên gợi nhớ (alias): tên này hiện thay tên "
+            "Zalo của họ, chỉ tài khoản này thấy, người kia không được báo. Tham số: user_id (lấy bằng zalo_search_friends "
+            "hoặc zalo_find_user), alias (tối đa 60 ký tự)."
+        ),
+        handler=_set_alias, min_mode="safe", check_fn=zalo_cli.check,
+        schema={"type": "object", "properties": {
+            **_USER, "alias": {"type": "string", "description": "tên gợi nhớ muốn đặt"}, **_CONN},
+            "required": ["user_id", "alias"]},
+    )
+    ctx.register_tool(
+        name="zalo_remove_friend_alias",
+        description=(
+            "Bỏ tên gợi nhớ (alias) đã đặt cho một người trên tài khoản Zalo đã kết nối, để hiện lại tên Zalo gốc của họ. "
+            "Tham số: user_id."
+        ),
+        handler=_remove_alias, min_mode="safe", check_fn=zalo_cli.check,
         schema={"type": "object", "properties": {**_USER, **_CONN}, "required": ["user_id"]},
     )
     ctx.register_tool(
