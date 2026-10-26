@@ -178,6 +178,41 @@ r = call(P._undo, {"user_id": "abc"})
 check("rút lại lời mời: id sai khuôn bị chặn trước khi chạm Zalo", r.startswith("ERROR") and not RAN, r)
 
 # ============================================================
+# 3b. Tên gợi nhớ (gói 1.4.0, chủ dự án 26/10/2026: "để javis có quyền đổi tên khách ở trên tài khoản zalo")
+# ============================================================
+fake_world(out="{}")
+r = json.loads(call(P._set_alias, {"user_id": "8812345", "alias": "  Chị Lan   khách sỉ  "}))
+check("đặt tên gợi nhớ: đúng lệnh friend alias <id> <tên>, dấu cách thừa được gọn",
+      cli_args() == ["friend", "alias", "8812345", "Chị Lan khách sỉ"] and r["ok"] and r["alias"] == "Chị Lan khách sỉ",
+      (cli_args(), r))
+fake_world(rc=0, out="undefined", err="✓ Alias set")
+r = call(P._set_alias, {"user_id": "8812345", "alias": "Lan"})
+check("đặt tên gợi nhớ: CLI in 'undefined' kèm ✓ vẫn là xong", json.loads(r)["ok"], r)
+fake_world(rc=0, out="", err="✗ Set alias failed: not friend")
+r = call(P._set_alias, {"user_id": "8812345", "alias": "Lan"})
+check("đặt tên gợi nhớ: Zalo từ chối (✗) thì báo lỗi, không báo xong", r.startswith("ERROR"), r)
+fake_world()
+r = call(P._set_alias, {"user_id": "8812345", "alias": "   "})
+check("đặt tên gợi nhớ: thiếu tên thì chặn, chỉ sang tool bỏ tên", r.startswith("ERROR") and "zalo_remove_friend_alias" in r
+      and not RAN, r)
+r = call(P._set_alias, {"user_id": "8812345", "alias": "x" * 61})
+check("đặt tên gợi nhớ: quá 60 ký tự thì chặn trước khi chạm Zalo", r.startswith("ERROR") and not RAN, r)
+r = call(P._set_alias, {"user_id": "abc", "alias": "Lan"})
+check("đặt tên gợi nhớ: id sai khuôn bị chặn", r.startswith("ERROR") and not RAN, r)
+fake_world(out="{}")
+call(P._set_alias, {"user_id": "8812345", "alias": "-VIP-"})
+check("tên bắt đầu bằng '-' không bị CLI hiểu là cờ", cli_args() == ["friend", "alias", "--", "8812345", "-VIP-"], cli_args())
+fake_world(out="{}")
+r = json.loads(call(P._remove_alias, {"user_id": "8812345"}))
+check("bỏ tên gợi nhớ: đúng lệnh friend alias-remove <id>", cli_args() == ["friend", "alias-remove", "8812345"] and r["ok"],
+      (cli_args(), r))
+fake_world(out=json.dumps({"items": [{"userId": "8812345", "alias": "Chị Lan"}, {"userId": "x", "alias": "rác"}]}))
+r = json.loads(call(P._aliases, {"page": 2}))
+check("xem tên gợi nhớ: đúng lệnh, đọc đúng khuôn, bỏ id sai khuôn",
+      cli_args() == ["friend", "alias-list", "-c", "100", "-p", "2"] and r["aliases"] == [{"user_id": "8812345", "alias": "Chị Lan"}]
+      and r["page"] == 2, (cli_args(), r))
+
+# ============================================================
 # 4. Đăng ký và phân quyền
 # ============================================================
 import yaml  # noqa: E402
@@ -196,12 +231,14 @@ class Ctx:
 tc = Ctx()
 P.register(tc)
 by = {t["name"]: t for t in tc.tools}
-check("mười tool, khớp plugin.yaml", sorted(by) == sorted(y["tools"]) and len(by) == 10, sorted(by))
+check("mười ba tool, khớp plugin.yaml", sorted(by) == sorted(y["tools"]) and len(by) == 13, sorted(by))
 check("tool đọc chạy ở mọi mức", all(by[n]["min_mode"] == "readonly" for n in (
     "zalo_find_user", "zalo_find_phones", "zalo_search_friends", "zalo_friend_status", "zalo_friend_requests",
-    "zalo_sent_friend_requests")))
+    "zalo_sent_friend_requests", "zalo_friend_aliases")))
 check("tool hành động cần mức Toàn quyền, như gửi tin Zalo", all(by[n]["min_mode"] == "full" for n in (
     "zalo_add_friend", "zalo_accept_friend", "zalo_reject_friend", "zalo_undo_friend_request")))
+check("đổi hay bỏ tên gợi nhớ ở mức safe: không gửi gì cho ai, chỉ tài khoản này thấy, bỏ đi là về tên cũ",
+      by["zalo_set_friend_alias"]["min_mode"] == "safe" and by["zalo_remove_friend_alias"]["min_mode"] == "safe")
 check("mọi tool có check_fn và handler", all(callable(t["check_fn"]) and callable(t["handler"]) for t in tc.tools))
 check("plugin không có hook tự chạy (không luồng tự động nào)", y.get("hooks") == [] and not hasattr(P, "on_event"))
 check("không dùng em dash", chr(0x2014) not in open(__file__, encoding="utf-8").read()
