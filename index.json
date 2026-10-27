@@ -2422,10 +2422,10 @@
         "en": "Zalo extras"
       },
       "description": {
-        "vi": "Đi kèm kết nối Zalo: gửi ảnh và file, tag đúng người trong nhóm, tạo ghi chú, nhắc hẹn, poll, đọc ảnh người ta gửi trong nhóm (ChatGPT trên gói của bạn tả lại nội dung ảnh cho mọi bộ não), và kết bạn: tìm người theo số điện thoại hay tên bạn bè, xem lời mời chờ duyệt và đã gửi, gửi, nhận, từ chối, rút lại lời mời, và đổi tên khách bằng tên gợi nhớ. Cần Javis 0.73.0 trở lên và đã quét QR Zalo ở trang Kết nối.",
-        "en": "Goes with the Zalo connection: send images and files, tag the right people in a group, create notes, reminders and polls, read the images people post in a group (ChatGPT on your plan describes them for every brain), and handle friends: find people by phone or by a friend's name, see pending and sent requests, send, accept, reject and withdraw requests, and rename a contact with a nickname. Needs Javis 0.73.0 or newer and Zalo scanned on the Connections page."
+        "vi": "Đi kèm kết nối Zalo: gửi ảnh và file, tag đúng người trong nhóm, tạo ghi chú, đọc và sửa ghi chú ghim (giữ nguyên ghim), nhắc hẹn, poll, đọc ảnh người ta gửi trong nhóm (ChatGPT trên gói của bạn tả lại nội dung ảnh cho mọi bộ não), và kết bạn: tìm người theo số điện thoại hay tên bạn bè, xem lời mời chờ duyệt và đã gửi, gửi, nhận, từ chối, rút lại lời mời, và đổi tên khách bằng tên gợi nhớ. Cần Javis 0.73.0 trở lên và đã quét QR Zalo ở trang Kết nối.",
+        "en": "Goes with the Zalo connection: send images and files, tag the right people in a group, create notes, read and edit pinned notes (the pin stays), reminders and polls, read the images people post in a group (ChatGPT on your plan describes them for every brain), and handle friends: find people by phone or by a friend's name, see pending and sent requests, send, accept, reject and withdraw requests, and rename a contact with a nickname. Needs Javis 0.73.0 or newer and Zalo scanned on the Connections page."
       },
-      "version": "1.4.0",
+      "version": "1.5.0",
       "author": {
         "name": "Javis"
       },
@@ -2436,7 +2436,7 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-10-26",
+      "updated": "2026-10-27",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.zalo",
       "icon": "packs/javis.zalo/assets/zalo.png",
       "provides": {
@@ -2448,9 +2448,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-zalo-1.4.0.zip",
-        "sha256": "b2c077279d7f2d6cff4b992b77dcbf5bde5fd271d097a444fc750223413bb7b3",
-        "size": 40142
+        "url": "dist/javis-zalo-1.5.0.zip",
+        "sha256": "4aa77452f1331bc55ff359c73ed0ef1be707ec6312acf5a17df3d74c986248ac",
+        "size": 42590
       }
     },
     {
