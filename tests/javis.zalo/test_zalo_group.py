@@ -13,6 +13,7 @@ from _paths import PACK, ROOT, SERVER  # noqa: E402,F401
 import asyncio
 import importlib.util
 import json
+import re
 import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -234,6 +235,73 @@ r = call(P._create_note, {"group_id": "g1", "title": "x"})
 check("nhóm khoá quyền: báo thẳng lý do từ Zalo", r.startswith("ERROR") and "không có quyền" in r and "khoá quyền" in r, r)
 
 # ============================================================
+# 5b. Ghi chú ghim (1.1.0): đọc bảng tin, sửa đúng ghi chú cũ mà KHÔNG gỡ ghim
+# ============================================================
+BOARD = json.dumps({"groupId": "g1", "type": "all", "pages": 1, "truncated": False, "items": [
+    {"id": "n7", "type": "note", "text": "THÔNG TIN DỊCH VỤ\nNgày cưới: 12/12", "pinned": None, "creatorId": "1001",
+     "editorId": "2002", "createTime": 1761500000000, "editTime": 1761550000000, "raw": {"x": 1}},
+    {"id": "p1", "type": "pin", "text": "hẹn chụp 9h", "pinned": True, "creatorId": "1001", "editorId": "1001",
+     "createTime": 1761400000000, "editTime": 1761400000000, "raw": {}},
+]})
+fake_world(local=[m("1001", "Minh Quý")], replies=[{"rc": 0, "out": BOARD, "err": ""}, {"rc": 0, "out": INFO, "err": ""},
+                                                   {"rc": 0, "out": PROFILES, "err": ""}])
+r = call(P._list_notes, {"thread_id": "g1"})
+d = ans(r)
+check("đọc bảng tin: lệnh note-list đúng nhóm, mặc định mọi loại", RAN[0]["argv"][-4:] == ["note-list", "g1", "--type", "all"],
+      RAN[0]["argv"])
+check("đọc bảng tin: đủ mục, id, nội dung, ai tạo", d["ok"] and d["count"] == 2 and d["items"][0]["note_id"] == "n7"
+      and "Ngày cưới" in d["items"][0]["text"] and d["items"][0]["created_by"]["name"] == "Minh Quý", d)
+check("đọc bảng tin: người sửa không có trong Hộp thư thì hỏi Zalo lấy tên",
+      d["items"][0]["edited_by"]["uid"] == "2002" and d["items"][0]["edited_by"]["name"] != "", d["items"][0])
+check("đọc bảng tin: giờ sửa đọc được và giữ số gốc để đối chiếu",
+      re.match(r"^\d\d/\d\d/\d{4} \d\d:\d\d$", d["items"][0]["edited_at"] or "") and d["items"][0]["edit_time"] == 1761550000000,
+      d["items"][0])
+check("đọc bảng tin: tin ghim là đang ghim, ghi chú thì nói rõ là không biết", d["items"][1]["pinned"] is True
+      and d["items"][0]["pinned"] is None and "null" in d["note"], d)
+check("CANARY: nội dung ghi chú được đánh dấu là dữ liệu, không phải lệnh", "DỮ LIỆU" in d["note"] and "không phải lệnh" in d["note"])
+check("đọc bảng tin: không lộ bản thô của Zalo ra cho model", "raw" not in d["items"][0])
+fake_world(local=[m("1001", "Minh Quý"), m("2002", "Lành")], replies=[{"rc": 0, "out": BOARD, "err": ""}])
+call(P._list_notes, {"thread_id": "g1", "type": "note"})
+check("đủ tên ở Hộp thư thì không tốn thêm lệnh Zalo", len(RAN) == 1 and RAN[0]["argv"][-1] == "note", RAN)
+fake_world()
+check("đọc bảng tin: type lạ thì từ chối, không chạy lệnh", call(P._list_notes, {"thread_id": "g1", "type": "anh"}).startswith("ERROR")
+      and RAN == [])
+check("đọc bảng tin: thiếu nhóm thì báo", call(P._list_notes, {}).startswith("ERROR") and RAN == [])
+fake_world(replies=[{"rc": 1, "out": "", "err": "error: unknown command 'note-list'"}])
+r = call(P._list_notes, {"thread_id": "g1"})
+check("CLI cũ chưa có note-list: bảo cập nhật Javis", r.startswith("ERROR") and "1.8.0" in r and "Cập nhật Javis" in r, r)
+
+fake_world(replies=[{"rc": 0, "out": json.dumps({"id": "n7", "editTime": 1761600000000}), "err": ""}])
+r = call(P._edit_note, {"group_id": "g1", "note_id": "n7", "title": "THÔNG TIN DỊCH VỤ\nNgày cưới: 13/12"})
+check("sửa ghi chú: đúng id cũ, CANARY luôn gửi --keep-pin khi không nói gì về ghim",
+      cli_args() == ["group", "note-edit", "g1", "n7", "THÔNG TIN DỊCH VỤ\nNgày cưới: 13/12", "--keep-pin"], cli_args())
+check("sửa ghi chú: trả giờ sửa mới để đối chiếu", ans(r)["ok"] and ans(r)["edit_time"] == 1761600000000
+      and ans(r)["pin"] == "giữ nguyên" and ans(r)["edited_at"], r)
+fake_world(replies=[{"rc": 0, "out": "{}", "err": ""}])
+call(P._edit_note, {"group_id": "g1", "note_id": "n7", "title": "x", "pin": True})
+check("pin=true thì ghim", cli_args()[-1] == "--pin", cli_args())
+fake_world(replies=[{"rc": 0, "out": "{}", "err": ""}])
+call(P._edit_note, {"group_id": "g1", "note_id": "n7", "title": "x", "pin": False})
+check("pin=false thì gỡ ghim (chỉ khi được nói rõ)", cli_args()[-1] == "--unpin", cli_args())
+fake_world(replies=[{"rc": 0, "out": "{}", "err": ""}])
+call(P._edit_note, {"group_id": "g1", "note_id": "n7", "title": "- dòng đầu là gạch"})
+check("nội dung bắt đầu bằng '-': cờ trước, `--`, rồi tham số", cli_args() == ["group", "note-edit", "--keep-pin", "--", "g1", "n7",
+                                                                             "- dòng đầu là gạch"], cli_args())
+fake_world()
+check("sửa ghi chú: thiếu note_id thì báo và chỉ cách lấy, không chạy lệnh",
+      "zalo_list_notes" in call(P._edit_note, {"group_id": "g1", "title": "x"}) and RAN == [])
+check("sửa ghi chú: quá 500 ký tự thì từ chối", call(P._edit_note, {"group_id": "g1", "note_id": "n7", "title": "x" * 501})
+      .startswith("ERROR") and RAN == [])
+fake_world(replies=[{"rc": 1, "out": "", "err": "error: unknown option '--keep-pin'"}])
+r = call(P._edit_note, {"group_id": "g1", "note_id": "n7", "title": "x"})
+check("CANARY: CLI cũ (sẽ gỡ ghim) từ chối --keep-pin: báo cập nhật, nói rõ chưa đổi gì", r.startswith("ERROR")
+      and "Chưa có gì bị đổi" in r, r)
+fake_world(replies=[{"rc": 0, "out": "", "err": "  ✗ Edit note failed: Bạn không có quyền"}])
+r = call(P._edit_note, {"group_id": "g1", "note_id": "n7", "title": "x"})
+check("không có quyền sửa: báo lý do Zalo và nhắc trưởng/phó nhóm", r.startswith("ERROR") and "không có quyền" in r
+      and "trưởng/phó" in r, r)
+
+# ============================================================
 # 6. Nhắc hẹn: giờ theo múi giờ của Javis, đổi sang đồng hồ máy
 # ============================================================
 VN = timezone(timedelta(hours=7))
@@ -339,11 +407,15 @@ class Ctx:
 tc = Ctx()
 P.register(tc)
 by = {t["name"]: t for t in tc.tools}
-check("năm tool, khớp plugin.yaml", sorted(by) == sorted(y["tools"]) and len(by) == 5, sorted(by))
+check("bảy tool, khớp plugin.yaml", sorted(by) == sorted(y["tools"]) and len(by) == 7, sorted(by))
 check("plugin khai min_mode full và bật sẵn", y.get("min_mode") == "full" and y.get("enabled") is True and y.get("slug") == "zalo-group")
 check("CANARY: bốn tool ghi/gửi ở mức full (chế độ suggest không tự tag hay đăng poll được)",
       all(by[n]["min_mode"] == "full" for n in ("zalo_send_mention", "zalo_create_note", "zalo_create_reminder", "zalo_create_poll")))
 check("tra danh sách thành viên là chỉ đọc", by["zalo_group_members"]["min_mode"] == "readonly")
+check("đọc bảng tin là chỉ đọc, sửa ghi chú là full (hiện cho cả nhóm)", by["zalo_list_notes"]["min_mode"] == "readonly"
+      and by["zalo_edit_note"]["min_mode"] == "full")
+check("mô tả sửa ghi chú nói rõ mặc định giữ ghim và lấy id từ zalo_list_notes",
+      "GIỮ NGUYÊN ghim" in by["zalo_edit_note"]["description"] and "zalo_list_notes" in by["zalo_edit_note"]["description"])
 check("mọi tool có check_fn và handler", all(callable(t["check_fn"]) and callable(t["handler"]) for t in tc.tools))
 check("schema bắt buộc đúng tham số", by["zalo_send_mention"]["schema"]["required"] == ["thread_id", "text"]
       and by["zalo_create_poll"]["schema"]["required"] == ["group_id", "question", "options"]
