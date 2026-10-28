@@ -27,9 +27,21 @@ Kho không tới được cũng không sao: gói đã cài chạy bình thườn
     mcp/                MCP bên thứ 3 chưa lên npm, kho build từ commit ghim (xem mcp/nguon.json)
     mcp-nguon/<tên>/    mã nguồn MCP kho tự viết khi không có MCP nào dùng được
     tools/dong-goi.py   đóng gói một thư mục thành .zip và in dấu vân tay
+    theo-goc/<id>.json  gói THEO REPO GỐC: repo GitHub của tác giả và thư mục skill chép về
+    tools/theo-goc.py   chép nguyên văn từ repo gốc, mỗi ngày CI chạy lại để lấy bản mới
 
 Mã nguồn nằm ngay cạnh tệp phát hành là có chủ ý: gói **chạy được mã Python trong máy chủ Javis
 của bạn**, nên bạn phải đọc được nó mà không cần tải gì về trước.
+
+## Repo khuyên dùng (theo repo gốc)
+
+Một số gói không phải bản chụp mà **theo repo gốc**: skill chép nguyên văn từ repo GitHub của tác
+giả, không dịch, không sửa. Mỗi ngày job `Theo repo gốc` so lại, repo gốc đổi thì gói lên một bản
+vá và Javis báo trong chuông. Đổi chữ thì vào thẳng kho; đổi tệp mã (script) thì thành một Pull
+Request chờ chủ kho đọc. Trong Javis, các gói này nằm ở mục **Repo khuyên dùng** của Store.
+
+Thêm một repo: viết `theo-goc/<id>.json` (xem hai tệp có sẵn), chạy `python tools/theo-goc.py <id>`,
+rồi `python tools/kiem-tra.py`.
 
 ## Muốn đóng góp một gói
 

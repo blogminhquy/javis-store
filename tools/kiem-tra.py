@@ -37,6 +37,7 @@ Kiểm những gì
    `chinh_chu.py`.
 9. MCP kho tự build trong `mcp/` khớp sha256 đã ghi, và connector chỉ trỏ vào tệp có thật. Lý do ở
    `mcp_dong_goi.py`.
+10. Gói theo repo gốc: mục `upstream` trong danh mục khớp `theo-goc/<id>.json`. Lý do ở `theo-goc.py`.
 """
 import hashlib
 import json
@@ -316,6 +317,30 @@ for f in sorted((GOC / "packs").glob("*/connectors/*.json")):
                   f"trong mcp/nguon.json", tep_mcp in _tep_mcp)
 
 # ============================================================
+# 10. Gói theo repo gốc (`theo-goc/*.json`, xem `theo-goc.py`). Ở đây chỉ kiểm hai bên khớp
+#     nhau; so với repo gốc là việc của job `theo-goc` (cần mạng). Javis hiện mục `upstream`
+#     thành nhãn "Theo repo gốc" kèm link, nên một mục khai sai repo là một link dẫn sai chỗ.
+# ============================================================
+_REPO = re.compile(r"^[A-Za-z0-9_.-]{1,100}/[A-Za-z0-9_.-]{1,100}$")
+co_cau_hinh = {p.stem: p for p in sorted((GOC / "theo-goc").glob("*.json"))}
+for g in idx.get("packs") or []:
+    up = g.get("upstream")
+    if up is None:
+        continue
+    gid = g.get("id") or "?"
+    if not check(f"theo gốc: {gid} có tệp theo-goc/{gid}.json", gid in co_cau_hinh):
+        continue
+    ch = json.loads(co_cau_hinh[gid].read_text(encoding="utf-8"))
+    check(f"theo gốc: {gid} repo đúng dạng chủ/tên", bool(_REPO.match(str(up.get("repo") or ""))), up.get("repo"))
+    check(f"theo gốc: {gid} repo khớp cấu hình", up.get("repo") == ch.get("repo") and up.get("ref") == ch.get("ref"),
+          f"{up.get('repo')}@{up.get('ref')} khác {ch.get('repo')}@{ch.get('ref')}")
+    check(f"theo gốc: {gid} có commit gốc đủ 40 ký tự", bool(re.match(r"^[0-9a-f]{40}$", str(up.get("commit") or ""))))
+    check(f"theo gốc: {gid} có ngày đồng bộ", bool(re.match(r"^\d{4}-\d{2}-\d{2}$", str(up.get("synced") or ""))))
+for gid in co_cau_hinh:
+    check(f"theo gốc: theo-goc/{gid}.json có mục trong index.json kèm `upstream`",
+          any(g.get("id") == gid and g.get("upstream") for g in idx.get("packs") or []))
+
+# ============================================================
 # 6. Em dash
 #
 # Luật của chủ kho, và lý do là kỹ thuật: trình đọc màn hình lẫn bộ đọc thành tiếng vấp ở ký
@@ -325,7 +350,7 @@ for f in sorted((GOC / "packs").glob("*/connectors/*.json")):
 # ============================================================
 EM = chr(0x2014)
 SOI = ["index.json", "README.md", "CONTRIBUTING.md", "mcp/nguon.json"]
-for f in sorted(GOC.rglob("javis-pack.yaml")) + sorted((GOC / "packs").rglob("connectors/*.json"))         + sorted((GOC / "tools").glob("*.py")) + chinh_chu.cac_tep() + [GOC / x for x in SOI]:
+for f in sorted(GOC.rglob("javis-pack.yaml")) + sorted((GOC / "packs").rglob("connectors/*.json"))         + sorted((GOC / "tools").glob("*.py")) + chinh_chu.cac_tep() + sorted((GOC / "theo-goc").glob("*.json")) + [GOC / x for x in SOI]:
     if not f.is_file():
         continue
     try:
