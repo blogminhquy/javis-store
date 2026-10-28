@@ -142,11 +142,56 @@ class TheoGoc(unittest.TestCase):
             p.unlink()
             self.commit("bỏ " + ten)
 
+    def cau_hinh(self, chep):
+        p = self.kho / "theo-goc" / "javis.thu.json"
+        c = json.loads(p.read_text(encoding="utf-8"))
+        c["chep"] = chep
+        p.write_text(json.dumps(c), encoding="utf-8")
+
+    def test_chi_bo_doi_ten(self):
+        for ten in ("noi-bo", "ban-quyen"):
+            (self.up / "skills" / ten).mkdir()
+            (self.up / "skills" / ten / "SKILL.md").write_text("---\nname: x\n---\n", encoding="utf-8")
+        self.commit("thêm skill nội bộ")
+        self.cau_hinh([{"tu": "skills", "den": "skills", "bo": ["noi-bo", "ban-quyen"],
+                        "doi_ten": {"viet-thu": "tg-viet-thu"}}])
+        self.dong_bo()
+        goi = self.kho / "packs" / "javis.thu" / "skills"
+        self.assertEqual(sorted(p.name for p in goi.iterdir()), ["tg-viet-thu"])
+        self.assertEqual((goi / "tg-viet-thu" / "SKILL.md").read_bytes(),
+                         (self.up / "skills" / "viet-thu" / "SKILL.md").read_bytes(), "đổi tên thư mục, nội dung giữ nguyên")
+        self.assertEqual(self.muc()["provides"]["skills"], ["tg-viet-thu"])
+        self.cau_hinh([{"tu": "skills", "den": "skills", "chi": ["ban-quyen"]}])
+        self.dong_bo()
+        self.assertEqual(sorted(p.name for p in goi.iterdir()), ["ban-quyen"])
+        self.cau_hinh([{"tu": "skills", "den": "skills", "chi": ["khong-co"]}])
+        with self.assertRaises(self.tg.LoiDongBo):
+            self.dong_bo()
+
+    def test_skill_o_goc_repo(self):
+        (self.up / "SKILL.md").write_text("---\nname: goc\n---\nThân.\n", encoding="utf-8")
+        (self.up / "helpers").mkdir()
+        (self.up / "helpers" / "a.py").write_text("print(1)\n", encoding="utf-8")
+        (self.up / "tests").mkdir()
+        (self.up / "tests" / "t.py").write_text("x\n", encoding="utf-8")
+        (self.up / ".github").mkdir()
+        (self.up / ".github" / "ci.yml").write_text("x\n", encoding="utf-8")
+        self.commit("skill ở gốc")
+        self.cau_hinh([{"tu": ".", "den": "skills", "ten": "goc", "bo_tep": ["tests", "skills"]}])
+        self.dong_bo()
+        goi = self.kho / "packs" / "javis.thu" / "skills" / "goc"
+        co = sorted(p.relative_to(goi).as_posix() for p in goi.rglob("*") if p.is_file())
+        self.assertEqual(co, ["LICENSE", "README.md", "SKILL.md", "helpers/a.py"])
+        self.assertEqual(self.muc()["tier"], "code", "có tệp .py thì gói là bậc code")
+
     def test_cau_hinh_sai_bi_tu_choi(self):
         p = self.kho / "theo-goc" / "javis.thu.json"
         c = json.loads(p.read_text(encoding="utf-8"))
         for sai in ({"repo": "khong-co-gach"}, {"ref": "a..b"}, {"chep": [{"tu": "../x", "den": "skills"}]},
-                    {"chep": [{"tu": "skills", "den": "plugins"}]}):
+                    {"chep": [{"tu": "skills", "den": "plugins"}]},
+                    {"chep": [{"tu": "skills", "den": "skills", "bo_tep": ["../x"]}]},
+                    {"chep": [{"tu": "skills", "den": "skills", "doi_ten": ["a"]}]},
+                    {"chep": [{"tu": "skills", "den": "skills", "doi_ten": {"viet-thu": "Ten Sai"}}]}):
             p.write_text(json.dumps(dict(c, **sai)), encoding="utf-8")
             with self.assertRaises(self.tg.LoiDongBo):
                 self.dong_bo()
