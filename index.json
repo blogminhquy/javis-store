@@ -1,7 +1,7 @@
 {
   "format": "javis-pack-index",
   "format_version": 1,
-  "updated": "2026-10-21",
+  "updated": "2026-10-28",
   "store": {
     "name": "Kho cài đặt Javis",
     "url": "https://github.com/blogminhquy/javis-store"
@@ -2875,6 +2875,105 @@
         "url": "dist/javis-founder-1.0.0.zip",
         "sha256": "48ded73d32e832ae937a832e11043afc42405ee133d3332f6f323d9f3f50c91c",
         "size": 49505
+      }
+    },
+    {
+      "id": "javis.lemo-opuscar",
+      "kind": "skill",
+      "name": {
+        "vi": "Lemo-Opuscar: Phim ngắn bằng code",
+        "en": "Lemo-Opuscar: Short films in code"
+      },
+      "description": {
+        "vi": "Skill của Lemomo dựng phim ngắn hoàn toàn bằng code theo 59 phong cách (sơn dầu, màu nước, ukiyo-e, ảnh vệ tinh...): kịch bản, hình, nhạc, lồng tiếng. Cần Node 20+, ffmpeg, Python 3.11+; chạy tốt nhất với Claude.",
+        "en": "Lemomo's skill for short films made entirely in code in 59 styles (oil paint, watercolor, ukiyo-e, satellite...): story, picture, score, narration. Needs Node 20+, ffmpeg, Python 3.11+; tuned for Claude."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Lemomo",
+        "url": "https://github.com/lemomo-ai/lemo-opuscar"
+      },
+      "category": "sang-tao",
+      "category_label": {
+        "vi": "Sáng tạo",
+        "en": "Creative"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-10-28",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.lemo-opuscar",
+      "source": "https://github.com/lemomo-ai/lemo-opuscar",
+      "license": "MIT",
+      "upstream": {
+        "repo": "lemomo-ai/lemo-opuscar",
+        "ref": "main",
+        "commit": "413a6bd6d78ebd3bdd5abaec9538a26867f890df",
+        "synced": "2026-10-28"
+      },
+      "provides": {
+        "skills": [
+          "lemo-opuscar"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-lemo-opuscar-1.0.0.zip",
+        "sha256": "0b7e1de517752f601a8ca09b5395f4f7fe2923d580e899aeccb3d893d12e28d8",
+        "size": 6934
+      }
+    },
+    {
+      "id": "javis.remotion",
+      "kind": "skill",
+      "name": {
+        "vi": "Remotion: Làm video bằng code",
+        "en": "Remotion: Videos in code"
+      },
+      "description": {
+        "vi": "Bộ skill chính chủ của Remotion (remotion.dev): tạo dự án video bằng React, hoạt hình, chữ và hiệu ứng, phụ đề, bản đồ, xem trước và xuất video. Theo repo gốc, cập nhật mỗi khi Remotion sửa skill.",
+        "en": "Remotion's official skills (remotion.dev): create React video projects, animation, type and effects, captions, maps, preview and render. Follows the source repo and updates whenever Remotion changes its skills."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Remotion",
+        "url": "https://github.com/remotion-dev/skills"
+      },
+      "category": "sang-tao",
+      "category_label": {
+        "vi": "Sáng tạo",
+        "en": "Creative"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-10-28",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.remotion",
+      "source": "https://github.com/remotion-dev/skills",
+      "license": "Remotion License",
+      "upstream": {
+        "repo": "remotion-dev/skills",
+        "ref": "main",
+        "commit": "30d4553ecd46fbc5212fd0ff006ae43af522158b",
+        "synced": "2026-10-28"
+      },
+      "provides": {
+        "skills": [
+          "remotion-best-practices",
+          "remotion-captions",
+          "remotion-create",
+          "remotion-docs",
+          "remotion-interactivity",
+          "remotion-maps",
+          "remotion-markup",
+          "remotion-multimedia",
+          "remotion-render",
+          "remotion-saas",
+          "remotion-studio",
+          "remotion-upgrade"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-remotion-1.0.0.zip",
+        "sha256": "9f4877986b217e5e2f34b432466fcf8291212593e8ec2b837dd6fe02319d12b1",
+        "size": 876928
       }
     }
   ]
