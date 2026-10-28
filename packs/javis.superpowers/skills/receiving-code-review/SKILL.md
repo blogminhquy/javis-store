@@ -1,7 +1,6 @@
 ---
-name: "receiving-code-review"
-description: "Handle code review feedback with technical rigor: verify claims, don't agree performatively."
-group: "Superpowers"
+name: receiving-code-review
+description: Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative agreement or blind implementation
 ---
 
 # Code Review Reception
@@ -204,12 +203,3 @@ You understand 1,2,3,6. Unclear on 4,5.
 ## GitHub Thread Replies
 
 When replying to inline review comments on GitHub, reply in the comment thread (`gh api repos/{owner}/{repo}/pulls/{pr}/comments/{id}/replies`), not as a top-level PR comment.
-
----
-
-*Nguồn: [Jesse Vincent](https://github.com/obra/superpowers) - `superpowers/skills/receiving-code-review` - giấy phép MIT.*
-*Đã sửa để chạy trên Javis OS: `description` được rút còn ≤150 ký tự cho router của Javis; `group` được thêm cho trang Kỹ năng của Javis. Nội dung skill giữ nguyên bản gốc.*
-
-*Mô tả gốc:*
-
-> Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative agreement or blind implementation

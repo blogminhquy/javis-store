@@ -1,7 +1,6 @@
 ---
-name: "dispatching-parallel-agents"
-description: "Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies"
-group: "Superpowers"
+name: dispatching-parallel-agents
+description: Use when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies
 ---
 
 # Dispatching Parallel Agents
@@ -166,8 +165,3 @@ After agents return:
 2. **Check for conflicts** - Did agents edit same code?
 3. **Run full suite** - Verify all fixes work together
 4. **Spot check** - Agents can make systematic errors
-
----
-
-*Nguồn: [Jesse Vincent](https://github.com/obra/superpowers) - `superpowers/skills/dispatching-parallel-agents` - giấy phép MIT.*
-*Đã sửa để chạy trên Javis OS: `group` được thêm cho trang Kỹ năng của Javis. Nội dung skill giữ nguyên bản gốc.*

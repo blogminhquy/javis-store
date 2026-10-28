@@ -1,7 +1,6 @@
 ---
-name: "sp-test-driven-development"
-description: "Use when implementing any feature or bugfix, before writing implementation code"
-group: "Superpowers"
+name: test-driven-development
+description: Use when implementing any feature or bugfix, before writing implementation code
 ---
 
 # Test-Driven Development (TDD)
@@ -183,6 +182,16 @@ Confirm:
 
 **Other tests fail?** Fix now.
 
+**"Other tests" means the project's suite, not just your file.** A
+green run of the test you wrote is not a green suite. Before you call
+the change done, run the project's test command (bare `pytest`,
+`npm test`, `cargo test` — whatever the repo uses) even when your task
+named only one test file. A scope statement in your task bounds the
+deliverable, not your verification. Any failure that run shows —
+including one you didn't cause — goes in your report by name; a red
+test you watched scroll past and didn't mention is a report falsified
+by omission.
+
 ### REFACTOR - Clean Up
 
 After green only:
@@ -319,8 +328,3 @@ Otherwise → not TDD
 ```
 
 No exceptions without your human partner's permission.
-
----
-
-*Nguồn: [Jesse Vincent](https://github.com/obra/superpowers) - `superpowers/skills/test-driven-development` - giấy phép MIT.*
-*Đã sửa để chạy trên Javis OS: `group` được thêm cho trang Kỹ năng của Javis. Nội dung skill giữ nguyên bản gốc.*

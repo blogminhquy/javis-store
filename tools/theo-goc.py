@@ -69,8 +69,10 @@ BO_QUA = ("__pycache__", ".git", ".DS_Store", ".pytest_cache", "node_modules")
 TEN_CAM = (".env", "id_rsa", "id_dsa", "id_ecdsa", "id_ed25519")
 DUOI_CAM = (".pem", ".p12", ".pfx", ".key", ".ppk")
 # Đuôi coi là CHỮ: đổi chúng không cần người duyệt. Mọi đuôi khác coi là MÃ.
+# HTML và CSS tính là chữ: trong skill chúng là mẫu trang để AI dựng theo, không phải thứ Javis chạy.
 DUOI_CHU = (".md", ".txt", ".json", ".yaml", ".yml", ".geojson", ".csv", ".png", ".jpg", ".jpeg",
-            ".webp", ".gif", ".svg")
+            ".webp", ".gif", ".svg", ".html", ".css", ".dot", ".ttf", ".otf", ".woff", ".woff2")
+TEN_CHU = ("LICENSE", "NOTICE", "README", "AUTHORS", "CHANGELOG")
 TRAN_SO_TEP, TRAN_MOT_TEP, TRAN_TONG = 500, 5 * 1024 * 1024, 40 * 1024 * 1024
 
 
@@ -95,6 +97,14 @@ def doc_cau_hinh(pid: str) -> dict:
             v = str(m.get(k) or "")
             if not v or v.startswith("/") or ".." in v.split("/"):
                 raise LoiDongBo(f"{pid}: đường dẫn `{k}` không hợp lệ: {v!r}")
+        for k in ("chi", "bo", "bo_tep"):
+            if not isinstance(m.get(k, []), list):
+                raise LoiDongBo(f"{pid}: `{k}` phải là danh sách")
+        if not isinstance(m.get("doi_ten", {}), dict):
+            raise LoiDongBo(f"{pid}: `doi_ten` phải là map tên gốc -> tên mới")
+        for b in m.get("bo_tep") or []:
+            if not b or str(b).startswith("/") or ".." in str(b).split("/"):
+                raise LoiDongBo(f"{pid}: `bo_tep` không hợp lệ: {b!r}")
         if m["den"] != "skills":
             raise LoiDongBo(f"{pid}: hiện chỉ chép vào `skills` (đang khai {m['den']!r})")
     goi = c.get("goi") or {}
@@ -113,9 +123,18 @@ def _git(*args, cwd=None) -> str:
 
 
 def tai_goc(c: dict, dich: Path) -> str:
-    """Clone nông đúng nhánh khai báo. Trả commit đang đứng."""
-    _git("clone", "--quiet", "--depth", "1", "--branch", c["ref"],
+    """Clone nông đúng nhánh khai báo. Trả commit đang đứng.
+
+    Chỉ tải những thư mục `chep` cần (sparse checkout, kèm các tệp ở gốc repo như LICENSE): repo như
+    GitNexus hay HyperFrames nặng 400 MB mà skill chỉ vài MB, và job này chạy mỗi ngày. Skill nằm ở gốc
+    repo (`tu: "."`) thì cần cả cây, nên tải đủ."""
+    _git("clone", "--quiet", "--depth", "1", "--filter=blob:none", "--sparse", "--branch", c["ref"],
          f"{GIT_GOC}{c['repo']}.git", str(dich))
+    thu_muc = sorted({m["tu"] for m in c["chep"]})
+    if "." in thu_muc:
+        _git("sparse-checkout", "disable", cwd=dich)
+    else:
+        _git("sparse-checkout", "set", *thu_muc, cwd=dich)
     return _git("rev-parse", "HEAD", cwd=dich)
 
 
@@ -130,30 +149,56 @@ def _kiem_tep(p: Path, goc: Path) -> None:
         raise LoiDongBo(f"tệp quá 5 MB: {rel}")
 
 
+def _chep_cay(goc: Path, dich: Path, nguon: Path, bo_tep=()) -> None:
+    """Chép cả cây `goc` sang `dich`, bỏ thư mục rác và những đường dẫn tương đối nằm trong `bo_tep`."""
+    for p in sorted(goc.rglob("*")):
+        rel = p.relative_to(goc)
+        if any(x in rel.parts for x in BO_QUA) or any(rel.parts[:len(Path(b).parts)] == Path(b).parts
+                                                      for b in bo_tep):
+            continue
+        if rel.parts and rel.parts[0].startswith(".") and goc == nguon:
+            continue        # skill ở gốc repo: .github, .claude... là đồ của repo, không phải của skill
+        if p.is_symlink() or p.is_file():
+            _kiem_tep(p, nguon)
+            d = dich / rel
+            d.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(p, d)
+
+
 def dung_ban_moi(c: dict, nguon: Path, ra: Path) -> list:
-    """Dựng nội dung mới vào `ra`, theo đúng hình dạng nó sẽ nằm trong gói. Trả danh sách skill."""
+    """Dựng nội dung mới vào `ra`, theo đúng hình dạng nó sẽ nằm trong gói. Trả danh sách skill.
+
+    Mỗi mục `chep` lấy các thư mục con có SKILL.md của `tu`. Tuỳ chọn, đều KHÔNG sửa nội dung skill:
+      chi      chỉ lấy những skill này (repo có skill nội bộ, hay skill có giấy phép không cho phát lại);
+      bo       bỏ những skill này;
+      doi_ten  đổi tên THƯ MỤC khi trùng slug với gói khác trong cùng brain (nội dung giữ nguyên);
+      ten      `tu` tự nó là một skill (SKILL.md nằm ngay ở đó, thường là gốc repo): tên thư mục trong gói;
+      bo_tep   với skill `ten`: đường dẫn tương đối không chép theo (test, ảnh demo, thư mục skill khác)."""
     skills, tu_dau = [], {}
     for m in c["chep"]:
         tu = nguon / m["tu"]
         if not tu.is_dir():
             raise LoiDongBo(f"repo gốc không còn thư mục {m['tu']}")
-        for d in sorted(tu.iterdir()):
-            if d.is_symlink() or not d.is_dir() or not (d / "SKILL.md").is_file():
-                continue
-            if not _ID_RE.match(d.name):
-                raise LoiDongBo(f"tên skill lạ: {d.name!r}")
-            if d.name in skills:
-                raise LoiDongBo(f"hai skill trùng tên: {d.name}")
-            skills.append(d.name)
-            tu_dau[d.name] = m["tu"]
-            for p in sorted(d.rglob("*")):
-                if any(x in p.relative_to(d).parts for x in BO_QUA):
-                    continue
-                if p.is_symlink() or p.is_file():
-                    _kiem_tep(p, nguon)
-                    dich = ra / m["den"] / d.name / p.relative_to(d)
-                    dich.parent.mkdir(parents=True, exist_ok=True)
-                    shutil.copyfile(p, dich)
+        if m.get("ten"):
+            if not (tu / "SKILL.md").is_file():
+                raise LoiDongBo(f"repo gốc không còn {m['tu']}/SKILL.md")
+            cap = [(tu, m["ten"])]
+        else:
+            chi, bo = set(m.get("chi") or []), set(m.get("bo") or [])
+            cap = [(d, (m.get("doi_ten") or {}).get(d.name, d.name)) for d in sorted(tu.iterdir())
+                   if not d.is_symlink() and d.is_dir() and (d / "SKILL.md").is_file()
+                   and (not chi or d.name in chi) and d.name not in bo]
+            thieu = chi - {d.name for d, _ in cap}
+            if thieu:
+                raise LoiDongBo(f"repo gốc không còn skill: {', '.join(sorted(thieu))}")
+        for d, ten in cap:
+            if not _ID_RE.match(ten):
+                raise LoiDongBo(f"tên skill lạ: {ten!r}")
+            if ten in skills:
+                raise LoiDongBo(f"hai skill trùng tên: {ten}")
+            skills.append(ten)
+            tu_dau[ten] = m["tu"] if m.get("ten") else f"{m['tu']}/{d.name}"
+            _chep_cay(d, ra / m["den"] / ten, nguon, m.get("bo_tep") or ())
     if not skills:
         raise LoiDongBo("repo gốc không có skill nào ở thư mục đã khai")
     (ra / "docs").mkdir(exist_ok=True)
@@ -184,7 +229,7 @@ def _nguon_md(c: dict, tu_dau: dict) -> str:
             f"Giấy phép gốc: **{c['goi']['license']}**, nguyên văn ở `docs/LICENSE-goc*` nếu repo có.", "",
             "| Skill | Thư mục gốc |", "|---|---|"]
     for s, tu in tu_dau.items():
-        dong.append(f"| `{s}` | `{tu}/{s}` |")
+        dong.append(f"| `{s}` | `{tu}` |")
     return "\n".join(dong) + "\n"
 
 
@@ -310,7 +355,8 @@ def dong_bo(pid: str, chi_kiem: bool = False, hom_nay: str = "", bo_qua_ma: bool
         if cu == moi and (thu_muc / "javis-pack.yaml").is_file():
             return {"id": pid, "doi": False, "can_duyet": False, "commit": commit, "ghi": False}
         doi = {k for k in set(cu) | set(moi) if cu.get(k) != moi.get(k)}
-        tep_ma = sorted(k for k in doi if not k.lower().endswith(DUOI_CHU) and not k.startswith("docs/"))
+        tep_ma = sorted(k for k in doi if not k.lower().endswith(DUOI_CHU) and not k.startswith("docs/")
+                        and Path(k).stem.upper() not in TEN_CHU)
         ban = _tang_ban(_ban_cu(thu_muc))
         kq = {"id": pid, "doi": True, "can_duyet": bool(tep_ma), "ban": ban, "commit": commit,
               "tep_ma": tep_ma, "so_tep_doi": len(doi)}

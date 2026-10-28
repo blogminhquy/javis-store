@@ -1,7 +1,6 @@
 ---
-name: "verification-before-completion"
-description: "Run the verification commands and read the output before claiming work is done."
-group: "Superpowers"
+name: verification-before-completion
+description: Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence before assertions always
 ---
 
 # Verification Before Completion
@@ -119,12 +118,3 @@ Skip any step = lying, not verifying
 - Paraphrases and synonyms
 - Implications of success
 - ANY communication suggesting completion/correctness
-
----
-
-*Nguồn: [Jesse Vincent](https://github.com/obra/superpowers) - `superpowers/skills/verification-before-completion` - giấy phép MIT.*
-*Đã sửa để chạy trên Javis OS: `description` được rút còn ≤150 ký tự cho router của Javis; `group` được thêm cho trang Kỹ năng của Javis. Nội dung skill giữ nguyên bản gốc.*
-
-*Mô tả gốc:*
-
-> Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence before assertions always

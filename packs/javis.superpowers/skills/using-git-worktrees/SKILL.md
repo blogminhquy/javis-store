@@ -1,7 +1,6 @@
 ---
-name: "using-git-worktrees"
-description: "Get an isolated workspace before feature work, via native tools or a git worktree."
-group: "Superpowers"
+name: using-git-worktrees
+description: Use when starting feature work that needs isolation from current workspace or before executing implementation plans - ensures an isolated workspace exists via native tools or git worktree fallback
 ---
 
 # Using Git Worktrees
@@ -166,12 +165,3 @@ Ready to implement <feature-name>
 | "The worktree directory is surely ignored already" | Run `git check-ignore`. An unignored worktree directory commits the whole tree into the repo. |
 | "Any directory name works" | Explicit instructions beat an existing project-local directory, which beats the `.worktrees/` default. |
 | "The workspace is fresh — baseline tests can wait" | A dirty baseline makes every later failure ambiguous. Run the tests now; proceeding past failures is your human partner's call. |
-
----
-
-*Nguồn: [Jesse Vincent](https://github.com/obra/superpowers) - `superpowers/skills/using-git-worktrees` - giấy phép MIT.*
-*Đã sửa để chạy trên Javis OS: `description` được rút còn ≤150 ký tự cho router của Javis; `group` được thêm cho trang Kỹ năng của Javis. Nội dung skill giữ nguyên bản gốc.*
-
-*Mô tả gốc:*
-
-> Use when starting feature work that needs isolation from current workspace or before executing implementation plans - ensures an isolated workspace exists via native tools or git worktree fallback
