@@ -5,7 +5,8 @@
 Phủ: lần đầu dựng gói 1.0.0 kèm mục danh mục; repo gốc không đổi thì không ra bản; đổi chữ thì
 lên bản vá và không cần duyệt; đổi script thì lên bản vá và cần duyệt (lượt --khong-ma để lại nó);
 commit chỉ đụng phần ngoài
-skill thì không ra bản; liên kết mềm hay tên nhạy cảm thì từ chối và gói đứng yên.
+skill thì không ra bản; liên kết mềm hay tên nhạy cảm thì từ chối và gói đứng yên; skill dạng tệp `.md`
+phẳng (`phang`) chép nguyên văn thành `<tên>/SKILL.md`.
 """
 import importlib.util
 import json
@@ -184,6 +185,26 @@ class TheoGoc(unittest.TestCase):
         self.assertEqual(co, ["LICENSE", "README.md", "SKILL.md", "helpers/a.py"])
         self.assertEqual(self.muc()["tier"], "code", "có tệp .py thì gói là bậc code")
 
+    def test_skill_phang(self):
+        (self.up / "phang").mkdir()
+        (self.up / "phang" / "fk-a.md").write_text("Làm A.\n", encoding="utf-8")
+        (self.up / "phang" / "fk-b.md").write_text("# fk-b\nLàm B.\n", encoding="utf-8")
+        (self.up / "phang" / "README.md").write_text("mục lục\n", encoding="utf-8")
+        (self.up / "phang" / "mau").mkdir()
+        (self.up / "phang" / "mau" / "x.json").write_text("{}\n", encoding="utf-8")
+        self.commit("skill phẳng")
+        self.cau_hinh([{"tu": "phang", "den": "skills", "phang": True, "bo": ["fk-b"]}])
+        self.dong_bo()
+        goi = self.kho / "packs" / "javis.thu" / "skills"
+        co = sorted(p.relative_to(goi).as_posix() for p in goi.rglob("*") if p.is_file())
+        self.assertEqual(co, ["fk-a/SKILL.md"], "README và thư mục con không phải skill")
+        self.assertEqual((goi / "fk-a" / "SKILL.md").read_bytes(),
+                         (self.up / "phang" / "fk-a.md").read_bytes(), "phải chép nguyên văn")
+        self.assertEqual(self.muc()["provides"]["skills"], ["fk-a"])
+        self.cau_hinh([{"tu": "phang", "den": "skills", "phang": True, "chi": ["fk-c"]}])
+        with self.assertRaises(self.tg.LoiDongBo):
+            self.dong_bo()
+
     def test_cau_hinh_sai_bi_tu_choi(self):
         p = self.kho / "theo-goc" / "javis.thu.json"
         c = json.loads(p.read_text(encoding="utf-8"))
@@ -191,7 +212,9 @@ class TheoGoc(unittest.TestCase):
                     {"chep": [{"tu": "skills", "den": "plugins"}]},
                     {"chep": [{"tu": "skills", "den": "skills", "bo_tep": ["../x"]}]},
                     {"chep": [{"tu": "skills", "den": "skills", "doi_ten": ["a"]}]},
-                    {"chep": [{"tu": "skills", "den": "skills", "doi_ten": {"viet-thu": "Ten Sai"}}]}):
+                    {"chep": [{"tu": "skills", "den": "skills", "doi_ten": {"viet-thu": "Ten Sai"}}]},
+                    {"chep": [{"tu": "skills", "den": "skills", "phang": "co"}]},
+                    {"chep": [{"tu": ".", "den": "skills", "ten": "goc", "phang": True}]}):
             p.write_text(json.dumps(dict(c, **sai)), encoding="utf-8")
             with self.assertRaises(self.tg.LoiDongBo):
                 self.dong_bo()
