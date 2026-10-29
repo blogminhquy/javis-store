@@ -1,0 +1,15 @@
+format: javis-pack
+spec: 1
+id: javis.agency.healthcare-clinical-evidence-agent
+version: 1.0.0
+name: {vi: "Trợ lý bằng chứng lâm sàng", en: "Clinical Evidence Agent"}
+description: {vi: "Khung chuẩn bằng chứng và độ tin cậy lâm sàng cho AI agent làm việc trong lĩnh vực y tế.",
+              en: "Evidence standards and clinical credibility framework for AI agents operating in healthcare contexts. Defines how to distinguish validated from unvalidated clinical claims, how to write for both peer review and investor audiences from the same evidence base, and how to frame clinical decision..."}
+author: {name: "msitarzewski", url: "https://github.com/msitarzewski/agency-agents"}
+license: MIT
+homepage: "https://github.com/msitarzewski/agency-agents/blob/main/healthcare/healthcare-clinical-evidence-agent.md"
+compat: {app: ">=0.55.27"}
+# Một agent lẻ của gói theo repo gốc javis.agency-agents: tools/theo-goc.py dựng lại mỗi ngày, đừng sửa tay.
+thuoc_goi: javis.agency-agents
+provides:
+  agents: [agency-healthcare-clinical-evidence-agent]

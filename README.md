@@ -45,6 +45,11 @@ rồi `python tools/kiem-tra.py`.
 Repo để skill thành tệp `.md` phẳng thay vì thư mục có `SKILL.md` (như FlowKit) thì khai
 `"phang": true` trong mục `chep`, xem `theo-goc/javis.flowkit.json`.
 
+Repo chứa **agent** thay vì skill (như agency-agents) thì khai `"den": "agents"`, xem
+`theo-goc/javis.agency-agents.json`. Thân prompt giữ nguyên văn, phần đầu tệp thêm vài khoá để Javis
+đọc được, tên và mô tả tiếng Việt lấy từ `theo-goc/dich/<id>.json`. Khai thêm `"tach"` thì mỗi agent
+còn thành một gói lẻ trong tab Agent của Store (cài từng cái), cập nhật cùng lượt với gói gộp.
+
 ## Muốn đóng góp một gói
 
 Xem [CONTRIBUTING.md](CONTRIBUTING.md). Tóm tắt: mở Pull Request kèm mã nguồn, tệp `.zip` và một

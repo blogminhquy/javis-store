@@ -6,7 +6,8 @@ Phủ: lần đầu dựng gói 1.0.0 kèm mục danh mục; repo gốc không �
 lên bản vá và không cần duyệt; đổi script thì lên bản vá và cần duyệt (lượt --khong-ma để lại nó);
 commit chỉ đụng phần ngoài
 skill thì không ra bản; liên kết mềm hay tên nhạy cảm thì từ chối và gói đứng yên; skill dạng tệp `.md`
-phẳng (`phang`) chép nguyên văn thành `<tên>/SKILL.md`.
+phẳng (`phang`) chép nguyên văn thành `<tên>/SKILL.md`. Gói agent (`den: agents`): thân giữ nguyên byte,
+phần đầu thêm khoá Javis, bảng dịch, và gói lẻ (`tach`) thêm, lên bản, rời danh mục theo repo gốc.
 """
 import importlib.util
 import json
@@ -218,6 +219,162 @@ class TheoGoc(unittest.TestCase):
             p.write_text(json.dumps(dict(c, **sai)), encoding="utf-8")
             with self.assertRaises(self.tg.LoiDongBo):
                 self.dong_bo()
+
+
+GACH = chr(0x2014)
+THAN_A = "\n# Agent A\n\nThân gốc " + GACH + " giữ nguyên.\n"
+THAN_B = "\nThân B.\n"
+
+
+class TheoGocAgent(unittest.TestCase):
+    """Gói agent (`den: agents`) và gói lẻ (`tach`), kiểu repo agency-agents."""
+
+    def setUp(self):
+        self.tmp = Path(tempfile.mkdtemp(prefix="tg-agent-"))
+        self.up = self.tmp / "up" / "tac-gia" / "agents.git"
+        (self.up / "engineering").mkdir(parents=True)
+        (self.up / "game" / "unity").mkdir(parents=True)
+        (self.up / "engineering" / "engineering-a.md").write_text(
+            '---\nname: Agent A\ndescription: "Does A ' + GACH + ' well"\ncolor: blue\n---' + THAN_A, encoding="utf-8")
+        (self.up / "game" / "unity" / "unity-b.md").write_text(
+            "---\nname: Unity B\ndescription: Builds B\n  across two lines\ntools: Read, Write\nslug: goc-b\n---"
+            + THAN_B, encoding="utf-8")
+        (self.up / "engineering" / "README.md").write_text("mục lục\n", encoding="utf-8")
+        (self.up / "game" / "README.md").write_text("mục lục\n", encoding="utf-8")
+        (self.up / "LICENSE").write_text("MIT\n", encoding="utf-8")
+        git(self.up, "init", "-q", "-b", "main")
+        self.commit("đầu")
+
+        self.kho = self.tmp / "kho"
+        for d in ("theo-goc/dich", "packs", "dist"):
+            (self.kho / d).mkdir(parents=True)
+        (self.kho / "index.json").write_text(json.dumps(
+            {"format": "javis-pack-index", "format_version": 1, "updated": "",
+             "packs": [{"id": "javis.khac"}]}), encoding="utf-8")
+        self.cau_hinh = {
+            "repo": "tac-gia/agents", "ref": "main", "tien_to": "ag-", "tach": "javis.ag.", "the": "Bộ AG",
+            "nhom_kho": {"lap-trinh": {"vi": "Lập trình", "en": "Development"}, "game": {"vi": "Làm game", "en": "Games"}},
+            "chep": [{"tu": "engineering", "den": "agents", "nhan": {"vi": "Kỹ sư", "en": "Engineering"},
+                      "category": "lap-trinh"},
+                     {"tu": "game", "den": "agents", "nhan": {"vi": "Game", "en": "Game"}, "category": "game"}],
+            "goi": {"name": {"vi": "AG", "en": "AG"}, "description": {"vi": "a", "en": "a"}, "author": "Tác giả",
+                    "category": "tro-ly-ai", "category_label": {"vi": "Trợ lý AI", "en": "AI"}, "license": "MIT"}}
+        self.ghi_cau_hinh()
+        (self.kho / "theo-goc" / "dich" / "javis.ag.json").write_text(json.dumps(
+            {"_doc": "x", "engineering-a": ["Trợ lý A", "Làm A thật tốt."]}), encoding="utf-8")
+
+        self.tg = _nap()
+        self.tg.CAU_HINH = self.kho / "theo-goc"
+        self.tg.GOI = self.kho / "packs"
+        self.tg.INDEX = self.kho / "index.json"
+        self.tg.DIST = self.kho / "dist"
+        self.tg.GIT_GOC = (self.tmp / "up").as_uri() + "/"
+
+    def tearDown(self):
+        shutil.rmtree(self.tmp, ignore_errors=True)
+
+    def ghi_cau_hinh(self, **sua):
+        (self.kho / "theo-goc" / "javis.ag.json").write_text(json.dumps(dict(self.cau_hinh, **sua)), encoding="utf-8")
+
+    def commit(self, msg):
+        git(self.up, "add", "-A")
+        git(self.up, "commit", "-q", "-m", msg)
+
+    def dong_bo(self):
+        return self.tg.dong_bo("javis.ag", hom_nay="2026-10-29")
+
+    def goi(self):
+        return json.loads((self.kho / "index.json").read_text(encoding="utf-8"))["packs"]
+
+    def muc(self, gid):
+        return next((x for x in self.goi() if x["id"] == gid), None)
+
+    def tep(self, *p):
+        return (self.kho / "packs" / "javis.ag" / "agents" / Path(*p)).read_text(encoding="utf-8")
+
+    def test_goi_gop_va_goi_le(self):
+        self.assertTrue(self.dong_bo()["so_tach"] == 2)
+        g = self.muc("javis.ag")
+        self.assertEqual(g["kind"], "agent")
+        self.assertEqual(g["provides"], {"agents": ["ag-engineering-a", "ag-unity-b"]}, "README không phải agent")
+        self.assertIn("upstream", g)
+
+        a = self.tep("ag-engineering-a.md")
+        self.assertTrue(a.endswith("---" + THAN_A), "thân agent giữ nguyên từng byte")
+        self.assertIn('\nname: "Trợ lý A"\n', a)
+        self.assertIn('\nrole: "Làm A thật tốt."\n', a)
+        self.assertIn('\ntags:\n- "Kỹ sư"\n- "Bộ AG"\ngroup: "Kỹ sư"\nten_goc: "Agent A"\n', a)
+        self.assertIn("\ncolor: blue\n", a, "khoá gốc khác giữ nguyên dòng")
+        self.assertEqual(a.count("\nname:"), 1, "tên gốc chuyển sang ten_goc, không trùng khoá")
+
+        b = self.tep("ag-unity-b.md")
+        self.assertIn('\nname: "Unity B"\n', b, "chưa có bản dịch thì dùng tên gốc")
+        self.assertIn('\nrole: "Builds B across two lines"\n', b, "mô tả nhiều dòng gộp lại")
+        self.assertIn("\ntools: Read, Write\n", b)
+        self.assertIn("\nslug: ag-unity-b\n", b)
+        self.assertNotIn("goc-b", b, "khoá trùng tên khoá của Javis bị bỏ")
+
+        goi = [x["id"] for x in self.goi()]
+        self.assertEqual(goi, ["javis.khac", "javis.ag", "javis.ag.engineering-a", "javis.ag.unity-b"],
+                         "gói lẻ nằm ngay sau gói gộp")
+        la = self.muc("javis.ag.engineering-a")
+        self.assertNotIn("upstream", la, "gói lẻ không vào mục Đề xuất")
+        self.assertEqual((la["kind"], la["thuoc_goi"], la["category"]), ("agent", "javis.ag", "lap-trinh"))
+        self.assertEqual(la["name"], {"vi": "Trợ lý A", "en": "Agent A"})
+        self.assertEqual(la["description"]["en"], "Does A - well", "kho không phát hành gạch dài")
+        self.assertEqual(self.muc("javis.ag.unity-b")["category_label"], {"vi": "Làm game", "en": "Games"})
+        with zipfile.ZipFile(self.kho / la["download"]["url"]) as z:
+            self.assertEqual(z.read("agents/ag-engineering-a.md").decode("utf-8"), a, "cùng byte với gói gộp")
+            self.assertIn("docs/LICENSE-goc.txt", z.namelist())
+        self.assertNotIn(GACH, (self.kho / "index.json").read_text(encoding="utf-8"))
+
+    def test_cap_nhat_va_bo_agent(self):
+        self.dong_bo()
+        self.assertFalse(self.dong_bo()["doi"], "không đổi gì thì không ra bản")
+        (self.up / "engineering" / "engineering-a.md").write_text(
+            "---\nname: Agent A\ndescription: Does A\n---\nThân mới.\n", encoding="utf-8")
+        self.commit("sửa A")
+        self.assertTrue(self.dong_bo()["doi"])
+        self.assertEqual(self.muc("javis.ag")["version"], "1.0.1")
+        self.assertEqual(self.muc("javis.ag.engineering-a")["version"], "1.0.1")
+        self.assertEqual(self.muc("javis.ag.unity-b")["version"], "1.0.0", "agent không đổi thì gói lẻ đứng yên")
+        (self.up / "game" / "unity" / "unity-b.md").unlink()
+        self.commit("bỏ B")
+        self.dong_bo()
+        self.assertIsNone(self.muc("javis.ag.unity-b"), "repo gốc bỏ agent thì gói lẻ rời danh mục")
+        self.assertFalse((self.kho / "packs" / "javis.ag.unity-b").exists())
+
+    def test_ban_dich_doi_thi_ra_ban(self):
+        self.dong_bo()
+        (self.kho / "theo-goc" / "dich" / "javis.ag.json").write_text(json.dumps(
+            {"engineering-a": ["Trợ lý A mới", "Mô tả mới."]}), encoding="utf-8")
+        self.dong_bo()
+        self.assertEqual(self.muc("javis.ag.engineering-a")["name"]["vi"], "Trợ lý A mới")
+        self.assertEqual(self.muc("javis.ag.engineering-a")["version"], "1.0.1")
+
+    def test_tu_lanh_goi_le_bi_xoa(self):
+        self.dong_bo()
+        shutil.rmtree(self.kho / "packs" / "javis.ag.unity-b")
+        kq = self.dong_bo()
+        self.assertEqual(kq["so_tach"], 1, "gói gộp đứng yên vẫn dựng lại gói lẻ bị mất")
+        self.assertTrue((self.kho / "packs" / "javis.ag.unity-b" / "javis-pack.yaml").is_file())
+
+    def test_cau_hinh_agent_sai(self):
+        for sua in ({"tien_to": "Ag_"}, {"tach": "javis.ag"},
+                    {"chep": [{"tu": "engineering", "den": "agents", "category": "lap-trinh"}]},
+                    {"chep": [{"tu": "engineering", "den": "agents", "nhan": {"vi": "a", "en": "b"},
+                               "category": "khong-khai"}]},
+                    {"chep": [{"tu": "engineering", "den": "agents", "nhan": {"vi": "a", "en": "b"},
+                               "category": "lap-trinh", "phang": True}]}):
+            self.ghi_cau_hinh(**sua)
+            with self.assertRaises(self.tg.LoiDongBo):
+                self.dong_bo()
+
+    def test_agent_khong_frontmatter_bi_tu_choi(self):
+        (self.up / "engineering" / "engineering-c.md").write_text("Không có phần đầu.\n", encoding="utf-8")
+        self.commit("agent hỏng")
+        with self.assertRaises(self.tg.LoiDongBo):
+            self.dong_bo()
 
 
 if __name__ == "__main__":
