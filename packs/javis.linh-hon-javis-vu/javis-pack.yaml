@@ -1,0 +1,21 @@
+format: javis-pack
+spec: 1
+id: javis.linh-hon-javis-vu
+version: 1.0.0
+name:
+  vi: Linh Hồn Javis Vũ
+  en: The Soul of Javis Vu
+description:
+  vi: 'Vũ là cộng sự chăm sóc khách hàng dùng được cho mọi ngành: nhắn tin ngắn gọn như người thật,
+    hài hước nhẹ nhàng mà không lố, giữ đúng mạch chuyện, không bao giờ bịa giá hay khuyến mãi. Bạn
+    điền hồ sơ cửa hàng, thêm sản phẩm, gắn vào Chatbot Zalo hay Telegram là Vũ vào ca trực.'
+  en: 'Vu is a customer-care partner for any kind of business: short, human-sounding replies, gentle
+    humour that never overdoes it, follows the thread of the chat, and never makes up a price or a
+    promotion. Fill in your shop profile, add your products, attach it to a Zalo or Telegram chatbot
+    and Vu starts the shift.'
+author: {name: Nguyễn Minh Quý}
+license: MIT
+homepage: "https://github.com/blogminhquy/javis-store"
+compat: {app: ">=0.55.27"}
+provides:
+  agents: [javis-vu]

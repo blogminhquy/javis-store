@@ -3922,6 +3922,42 @@
         "sha256": "6e93a581f93258c99f930d5b2823aba62d00f090707c03c1563d95b2f005f2ef",
         "size": 163309
       }
+    },
+    {
+      "id": "javis.linh-hon-javis-vu",
+      "kind": "agent",
+      "name": {
+        "vi": "Linh Hồn Javis Vũ",
+        "en": "The Soul of Javis Vu"
+      },
+      "description": {
+        "vi": "Vũ là cộng sự chăm sóc khách hàng dùng được cho mọi ngành: nhắn tin ngắn gọn như người thật, hài hước nhẹ nhàng mà không lố, giữ đúng mạch chuyện, không bao giờ bịa giá hay khuyến mãi. Bạn điền hồ sơ cửa hàng, thêm sản phẩm, gắn vào Chatbot Zalo hay Telegram là Vũ vào ca trực.",
+        "en": "Vu is a customer-care partner for any kind of business: short, human-sounding replies, gentle humour that never overdoes it, follows the thread of the chat, and never makes up a price or a promotion. Fill in your shop profile, add your products, attach it to a Zalo or Telegram chatbot and Vu starts the shift."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Nguyễn Minh Quý"
+      },
+      "category": "ban-hang",
+      "category_label": {
+        "vi": "Bán hàng",
+        "en": "Sales"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-10-29",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.linh-hon-javis-vu",
+      "license": "MIT",
+      "provides": {
+        "agents": [
+          "javis-vu"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-linh-hon-javis-vu-1.0.0.zip",
+        "sha256": "c7598f73505da6997e3ceedd34376d15ee2797fd58dbe0ecc3f959b4c81430b2",
+        "size": 8273
+      }
     }
   ]
 }
