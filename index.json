@@ -1027,6 +1027,41 @@
       }
     },
     {
+      "id": "javis.zernio",
+      "kind": "connector",
+      "name": {
+        "vi": "Zernio: Đăng bài đa kênh",
+        "en": "Zernio: Multi-channel posting"
+      },
+      "description": {
+        "vi": "Một câu lệnh, đăng khắp mạng xã hội: Javis soạn, lên lịch và đăng cùng lúc lên Facebook, Instagram, TikTok, YouTube, LinkedIn, X, Threads, Pinterest và nhiều kênh khác qua MCP chính chủ của Zernio. Xem số liệu, giờ đăng tốt nhất, trả lời bình luận. Đăng ký miễn phí qua link của Javis, dán API key là xong.",
+        "en": "One command, every network: Javis writes, schedules and publishes to Facebook, Instagram, TikTok, YouTube, LinkedIn, X, Threads, Pinterest and more through Zernio's official MCP. See analytics and best times to post, reply to comments. Sign up free through Javis's link and paste an API key."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "mang-xa-hoi",
+      "category_label": {
+        "vi": "Mạng xã hội"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-10-29",
+      "homepage": "https://github.com/blogminhquy/javis-store/blob/main/huong-dan/zernio.md",
+      "icon": "packs/javis.zernio/assets/zernio.png",
+      "provides": {
+        "connectors": [
+          "zernio"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-zernio-1.0.0.zip",
+        "sha256": "6d0cf4c4041f11666afd6dbe9b118c43bd88684fd308c22d6f162a321a936db4",
+        "size": 11317
+      }
+    },
+    {
       "id": "javis.google-keep",
       "kind": "connector",
       "name": {
