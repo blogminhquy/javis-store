@@ -37,7 +37,8 @@ Kiểm những gì
    `chinh_chu.py`.
 9. MCP kho tự build trong `mcp/` khớp sha256 đã ghi, và connector chỉ trỏ vào tệp có thật. Lý do ở
    `mcp_dong_goi.py`.
-10. Gói theo repo gốc: mục `upstream` trong danh mục khớp `theo-goc/<id>.json`. Lý do ở `theo-goc.py`.
+10. Gói theo repo gốc: mục `upstream` trong danh mục khớp `theo-goc/<id>.json`, và gói lẻ tách ra từ
+    một gói gộp (`thuoc_goi`) trỏ đúng gói gộp đó. Lý do ở `theo-goc.py`.
 """
 import hashlib
 import json
@@ -339,6 +340,19 @@ for g in idx.get("packs") or []:
 for gid in co_cau_hinh:
     check(f"theo gốc: theo-goc/{gid}.json có mục trong index.json kèm `upstream`",
           any(g.get("id") == gid and g.get("upstream") for g in idx.get("packs") or []))
+# Gói lẻ (`tach`): mỗi agent của gói gộp là một mục riêng. Nó không mang `upstream` (chỉ gói gộp nằm ở
+# mục Đề xuất của Store), nên chỗ duy nhất nối nó về repo gốc là `thuoc_goi`. Trỏ sai là gói lẻ đứng yên mãi.
+for g in idx.get("packs") or []:
+    cha = g.get("thuoc_goi")
+    if cha is None:
+        continue
+    gid = g.get("id") or "?"
+    if not check(f"gói lẻ: {gid} trỏ vào gói gộp có tệp theo-goc/{cha}.json", cha in co_cau_hinh, cha):
+        continue
+    tach = json.loads(co_cau_hinh[cha].read_text(encoding="utf-8")).get("tach") or ""
+    check(f"gói lẻ: {gid} có id bắt đầu bằng `tach` của gói gộp", bool(tach) and gid.startswith(tach), tach)
+    check(f"gói lẻ: {gid} không mang `upstream`", "upstream" not in g)
+    check(f"gói lẻ: {gid} là agent", g.get("kind") == "agent", g.get("kind"))
 
 # ============================================================
 # 6. Em dash
@@ -350,7 +364,9 @@ for gid in co_cau_hinh:
 # ============================================================
 EM = chr(0x2014)
 SOI = ["index.json", "README.md", "CONTRIBUTING.md", "mcp/nguon.json"]
-for f in sorted(GOC.rglob("javis-pack.yaml")) + sorted((GOC / "packs").rglob("connectors/*.json"))         + sorted((GOC / "tools").glob("*.py")) + chinh_chu.cac_tep() + sorted((GOC / "theo-goc").glob("*.json")) + [GOC / x for x in SOI]:
+for f in (sorted(GOC.rglob("javis-pack.yaml")) + sorted((GOC / "packs").rglob("connectors/*.json"))
+          + sorted((GOC / "tools").glob("*.py")) + chinh_chu.cac_tep() + sorted((GOC / "theo-goc").glob("*.json"))
+          + sorted((GOC / "theo-goc" / "dich").glob("*.json")) + [GOC / x for x in SOI]):
     if not f.is_file():
         continue
     try:

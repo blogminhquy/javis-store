@@ -1,0 +1,15 @@
+format: javis-pack
+spec: 1
+id: javis.agency.marketing-instagram-curator
+version: 1.0.0
+name: {vi: "Người phụ trách Instagram", en: "Instagram Curator"}
+description: {vi: "Kể chuyện bằng hình ảnh, xây cộng đồng và tối ưu nội dung đa định dạng trên Instagram. Xây phong cách thẩm mỹ và tạo tương tác thật.",
+              en: "Expert Instagram marketing specialist focused on visual storytelling, community building, and multi-format content optimization. Masters aesthetic development and drives meaningful engagement."}
+author: {name: "msitarzewski", url: "https://github.com/msitarzewski/agency-agents"}
+license: MIT
+homepage: "https://github.com/msitarzewski/agency-agents/blob/main/marketing/marketing-instagram-curator.md"
+compat: {app: ">=0.55.27"}
+# Một agent lẻ của gói theo repo gốc javis.agency-agents: tools/theo-goc.py dựng lại mỗi ngày, đừng sửa tay.
+thuoc_goi: javis.agency-agents
+provides:
+  agents: [agency-marketing-instagram-curator]
