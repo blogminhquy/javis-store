@@ -3159,7 +3159,7 @@
         "vi": "12 skill chính chủ Anthropic (anthropics/skills): thiết kế giao diện đẹp, poster và ảnh nghệ thuật, nhận diện thương hiệu, bộ theme, văn bản nội bộ, dựng trang web, kiểm thử web, viết MCP và tự tạo skill mới.",
         "en": "12 official Anthropic skills (anthropics/skills): polished front-end design, posters and generative art, brand guidelines, theme sets, internal comms, web artifacts, web app testing, building MCP servers and creating new skills."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Anthropic",
         "url": "https://github.com/anthropics/skills"
@@ -3171,15 +3171,15 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-10-28",
+      "updated": "2026-10-29",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.anthropic-skills",
       "source": "https://github.com/anthropics/skills",
       "license": "Apache-2.0",
       "upstream": {
         "repo": "anthropics/skills",
         "ref": "main",
-        "commit": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
-        "synced": "2026-10-28"
+        "commit": "ca45fc496a3436251f191354091d557da31c15b5",
+        "synced": "2026-10-29"
       },
       "provides": {
         "skills": [
@@ -3198,9 +3198,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-anthropic-skills-1.0.0.zip",
-        "sha256": "75608b2bec58df2370216972f3929c532bea6d1334e67db6a87659d5215f2aec",
-        "size": 3724397
+        "url": "dist/javis-anthropic-skills-1.0.1.zip",
+        "sha256": "27033e346e8f7cde732223a7f38edbbf8a6b35302783c8b6b61085c23372a7dc",
+        "size": 3737143
       }
     },
     {
@@ -3545,7 +3545,7 @@
         "vi": "Bộ skill của Matt Pocock: thiết kế codebase, chẩn đoán lỗi, TDD, viết spec và chia ticket, review code, nguyên mẫu nhanh, cùng các skill làm việc như hỏi vặn ý tưởng (grill-me), bàn giao, viết cho AI agent.",
         "en": "Matt Pocock's skills: codebase design, diagnosing bugs, TDD, writing specs and splitting tickets, code review, quick prototypes, plus working skills such as grill-me, handoffs and writing for agents."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Matt Pocock",
         "url": "https://github.com/mattpocock/skills"
@@ -3557,15 +3557,15 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-10-28",
+      "updated": "2026-10-29",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.mattpocock",
       "source": "https://github.com/mattpocock/skills",
       "license": "MIT",
       "upstream": {
         "repo": "mattpocock/skills",
         "ref": "main",
-        "commit": "59db609eb1e18aaf59b63284d0e52255aff0c63c",
-        "synced": "2026-10-28"
+        "commit": "7739eaed7f8f3915437a8def198a6d0d7206dbc7",
+        "synced": "2026-10-29"
       },
       "provides": {
         "skills": [
@@ -3599,9 +3599,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-mattpocock-1.0.0.zip",
-        "sha256": "7e9c6976fb29bfbefcafd7bfa2305ae38c5bf5bd994d0f676339b7f1fdf2545d",
-        "size": 113378
+        "url": "dist/javis-mattpocock-1.0.1.zip",
+        "sha256": "eb3ee29838476288359ff1ef0be29f730a83624bee5a87791debea0624580ed5",
+        "size": 113501
       }
     },
     {
@@ -3615,7 +3615,7 @@
         "vi": "Skill của REA (Reverse Engineer Anything), repo AI đang nổi nhất GitHub: phân tích app Electron/JavaScript, tệp chạy, firmware và trang web khi không có mã nguồn, so sánh phiên bản, dịch ngược. Cần cài công cụ rea (npm rea-agents).",
         "en": "The REA (Reverse Engineer Anything) skill, GitHub's top trending AI repo: analyse Electron/JavaScript apps, binaries, firmware and web apps without their source, compare versions, decompile. Needs the rea tool (npm rea-agents)."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "morluto",
         "url": "https://github.com/morluto/rea"
@@ -3627,15 +3627,15 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-10-28",
+      "updated": "2026-10-29",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.rea",
       "source": "https://github.com/morluto/rea",
       "license": "MIT",
       "upstream": {
         "repo": "morluto/rea",
         "ref": "main",
-        "commit": "60bad9ed06474f5e4f2c09dce19f00f78591950e",
-        "synced": "2026-10-28"
+        "commit": "860fdd8fbeded2ddf9abfac61f6982db7458e94e",
+        "synced": "2026-10-29"
       },
       "provides": {
         "skills": [
@@ -3643,9 +3643,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-rea-1.0.0.zip",
-        "sha256": "094ff0d304de9f91fd01a8121645c50cab1dcbb0f40e8c2a80f884a2910c381a",
-        "size": 59521
+        "url": "dist/javis-rea-1.0.1.zip",
+        "sha256": "146941b4670d8c9b1cfbea20eb9c01f1c1ca79f2a20a683442eeda6a049063b2",
+        "size": 60692
       }
     },
     {
