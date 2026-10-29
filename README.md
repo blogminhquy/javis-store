@@ -42,6 +42,8 @@ Request chờ chủ kho đọc. Trong Javis, các gói này nằm ở mục **Re
 
 Thêm một repo: viết `theo-goc/<id>.json` (xem hai tệp có sẵn), chạy `python tools/theo-goc.py <id>`,
 rồi `python tools/kiem-tra.py`.
+Repo để skill thành tệp `.md` phẳng thay vì thư mục có `SKILL.md` (như FlowKit) thì khai
+`"phang": true` trong mục `chep`, xem `theo-goc/javis.flowkit.json`.
 
 ## Muốn đóng góp một gói
 

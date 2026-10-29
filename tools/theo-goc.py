@@ -102,6 +102,8 @@ def doc_cau_hinh(pid: str) -> dict:
                 raise LoiDongBo(f"{pid}: `{k}` phải là danh sách")
         if not isinstance(m.get("doi_ten", {}), dict):
             raise LoiDongBo(f"{pid}: `doi_ten` phải là map tên gốc -> tên mới")
+        if not isinstance(m.get("phang", False), bool) or (m.get("phang") and m.get("ten")):
+            raise LoiDongBo(f"{pid}: `phang` phải là true/false và không đi cùng `ten`")
         for b in m.get("bo_tep") or []:
             if not b or str(b).startswith("/") or ".." in str(b).split("/"):
                 raise LoiDongBo(f"{pid}: `bo_tep` không hợp lệ: {b!r}")
@@ -173,7 +175,10 @@ def dung_ban_moi(c: dict, nguon: Path, ra: Path) -> list:
       bo       bỏ những skill này;
       doi_ten  đổi tên THƯ MỤC khi trùng slug với gói khác trong cùng brain (nội dung giữ nguyên);
       ten      `tu` tự nó là một skill (SKILL.md nằm ngay ở đó, thường là gốc repo): tên thư mục trong gói;
-      bo_tep   với skill `ten`: đường dẫn tương đối không chép theo (test, ảnh demo, thư mục skill khác)."""
+      bo_tep   với skill `ten`: đường dẫn tương đối không chép theo (test, ảnh demo, thư mục skill khác);
+      phang    repo để skill thành tệp `.md` phẳng (`skills/fk-x.md`, như FlowKit) thay vì thư mục có
+               SKILL.md: mỗi tệp `.md` trừ README là một skill, tên theo tên tệp, chép NGUYÊN VĂN
+               thành `<tên>/SKILL.md`. Tệp không có frontmatter thì Javis lấy dòng đầu làm mô tả."""
     skills, tu_dau = [], {}
     for m in c["chep"]:
         tu = nguon / m["tu"]
@@ -183,6 +188,14 @@ def dung_ban_moi(c: dict, nguon: Path, ra: Path) -> list:
             if not (tu / "SKILL.md").is_file():
                 raise LoiDongBo(f"repo gốc không còn {m['tu']}/SKILL.md")
             cap = [(tu, m["ten"])]
+        elif m.get("phang"):
+            chi, bo = set(m.get("chi") or []), set(m.get("bo") or [])
+            cap = [(f, (m.get("doi_ten") or {}).get(f.stem, f.stem)) for f in sorted(tu.iterdir())
+                   if not f.is_symlink() and f.is_file() and f.suffix == ".md"
+                   and f.stem.upper() not in TEN_CHU and (not chi or f.stem in chi) and f.stem not in bo]
+            thieu = chi - {f.stem for f, _ in cap}
+            if thieu:
+                raise LoiDongBo(f"repo gốc không còn skill: {', '.join(sorted(thieu))}")
         else:
             chi, bo = set(m.get("chi") or []), set(m.get("bo") or [])
             cap = [(d, (m.get("doi_ten") or {}).get(d.name, d.name)) for d in sorted(tu.iterdir())
@@ -198,7 +211,12 @@ def dung_ban_moi(c: dict, nguon: Path, ra: Path) -> list:
                 raise LoiDongBo(f"hai skill trùng tên: {ten}")
             skills.append(ten)
             tu_dau[ten] = m["tu"] if m.get("ten") else f"{m['tu']}/{d.name}"
-            _chep_cay(d, ra / m["den"] / ten, nguon, m.get("bo_tep") or ())
+            if m.get("phang"):
+                _kiem_tep(d, nguon)
+                (ra / m["den"] / ten).mkdir(parents=True)
+                shutil.copyfile(d, ra / m["den"] / ten / "SKILL.md")
+            else:
+                _chep_cay(d, ra / m["den"] / ten, nguon, m.get("bo_tep") or ())
     if not skills:
         raise LoiDongBo("repo gốc không có skill nào ở thư mục đã khai")
     (ra / "docs").mkdir(exist_ok=True)
