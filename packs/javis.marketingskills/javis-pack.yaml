@@ -1,7 +1,7 @@
 format: javis-pack
 spec: 1
 id: javis.marketingskills
-version: 1.0.0
+version: 1.0.1
 name: {vi: "Marketing Skills", en: "Marketing Skills"}
 description: {vi: "52 skill marketing của Corey Haines, repo marketing nhiều sao nhất: viết copy, tối ưu chuyển đổi, SEO và SEO cho AI, quảng cáo, email, định giá, ra mắt sản phẩm, giới thiệu bạn bè, đo lường, chống rời bỏ.",
               en: "Corey Haines's 52 marketing skills, the most-starred marketing repo: copywriting, conversion, SEO and AI search, ads, email, pricing, launches, referrals, analytics and churn prevention."}

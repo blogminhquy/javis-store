@@ -1,7 +1,7 @@
 {
   "format": "javis-pack-index",
   "format_version": 1,
-  "updated": "2026-10-29",
+  "updated": "2026-10-30",
   "store": {
     "name": "Kho cài đặt Javis",
     "url": "https://github.com/blogminhquy/javis-store"
@@ -3450,7 +3450,7 @@
         "vi": "52 skill marketing của Corey Haines, repo marketing nhiều sao nhất: viết copy, tối ưu chuyển đổi, SEO và SEO cho AI, quảng cáo, email, định giá, ra mắt sản phẩm, giới thiệu bạn bè, đo lường, chống rời bỏ.",
         "en": "Corey Haines's 52 marketing skills, the most-starred marketing repo: copywriting, conversion, SEO and AI search, ads, email, pricing, launches, referrals, analytics and churn prevention."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Corey Haines",
         "url": "https://github.com/coreyhaines31/marketingskills"
@@ -3462,15 +3462,15 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-10-28",
+      "updated": "2026-10-30",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.marketingskills",
       "source": "https://github.com/coreyhaines31/marketingskills",
       "license": "MIT",
       "upstream": {
         "repo": "coreyhaines31/marketingskills",
         "ref": "main",
-        "commit": "0cd9b3a0ef4c411a1d690419ce843f2a1da32cce",
-        "synced": "2026-10-28"
+        "commit": "820ad2c1c0ac4cc350158bd7912c753681a7d173",
+        "synced": "2026-10-30"
       },
       "provides": {
         "skills": [
@@ -3529,9 +3529,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-marketingskills-1.0.0.zip",
-        "sha256": "be57ec9b93e0cb5a5acdc2df9b0ac0cfc883559fdc624aed1d1faaa058579440",
-        "size": 1685450
+        "url": "dist/javis-marketingskills-1.0.1.zip",
+        "sha256": "67f8b7e94666753ed98541a3aac3189da4836cf50142a45c1d74d61875ae6857",
+        "size": 1691426
       }
     },
     {
@@ -3545,7 +3545,7 @@
         "vi": "Bộ skill của Matt Pocock: thiết kế codebase, chẩn đoán lỗi, TDD, viết spec và chia ticket, review code, nguyên mẫu nhanh, cùng các skill làm việc như hỏi vặn ý tưởng (grill-me), bàn giao, viết cho AI agent.",
         "en": "Matt Pocock's skills: codebase design, diagnosing bugs, TDD, writing specs and splitting tickets, code review, quick prototypes, plus working skills such as grill-me, handoffs and writing for agents."
       },
-      "version": "1.0.1",
+      "version": "1.0.2",
       "author": {
         "name": "Matt Pocock",
         "url": "https://github.com/mattpocock/skills"
@@ -3557,15 +3557,15 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-10-29",
+      "updated": "2026-10-30",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.mattpocock",
       "source": "https://github.com/mattpocock/skills",
       "license": "MIT",
       "upstream": {
         "repo": "mattpocock/skills",
         "ref": "main",
-        "commit": "7739eaed7f8f3915437a8def198a6d0d7206dbc7",
-        "synced": "2026-10-29"
+        "commit": "a496f5513d4a4cf889bc48e189e579f4b0bdf6aa",
+        "synced": "2026-10-30"
       },
       "provides": {
         "skills": [
@@ -3599,9 +3599,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-mattpocock-1.0.1.zip",
-        "sha256": "eb3ee29838476288359ff1ef0be29f730a83624bee5a87791debea0624580ed5",
-        "size": 113501
+        "url": "dist/javis-mattpocock-1.0.2.zip",
+        "sha256": "f4d0959259f69de481951438c9c447693d570a16fb1c1cb0558afd4add2f8adb",
+        "size": 113505
       }
     },
     {
@@ -3615,7 +3615,7 @@
         "vi": "Skill của REA (Reverse Engineer Anything), repo AI đang nổi nhất GitHub: phân tích app Electron/JavaScript, tệp chạy, firmware và trang web khi không có mã nguồn, so sánh phiên bản, dịch ngược. Cần cài công cụ rea (npm rea-agents).",
         "en": "The REA (Reverse Engineer Anything) skill, GitHub's top trending AI repo: analyse Electron/JavaScript apps, binaries, firmware and web apps without their source, compare versions, decompile. Needs the rea tool (npm rea-agents)."
       },
-      "version": "1.0.1",
+      "version": "1.0.2",
       "author": {
         "name": "morluto",
         "url": "https://github.com/morluto/rea"
@@ -3627,15 +3627,15 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-10-29",
+      "updated": "2026-10-30",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.rea",
       "source": "https://github.com/morluto/rea",
       "license": "MIT",
       "upstream": {
         "repo": "morluto/rea",
         "ref": "main",
-        "commit": "860fdd8fbeded2ddf9abfac61f6982db7458e94e",
-        "synced": "2026-10-29"
+        "commit": "767f6afc18f19687eef663a10e9a3983f6f9979e",
+        "synced": "2026-10-30"
       },
       "provides": {
         "skills": [
@@ -3643,9 +3643,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-rea-1.0.1.zip",
-        "sha256": "146941b4670d8c9b1cfbea20eb9c01f1c1ca79f2a20a683442eeda6a049063b2",
-        "size": 60692
+        "url": "dist/javis-rea-1.0.2.zip",
+        "sha256": "3f233f9bfe3fc8c5d7d52d8cb8471e9c2bc8171cd095272ac98f2e5cb7838ef6",
+        "size": 61279
       }
     },
     {
