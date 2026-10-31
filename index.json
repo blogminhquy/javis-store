@@ -1,7 +1,7 @@
 {
   "format": "javis-pack-index",
   "format_version": 1,
-  "updated": "2026-10-30",
+  "updated": "2026-10-31",
   "store": {
     "name": "Kho cài đặt Javis",
     "url": "https://github.com/blogminhquy/javis-store"
@@ -3615,7 +3615,7 @@
         "vi": "Skill của REA (Reverse Engineer Anything), repo AI đang nổi nhất GitHub: phân tích app Electron/JavaScript, tệp chạy, firmware và trang web khi không có mã nguồn, so sánh phiên bản, dịch ngược. Cần cài công cụ rea (npm rea-agents).",
         "en": "The REA (Reverse Engineer Anything) skill, GitHub's top trending AI repo: analyse Electron/JavaScript apps, binaries, firmware and web apps without their source, compare versions, decompile. Needs the rea tool (npm rea-agents)."
       },
-      "version": "1.0.2",
+      "version": "1.0.3",
       "author": {
         "name": "morluto",
         "url": "https://github.com/morluto/rea"
@@ -3627,15 +3627,15 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-10-30",
+      "updated": "2026-10-31",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.rea",
       "source": "https://github.com/morluto/rea",
       "license": "MIT",
       "upstream": {
         "repo": "morluto/rea",
         "ref": "main",
-        "commit": "767f6afc18f19687eef663a10e9a3983f6f9979e",
-        "synced": "2026-10-30"
+        "commit": "23de10bb2849cdce8ddbe70504aa7cc57de75a98",
+        "synced": "2026-10-31"
       },
       "provides": {
         "skills": [
@@ -3643,9 +3643,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-rea-1.0.2.zip",
-        "sha256": "3f233f9bfe3fc8c5d7d52d8cb8471e9c2bc8171cd095272ac98f2e5cb7838ef6",
-        "size": 61279
+        "url": "dist/javis-rea-1.0.3.zip",
+        "sha256": "3aa8dbc2b345c8fe38a339b3845c4967b7c44791ef7cc836157d93dd9a55a60c",
+        "size": 62659
       }
     },
     {
