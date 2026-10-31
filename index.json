@@ -2930,7 +2930,7 @@
         "vi": "Skill của Lemomo dựng phim ngắn hoàn toàn bằng code theo 59 phong cách (sơn dầu, màu nước, ukiyo-e, ảnh vệ tinh...): kịch bản, hình, nhạc, lồng tiếng. Cần Node 20+, ffmpeg, Python 3.11+; chạy tốt nhất với Claude.",
         "en": "Lemomo's skill for short films made entirely in code in 59 styles (oil paint, watercolor, ukiyo-e, satellite...): story, picture, score, narration. Needs Node 20+, ffmpeg, Python 3.11+; tuned for Claude."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Lemomo",
         "url": "https://github.com/lemomo-ai/lemo-opuscar"
@@ -2942,15 +2942,15 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-10-28",
+      "updated": "2026-10-31",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.lemo-opuscar",
       "source": "https://github.com/lemomo-ai/lemo-opuscar",
       "license": "MIT",
       "upstream": {
         "repo": "lemomo-ai/lemo-opuscar",
         "ref": "main",
-        "commit": "413a6bd6d78ebd3bdd5abaec9538a26867f890df",
-        "synced": "2026-10-28"
+        "commit": "f17136060781a0068a7951245a3aa7835a7230de",
+        "synced": "2026-10-31"
       },
       "provides": {
         "skills": [
@@ -2958,9 +2958,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-lemo-opuscar-1.0.0.zip",
-        "sha256": "0b7e1de517752f601a8ca09b5395f4f7fe2923d580e899aeccb3d893d12e28d8",
-        "size": 6934
+        "url": "dist/javis-lemo-opuscar-1.0.1.zip",
+        "sha256": "78333609d66feb5031cb81fc7e1e1346ac2ee281dd04261cbcb29e4d55e77e86",
+        "size": 7016
       }
     },
     {
@@ -3400,7 +3400,7 @@
         "vi": "Bộ skill của HeyGen để AI làm video bằng HTML: lên ý tưởng, dựng cảnh, hoạt hình, slideshow, lấy thiết kế từ Figma, chuyển dự án Remotion sang, rồi xuất video. Cần Node 22+ và ffmpeg.",
         "en": "HeyGen's skills for making video in HTML: plan, build scenes, animate, slideshows, pull designs from Figma, migrate Remotion projects, then render. Needs Node 22+ and ffmpeg."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "HeyGen",
         "url": "https://github.com/heygen-com/hyperframes"
@@ -3412,15 +3412,15 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-10-28",
+      "updated": "2026-10-31",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hyperframes",
       "source": "https://github.com/heygen-com/hyperframes",
       "license": "Apache-2.0",
       "upstream": {
         "repo": "heygen-com/hyperframes",
         "ref": "main",
-        "commit": "7758d9b8fd507384573eb56ba84cc62fb20444c6",
-        "synced": "2026-10-28"
+        "commit": "a04b45a6db0d1f724be9cf1985c3b13657195f0d",
+        "synced": "2026-10-31"
       },
       "provides": {
         "skills": [
@@ -3430,13 +3430,14 @@
           "hyperframes-registry",
           "media-use",
           "remotion-to-hyperframes",
+          "reverse-any-video",
           "slideshow"
         ]
       },
       "download": {
-        "url": "dist/javis-hyperframes-1.0.0.zip",
-        "sha256": "0752ec2c49cd594b5e61cacb15a65c4182a90c68264cdecb541f56ae76f263ad",
-        "size": 2077750
+        "url": "dist/javis-hyperframes-1.0.1.zip",
+        "sha256": "b545d7525d4ff6c937977ec62a7fb660b18a13171eff80e17ee1c93901e670bb",
+        "size": 2086724
       }
     },
     {
@@ -3450,7 +3451,7 @@
         "vi": "52 skill marketing của Corey Haines, repo marketing nhiều sao nhất: viết copy, tối ưu chuyển đổi, SEO và SEO cho AI, quảng cáo, email, định giá, ra mắt sản phẩm, giới thiệu bạn bè, đo lường, chống rời bỏ.",
         "en": "Corey Haines's 52 marketing skills, the most-starred marketing repo: copywriting, conversion, SEO and AI search, ads, email, pricing, launches, referrals, analytics and churn prevention."
       },
-      "version": "1.0.1",
+      "version": "1.0.2",
       "author": {
         "name": "Corey Haines",
         "url": "https://github.com/coreyhaines31/marketingskills"
@@ -3462,15 +3463,15 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-10-30",
+      "updated": "2026-10-31",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.marketingskills",
       "source": "https://github.com/coreyhaines31/marketingskills",
       "license": "MIT",
       "upstream": {
         "repo": "coreyhaines31/marketingskills",
         "ref": "main",
-        "commit": "820ad2c1c0ac4cc350158bd7912c753681a7d173",
-        "synced": "2026-10-30"
+        "commit": "88c79f6528a9347420e57ceb1fff9a60de651768",
+        "synced": "2026-10-31"
       },
       "provides": {
         "skills": [
@@ -3517,6 +3518,7 @@
           "prospecting",
           "public-relations",
           "referrals",
+          "reverse-engineer-marketing",
           "revops",
           "sales-enablement",
           "schema",
@@ -3529,9 +3531,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-marketingskills-1.0.1.zip",
-        "sha256": "67f8b7e94666753ed98541a3aac3189da4836cf50142a45c1d74d61875ae6857",
-        "size": 1691426
+        "url": "dist/javis-marketingskills-1.0.2.zip",
+        "sha256": "baada5e0dfb51ee85ca02fa47df02d21b8850ec5cf13ad7e49fcde7b5062d9cf",
+        "size": 1864030
       }
     },
     {
@@ -3659,7 +3661,7 @@
         "vi": "Bộ skill thiết kế giao diện nổi nhất: kho phong cách, bảng màu, cặp font và quy tắc UX để AI dựng trang web, landing page, banner, slide và hệ thống thiết kế đẹp ngay lần đầu. Cần Python 3.",
         "en": "The most popular interface design skills: a library of styles, palettes, font pairings and UX rules so the AI builds websites, landing pages, banners, slides and design systems that look right first time. Needs Python 3."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Next Level Builder",
         "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill"
@@ -3671,15 +3673,15 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-10-28",
+      "updated": "2026-10-31",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.ui-ux-pro-max",
       "source": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
       "license": "MIT",
       "upstream": {
         "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
         "ref": "main",
-        "commit": "28b3b8dee8c976df4fa3e94aed4e092ad43fcb03",
-        "synced": "2026-10-28"
+        "commit": "9a3f14f7423037ccb8feeb4fee7482291b9c820e",
+        "synced": "2026-10-31"
       },
       "provides": {
         "skills": [
@@ -3693,9 +3695,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-ui-ux-pro-max-1.0.0.zip",
-        "sha256": "257be9a6a34a1318ba0f9a4b6ac94337fc2686ff43c281299fce41ef74ba485b",
-        "size": 3552640
+        "url": "dist/javis-ui-ux-pro-max-1.0.1.zip",
+        "sha256": "d592d1885643991383772a74d4bfc511cedf03b1919f5900aba4ec762340b980",
+        "size": 3552803
       }
     },
     {
@@ -3806,7 +3808,7 @@
         "vi": "Skill lập kế hoạch kiểu Manus: việc dài được chia thành kế hoạch, ghi chú và tiến độ trong tệp markdown, nên AI không quên mục tiêu giữa chừng và làm tiếp được sau khi gián đoạn.",
         "en": "Manus-style planning: long tasks keep their plan, findings and progress in markdown files, so the AI does not lose the goal halfway and can pick up after an interruption."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Ahmad Othman Adi",
         "url": "https://github.com/OthmanAdi/planning-with-files"
@@ -3818,15 +3820,15 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-10-28",
+      "updated": "2026-10-31",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.planning-with-files",
       "source": "https://github.com/OthmanAdi/planning-with-files",
       "license": "MIT",
       "upstream": {
         "repo": "OthmanAdi/planning-with-files",
         "ref": "master",
-        "commit": "dcdfb278de53fdb69b2067ea173dbb1de45345a3",
-        "synced": "2026-10-28"
+        "commit": "b6580cd24af1d8a95ab268794456e05608a1afd3",
+        "synced": "2026-10-31"
       },
       "provides": {
         "skills": [
@@ -3834,9 +3836,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-planning-with-files-1.0.0.zip",
-        "sha256": "92fdc2ab824e2a9956b0122b9a24e8d280c14195fc1e753d4a7de8bbcf8f71d4",
-        "size": 161956
+        "url": "dist/javis-planning-with-files-1.0.1.zip",
+        "sha256": "fe2d44387787d79a5cfec1cff4f0d9f5a4ba77fcc7d9c894b3e12280a6ec7fc5",
+        "size": 169674
       }
     },
     {
