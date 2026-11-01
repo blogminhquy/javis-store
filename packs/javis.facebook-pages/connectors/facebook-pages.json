@@ -3,7 +3,7 @@
   "name": "Facebook Trang (đăng bài, bình luận)",
   "icon": "assets/meta-ads.webp",
   "category": "Mạng xã hội",
-  "description": "Để Javis làm việc trên Fanpage khi bạn nhờ: đăng bài chữ, ảnh, album, video, sửa bài, đọc và trả lời bình luận. Đăng và sửa bài là việc thật nên chỉ chạy ở mức Toàn quyền. Muốn bot tự trực tin nhắn và bình luận của khách, dùng thẻ Facebook Messenger ở trang Kết nối. Một app Meta dùng chung được cho mọi thẻ Meta.",
+  "description": "Javis đăng bài lên Fanpage thay bạn: đăng ngay khi bạn nhờ, hoặc đăng tự động theo lịch (ví dụ 8 giờ sáng mỗi ngày, đặt bằng một câu chat). Đăng chữ, ảnh, album, video, sửa bài, đọc và trả lời bình luận. Đăng và sửa bài là việc thật nên chỉ chạy ở mức Toàn quyền. Muốn bot tự trực tin nhắn và bình luận của khách, dùng thẻ Facebook Messenger ở trang Kết nối. Một app Meta dùng chung được cho mọi thẻ Meta.",
   "status": "beta",
   "transport": "http",
   "url": "",

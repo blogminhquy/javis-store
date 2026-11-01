@@ -571,9 +571,9 @@
         "vi": "Facebook Trang (đăng bài, bình luận)"
       },
       "description": {
-        "vi": "Để Javis làm việc trên Fanpage khi bạn nhờ: đăng bài chữ, ảnh, album, video, sửa bài, đọc và trả lời bình luận. Đăng và sửa bài là việc thật nên chỉ chạy ở mức Toàn quyền. Muốn bot tự trực tin nhắn và bình luận của khách, dùng thẻ Facebook Messenger ở trang Kết nối. Một app Meta dùng chung được cho mọi thẻ Meta."
+        "vi": "Javis đăng bài lên Fanpage thay bạn: đăng ngay khi bạn nhờ, hoặc đăng tự động theo lịch (ví dụ 8 giờ sáng mỗi ngày, đặt bằng một câu chat). Đăng chữ, ảnh, album, video, sửa bài, đọc và trả lời bình luận. Đăng và sửa bài là việc thật nên chỉ chạy ở mức Toàn quyền. Muốn bot tự trực tin nhắn và bình luận của khách, dùng thẻ Facebook Messenger ở trang Kết nối. Một app Meta dùng chung được cho mọi thẻ Meta."
       },
-      "version": "1.0.1",
+      "version": "1.0.2",
       "author": {
         "name": "Javis"
       },
@@ -592,9 +592,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-facebook-pages-1.0.1.zip",
-        "sha256": "9903553914543a72f340ac6707bf3292176947c721d139e2a00853453c4ca61c",
-        "size": 18858
+        "url": "dist/javis-facebook-pages-1.0.2.zip",
+        "sha256": "297aace8076a96f69feddb3249299ffd8418b284b3fdcfc0764b7fdf87c053b8",
+        "size": 18981
       }
     },
     {
