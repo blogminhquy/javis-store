@@ -535,12 +535,12 @@
       "id": "javis.meta-ads",
       "kind": "connector",
       "name": {
-        "vi": "Meta Ads (Facebook & Instagram)"
+        "vi": "Meta Ads (bản beta của Meta)"
       },
       "description": {
-        "vi": "Số liệu quảng cáo Facebook/Instagram qua MCP chính chủ của Meta (tài khoản ads, hiệu suất chiến dịch, benchmark ngành, catalog sản phẩm). LƯU Ý: đang là beta GIỚI HẠN của Meta - chỉ vài ứng dụng được Meta cấp phép sẵn kết nối được, kết nối tự phục vụ CHƯA khả dụng."
+        "vi": "Xem số liệu quảng cáo Facebook và Instagram qua cổng MCP chính chủ của Meta, đăng nhập bằng một nút. Lưu ý: Meta mới mở bản beta cho một số ứng dụng, nhiều tài khoản chưa kết nối được. Không vào được thì dùng thẻ \"Meta Ads (app Meta riêng)\"."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Javis"
       },
@@ -550,7 +550,7 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-09-05",
+      "updated": "2026-11-01",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.meta-ads",
       "icon": "packs/javis.meta-ads/assets/meta-ads.webp",
       "provides": {
@@ -559,21 +559,21 @@
         ]
       },
       "download": {
-        "url": "dist/javis-meta-ads-1.0.0.zip",
-        "sha256": "5d406f2a226f4defe5b88be375c404029fff48d79d1d6f7e915f498e10b06543",
-        "size": 16925
+        "url": "dist/javis-meta-ads-1.0.1.zip",
+        "sha256": "88dfc40f39f81d418ef9ef788e21d4a4ad93057c96a00b0b4f9ed8a0529612c9",
+        "size": 16909
       }
     },
     {
       "id": "javis.meta-ads-graph",
       "kind": "connector",
       "name": {
-        "vi": "Meta Ads (tự tạo app - Graph API)"
+        "vi": "Meta Ads (app Meta riêng)"
       },
       "description": {
-        "vi": "Số liệu quảng cáo Facebook/Instagram gọi THẲNG Marketing API của Meta (KHÔNG qua MCP beta bị khoá). Bạn tạo 1 Facebook App, dán App ID + App Secret, Javis đọc tài khoản ads, chiến dịch và hiệu suất của bạn. CHỈ ĐỌC - không tạo/sửa chiến dịch, không tiêu tiền. Đây là cách các nền tảng như Composio dùng."
+        "vi": "Xem tài khoản quảng cáo, chiến dịch và hiệu suất Facebook, Instagram bằng app Meta của chính bạn. Cách này ổn định, không phụ thuộc bản beta của Meta. Chỉ đọc: không tạo, không sửa chiến dịch, không tiêu tiền. Một app Meta dùng chung được cho mọi thẻ Meta và kênh Messenger."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Javis"
       },
@@ -583,7 +583,7 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-09-05",
+      "updated": "2026-11-01",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.meta-ads-graph",
       "icon": "packs/javis.meta-ads-graph/assets/meta-ads.webp",
       "provides": {
@@ -592,21 +592,21 @@
         ]
       },
       "download": {
-        "url": "dist/javis-meta-ads-graph-1.0.0.zip",
-        "sha256": "058b674a3c56eb402da214ff40b5370b05ac72ccbb851c66fc79ff8bd09b5bce",
-        "size": 18753
+        "url": "dist/javis-meta-ads-graph-1.0.1.zip",
+        "sha256": "d2c92251c44352144ca0fdfaad84f705ff8cd96eb32d6ec8e83ed4a39182b05a",
+        "size": 18678
       }
     },
     {
       "id": "javis.facebook-pages",
       "kind": "connector",
       "name": {
-        "vi": "Facebook Trang (tự tạo app - Graph API)"
+        "vi": "Facebook Trang (đăng bài, bình luận)"
       },
       "description": {
-        "vi": "Quản lý Trang/Fanpage Facebook của bạn qua Graph API chính chủ: xem danh sách Trang, đọc bài và bình luận (chỉ đọc), đăng bài chữ, ẢNH, ALBUM nhiều ảnh, VIDEO, SỬA bài đã đăng và trả lời bình luận (toàn quyền). Bạn tạo 1 Facebook App (dùng lại app đang có cho Meta Ads cũng được), dán App ID + App Secret. Đăng và sửa bài là hành động THẬT nên chỉ chạy ở mức Toàn quyền, không tự làm lén."
+        "vi": "Để Javis làm việc trên Fanpage khi bạn nhờ: đăng bài chữ, ảnh, album, video, sửa bài, đọc và trả lời bình luận. Đăng và sửa bài là việc thật nên chỉ chạy ở mức Toàn quyền. Muốn bot tự trực tin nhắn và bình luận của khách, dùng thẻ Facebook Messenger ở trang Kết nối. Một app Meta dùng chung được cho mọi thẻ Meta."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Javis"
       },
@@ -616,7 +616,7 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-09-05",
+      "updated": "2026-11-01",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.facebook-pages",
       "icon": "packs/javis.facebook-pages/assets/meta-ads.webp",
       "provides": {
@@ -625,9 +625,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-facebook-pages-1.0.0.zip",
-        "sha256": "af64306ef56265574d8201d7daf72308be865f43a1ebf5b21581fc5db45a4983",
-        "size": 18957
+        "url": "dist/javis-facebook-pages-1.0.1.zip",
+        "sha256": "9903553914543a72f340ac6707bf3292176947c721d139e2a00853453c4ca61c",
+        "size": 18858
       }
     },
     {

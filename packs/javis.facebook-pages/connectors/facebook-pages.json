@@ -1,9 +1,9 @@
 {
   "id": "facebook-pages",
-  "name": "Facebook Trang (tự tạo app - Graph API)",
+  "name": "Facebook Trang (đăng bài, bình luận)",
   "icon": "assets/meta-ads.webp",
   "category": "Mạng xã hội",
-  "description": "Quản lý Trang/Fanpage Facebook của bạn qua Graph API chính chủ: xem danh sách Trang, đọc bài và bình luận (chỉ đọc), đăng bài chữ, ẢNH, ALBUM nhiều ảnh, VIDEO, SỬA bài đã đăng và trả lời bình luận (toàn quyền). Bạn tạo 1 Facebook App (dùng lại app đang có cho Meta Ads cũng được), dán App ID + App Secret. Đăng và sửa bài là hành động THẬT nên chỉ chạy ở mức Toàn quyền, không tự làm lén.",
+  "description": "Để Javis làm việc trên Fanpage khi bạn nhờ: đăng bài chữ, ảnh, album, video, sửa bài, đọc và trả lời bình luận. Đăng và sửa bài là việc thật nên chỉ chạy ở mức Toàn quyền. Muốn bot tự trực tin nhắn và bình luận của khách, dùng thẻ Facebook Messenger ở trang Kết nối. Một app Meta dùng chung được cho mọi thẻ Meta.",
   "status": "beta",
   "transport": "http",
   "url": "",

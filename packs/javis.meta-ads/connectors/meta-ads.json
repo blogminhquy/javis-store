@@ -1,9 +1,9 @@
 {
   "id": "meta-ads",
-  "name": "Meta Ads (Facebook & Instagram)",
+  "name": "Meta Ads (bản beta của Meta)",
   "icon": "assets/meta-ads.webp",
   "category": "Quảng cáo",
-  "description": "Số liệu quảng cáo Facebook/Instagram qua MCP chính chủ của Meta (tài khoản ads, hiệu suất chiến dịch, benchmark ngành, catalog sản phẩm). LƯU Ý: đang là beta GIỚI HẠN của Meta - chỉ vài ứng dụng được Meta cấp phép sẵn kết nối được, kết nối tự phục vụ CHƯA khả dụng.",
+  "description": "Xem số liệu quảng cáo Facebook và Instagram qua cổng MCP chính chủ của Meta, đăng nhập bằng một nút. Lưu ý: Meta mới mở bản beta cho một số ứng dụng, nhiều tài khoản chưa kết nối được. Không vào được thì dùng thẻ \"Meta Ads (app Meta riêng)\".",
   "status": "beta",
   "transport": "http",
   "url": "https://mcp.facebook.com/ads",
