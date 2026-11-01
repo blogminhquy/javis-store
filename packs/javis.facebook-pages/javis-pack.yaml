@@ -1,9 +1,9 @@
 format: javis-pack
 spec: 1
 id: javis.facebook-pages
-version: 1.0.1
+version: 1.0.2
 name: {vi: "Facebook Trang (đăng bài, bình luận)"}
-description: {vi: "Để Javis làm việc trên Fanpage khi bạn nhờ: đăng bài chữ, ảnh, album, video, sửa bài, đọc và trả lời bình luận. Đăng và sửa bài là việc thật nên chỉ chạy ở mức Toàn quyền. Muốn bot tự trực tin nhắn và bình luận của khách, dùng thẻ Facebook Messenger ở trang Kết nối. Một app Meta dùng chung được cho mọi thẻ Meta."}
+description: {vi: "Javis đăng bài lên Fanpage thay bạn: đăng ngay khi bạn nhờ, hoặc đăng tự động theo lịch (ví dụ 8 giờ sáng mỗi ngày, đặt bằng một câu chat). Đăng chữ, ảnh, album, video, sửa bài, đọc và trả lời bình luận. Đăng và sửa bài là việc thật nên chỉ chạy ở mức Toàn quyền. Muốn bot tự trực tin nhắn và bình luận của khách, dùng thẻ Facebook Messenger ở trang Kết nối. Một app Meta dùng chung được cho mọi thẻ Meta."}
 author: {name: Javis}
 license: MIT
 homepage: "https://github.com/blogminhquy/javis-store"
