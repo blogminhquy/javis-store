@@ -532,15 +532,15 @@
       }
     },
     {
-      "id": "javis.meta-ads",
+      "id": "javis.meta-ads-graph",
       "kind": "connector",
       "name": {
         "vi": "Meta Ads (Facebook & Instagram)"
       },
       "description": {
-        "vi": "Số liệu quảng cáo Facebook/Instagram qua MCP chính chủ của Meta (tài khoản ads, hiệu suất chiến dịch, benchmark ngành, catalog sản phẩm). LƯU Ý: đang là beta GIỚI HẠN của Meta - chỉ vài ứng dụng được Meta cấp phép sẵn kết nối được, kết nối tự phục vụ CHƯA khả dụng."
+        "vi": "Xem tài khoản quảng cáo, chiến dịch và hiệu suất Facebook, Instagram bằng app Meta của chính bạn (dán App ID và App Secret). Chỉ đọc: không tạo, không sửa chiến dịch, không tiêu tiền. Một app Meta dùng chung được cho mọi thẻ Meta và kênh Messenger."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Javis"
       },
@@ -550,40 +550,7 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-09-05",
-      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.meta-ads",
-      "icon": "packs/javis.meta-ads/assets/meta-ads.webp",
-      "provides": {
-        "connectors": [
-          "meta-ads"
-        ]
-      },
-      "download": {
-        "url": "dist/javis-meta-ads-1.0.0.zip",
-        "sha256": "5d406f2a226f4defe5b88be375c404029fff48d79d1d6f7e915f498e10b06543",
-        "size": 16925
-      }
-    },
-    {
-      "id": "javis.meta-ads-graph",
-      "kind": "connector",
-      "name": {
-        "vi": "Meta Ads (tự tạo app - Graph API)"
-      },
-      "description": {
-        "vi": "Số liệu quảng cáo Facebook/Instagram gọi THẲNG Marketing API của Meta (KHÔNG qua MCP beta bị khoá). Bạn tạo 1 Facebook App, dán App ID + App Secret, Javis đọc tài khoản ads, chiến dịch và hiệu suất của bạn. CHỈ ĐỌC - không tạo/sửa chiến dịch, không tiêu tiền. Đây là cách các nền tảng như Composio dùng."
-      },
-      "version": "1.0.0",
-      "author": {
-        "name": "Javis"
-      },
-      "category": "quang-cao",
-      "category_label": {
-        "vi": "Quảng cáo"
-      },
-      "tier": "data",
-      "verified": true,
-      "updated": "2026-09-05",
+      "updated": "2026-11-01",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.meta-ads-graph",
       "icon": "packs/javis.meta-ads-graph/assets/meta-ads.webp",
       "provides": {
@@ -592,21 +559,21 @@
         ]
       },
       "download": {
-        "url": "dist/javis-meta-ads-graph-1.0.0.zip",
-        "sha256": "058b674a3c56eb402da214ff40b5370b05ac72ccbb851c66fc79ff8bd09b5bce",
-        "size": 18753
+        "url": "dist/javis-meta-ads-graph-1.0.1.zip",
+        "sha256": "047e9b37c63b948b236529fa3d89c0be7fe7448f569a7923e9736f5387bc9b0f",
+        "size": 18649
       }
     },
     {
       "id": "javis.facebook-pages",
       "kind": "connector",
       "name": {
-        "vi": "Facebook Trang (tự tạo app - Graph API)"
+        "vi": "Facebook Trang (đăng bài, bình luận)"
       },
       "description": {
-        "vi": "Quản lý Trang/Fanpage Facebook của bạn qua Graph API chính chủ: xem danh sách Trang, đọc bài và bình luận (chỉ đọc), đăng bài chữ, ẢNH, ALBUM nhiều ảnh, VIDEO, SỬA bài đã đăng và trả lời bình luận (toàn quyền). Bạn tạo 1 Facebook App (dùng lại app đang có cho Meta Ads cũng được), dán App ID + App Secret. Đăng và sửa bài là hành động THẬT nên chỉ chạy ở mức Toàn quyền, không tự làm lén."
+        "vi": "Để Javis làm việc trên Fanpage khi bạn nhờ: đăng bài chữ, ảnh, album, video, sửa bài, đọc và trả lời bình luận. Đăng và sửa bài là việc thật nên chỉ chạy ở mức Toàn quyền. Muốn bot tự trực tin nhắn và bình luận của khách, dùng thẻ Facebook Messenger ở trang Kết nối. Một app Meta dùng chung được cho mọi thẻ Meta."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Javis"
       },
@@ -616,7 +583,7 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-09-05",
+      "updated": "2026-11-01",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.facebook-pages",
       "icon": "packs/javis.facebook-pages/assets/meta-ads.webp",
       "provides": {
@@ -625,9 +592,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-facebook-pages-1.0.0.zip",
-        "sha256": "af64306ef56265574d8201d7daf72308be865f43a1ebf5b21581fc5db45a4983",
-        "size": 18957
+        "url": "dist/javis-facebook-pages-1.0.1.zip",
+        "sha256": "9903553914543a72f340ac6707bf3292176947c721d139e2a00853453c4ca61c",
+        "size": 18858
       }
     },
     {
