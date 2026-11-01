@@ -1,7 +1,7 @@
 {
   "format": "javis-pack-index",
   "format_version": 1,
-  "updated": "2026-10-31",
+  "updated": "2026-11-01",
   "store": {
     "name": "Kho cài đặt Javis",
     "url": "https://github.com/blogminhquy/javis-store"
@@ -3301,7 +3301,7 @@
         "vi": "12 skill của GitNexus: dựng đồ thị phụ thuộc của cả codebase rồi dùng nó để khám phá mã, gỡ lỗi, đánh giá tác động trước khi sửa, refactor, review PR. Cần chạy npx gitnexus analyze. Giấy phép chỉ cho dùng phi thương mại.",
         "en": "12 GitNexus skills: index the whole codebase into a dependency graph and use it to explore code, debug, check impact before an edit, refactor and review PRs. Needs npx gitnexus analyze. Licensed for noncommercial use only."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Abhigyan Patwari",
         "url": "https://github.com/abhigyanpatwari/GitNexus"
@@ -3313,15 +3313,15 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-10-28",
+      "updated": "2026-11-01",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.gitnexus",
       "source": "https://github.com/abhigyanpatwari/GitNexus",
       "license": "PolyForm-Noncommercial-1.0.0",
       "upstream": {
         "repo": "abhigyanpatwari/GitNexus",
         "ref": "main",
-        "commit": "51ce19d77abe86978e34d89dd77188c4dba3ba53",
-        "synced": "2026-10-28"
+        "commit": "21298f24234e538dc0d0b5369c410e76da77e70e",
+        "synced": "2026-11-01"
       },
       "provides": {
         "skills": [
@@ -3340,9 +3340,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-gitnexus-1.0.0.zip",
-        "sha256": "efeb19337dd8d112469cf8c239af48a32dd16dda7b246000adb5a80753d6284d",
-        "size": 149864
+        "url": "dist/javis-gitnexus-1.0.1.zip",
+        "sha256": "4d1410764281120a60423e5f46655c2f3a93eee375404912771c65ff80e2cd2f",
+        "size": 149956
       }
     },
     {
@@ -3615,7 +3615,7 @@
         "vi": "Skill của REA (Reverse Engineer Anything), repo AI đang nổi nhất GitHub: phân tích app Electron/JavaScript, tệp chạy, firmware và trang web khi không có mã nguồn, so sánh phiên bản, dịch ngược. Cần cài công cụ rea (npm rea-agents).",
         "en": "The REA (Reverse Engineer Anything) skill, GitHub's top trending AI repo: analyse Electron/JavaScript apps, binaries, firmware and web apps without their source, compare versions, decompile. Needs the rea tool (npm rea-agents)."
       },
-      "version": "1.0.3",
+      "version": "1.0.4",
       "author": {
         "name": "morluto",
         "url": "https://github.com/morluto/rea"
@@ -3627,15 +3627,15 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-10-31",
+      "updated": "2026-11-01",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.rea",
       "source": "https://github.com/morluto/rea",
       "license": "MIT",
       "upstream": {
         "repo": "morluto/rea",
         "ref": "main",
-        "commit": "23de10bb2849cdce8ddbe70504aa7cc57de75a98",
-        "synced": "2026-10-31"
+        "commit": "1aa6beb5dc937a19e87df70b56df48f0d4e09541",
+        "synced": "2026-11-01"
       },
       "provides": {
         "skills": [
@@ -3643,9 +3643,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-rea-1.0.3.zip",
-        "sha256": "3aa8dbc2b345c8fe38a339b3845c4967b7c44791ef7cc836157d93dd9a55a60c",
-        "size": 62659
+        "url": "dist/javis-rea-1.0.4.zip",
+        "sha256": "19fcd0fa3b45410a673e5ce665e89aab4e13c0348c2f65c61ac1528a2aba15b2",
+        "size": 64340
       }
     },
     {
