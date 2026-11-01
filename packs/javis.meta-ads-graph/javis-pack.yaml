@@ -2,8 +2,8 @@ format: javis-pack
 spec: 1
 id: javis.meta-ads-graph
 version: 1.0.1
-name: {vi: "Meta Ads (app Meta riêng)"}
-description: {vi: "Xem tài khoản quảng cáo, chiến dịch và hiệu suất Facebook, Instagram bằng app Meta của chính bạn. Cách này ổn định, không phụ thuộc bản beta của Meta. Chỉ đọc: không tạo, không sửa chiến dịch, không tiêu tiền. Một app Meta dùng chung được cho mọi thẻ Meta và kênh Messenger."}
+name: {vi: "Meta Ads (Facebook & Instagram)"}
+description: {vi: "Xem tài khoản quảng cáo, chiến dịch và hiệu suất Facebook, Instagram bằng app Meta của chính bạn (dán App ID và App Secret). Chỉ đọc: không tạo, không sửa chiến dịch, không tiêu tiền. Một app Meta dùng chung được cho mọi thẻ Meta và kênh Messenger."}
 author: {name: Javis}
 license: MIT
 homepage: "https://github.com/blogminhquy/javis-store"

@@ -532,46 +532,13 @@
       }
     },
     {
-      "id": "javis.meta-ads",
-      "kind": "connector",
-      "name": {
-        "vi": "Meta Ads (bản beta của Meta)"
-      },
-      "description": {
-        "vi": "Xem số liệu quảng cáo Facebook và Instagram qua cổng MCP chính chủ của Meta, đăng nhập bằng một nút. Lưu ý: Meta mới mở bản beta cho một số ứng dụng, nhiều tài khoản chưa kết nối được. Không vào được thì dùng thẻ \"Meta Ads (app Meta riêng)\"."
-      },
-      "version": "1.0.1",
-      "author": {
-        "name": "Javis"
-      },
-      "category": "quang-cao",
-      "category_label": {
-        "vi": "Quảng cáo"
-      },
-      "tier": "data",
-      "verified": true,
-      "updated": "2026-11-01",
-      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.meta-ads",
-      "icon": "packs/javis.meta-ads/assets/meta-ads.webp",
-      "provides": {
-        "connectors": [
-          "meta-ads"
-        ]
-      },
-      "download": {
-        "url": "dist/javis-meta-ads-1.0.1.zip",
-        "sha256": "88dfc40f39f81d418ef9ef788e21d4a4ad93057c96a00b0b4f9ed8a0529612c9",
-        "size": 16909
-      }
-    },
-    {
       "id": "javis.meta-ads-graph",
       "kind": "connector",
       "name": {
-        "vi": "Meta Ads (app Meta riêng)"
+        "vi": "Meta Ads (Facebook & Instagram)"
       },
       "description": {
-        "vi": "Xem tài khoản quảng cáo, chiến dịch và hiệu suất Facebook, Instagram bằng app Meta của chính bạn. Cách này ổn định, không phụ thuộc bản beta của Meta. Chỉ đọc: không tạo, không sửa chiến dịch, không tiêu tiền. Một app Meta dùng chung được cho mọi thẻ Meta và kênh Messenger."
+        "vi": "Xem tài khoản quảng cáo, chiến dịch và hiệu suất Facebook, Instagram bằng app Meta của chính bạn (dán App ID và App Secret). Chỉ đọc: không tạo, không sửa chiến dịch, không tiêu tiền. Một app Meta dùng chung được cho mọi thẻ Meta và kênh Messenger."
       },
       "version": "1.0.1",
       "author": {
@@ -593,8 +560,8 @@
       },
       "download": {
         "url": "dist/javis-meta-ads-graph-1.0.1.zip",
-        "sha256": "d2c92251c44352144ca0fdfaad84f705ff8cd96eb32d6ec8e83ed4a39182b05a",
-        "size": 18678
+        "sha256": "047e9b37c63b948b236529fa3d89c0be7fe7448f569a7923e9736f5387bc9b0f",
+        "size": 18649
       }
     },
     {
