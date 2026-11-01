@@ -565,39 +565,6 @@
       }
     },
     {
-      "id": "javis.facebook-pages",
-      "kind": "connector",
-      "name": {
-        "vi": "Facebook Trang (đăng bài, bình luận)"
-      },
-      "description": {
-        "vi": "Javis đăng bài lên Fanpage thay bạn: đăng ngay khi bạn nhờ, hoặc đăng tự động theo lịch (ví dụ 8 giờ sáng mỗi ngày, đặt bằng một câu chat). Đăng chữ, ảnh, album, video, sửa bài, đọc và trả lời bình luận. Đăng và sửa bài là việc thật nên chỉ chạy ở mức Toàn quyền. Muốn bot tự trực tin nhắn và bình luận của khách, dùng thẻ Facebook Messenger ở trang Kết nối. Một app Meta dùng chung được cho mọi thẻ Meta."
-      },
-      "version": "1.0.2",
-      "author": {
-        "name": "Javis"
-      },
-      "category": "mang-xa-hoi",
-      "category_label": {
-        "vi": "Mạng xã hội"
-      },
-      "tier": "data",
-      "verified": true,
-      "updated": "2026-11-01",
-      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.facebook-pages",
-      "icon": "packs/javis.facebook-pages/assets/meta-ads.webp",
-      "provides": {
-        "connectors": [
-          "facebook-pages"
-        ]
-      },
-      "download": {
-        "url": "dist/javis-facebook-pages-1.0.2.zip",
-        "sha256": "297aace8076a96f69feddb3249299ffd8418b284b3fdcfc0764b7fdf87c053b8",
-        "size": 18981
-      }
-    },
-    {
       "id": "javis.facebook-monitor",
       "kind": "connector",
       "name": {
