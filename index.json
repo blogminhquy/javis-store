@@ -2259,7 +2259,7 @@
         "vi": "Cổng cho ChatGPT, Claude và AI khác làm việc cùng Javis. AI đó đọc hội thoại của Javis, tư vấn cho bạn, và khi bạn đồng ý thì nhắn thẳng vào khung chat để Javis làm tiếp. Bạn xem được tiến độ, Javis nhớ lại cho lần sau. Cần Javis 0.440.0 trở lên, mật khẩu quản trị và tên miền https.",
         "en": "A gate for ChatGPT, Claude and other AIs to work with Javis. The AI reads your Javis chats, advises you, and once you agree posts straight into the chat so Javis carries on. You watch the progress, Javis remembers it next time. Needs Javis 0.440.0 or newer, an admin password and an https domain."
       },
-      "version": "2.0.0",
+      "version": "2.1.0",
       "author": {
         "name": "Javis"
       },
@@ -2274,9 +2274,9 @@
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.gate",
       "icon": "packs/javis.gate/assets/javis-gate.png",
       "download": {
-        "url": "dist/javis-gate-2.0.0.zip",
-        "sha256": "4eb190657aa4d3db1897bfe510f2fc2b748e0b1cd1685f316be81440a7af7282",
-        "size": 28067
+        "url": "dist/javis-gate-2.1.0.zip",
+        "sha256": "e92c2a9f4350a93a967fc4ef44de294e994905168bb07f3e324819e529c04fc7",
+        "size": 28489
       },
       "replaces": [
         "javis.javis-trong-chatgpt"
