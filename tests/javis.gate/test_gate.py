@@ -11,6 +11,7 @@ Locks:
 2. The four chat tools are listed on the Gate; javis_chat_send only at Full access.
 3. javis_chat_send posts into the chat, Javis answers, and the stored message carries the sender "Claude".
 4. Upgrade from javis.javis-trong-chatgpt 1.x: the token issued before the update still works, on the OLD address.
+5. Notes (Javis 0.441.0+): javis_chat_note saves the owner's decision into a "Từ Claude: <title>" chat.
 """
 import _paths  # noqa: F401
 from _paths import PACK, STORE
@@ -226,6 +227,22 @@ check("send: Javis answers in the same call", (out.get("result") or {}).get("sta
 last_user = [m for m in ss.get_messages(sid) if m["role"] == "user"][-1]["content"]
 check("the stored message says it came from Claude", last_user.startswith("[GỬI QUA JAVIS GATE: Claude."),
       last_user[:80])
+
+# ============================================================
+# 5. Notes (Javis 0.441.0): the outside AI saves what the owner decided, Javis runs nothing
+# ============================================================
+import chat_bridge  # noqa: E402
+if "javis_chat_note" in chat_bridge.TOOLS:
+    r = rpc(stranger, "/ext/javis-gate/mcp", "tools/call",
+            {"name": "javis_chat_note", "arguments": {"title": "Tet plan", "asked": "Run ads for Tet?",
+                                                      "decided": "Plan 2, 5M a week"}}, token=tok)
+    txt = r.json()["result"]["content"][0]["text"]
+    out = json.loads(txt) if not txt.startswith("ERROR") else {}
+    check("note: saved into its own 'Từ Claude: <title>' chat", out.get("title") == "Từ Claude: Tet plan", txt[:200])
+    msgs = ss.get_messages(out.get("id", "")) if out.get("id") else []
+    check("note: the owner's decision is in Javis", any("Plan 2" in (m.get("content") or "") for m in msgs))
+else:
+    print("skip notes: this Javis OS is older than 0.441.0")
 
 print()
 print("ALL PASS" if not _fails else f"{len(_fails)} FAIL: {_fails}")

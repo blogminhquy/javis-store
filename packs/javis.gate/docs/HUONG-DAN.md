@@ -18,7 +18,7 @@ AI đọc, tư vấn cho bạn. Bạn đồng ý ngay trên ChatGPT (hay Claude)
 |---|---|---|
 | Plugin | `javis-gate` | Cửa OAuth và địa chỉ MCP cho ChatGPT, Claude, cùng một trang cài đặt riêng |
 
-AI bên ngoài dùng đúng bộ công cụ Javis đã có (kết nối MCP, brain, nhắc lịch, Kanban, plugin), cộng bốn công cụ chỉ có ở cổng này:
+AI bên ngoài dùng đúng bộ công cụ Javis đã có (kết nối MCP, brain, nhắc lịch, Kanban, plugin), cộng năm công cụ chỉ có ở cổng này:
 
 | Công cụ | Việc | Mức quyền |
 |---|---|---|
@@ -26,6 +26,7 @@ AI bên ngoài dùng đúng bộ công cụ Javis đã có (kết nối MCP, bra
 | `javis_chat_read` | Đọc các tin cuối của một hội thoại | Mọi mức |
 | `javis_chat_send` | Nhắn vào hội thoại để Javis làm, rồi chờ câu trả lời | Chỉ Toàn quyền |
 | `javis_chat_result` | Đọc câu trả lời khi Javis làm lâu | Mọi mức |
+| `javis_chat_note` | Ghi lại cuộc chat bên ChatGPT/Claude vào Javis: bạn hỏi gì, đã chốt gì | Ghi nháp, Toàn quyền |
 
 ## Cần có gì
 
@@ -81,6 +82,16 @@ Bật connector Javis trong khung chat (ChatGPT: dấu **+**, chọn **Developer
 - "Trên Javis có những hội thoại nào gần đây?"
 - "Đọc hội thoại Viết Web trên Javis rồi tư vấn anh nên làm gì tiếp."
 - "Ok, bảo Javis làm theo phương án 2."
+- "Ghi lại vào Javis những gì mình vừa chốt."
+
+### Javis nắm luôn ngữ cảnh bên ChatGPT, Claude (cần Javis 0.441.0)
+
+Javis không đọc được lịch sử chat trên chatgpt.com hay claude.ai, nên AI bên đó **tự ghi lại** phần đáng giữ: bạn hỏi gì, đã chốt gì, vì sao. Nó ghi khi bạn vừa quyết một việc, không ghi sau mọi câu.
+
+- Mỗi cuộc chat bên đó có một hội thoại riêng trong Lịch sử của Javis, ví dụ **Từ ChatGPT: Kế hoạch Tết**.
+- Ghi chép **không tốn hạn mức** bộ não của Javis, nhưng vẫn vào trí nhớ và vòng tự học. Lần sau hỏi Javis, nó nhớ bạn đã quyết gì.
+- Muốn ghi vào đúng một hội thoại có sẵn của Javis (ví dụ "Viết Web"), bảo AI đó: "ghi vào hội thoại Viết Web trên Javis".
+- Cần đủ lịch sử nguyên văn thì xuất dữ liệu từ ChatGPT (Settings, Data controls, Export) hay Claude (Settings, Privacy, Export data), rồi đưa tệp cho Javis đọc.
 
 Javis làm lâu thì AI kia báo kết quả sẽ hiện trên khung chat của Javis, và bạn nhắn nó **"xem tiếp"** khi muốn nó đọc lại.
 
@@ -93,8 +104,8 @@ Chọn trên trang của gói (trang Plugin, nút **Mở trang**). Đổi xong c
 | Mức | AI bên ngoài được làm gì |
 |---|---|
 | **Toàn quyền** (mặc định) | Đọc dữ liệu, nhắn vào khung chat để Javis làm, và làm việc thật: gửi tin, tạo đơn, đăng bài |
-| **Tự làm có giới hạn** | Đọc dữ liệu, đọc hội thoại và viết nháp. Không nhắn vào khung chat, không làm việc ra bên ngoài |
-| **Chỉ đọc và gợi ý** | Chỉ đọc, kể cả đọc hội thoại. Không ghi file, không nhắn vào khung chat |
+| **Tự làm có giới hạn** | Đọc dữ liệu, đọc hội thoại, ghi chép và viết nháp. Không nhắn vào khung chat, không làm việc ra bên ngoài |
+| **Chỉ đọc và gợi ý** | Chỉ đọc, kể cả đọc hội thoại. Không ghi file, không ghi chép, không nhắn vào khung chat |
 
 Javis tự chặn ở phía mình theo mức đã chọn. AI bên ngoài không tự nâng quyền được.
 
