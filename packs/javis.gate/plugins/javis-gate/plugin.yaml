@@ -1,0 +1,14 @@
+name: Javis Gate
+slug: javis-gate
+version: 2.0.0
+description: Cổng cho ChatGPT, Claude và AI khác làm việc cùng Javis qua connector MCP có OAuth. AI đó đọc hội thoại và nhắn vào khung chat như bạn gõ. Bấm Mở trang để lấy địa chỉ, chọn mức quyền, ngắt kết nối.
+author: Javis
+enabled: true
+# Gói không thêm tool vào bộ tool của Javis: nó mở một CỬA để AI bên ngoài gọi các tool Javis đã có
+# qua hub, cộng bốn tool chat chỉ có ở cửa này (lõi Javis cấp). Mức quyền từng lượt gọi do chủ chọn
+# trên trang của gói (hub ép ở lớp cứng).
+min_mode: readonly
+tools: []
+hooks: []
+# Trang riêng của gói: thẻ plugin có nút "Mở trang" trỏ vào /ext/javis-gate/
+page: ""

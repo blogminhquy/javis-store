@@ -1,0 +1,34 @@
+# Gói "Javis Gate": cổng cho ChatGPT, Claude và AI khác làm việc cùng Javis.
+#
+# Tiền thân là "Javis trong ChatGPT" (mã cũ javis.javis-trong-chatgpt, plugin javis-trong-chatgpt).
+# 2.0.0 đổi mã sang tiếng Anh, thêm Claude, và cho AI bên ngoài nhắn thẳng vào hội thoại của Javis
+# (Javis 0.440.0) thay vì giao việc qua Kanban. `replaces` báo cho Javis biết đây là bản cập nhật của
+# gói cũ: cài lên là token, mức quyền và địa chỉ đã dán vào ChatGPT được giữ nguyên.
+format: javis-pack
+spec: 1
+
+id: javis.gate
+version: 2.0.0
+replaces:
+  - javis.javis-trong-chatgpt
+
+name:
+  vi: Javis Gate
+  en: Javis Gate
+description:
+  vi: Cổng cho ChatGPT, Claude và AI khác làm việc cùng Javis. AI đó đọc hội thoại của Javis, tư vấn cho bạn, và khi bạn đồng ý thì nhắn thẳng vào khung chat để Javis làm tiếp. Bạn xem được tiến độ, Javis nhớ lại cho lần sau. Cần Javis 0.440.0 trở lên, mật khẩu quản trị và tên miền https.
+  en: A gate for ChatGPT, Claude and other AIs to work with Javis. The AI reads your Javis chats, advises you, and once you agree posts straight into the chat so Javis carries on. You watch the progress, Javis remembers it next time. Needs Javis 0.440.0 or newer, an admin password and an https domain.
+
+author:
+  name: Javis
+license: MIT
+homepage: https://github.com/blogminhquy/javis-store/tree/main/packs/javis.gate
+
+# 0.440.0 mở bốn tool chat cho cửa Gate (`mcp_hub.tra_loi_jsonrpc(gate=...)`) và cơ chế đổi mã gói
+# (`replaces`). Bản cũ hơn thì gói bị tắt kèm lý do đọc được.
+compat:
+  app: ">=0.440.0"
+
+provides:
+  plugins:
+    - plugins/javis-gate

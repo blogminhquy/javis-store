@@ -8,7 +8,8 @@ Javis của họ - đọc được mọi khoá API và mọi tệp mà Javis đ�
 
 1. Fork repo này.
 2. Tạo `packs/<id>/` với `javis-pack.yaml` ở gốc. `id` phải **trùng đúng tên thư mục**, chỉ gồm
-   chữ thường, số và `. - _`.
+   chữ thường, số và `. - _`, và **bằng tiếng Anh** (`javis.crm`, không phải `javis.khach-hang-crm`).
+   Tên thương hiệu như `javis.kiotviet` giữ nguyên. Tên hiển thị thì vẫn viết cả tiếng Việt lẫn tiếng Anh.
 3. Đóng gói và lấy dấu vân tay:
 
        python tools/dong-goi.py <id>
@@ -149,6 +150,17 @@ gói gãy thì biết ngay. Xem `tests/javis.zalo/` làm mẫu.
 Tăng `version` ở **cả hai** chỗ: manifest trong gói và mục trong `index.json`. Thêm tệp `.zip`
 mới vào `dist/` (giữ tệp cũ lại, đừng ghi đè - người dùng cần tải được bản cũ), rồi đổi
 `download.url` và `sha256`.
+
+**Đổi mã gói** (Javis 0.440.0 trở lên): đổi tên thư mục và `id`, tăng `version`, và khai mã cũ ở
+cả manifest lẫn mục danh mục:
+
+    replaces:
+      - javis.ma-cu
+
+Máy đang cài mã cũ thấy gói mới như một bản cập nhật. Cài lên là Javis chuyển dữ liệu riêng của
+plugin, năng lực trong brain và trạng thái bật sang mã mới rồi gỡ gói cũ. Plugin đổi tên thì đường
+`/ext/<tên cũ>/` vẫn tới plugin mới. Đặt `compat.app: ">=0.440.0"`, vì bản cũ hơn không hiểu
+`replaces` và sẽ cài gói mới nằm cạnh gói cũ.
 
 Người đã cài sẽ thấy nút đổi thành **Có bản mới**. Javis **không tự cài đè một gói có mã**: mã
 Python hay khuôn connector trong gói đổi thì người dùng phải mở ra xem rồi mới cài, nếu không chốt

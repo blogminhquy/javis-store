@@ -1,7 +1,7 @@
 {
   "format": "javis-pack-index",
   "format_version": 1,
-  "updated": "2026-11-01",
+  "updated": "2026-11-02",
   "store": {
     "name": "Kho cài đặt Javis",
     "url": "https://github.com/blogminhquy/javis-store"
@@ -9,7 +9,7 @@
   "_doc": "Danh mục Javis đọc thẳng. Thêm một mục ở đây là mọi máy đang chạy Javis thấy ngay, không cần bản cập nhật. Cách gửi gói: xem CONTRIBUTING.md. Trường _doc và mọi khoá lạ khác đều bị Javis bỏ qua khi đọc.",
   "packs": [
     {
-      "id": "javis.tinh-gia",
+      "id": "javis.pricing",
       "kind": "tool",
       "name": {
         "vi": "Tính giá bán",
@@ -19,7 +19,7 @@
         "vi": "Từ giá vốn ra giá niêm yết: chọn biên lợi nhuận hoặc markup, cộng VAT, làm tròn lên số đẹp. Trả về biên thực tế sau khi làm tròn.",
         "en": "Turn cost into a shelf price: margin or markup, VAT, rounded up to a tidy number. Reports the real margin after rounding."
       },
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": {
         "name": "Javis"
       },
@@ -30,26 +30,29 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-09-04",
-      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.tinh-gia",
+      "updated": "2026-11-02",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.pricing",
       "download": {
-        "url": "dist/javis-tinh-gia-1.0.0.zip",
-        "sha256": "2efc5b73e55c98573bae20d765a6cfeabe062646f6dcb9d890fd56bb557e1cdb",
-        "size": 5289
-      }
+        "url": "dist/javis-pricing-1.1.0.zip",
+        "sha256": "00aa0ae844e6e20a985ec9474d116b4986c47107d64f7d8e11bda3e460e8f160",
+        "size": 5295
+      },
+      "replaces": [
+        "javis.tinh-gia"
+      ]
     },
     {
-      "id": "javis.khach-hang-crm",
+      "id": "javis.crm",
       "kind": "bundle",
       "name": {
         "vi": "Quản lý khách hàng (CRM)",
         "en": "Customer management (CRM)"
       },
       "description": {
-        "vi": "Sổ khách hàng đặt lên trang Hội thoại: khách từ Telegram, Zalo Bot, Zalo cá nhân; hồ sơ và lịch sử từng người, gắn tag, ghi chú, khách chờ trả lời, thống kê, xuất Excel. Kèm trợ lý CSKH và quy trình rà soát mỗi ngày. Cần Javis 0.60.1 trở lên.",
-        "en": "A customer book on top of the Conversations page: customers from Telegram, Zalo Bot and personal Zalo; per-person profile and history, tags, notes, unanswered queue, stats, Excel export. Ships a support agent and a daily review workflow. Needs Javis 0.60.1 or newer."
+        "vi": "Sổ khách hàng đặt lên trang Hội thoại: khách từ Telegram, Zalo Bot, Zalo cá nhân; hồ sơ và lịch sử từng người, gắn tag, ghi chú, khách chờ trả lời, thống kê, xuất Excel. Kèm trợ lý CSKH và quy trình rà soát mỗi ngày. Cần Javis 0.440.0 trở lên.",
+        "en": "A customer book on top of the Conversations page: customers from Telegram, Zalo Bot and personal Zalo; per-person profile and history, tags, notes, unanswered queue, stats, Excel export. Ships a support agent and a daily review workflow. Needs Javis 0.440.0 or newer."
       },
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": {
         "name": "Javis"
       },
@@ -60,14 +63,17 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-09-20",
-      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.khach-hang-crm",
-      "icon": "packs/javis.khach-hang-crm/assets/khach-hang-crm.png",
+      "updated": "2026-11-02",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.crm",
+      "icon": "packs/javis.crm/assets/crm.png",
       "download": {
-        "url": "dist/javis-khach-hang-crm-1.0.0.zip",
-        "sha256": "78e638637bc1b8ca4a46c9311fa2461cfbc7fb63324a6035db75ffebe6506719",
-        "size": 14086
-      }
+        "url": "dist/javis-crm-1.1.0.zip",
+        "sha256": "a3ceda0f7ea7a996f73ef3d20f51408436b78b0a931152cdcfd324d5b2339e71",
+        "size": 14022
+      },
+      "replaces": [
+        "javis.khach-hang-crm"
+      ]
     },
     {
       "id": "javis.composio",
@@ -1945,7 +1951,7 @@
       }
     },
     {
-      "id": "javis.quang-cao-so-lieu",
+      "id": "javis.ads-analytics",
       "kind": "workflow",
       "name": {
         "vi": "Quảng cáo & số liệu",
@@ -1955,7 +1961,7 @@
         "vi": "3 trợ lý và 3 quy trình đọc số quảng cáo: báo cáo Meta/Google/TikTok Ads hàng tuần, săn ngân sách đang đốt vô ích, và đọc Google Search Console hàng tháng. Mọi con số đều phải chỉ ra nguồn, và bước cuối luôn có một trợ lý kiểm chứng độc lập.",
         "en": "3 agents and 3 workflows for ad analytics: weekly Meta/Google/TikTok reports, wasted-spend hunting, and a monthly Search Console read. Every number must cite its source, and an independent verifier checks the final step."
       },
-      "version": "1.0.1",
+      "version": "1.1.0",
       "author": {
         "name": "Javis"
       },
@@ -1965,8 +1971,8 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-09-05",
-      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.quang-cao-so-lieu",
+      "updated": "2026-11-02",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.ads-analytics",
       "license": "MIT",
       "provides": {
         "agents": [
@@ -1981,13 +1987,16 @@
         ]
       },
       "download": {
-        "url": "dist/javis-quang-cao-so-lieu-1.0.1.zip",
-        "sha256": "37bacacc1b4dc7f0c547e1b6df88d9c9b8f64e22364c83ffe704d60af01f987b",
-        "size": 8136
-      }
+        "url": "dist/javis-ads-analytics-1.1.0.zip",
+        "sha256": "0138f3640b5c22eb6a07c5ffc29bdaae2f9043004d4c9cd00824ccb9dba31cb5",
+        "size": 8150
+      },
+      "replaces": [
+        "javis.quang-cao-so-lieu"
+      ]
     },
     {
-      "id": "javis.noi-dung-social",
+      "id": "javis.content-social",
       "kind": "workflow",
       "name": {
         "vi": "Nội dung & mạng xã hội",
@@ -1997,7 +2006,7 @@
         "vi": "4 trợ lý và 3 quy trình làm nội dung: từ một ý tưởng ra bài đăng hoàn chỉnh, bẻ bài dài thành chuỗi post, và lên lịch nội dung một tháng. Có bước tìm góc tiếp cận trước khi viết, và bước biên tập cắt chữ thừa sau khi viết.",
         "en": "4 agents and 3 workflows for content: turn one idea into a finished post, split a long piece into a post series, and plan a month of content. Angle-finding before writing, editing after."
       },
-      "version": "1.0.1",
+      "version": "1.1.0",
       "author": {
         "name": "Javis"
       },
@@ -2007,8 +2016,8 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-09-05",
-      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.noi-dung-social",
+      "updated": "2026-11-02",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.content-social",
       "license": "MIT",
       "provides": {
         "agents": [
@@ -2024,13 +2033,16 @@
         ]
       },
       "download": {
-        "url": "dist/javis-noi-dung-social-1.0.1.zip",
-        "sha256": "315da242baa6de3f5a00f7cd3f7ff0539ede1779060e79e1daf5c4548b4efeb4",
-        "size": 9102
-      }
+        "url": "dist/javis-content-social-1.1.0.zip",
+        "sha256": "01f33024aa79374ae5295bab43f3774adedf192eb3e62a8e7ee86c7c9b69d3ee",
+        "size": 9114
+      },
+      "replaces": [
+        "javis.noi-dung-social"
+      ]
     },
     {
-      "id": "javis.email-pheu",
+      "id": "javis.email-funnel",
       "kind": "workflow",
       "name": {
         "vi": "Email & phễu",
@@ -2040,7 +2052,7 @@
         "vi": "3 trợ lý và 3 quy trình cho email marketing: chuỗi email nuôi dưỡng sau khi khách tải tài liệu miễn phí, chuỗi kích hoạt lại danh sách đã nguội, và chẩn đoán phễu đang rò ở khâu nào. Viết chuỗi mà không lộ hết nội dung sản phẩm trả phí.",
         "en": "3 agents and 3 workflows for email marketing: a nurture sequence after a lead magnet, a re-engagement sequence for a cold list, and a funnel leak diagnosis."
       },
-      "version": "1.0.1",
+      "version": "1.1.0",
       "author": {
         "name": "Javis"
       },
@@ -2050,8 +2062,8 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-09-05",
-      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.email-pheu",
+      "updated": "2026-11-02",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.email-funnel",
       "license": "MIT",
       "provides": {
         "agents": [
@@ -2066,13 +2078,16 @@
         ]
       },
       "download": {
-        "url": "dist/javis-email-pheu-1.0.1.zip",
-        "sha256": "f5b57fb05812360e8c88160ea8f5476f04ce7266b8e194f6d5334afab430a860",
-        "size": 7879
-      }
+        "url": "dist/javis-email-funnel-1.1.0.zip",
+        "sha256": "6efa055787db469b61eb609f4d2ccc06f0b469a22837ca74d846dad934bcf7aa",
+        "size": 7892
+      },
+      "replaces": [
+        "javis.email-pheu"
+      ]
     },
     {
-      "id": "javis.san-pham-ban-hang",
+      "id": "javis.digital-products",
       "kind": "workflow",
       "name": {
         "vi": "Sản phẩm số & bán hàng",
@@ -2082,7 +2097,7 @@
         "vi": "4 trợ lý và 3 quy trình cho sản phẩm số: từ kỹ năng sẵn có ra ý tưởng sản phẩm bán được, dựng trang bán hàng từ hồ sơ khách, và chuỗi chăm khách sau mua để đổi lấy lời chứng thực. Mọi lời hứa bán hàng đều bị soát lại xem sản phẩm có giao nổi không.",
         "en": "4 agents and 3 workflows for digital products: turn existing skills into a sellable product, build a sales page from a customer profile, and run a post-purchase sequence that earns testimonials."
       },
-      "version": "1.0.1",
+      "version": "1.1.0",
       "author": {
         "name": "Javis"
       },
@@ -2093,8 +2108,8 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-09-05",
-      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.san-pham-ban-hang",
+      "updated": "2026-11-02",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.digital-products",
       "license": "MIT",
       "provides": {
         "agents": [
@@ -2110,13 +2125,16 @@
         ]
       },
       "download": {
-        "url": "dist/javis-san-pham-ban-hang-1.0.1.zip",
-        "sha256": "a72e6eb97342818eb2a8617038e88da21b8d6fe578f5ef81abcf5d352b65ccfe",
-        "size": 9418
-      }
+        "url": "dist/javis-digital-products-1.1.0.zip",
+        "sha256": "a15fce0fd34449b05bb56d5f7e34e366ee3cf2f9da7cb53214fe491c25c83903",
+        "size": 9440
+      },
+      "replaces": [
+        "javis.san-pham-ban-hang"
+      ]
     },
     {
-      "id": "javis.tro-ly-hang-ngay",
+      "id": "javis.everyday-assistants",
       "kind": "agent",
       "name": {
         "vi": "Trợ lý hàng ngày",
@@ -2126,7 +2144,7 @@
         "vi": "3 trợ lý dùng mỗi ngày, không cần quy trình đi kèm: một thư ký dọn hộp thư và sắp việc trong ngày, một người tóm tắt tài liệu dài thành quyết định và việc cần làm, một người phản biện soi lỗ hổng trong kế hoạch trước khi bạn bắt tay vào làm.",
         "en": "3 everyday agents that work standalone: a secretary who triages the inbox and orders the day, a summariser who turns long documents into decisions and actions, and a devil's advocate who finds the holes in a plan before you commit to it."
       },
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": {
         "name": "Javis"
       },
@@ -2137,8 +2155,8 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-09-05",
-      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.tro-ly-hang-ngay",
+      "updated": "2026-11-02",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.everyday-assistants",
       "license": "MIT",
       "provides": {
         "agents": [
@@ -2148,13 +2166,16 @@
         ]
       },
       "download": {
-        "url": "dist/javis-tro-ly-hang-ngay-1.0.0.zip",
-        "sha256": "ff680c1d2f542eff604f03683e059fcdf516c0c38defd9b77b274ec9a8ca4822",
-        "size": 5290
-      }
+        "url": "dist/javis-everyday-assistants-1.1.0.zip",
+        "sha256": "a233393f7e12fd7378372bb778f048e8bec855504bb64d1cb8eec74b1c9af08d",
+        "size": 5305
+      },
+      "replaces": [
+        "javis.tro-ly-hang-ngay"
+      ]
     },
     {
-      "id": "javis.tro-ly-nghien-cuu",
+      "id": "javis.research-assistants",
       "kind": "agent",
       "name": {
         "vi": "Trợ lý nghiên cứu & ngôn ngữ",
@@ -2164,7 +2185,7 @@
         "vi": "3 trợ lý cho việc học và việc viết đa ngôn ngữ: một người nghiên cứu trả lời có trích dẫn rồi nạp vào Second Brain, một người dịch và bản địa hoá nội dung marketing Việt-Anh giữ nguyên sức bán, một người bóc khái niệm khó thành thứ hiểu được rồi mới dùng.",
         "en": "3 agents for learning and multilingual writing: a researcher who answers with citations and files findings into the Second Brain, a translator who localises marketing copy between Vietnamese and English without losing its selling power, and an explainer who unpacks a hard concept before you rely on it."
       },
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": {
         "name": "Javis"
       },
@@ -2175,8 +2196,8 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-09-05",
-      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.tro-ly-nghien-cuu",
+      "updated": "2026-11-02",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.research-assistants",
       "license": "MIT",
       "provides": {
         "agents": [
@@ -2186,10 +2207,13 @@
         ]
       },
       "download": {
-        "url": "dist/javis-tro-ly-nghien-cuu-1.0.0.zip",
-        "sha256": "38bf9df7bc81d7f241d38add9f7e70482818ba98121584ccb070eb18b60ab8fa",
-        "size": 5320
-      }
+        "url": "dist/javis-research-assistants-1.1.0.zip",
+        "sha256": "5df62d73b25d8de2df8fe402194c52a0e8565dac279bb1242c929af376f2ee4c",
+        "size": 5335
+      },
+      "replaces": [
+        "javis.tro-ly-nghien-cuu"
+      ]
     },
     {
       "id": "javis.tts-dropship",
@@ -2225,17 +2249,17 @@
       }
     },
     {
-      "id": "javis.javis-trong-chatgpt",
+      "id": "javis.gate",
       "kind": "tool",
       "name": {
-        "vi": "Javis trong ChatGPT",
-        "en": "Javis in ChatGPT"
+        "vi": "Javis Gate",
+        "en": "Javis Gate"
       },
       "description": {
-        "vi": "Chat trên chatgpt.com bằng gói ChatGPT của bạn, và ChatGPT tự gọi công cụ của Javis: số liệu, brain, nhắc lịch, Zalo. Chọn mức quyền, ngắt kết nối bất cứ lúc nào. Cần Javis 0.64.26 trở lên, mật khẩu quản trị và tên miền https.",
-        "en": "Chat on chatgpt.com with your own ChatGPT plan while ChatGPT calls Javis's tools: numbers, brain, reminders, Zalo. Pick the permission level, disconnect any time. Needs Javis 0.64.26 or newer, an admin password and an https domain."
+        "vi": "Cổng cho ChatGPT, Claude và AI khác làm việc cùng Javis. AI đó đọc hội thoại của Javis, tư vấn cho bạn, và khi bạn đồng ý thì nhắn thẳng vào khung chat để Javis làm tiếp. Bạn xem được tiến độ, Javis nhớ lại cho lần sau. Cần Javis 0.440.0 trở lên, mật khẩu quản trị và tên miền https.",
+        "en": "A gate for ChatGPT, Claude and other AIs to work with Javis. The AI reads your Javis chats, advises you, and once you agree posts straight into the chat so Javis carries on. You watch the progress, Javis remembers it next time. Needs Javis 0.440.0 or newer, an admin password and an https domain."
       },
-      "version": "1.0.0",
+      "version": "2.0.0",
       "author": {
         "name": "Javis"
       },
@@ -2246,14 +2270,17 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-09-24",
-      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.javis-trong-chatgpt",
-      "icon": "packs/javis.javis-trong-chatgpt/assets/javis-trong-chatgpt.png",
+      "updated": "2026-11-02",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.gate",
+      "icon": "packs/javis.gate/assets/javis-gate.png",
       "download": {
-        "url": "dist/javis-javis-trong-chatgpt-1.0.0.zip",
-        "sha256": "cb86e0714a2f5000c5ea78dcb7b197a6db5ed40afa62fca6c764b4baccdcb708",
-        "size": 43809
-      }
+        "url": "dist/javis-gate-2.0.0.zip",
+        "sha256": "4eb190657aa4d3db1897bfe510f2fc2b748e0b1cd1685f316be81440a7af7282",
+        "size": 28067
+      },
+      "replaces": [
+        "javis.javis-trong-chatgpt"
+      ]
     },
     {
       "id": "javis.github",
@@ -2476,7 +2503,7 @@
       }
     },
     {
-      "id": "javis.ecc-kinh-doanh",
+      "id": "javis.ecc-business",
       "kind": "skill",
       "name": {
         "vi": "ECC: Kinh doanh & chiến lược",
@@ -2486,7 +2513,7 @@
         "vi": "12 skill kinh doanh của ECC: nghiên cứu thị trường, quy trình phân tích đối thủ 3 bước, thẩm định sản phẩm trước khi làm, tài liệu và thư gọi vốn, tìm khách tiềm năng, hội đồng 4 góc nhìn để ra quyết định, dự báo tồn kho, xử lý đổi trả.",
         "en": "12 business skills from ECC: market research, a 3-step competitor analysis pipeline, product validation, investor materials and outreach, lead intelligence, a 4-voice decision council, demand planning, returns handling."
       },
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": {
         "name": "Affaan Mustafa",
         "url": "https://github.com/affaan-m/ECC"
@@ -2498,8 +2525,8 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-10-18",
-      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.ecc-kinh-doanh",
+      "updated": "2026-11-02",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.ecc-business",
       "source": "https://github.com/affaan-m/ECC",
       "license": "MIT",
       "provides": {
@@ -2519,13 +2546,16 @@
         ]
       },
       "download": {
-        "url": "dist/javis-ecc-kinh-doanh-1.0.0.zip",
-        "sha256": "dc98a5173b36f7e67272fd9c4c86a45e78778737e3363c2e668ddb12544bfec3",
-        "size": 62895
-      }
+        "url": "dist/javis-ecc-business-1.1.0.zip",
+        "sha256": "e34d4669a31273a742a81b2a614a3b468d5c0743aff84faa632d4d3e58c2ce8f",
+        "size": 62905
+      },
+      "replaces": [
+        "javis.ecc-kinh-doanh"
+      ]
     },
     {
-      "id": "javis.ecc-nghien-cuu",
+      "id": "javis.ecc-research",
       "kind": "skill",
       "name": {
         "vi": "ECC: Nghiên cứu & thu thập dữ liệu",
@@ -2535,7 +2565,7 @@
         "vi": "6 skill nghiên cứu của ECC: báo cáo nghiên cứu sâu có trích dẫn, tìm kiếm Exa, tổng quan tài liệu khoa học, chấm chất lượng bài nghiên cứu, dựng agent cào dữ liệu công khai theo lịch, bóc tách văn bản có cấu trúc rẻ mà chuẩn.",
         "en": "6 research skills from ECC: cited deep-research reports, Exa search, literature reviews, scholarly evaluation, a scheduled public-data scraping agent, and cheap accurate structured-text extraction."
       },
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": {
         "name": "Affaan Mustafa",
         "url": "https://github.com/affaan-m/ECC"
@@ -2547,8 +2577,8 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-10-18",
-      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.ecc-nghien-cuu",
+      "updated": "2026-11-02",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.ecc-research",
       "source": "https://github.com/affaan-m/ECC",
       "license": "MIT",
       "provides": {
@@ -2562,10 +2592,13 @@
         ]
       },
       "download": {
-        "url": "dist/javis-ecc-nghien-cuu-1.0.0.zip",
-        "sha256": "8232740829996d49f531603182d783b9fea549740670b5eb557708d15fdc9c78",
-        "size": 27180
-      }
+        "url": "dist/javis-ecc-research-1.1.0.zip",
+        "sha256": "79211aa16886673777054c291d7a92ab65bd0624ef25bb73de37c93702cc5972",
+        "size": 27185
+      },
+      "replaces": [
+        "javis.ecc-nghien-cuu"
+      ]
     },
     {
       "id": "javis.ecc-ai-agents",
@@ -2617,7 +2650,7 @@
       }
     },
     {
-      "id": "javis.ecc-code-chat-luong",
+      "id": "javis.ecc-code-quality",
       "kind": "skill",
       "name": {
         "vi": "ECC: Code chất lượng",
@@ -2627,7 +2660,7 @@
         "vi": "9 skill giữ chất lượng code của ECC: chuẩn viết code chung, xử lý lỗi, soát bảo mật, vòng kiểm chứng 6 bước trước khi mở PR, TDD, soát sẵn sàng chạy thật, tìm thư viện có sẵn trước khi tự viết, làm quen codebase lạ, quy trình git.",
         "en": "9 code-quality skills from ECC: coding standards, error handling, security review, a 6-phase verification loop before a PR, TDD, production readiness audits, search before building, codebase onboarding, git workflow."
       },
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": {
         "name": "Affaan Mustafa",
         "url": "https://github.com/affaan-m/ECC"
@@ -2639,8 +2672,8 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-10-18",
-      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.ecc-code-chat-luong",
+      "updated": "2026-11-02",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.ecc-code-quality",
       "source": "https://github.com/affaan-m/ECC",
       "license": "MIT",
       "provides": {
@@ -2657,10 +2690,13 @@
         ]
       },
       "download": {
-        "url": "dist/javis-ecc-code-chat-luong-1.0.0.zip",
-        "sha256": "9422ec574ac75cecf6d79414848ef745006a9e5d9c143d0aa3f20d9ea545e1ea",
-        "size": 50585
-      }
+        "url": "dist/javis-ecc-code-quality-1.1.0.zip",
+        "sha256": "76c3b92bcb74365288f62a82832c40741d949b1406fe33a086b4c8764aea4333",
+        "size": 50595
+      },
+      "replaces": [
+        "javis.ecc-code-chat-luong"
+      ]
     },
     {
       "id": "javis.ecc-backend-web",
@@ -2711,7 +2747,7 @@
       }
     },
     {
-      "id": "javis.ecc-tro-ly-kinh-doanh",
+      "id": "javis.ecc-business-agents",
       "kind": "agent",
       "name": {
         "vi": "ECC: Trợ lý marketing & điều hành",
@@ -2721,7 +2757,7 @@
         "vi": "4 trợ lý của ECC: chiến lược gia marketing lo trọn chiến dịch từ định vị tới bản copy, chuyên gia SEO soát kỹ thuật và nội dung, chánh văn phòng phân loại tin nhắn đa kênh rồi soạn trả lời, và người chấm chất lượng đầu ra theo 5 tiêu chí.",
         "en": "4 ECC agents: a marketing strategist who runs a campaign from positioning to copy, an SEO specialist, a chief of staff who triages multi-channel messages and drafts replies, and an evaluator who scores output on 5 axes."
       },
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": {
         "name": "Affaan Mustafa",
         "url": "https://github.com/affaan-m/ECC"
@@ -2733,8 +2769,8 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-10-18",
-      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.ecc-tro-ly-kinh-doanh",
+      "updated": "2026-11-02",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.ecc-business-agents",
       "source": "https://github.com/affaan-m/ECC",
       "license": "MIT",
       "provides": {
@@ -2746,13 +2782,16 @@
         ]
       },
       "download": {
-        "url": "dist/javis-ecc-tro-ly-kinh-doanh-1.0.0.zip",
-        "sha256": "cb10d5df9df316dc4004afd6ce54dca907e70ec823d10eae5fc28a238d21896f",
-        "size": 17454
-      }
+        "url": "dist/javis-ecc-business-agents-1.1.0.zip",
+        "sha256": "825865d22fd0b7bb9b034fcdb7b0c631f0169dcbd6bb75e792790060a0d313ee",
+        "size": 17465
+      },
+      "replaces": [
+        "javis.ecc-tro-ly-kinh-doanh"
+      ]
     },
     {
-      "id": "javis.ecc-doi-lap-trinh",
+      "id": "javis.ecc-engineering-team",
       "kind": "agent",
       "name": {
         "vi": "ECC: Đội lập trình",
@@ -2762,7 +2801,7 @@
         "vi": "17 trợ lý lập trình của ECC: lập kế hoạch, kiến trúc, review code, soát bảo mật, sửa lỗi build, đơn giản hoá code, săn lỗi bị nuốt, tối ưu hiệu năng, review database, Python, TypeScript, React, TDD, dọn code chết, cập nhật tài liệu, test E2E, tra tài liệu thư viện.",
         "en": "17 ECC engineering agents: planner, architect, code reviewer, security reviewer, build fixer, code simplifier, silent-failure hunter, performance, database, Python, TypeScript and React reviewers, TDD guide, dead-code cleaner, doc updater, E2E runner, docs lookup."
       },
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": {
         "name": "Affaan Mustafa",
         "url": "https://github.com/affaan-m/ECC"
@@ -2774,8 +2813,8 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-10-18",
-      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.ecc-doi-lap-trinh",
+      "updated": "2026-11-02",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.ecc-engineering-team",
       "source": "https://github.com/affaan-m/ECC",
       "license": "MIT",
       "provides": {
@@ -2800,10 +2839,13 @@
         ]
       },
       "download": {
-        "url": "dist/javis-ecc-doi-lap-trinh-1.0.0.zip",
-        "sha256": "e579a01ee7207132a947c120d80733aeb69b3f9a0f05de448ed86364af661fbd",
-        "size": 66321
-      }
+        "url": "dist/javis-ecc-engineering-team-1.1.0.zip",
+        "sha256": "9ac05f7d5ff2cd355c84f330c12e673d303995eb8f1baca0fcf40a88cfdd9c41",
+        "size": 66338
+      },
+      "replaces": [
+        "javis.ecc-doi-lap-trinh"
+      ]
     },
     {
       "id": "javis.founder",
@@ -3858,7 +3900,7 @@
       }
     },
     {
-      "id": "javis.linh-hon-javis-vu",
+      "id": "javis.javis-vu-soul",
       "kind": "agent",
       "name": {
         "vi": "Linh Hồn Javis Vũ",
@@ -3868,7 +3910,7 @@
         "vi": "Vũ là cộng sự chăm sóc khách hàng dùng được cho mọi ngành: nhắn tin ngắn gọn như người thật, hài hước nhẹ nhàng mà không lố, giữ đúng mạch chuyện, không bao giờ bịa giá hay khuyến mãi. Bạn điền hồ sơ cửa hàng, thêm sản phẩm, gắn vào Chatbot Zalo hay Telegram là Vũ vào ca trực.",
         "en": "Vu is a customer-care partner for any kind of business: short, human-sounding replies, gentle humour that never overdoes it, follows the thread of the chat, and never makes up a price or a promotion. Fill in your shop profile, add your products, attach it to a Zalo or Telegram chatbot and Vu starts the shift."
       },
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": {
         "name": "Nguyễn Minh Quý"
       },
@@ -3879,8 +3921,8 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-10-29",
-      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.linh-hon-javis-vu",
+      "updated": "2026-11-02",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.javis-vu-soul",
       "license": "MIT",
       "provides": {
         "agents": [
@@ -3888,10 +3930,13 @@
         ]
       },
       "download": {
-        "url": "dist/javis-linh-hon-javis-vu-1.0.0.zip",
-        "sha256": "c7598f73505da6997e3ceedd34376d15ee2797fd58dbe0ecc3f959b4c81430b2",
-        "size": 8273
-      }
+        "url": "dist/javis-javis-vu-soul-1.1.0.zip",
+        "sha256": "11da0b3406b253ccbfc1bc96a7688b5f4bdbda130146da121155c872bbeefc9a",
+        "size": 8285
+      },
+      "replaces": [
+        "javis.linh-hon-javis-vu"
+      ]
     },
     {
       "id": "javis.agency-agents",
