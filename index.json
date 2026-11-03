@@ -736,6 +736,39 @@
       }
     },
     {
+      "id": "javis.resend",
+      "kind": "connector",
+      "name": {
+        "vi": "Resend"
+      },
+      "description": {
+        "vi": "Gửi và quản lý email qua MCP chính chủ của Resend: email giao dịch, broadcast, mẫu email, danh bạ và phân khúc, tên miền gửi, thống kê và nhật ký. Chạy trên máy chủ của Resend, chỉ cần dán API key. Mặc định Chỉ đọc."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "marketing",
+      "category_label": {
+        "vi": "Marketing"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-11-03",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.resend",
+      "icon": "packs/javis.resend/assets/resend.png",
+      "provides": {
+        "connectors": [
+          "resend"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-resend-1.0.0.zip",
+        "sha256": "98950a98f79e9ffb063579496aeccee370cb7d8538bd7d979cc24d56e5acff20",
+        "size": 14435
+      }
+    },
+    {
       "id": "javis.slack",
       "kind": "connector",
       "name": {
