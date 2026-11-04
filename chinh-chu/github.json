@@ -9,7 +9,7 @@
     "github_support_docs_search",
     "create_pull_request_with_copilot"
   ],
-  "da_soat": "v2.0.2",
+  "da_soat": "v2.1.0",
   "tools": {
     "actions_get": "read",
     "actions_list": "read",
@@ -65,6 +65,8 @@
     "hide_issue_comment": "write",
     "hide_pull_request_review": "write",
     "hide_pull_request_review_comment": "write",
+    "issue_artifact_read": "read",
+    "issue_artifact_write": "destructive",
     "issue_dependency_read": "read",
     "issue_dependency_write": "write",
     "issue_read": "read",
@@ -150,6 +152,11 @@
       "mark_answer",
       "reply",
       "unmark_answer",
+      "update"
+    ],
+    "issue_artifact_write": [
+      "create",
+      "delete",
       "update"
     ],
     "label_write": [

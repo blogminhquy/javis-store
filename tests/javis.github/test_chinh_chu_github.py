@@ -136,11 +136,13 @@ check("đọc danh sách lệnh, gộp mọi biến thể", lenh == {"x": ["arch
 check("tool không theo dõi lệnh thì không ghi lệnh", "list_branches" not in lenh, lenh)
 
 # Lệnh của tool gộp.
-check("khuôn GitHub theo dõi lệnh của đúng ba tool gộp",
+# Bốn tool gộp: v2.1.0 (04/11/2026) thêm issue_artifact_write (create/update/delete).
+check("khuôn GitHub theo dõi lệnh của đúng bốn tool gộp",
       chinh_chu.lenh_can_theo_doi(con) == {"label_write": "method", "projects_write": "method",
-                                           "discussion_comment_write": "method"},
+                                           "discussion_comment_write": "method",
+                                           "issue_artifact_write": "method"},
       chinh_chu.lenh_can_theo_doi(con))
-check("bộ đã soát có lệnh của ba tool gộp", set(d.get("lenh") or {}) == set(chinh_chu.lenh_can_theo_doi(con)),
+check("bộ đã soát có lệnh của bốn tool gộp", set(d.get("lenh") or {}) == set(chinh_chu.lenh_can_theo_doi(con)),
       d.get("lenh"))
 for t, ds in (d.get("lenh") or {}).items():
     luat = con["call_rules"][t]
