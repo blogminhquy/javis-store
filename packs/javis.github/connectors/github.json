@@ -59,6 +59,7 @@
       "ui_get",
       "github_support_docs_search",
       "issue_dependency_read",
+      "issue_artifact_read",
       "find_duplicate"
     ],
     "write": [
@@ -101,7 +102,8 @@
       "create_pull_request_with_copilot",
       "label_write",
       "projects_write",
-      "discussion_comment_write"
+      "discussion_comment_write",
+      "issue_artifact_write"
     ]
   },
   "call_rules": {
@@ -130,6 +132,12 @@
       "key": "method",
       "else": "danger",
       "write_values": ["add", "reply", "update", "mark_answer", "unmark_answer"],
+      "danger_values": ["delete"]
+    },
+    "issue_artifact_write": {
+      "key": "method",
+      "else": "danger",
+      "write_values": ["create", "update"],
       "danger_values": ["delete"]
     }
   },
