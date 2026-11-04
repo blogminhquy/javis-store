@@ -42,6 +42,7 @@ Kiểm những gì
 11. Mã gói bằng tiếng Anh (chủ kho 02/11/2026: "dự án mình quốc tế rồi"). Mã là đường dẫn và tên trong
     mọi máy, đổi về sau phải đi qua `replaces` (Javis 0.440.0), nên chặn ngay từ lúc thêm gói. Tên hiển
     thị vẫn có cả tiếng Việt lẫn tiếng Anh như cũ.
+12. Danh bạ tên gói `plan-names.json` đúng mẫu. Lý do ở `ten_goi.py`.
 """
 import hashlib
 import json
@@ -70,6 +71,7 @@ from luat_ten_tool import PHA, TIEN, _khop  # noqa: E402
 from ban_chinh_thuc import loi_ban  # noqa: E402
 import chinh_chu  # noqa: E402
 import mcp_dong_goi  # noqa: E402
+import ten_goi  # noqa: E402
 
 
 def doc_manifest(thu_muc: Path):
@@ -368,6 +370,12 @@ for g in idx.get("packs") or []:
     check(f"gói lẻ: {gid} là agent", g.get("kind") == "agent", g.get("kind"))
 
 # ============================================================
+# 12. Danh bạ tên gói (plan-names.json). Javis đọc tệp này thẳng từ main, như index.json.
+# ============================================================
+for l in ten_goi.kiem(GOC / "plan-names.json"):
+    sai(l)
+
+# ============================================================
 # 6. Em dash
 #
 # Luật của chủ kho, và lý do là kỹ thuật: trình đọc màn hình lẫn bộ đọc thành tiếng vấp ở ký
@@ -376,7 +384,7 @@ for g in idx.get("packs") or []:
 # không phải việc của trình kiểm này, và một luật gõ cửa 250 tệp vendor là một luật bị tắt.
 # ============================================================
 EM = chr(0x2014)
-SOI = ["index.json", "README.md", "CONTRIBUTING.md", "mcp/nguon.json"]
+SOI = ["index.json", "README.md", "CONTRIBUTING.md", "mcp/nguon.json", "plan-names.json"]
 for f in (sorted(GOC.rglob("javis-pack.yaml")) + sorted((GOC / "packs").rglob("connectors/*.json"))
           + sorted((GOC / "tools").glob("*.py")) + chinh_chu.cac_tep() + sorted((GOC / "theo-goc").glob("*.json"))
           + sorted((GOC / "theo-goc" / "dich").glob("*.json")) + [GOC / x for x in SOI]):

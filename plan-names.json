@@ -1,0 +1,38 @@
+{
+  "format": "javis-plan-names",
+  "format_version": 1,
+  "updated": "2026-11-04",
+  "note": "Plan code (what the vendor CLI sends) -> the name the vendor sells it under today. Javis prefers a name the vendor itself sends (Claude Code planDisplayName), then this file, then the tidied code. Leave a code out when the vendor's own pages do not settle its name.",
+  "providers": {
+    "claude": {
+      "pro": "Pro",
+      "team": "Team",
+      "enterprise": "Enterprise"
+    },
+    "codex": {
+      "free": "Free",
+      "go": "Go",
+      "plus": "Plus",
+      "team": "Business",
+      "business": "Business",
+      "enterprise": "Enterprise",
+      "edu": "Edu"
+    },
+    "grok": {},
+    "agy": {}
+  },
+  "pending": {
+    "claude": {
+      "max": "Code covers both Max (old Max 5x) and Ultra (old Max 20x) since 2026-10-30; Claude Code's planDisplayName settles it per account."
+    },
+    "codex": {
+      "prolite": "The $100 tier. Sources disagree on its current name (Pro, Pro 5x, Pro 100); confirm on chatgpt.com/pricing.",
+      "pro": "The $200 tier. Sources disagree (Pro 20x, Pro 200); confirm on chatgpt.com/pricing.",
+      "promax": "Present in Codex 0.166.0, likely the $500 tier; name unconfirmed."
+    }
+  },
+  "sources": [
+    "https://windowsreport.com/anthropic-renames-claude-max-5x-and-20x-plans-removes-ultras-5-hour-limit/",
+    "https://techcrunch.com/2026/04/09/chatgpt-pro-plan-100-month-codex/"
+  ]
+}

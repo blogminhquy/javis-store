@@ -29,6 +29,7 @@ Kho không tới được cũng không sao: gói đã cài chạy bình thườn
     tools/dong-goi.py   đóng gói một thư mục thành .zip và in dấu vân tay
     theo-goc/<id>.json  gói THEO REPO GỐC: repo GitHub của tác giả và thư mục skill chép về
     tools/theo-goc.py   chép nguyên văn từ repo gốc, mỗi ngày CI chạy lại để lấy bản mới
+    plan-names.json     danh bạ tên gói thuê bao (Claude, ChatGPT, Grok, Antigravity) - Javis đọc như index.json
 
 Mã nguồn nằm ngay cạnh tệp phát hành là có chủ ý: gói **chạy được mã Python trong máy chủ Javis
 của bạn**, nên bạn phải đọc được nó mà không cần tải gì về trước.
@@ -60,3 +61,14 @@ mục trong `index.json`. Mọi gói đều **được người phát hành kho 
 Định dạng `index.json` và cách viết một gói: xem
 [docs/dev/pack-store-index.md](https://github.com/blogminhquy/javis-os/blob/main/docs/dev/pack-store-index.md)
 trong repo Javis OS.
+
+## Danh bạ tên gói thuê bao
+
+`plan-names.json` đổi mã gói mà CLI của nhà cung cấp gửi (ví dụ `prolite` của Codex) ra tên họ đang
+bán. Javis ưu tiên tên do chính nhà cung cấp gửi (Claude Code có), sau đó tới tệp
+này, cuối cùng mới tự viết gọn mã. Nhà cung cấp đổi tên thì sửa một dòng ở đây, mọi máy thấy ở lần
+làm mới kế tiếp, không cần bản Javis mới.
+
+Mỗi tuần một lịch chạy trên cloud dò tin đổi tên gói của bốn nhà và mở Pull Request sửa tệp này nếu
+có gì khác. Mã chưa chắc tên nằm ở `pending` kèm lý do, không đoán vào `providers`. Luật đầy đủ ở
+`tools/ten_goi.py`, trình kiểm chạy trong `tools/kiem-tra.py`.
