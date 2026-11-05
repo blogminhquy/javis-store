@@ -72,8 +72,9 @@ def _ket_noi(ten: str = ""):
     co = [c for c in mcp_store.list_connections()
           if c.get("connector_id") == CONNECTOR_ID and c.get("enabled", True)]
     if not co:
-        return None, ("Chưa kết nối Cloudflare. Cài gói 'Cloudflare' trong Kho cài đặt rồi dán "
-                      "API token ở trang Kết nối.")
+        return None, ("Chưa kết nối Cloudflare bằng API token. Vào trang Kết nối, mở thẻ Cloudflare, "
+                      "chọn cách Dán API token (Javis cũ chưa có thẻ này thì cài gói 'Cloudflare' "
+                      "trong Kho cài đặt trước). Cách đăng nhập web chưa dùng được cho deploy.")
     ten = str(ten or "").strip().lower()
     if ten:
         khop = [c for c in co if ten in {str(c.get(k) or "").strip().lower()
