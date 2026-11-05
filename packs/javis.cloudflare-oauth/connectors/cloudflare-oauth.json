@@ -1,0 +1,29 @@
+{
+  "id": "cloudflare-oauth",
+  "name": "Cloudflare (đăng nhập web)",
+  "icon": "assets/cloudflare.jpg",
+  "category": "Lập trình",
+  "description": "Cùng MCP chính chủ của Cloudflare nhưng không cần tạo API token: bấm Kết nối, đăng nhập Cloudflare rồi tick quyền muốn cấp ngay trên trang của Cloudflare. Quản lý DNS, Workers, Pages, KV, R2, D1, tường lửa, SSL, cache, thống kê lưu lượng.",
+  "group": "cloudflare",
+  "group_line": "Đăng nhập trên web: một chạm, không tạo token. Quyền tick lúc đăng nhập, sửa được bằng cách kết nối lại.",
+  "status": "beta",
+  "transport": "http",
+  "url": "https://mcp.cloudflare.com/mcp",
+  "auth": {
+    "type": "oauth",
+    "fields": [],
+    "guide": "Bấm Kết nối, đăng nhập tài khoản Cloudflare rồi chọn quyền muốn cấp cho Javis trên trang của Cloudflare.\n\nJavis tự đăng ký ứng dụng theo chuẩn OAuth của MCP Cloudflare, không cần tạo token hay dán key. Đây là cách Cloudflare khuyên dùng.\n\nQuyền tick lúc đăng nhập là hàng rào thật: chỉ muốn xem số liệu thì chỉ tick quyền đọc. Sau này thiếu quyền thì bấm Kết nối lại và tick thêm.\n\nTài khoản có nhiều Account Cloudflare thì nói rõ trong chat là làm trên tài khoản nào.\n\nGói Cloudflare Deploy (Wrangler) chưa dùng được kết nối này: nó cần cách Dán API token.",
+    "guide_url": "https://github.com/cloudflare/mcp#readme"
+  },
+  "tool_meta": {
+    "read": [
+      "docs",
+      "search"
+    ],
+    "danger": [
+      "execute"
+    ]
+  },
+  "default_perm": "readonly",
+  "risk": "MCP của Cloudflare chỉ có 3 công cụ: docs (tra tài liệu), search (tìm API cần gọi) và execute (chạy đoạn mã gọi API Cloudflare thật).\n\nexecute gọi được MỌI API mà quyền bạn đã cấp cho phép, từ đọc thống kê tới XOÁ tên miền, sửa DNS, deploy Worker, xoá bucket R2. Javis không phân biệt được một lần execute là đọc hay xoá, nên nó nằm ở nhóm nguy hiểm.\n\nMức Chỉ đọc và Ghi nháp: Javis chỉ tra tài liệu và tìm API, chưa đụng tới tài khoản.\n\nMức Toàn quyền: Javis tự thao tác thật. Sai một bản ghi DNS là website hoặc email tắt ngay, xoá Worker hay bucket là mất dữ liệu.\n\nCách an toàn nhất: muốn Javis chỉ đọc số liệu thì lúc đăng nhập CHỈ tick quyền đọc rồi mới nâng Toàn quyền. Khi đó execute có chạy cũng không sửa được gì."
+}

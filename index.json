@@ -1,7 +1,7 @@
 {
   "format": "javis-pack-index",
   "format_version": 1,
-  "updated": "2026-11-02",
+  "updated": "2026-11-05",
   "store": {
     "name": "Kho cài đặt Javis",
     "url": "https://github.com/blogminhquy/javis-store"
@@ -2390,6 +2390,39 @@
       "description": {
         "vi": "Toàn bộ API Cloudflare ngay trong chat qua MCP chính chủ: DNS, Workers, Pages, KV, R2, D1, tường lửa, SSL, cache, thống kê lưu lượng, Zero Trust. Dán API token là xong, quyền của token quyết định Javis được làm gì."
       },
+      "version": "1.0.1",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "lap-trinh",
+      "category_label": {
+        "vi": "Lập trình"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-11-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.cloudflare",
+      "icon": "packs/javis.cloudflare/assets/cloudflare.jpg",
+      "provides": {
+        "connectors": [
+          "cloudflare"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-cloudflare-1.0.1.zip",
+        "sha256": "61d57c874acf326380f4336b06744311092c643905bd4adb17d5066291653284",
+        "size": 5306
+      }
+    },
+    {
+      "id": "javis.cloudflare-oauth",
+      "kind": "connector",
+      "name": {
+        "vi": "Cloudflare (đăng nhập web)"
+      },
+      "description": {
+        "vi": "Cùng MCP chính chủ của Cloudflare nhưng không cần tạo API token: bấm Kết nối, đăng nhập Cloudflare rồi tick quyền muốn cấp ngay trên trang của Cloudflare."
+      },
       "version": "1.0.0",
       "author": {
         "name": "Javis"
@@ -2400,18 +2433,18 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-10-02",
-      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.cloudflare",
-      "icon": "packs/javis.cloudflare/assets/cloudflare.jpg",
+      "updated": "2026-11-05",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.cloudflare-oauth",
+      "icon": "packs/javis.cloudflare-oauth/assets/cloudflare.jpg",
       "provides": {
         "connectors": [
-          "cloudflare"
+          "cloudflare-oauth"
         ]
       },
       "download": {
-        "url": "dist/javis-cloudflare-1.0.0.zip",
-        "sha256": "9c2957c3cae63a1c0cf3f5042e448f56ba1d1093c60b365a37328a195c35d750",
-        "size": 5258
+        "url": "dist/javis-cloudflare-oauth-1.0.0.zip",
+        "sha256": "6538fee6d5e64d3c94c92c5935c231c874504afade02068f789e058ae6de3dcd",
+        "size": 4735
       }
     },
     {
