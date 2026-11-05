@@ -4,6 +4,8 @@
   "icon": "assets/cloudflare.jpg",
   "category": "Lập trình",
   "description": "Toàn bộ API Cloudflare ngay trong chat qua MCP chính chủ: DNS, Workers, Pages, KV, R2, D1, tường lửa, SSL, cache, thống kê lưu lượng, Zero Trust. Dán API token là xong, quyền của token quyết định Javis được làm gì.",
+  "group": "cloudflare",
+  "group_line": "Dán API token: tự chọn quyền từng mảng, dùng chung được với gói Cloudflare Deploy (Wrangler).",
   "status": "beta",
   "transport": "http",
   "url": "https://mcp.cloudflare.com/mcp",
