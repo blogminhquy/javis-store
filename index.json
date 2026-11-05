@@ -3016,7 +3016,7 @@
         "vi": "Bộ skill chính chủ của Remotion (remotion.dev): tạo dự án video bằng React, hoạt hình, chữ và hiệu ứng, phụ đề, bản đồ, xem trước và xuất video. Theo repo gốc, cập nhật mỗi khi Remotion sửa skill.",
         "en": "Remotion's official skills (remotion.dev): create React video projects, animation, type and effects, captions, maps, preview and render. Follows the source repo and updates whenever Remotion changes its skills."
       },
-      "version": "1.0.1",
+      "version": "1.0.2",
       "author": {
         "name": "Remotion",
         "url": "https://github.com/remotion-dev/skills"
@@ -3028,15 +3028,15 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-11-02",
+      "updated": "2026-11-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.remotion",
       "source": "https://github.com/remotion-dev/skills",
       "license": "Remotion License",
       "upstream": {
         "repo": "remotion-dev/skills",
         "ref": "main",
-        "commit": "c7cb2fdcacd134fb2ccb9b7a44f9ffa44e467271",
-        "synced": "2026-11-02"
+        "commit": "a2824c67f8b4585c294a8101db9f9f0ad3c643f8",
+        "synced": "2026-11-05"
       },
       "provides": {
         "skills": [
@@ -3056,9 +3056,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-remotion-1.0.1.zip",
-        "sha256": "df9a4b3c57b839b35c2e7ec200aadf2d56fa9df51054d88defff8111c846e63b",
-        "size": 880748
+        "url": "dist/javis-remotion-1.0.2.zip",
+        "sha256": "f9bef76432e2f79dc4845885b12f55bc1d590480847b5265f22651260e20705a",
+        "size": 880758
       }
     },
     {
@@ -3344,7 +3344,7 @@
         "vi": "12 skill của GitNexus: dựng đồ thị phụ thuộc của cả codebase rồi dùng nó để khám phá mã, gỡ lỗi, đánh giá tác động trước khi sửa, refactor, review PR. Cần chạy npx gitnexus analyze. Giấy phép chỉ cho dùng phi thương mại.",
         "en": "12 GitNexus skills: index the whole codebase into a dependency graph and use it to explore code, debug, check impact before an edit, refactor and review PRs. Needs npx gitnexus analyze. Licensed for noncommercial use only."
       },
-      "version": "1.0.1",
+      "version": "1.0.2",
       "author": {
         "name": "Abhigyan Patwari",
         "url": "https://github.com/abhigyanpatwari/GitNexus"
@@ -3356,15 +3356,15 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-11-01",
+      "updated": "2026-11-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.gitnexus",
       "source": "https://github.com/abhigyanpatwari/GitNexus",
       "license": "PolyForm-Noncommercial-1.0.0",
       "upstream": {
         "repo": "abhigyanpatwari/GitNexus",
         "ref": "main",
-        "commit": "21298f24234e538dc0d0b5369c410e76da77e70e",
-        "synced": "2026-11-01"
+        "commit": "fb85794c621f89217ceb7fc9e708459e4f21ba77",
+        "synced": "2026-11-05"
       },
       "provides": {
         "skills": [
@@ -3383,9 +3383,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-gitnexus-1.0.1.zip",
-        "sha256": "4d1410764281120a60423e5f46655c2f3a93eee375404912771c65ff80e2cd2f",
-        "size": 149956
+        "url": "dist/javis-gitnexus-1.0.2.zip",
+        "sha256": "308c9757a58f58953386d80dfbb93ba4307088f5bb11a17fb4f0a069ce012dc3",
+        "size": 150025
       }
     },
     {
@@ -3658,7 +3658,7 @@
         "vi": "Skill của REA (Reverse Engineer Anything), repo AI đang nổi nhất GitHub: phân tích app Electron/JavaScript, tệp chạy, firmware và trang web khi không có mã nguồn, so sánh phiên bản, dịch ngược. Cần cài công cụ rea (npm rea-agents).",
         "en": "The REA (Reverse Engineer Anything) skill, GitHub's top trending AI repo: analyse Electron/JavaScript apps, binaries, firmware and web apps without their source, compare versions, decompile. Needs the rea tool (npm rea-agents)."
       },
-      "version": "1.0.5",
+      "version": "1.0.6",
       "author": {
         "name": "morluto",
         "url": "https://github.com/morluto/rea"
@@ -3670,15 +3670,15 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-11-02",
+      "updated": "2026-11-05",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.rea",
       "source": "https://github.com/morluto/rea",
       "license": "MIT",
       "upstream": {
         "repo": "morluto/rea",
         "ref": "main",
-        "commit": "93b8b82db70279e40f484114cff9dc1958dc14ee",
-        "synced": "2026-11-02"
+        "commit": "fe677f6cf9853fb12490dfb8ef23ccae3a551049",
+        "synced": "2026-11-05"
       },
       "provides": {
         "skills": [
@@ -3686,9 +3686,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-rea-1.0.5.zip",
-        "sha256": "70f05b9e014e5c21526171276344efd89a415271b8a01ce4b954af0f9a33b04e",
-        "size": 64711
+        "url": "dist/javis-rea-1.0.6.zip",
+        "sha256": "fb2c129595324bffa452bd92c983183fda2e724668ed7300072fbb71f8b9121a",
+        "size": 66756
       }
     },
     {
