@@ -16,7 +16,7 @@ metadata:
 
 ## Detection
 
-1. Extract JSON-LD with `bash "${CLAUDE_SKILL_DIR}/../seo/scripts/claude-seo" run parse_html.py --url <url> --json`
+1. Extract JSON-LD with `bash "$(d="${CLAUDE_SKILL_DIR}"; echo "${d:-skills/seo}")/../seo/scripts/claude-seo" run parse_html.py --url <url> --json`
    (or scan `<script type="application/ld+json">` in the page source). Flag any
    block without `@context` or `@type`: Google cannot attach it to an entity (a
    rating in such a block does not reach the Product).

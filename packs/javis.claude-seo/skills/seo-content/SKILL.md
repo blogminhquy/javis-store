@@ -143,8 +143,8 @@ For "humanize this", "remove watermarks", or "clean up this draft", run the
 bundled cleanup script on the user's own content:
 
 ```bash
-bash "${CLAUDE_SKILL_DIR}/../seo/scripts/claude-seo" run content_humanize.py draft.md -o cleaned.md
-cat draft.md | bash "${CLAUDE_SKILL_DIR}/../seo/scripts/claude-seo" run content_humanize.py --json
+bash "$(d="${CLAUDE_SKILL_DIR}"; echo "${d:-skills/seo}")/../seo/scripts/claude-seo" run content_humanize.py draft.md -o cleaned.md
+cat draft.md | bash "$(d="${CLAUDE_SKILL_DIR}"; echo "${d:-skills/seo}")/../seo/scripts/claude-seo" run content_humanize.py --json
 ```
 
 Two deterministic passes, both logged in the JSON output:
@@ -201,7 +201,7 @@ Before attributing a traffic or ranking change to anything, list the confirmed
 Google updates in that window from the primary-source ledger:
 
 ```bash
-bash "${CLAUDE_SKILL_DIR}/../seo/scripts/claude-seo" run seo_updates.py --since <yyyy-mm> --json
+bash "$(d="${CLAUDE_SKILL_DIR}"; echo "${d:-skills/seo}")/../seo/scripts/claude-seo" run seo_updates.py --since <yyyy-mm> --json
 ```
 
 Every entry cites a Google-owned URL. If `freshness.stale` is true, say the

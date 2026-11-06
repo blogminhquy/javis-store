@@ -20,7 +20,7 @@ metadata:
 - Title tag: 50-60 characters, includes primary keyword, unique
 - Meta description: 150-160 characters, compelling, includes keyword
 - Meta description is not a restatement of the title: run
-  `bash "${CLAUDE_SKILL_DIR}/../seo/scripts/claude-seo" run metadata_template.py --title "<title>" --description "<desc>" --json`
+  `bash "$(d="${CLAUDE_SKILL_DIR}"; echo "${d:-skills/seo}")/../seo/scripts/claude-seo" run metadata_template.py --title "<title>" --description "<desc>" --json`
   (heuristic, deterministic string comparison). A description that opens by
   repeating its own title and closes on a stock CTA ("Try it free now.",
   "Start free!") is templated metadata, the shape bulk generation jobs produce

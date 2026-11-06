@@ -15379,7 +15379,7 @@
         "vi": "24 skill SEO của Claude SEO: kiểm tra cả website, phân tích từng trang, SEO kỹ thuật và Core Web Vitals, schema, sitemap, nội dung E-E-A-T, SEO địa phương, thương mại điện tử, backlink, SEO cho AI (GEO). Cần Python 3.11 trở lên.",
         "en": "24 Claude SEO skills: full site audits, single-page analysis, technical SEO and Core Web Vitals, schema, sitemaps, E-E-A-T content, local SEO, ecommerce, backlinks and AI search (GEO). Needs Python 3.11 or newer."
       },
-      "version": "1.0.1",
+      "version": "1.0.2",
       "author": {
         "name": "AgriciDaniel",
         "url": "https://github.com/AgriciDaniel/claude-seo"
@@ -15430,9 +15430,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-claude-seo-1.0.1.zip",
-        "sha256": "3ff788a590cf004673522fb823988f08ce3af97806fc2eb12755196567f21628",
-        "size": 675616
+        "url": "dist/javis-claude-seo-1.0.2.zip",
+        "sha256": "27533246873c23ab3b510e461c1aee3e6dbf619c68b9911e8d07a0da7af3171c",
+        "size": 676402
       }
     }
   ]

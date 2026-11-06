@@ -52,5 +52,5 @@ Chữ duy nhất gói viết lại, trong tệp `.md` (giống bộ cài tay c�
 
 | Gốc | Trong gói |
 |---|---|
-| `"${CLAUDE_PLUGIN_ROOT}/scripts/claude-seo"` | `bash "${CLAUDE_SKILL_DIR}/../seo/scripts/claude-seo"` |
+| `"${CLAUDE_PLUGIN_ROOT}/scripts/claude-seo"` | `bash "$(d="${CLAUDE_SKILL_DIR}"; echo "${d:-skills/seo}")/../seo/scripts/claude-seo"` |
 | `${CLAUDE_PLUGIN_ROOT}/skills/` | `${CLAUDE_SKILL_DIR}/../` |

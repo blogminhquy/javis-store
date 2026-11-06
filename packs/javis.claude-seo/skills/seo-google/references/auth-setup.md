@@ -106,7 +106,7 @@ Save to `~/.config/claude-seo/google-api.json`:
 ## Step 8: Verify Setup
 
 ```bash
-bash "${CLAUDE_SKILL_DIR}/../seo/scripts/claude-seo" run google_auth.py --check
+bash "$(d="${CLAUDE_SKILL_DIR}"; echo "${d:-skills/seo}")/../seo/scripts/claude-seo" run google_auth.py --check
 ```
 
 Expected output at Tier 2 (full):
