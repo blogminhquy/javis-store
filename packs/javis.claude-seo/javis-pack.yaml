@@ -1,7 +1,7 @@
 format: javis-pack
 spec: 1
 id: javis.claude-seo
-version: 1.0.0
+version: 1.0.1
 name: {vi: "Claude SEO: Kiểm tra và tối ưu SEO", en: "Claude SEO: Audit and optimise SEO"}
 description: {vi: "24 skill SEO của Claude SEO: kiểm tra cả website, phân tích từng trang, SEO kỹ thuật và Core Web Vitals, schema, sitemap, nội dung E-E-A-T, SEO địa phương, thương mại điện tử, backlink, SEO cho AI (GEO). Cần Python 3.11 trở lên.",
               en: "24 Claude SEO skills: full site audits, single-page analysis, technical SEO and Core Web Vitals, schema, sitemaps, E-E-A-T content, local SEO, ecommerce, backlinks and AI search (GEO). Needs Python 3.11 or newer."}
