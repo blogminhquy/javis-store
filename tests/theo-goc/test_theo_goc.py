@@ -186,6 +186,53 @@ class TheoGoc(unittest.TestCase):
         self.assertEqual(co, ["LICENSE", "README.md", "SKILL.md", "helpers/a.py"])
         self.assertEqual(self.muc()["tier"], "code", "có tệp .py thì gói là bậc code")
 
+    def kem_cau_hinh(self, kem):
+        self.cau_hinh([{"tu": "skills", "den": "skills", "kem": kem}])
+
+    def test_kem_tep_dung_chung(self):
+        (self.up / "scripts" / "sub").mkdir(parents=True)
+        (self.up / "scripts" / "chay").write_text("#!/bin/sh\n", encoding="utf-8")
+        (self.up / "scripts" / "sub" / "a.py").write_text("print(1)\n", encoding="utf-8")
+        (self.up / ".claude-plugin").mkdir()
+        (self.up / ".claude-plugin" / "plugin.json").write_text('{"version": "2.5.0"}\n', encoding="utf-8")
+        (self.up / ".claude-plugin" / "marketplace.json").write_text("{}\n", encoding="utf-8")
+        (self.up / "requirements.txt").write_text("requests\n", encoding="utf-8")
+        self.commit("thêm script dùng chung")
+        self.kem_cau_hinh([{"tu": "scripts", "vao": "viet-thu/scripts"},
+                           {"tu": "requirements.txt", "vao": "viet-thu/requirements.txt"},
+                           {"tu": ".claude-plugin/plugin.json", "vao": "viet-thu/.claude-plugin/plugin.json"}])
+        self.dong_bo()
+        goi = self.kho / "packs" / "javis.thu" / "skills" / "viet-thu"
+        co = sorted(p.relative_to(goi).as_posix() for p in goi.rglob("*") if p.is_file())
+        self.assertEqual(co, [".claude-plugin/plugin.json", "SKILL.md", "chay.sh", "requirements.txt",
+                              "scripts/chay", "scripts/sub/a.py"])
+        self.assertEqual((goi / "scripts" / "sub" / "a.py").read_bytes(),
+                         (self.up / "scripts" / "sub" / "a.py").read_bytes(), "phải chép nguyên văn")
+        self.assertEqual(self.muc()["provides"]["skills"], ["viet-thu"], "tệp kèm không thành skill")
+        self.assertIn("`skills/viet-thu/scripts` | `scripts`",
+                      (self.kho / "packs" / "javis.thu" / "docs" / "NGUON.md").read_text(encoding="utf-8"))
+        (self.up / "scripts" / "sub" / "a.py").write_text("print(2)\n", encoding="utf-8")
+        self.commit("sửa script dùng chung")
+        kq = self.dong_bo()
+        self.assertTrue(kq["can_duyet"], "script kèm đổi thì cũng phải chờ duyệt")
+        self.assertEqual(kq["tep_ma"], ["skills/viet-thu/scripts/sub/a.py"])
+        self.assertEqual(self.muc()["version"], "1.0.1")
+
+    def test_kem_sai_bi_tu_choi(self):
+        (self.up / "scripts").mkdir()
+        (self.up / "scripts" / "chay.sh").write_text("echo khac\n", encoding="utf-8")
+        self.commit("script trùng tên tệp trong skill")
+        for kem in ([{"tu": "scripts", "vao": "khong-co/scripts"}],
+                    [{"tu": "../ngoai", "vao": "viet-thu/x"}],
+                    [{"tu": "scripts", "vao": "viet-thu"}],
+                    [{"tu": "scripts", "vao": "/viet-thu/x"}],
+                    [{"tu": "khong-co", "vao": "viet-thu/x"}],
+                    [{"tu": "scripts/chay.sh", "vao": "viet-thu/chay.sh"}],
+                    "scripts"):
+            self.kem_cau_hinh(kem)
+            with self.assertRaises(self.tg.LoiDongBo, msg=repr(kem)):
+                self.dong_bo()
+
     def test_skill_phang(self):
         (self.up / "phang").mkdir()
         (self.up / "phang" / "fk-a.md").write_text("Làm A.\n", encoding="utf-8")
