@@ -3658,7 +3658,7 @@
         "vi": "Skill của REA (Reverse Engineer Anything), repo AI đang nổi nhất GitHub: phân tích app Electron/JavaScript, tệp chạy, firmware và trang web khi không có mã nguồn, so sánh phiên bản, dịch ngược. Cần cài công cụ rea (npm rea-agents).",
         "en": "The REA (Reverse Engineer Anything) skill, GitHub's top trending AI repo: analyse Electron/JavaScript apps, binaries, firmware and web apps without their source, compare versions, decompile. Needs the rea tool (npm rea-agents)."
       },
-      "version": "1.0.6",
+      "version": "1.0.7",
       "author": {
         "name": "morluto",
         "url": "https://github.com/morluto/rea"
@@ -3670,15 +3670,15 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-11-05",
+      "updated": "2026-11-06",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.rea",
       "source": "https://github.com/morluto/rea",
       "license": "MIT",
       "upstream": {
         "repo": "morluto/rea",
         "ref": "main",
-        "commit": "fe677f6cf9853fb12490dfb8ef23ccae3a551049",
-        "synced": "2026-11-05"
+        "commit": "abdbaa544ad3e63444a58bebd1708cc51b136a8b",
+        "synced": "2026-11-06"
       },
       "provides": {
         "skills": [
@@ -3686,9 +3686,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-rea-1.0.6.zip",
-        "sha256": "fb2c129595324bffa452bd92c983183fda2e724668ed7300072fbb71f8b9121a",
-        "size": 66756
+        "url": "dist/javis-rea-1.0.7.zip",
+        "sha256": "cea04416996232c8f0c4319750dae1f0a8efb6a4aed2e8853006dbc917748345",
+        "size": 67557
       }
     },
     {
@@ -4016,7 +4016,7 @@
         "vi": "Trọn bộ agency-agents, hơn 280 agent chuyên gia theo 18 nhóm: lập trình, thiết kế, marketing, quảng cáo, bán hàng, tài chính, bảo mật, làm game, bản đồ GIS, chuyên gia ngành. Mỗi agent có tính cách, quy trình và đầu ra rõ ràng. Muốn cài lẻ từng agent thì tìm ở tab Agent.",
         "en": "The full agency-agents set, 280+ expert agents in 18 divisions: engineering, design, marketing, paid media, sales, finance, security, game development, GIS, industry specialists. Each has a personality, process and clear deliverables. To install one at a time, see the Agents tab."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "msitarzewski",
         "url": "https://github.com/msitarzewski/agency-agents"
@@ -4028,15 +4028,15 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-10-29",
+      "updated": "2026-11-06",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.agency-agents",
       "source": "https://github.com/msitarzewski/agency-agents",
       "license": "MIT",
       "upstream": {
         "repo": "msitarzewski/agency-agents",
         "ref": "main",
-        "commit": "b37b5bb33b78f2c1d6567d98e25ca818e3259219",
-        "synced": "2026-10-29"
+        "commit": "b859c515d813efcfc4755d3471dd9e7686c7706d",
+        "synced": "2026-11-06"
       },
       "provides": {
         "agents": [
@@ -4326,9 +4326,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-agency-agents-1.0.0.zip",
-        "sha256": "2bdfbf13b6eb1746ef220e15821c9b4c8bba0dcdb47da1e282ff6291b893687c",
-        "size": 1765088
+        "url": "dist/javis-agency-agents-1.0.1.zip",
+        "sha256": "c2f603de2d7d8959338c2da82c659e34b231f00c10ea99b999aed70832b2d577",
+        "size": 1766128
       }
     },
     {
@@ -9412,7 +9412,7 @@
         "vi": "Vận hành đồ thị danh tính dùng chung cho nhiều AI agent, để agent nào hỏi \"thực thể này là ai\" cũng nhận cùng một câu trả lời, kể cả khi ghi đồng thời.",
         "en": "Operates a shared identity graph that multiple AI agents resolve against. Ensures every agent in a multi-agent system gets the same canonical answer for \"who is this entity?\" - deterministically, even under concurrent writes."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "msitarzewski",
         "url": "https://github.com/msitarzewski/agency-agents"
@@ -9424,7 +9424,7 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-10-29",
+      "updated": "2026-11-06",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.agency.identity-graph-operator",
       "source": "https://github.com/msitarzewski/agency-agents/blob/main/specialized/identity-graph-operator.md",
       "license": "MIT",
@@ -9435,9 +9435,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-agency-identity-graph-operator-1.0.0.zip",
-        "sha256": "1a047b606e98503666c8bcd061e4a26e61c6a148b0284127d3e073f5ded5307d",
-        "size": 8449
+        "url": "dist/javis-agency-identity-graph-operator-1.0.1.zip",
+        "sha256": "86407e51e5ba6b5bd19dbdcd46501d8ba0937e9e16d3e6c1256101ed5d59d633",
+        "size": 8684
       }
     },
     {
@@ -13351,7 +13351,7 @@
         "vi": "Bảo mật phòng thủ: quét mọi lần nộp code tìm khoá bí mật và dữ liệu nhạy cảm trước tiên, rồi triển khai hoặc soát các lớp kiểm soát bảo mật theo chuẩn của tổ chức.",
         "en": "Defensive application security specialist who scans every code submission for secrets and sensitive data exposure before anything else, then implements or audits security controls following the organization's security standard - covering authentication, authorization, tokens, cookies, HTTP..."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "msitarzewski",
         "url": "https://github.com/msitarzewski/agency-agents"
@@ -13363,7 +13363,7 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-10-29",
+      "updated": "2026-11-06",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.agency.security-senior-secops",
       "source": "https://github.com/msitarzewski/agency-agents/blob/main/security/security-senior-secops.md",
       "license": "MIT",
@@ -13374,9 +13374,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-agency-security-senior-secops-1.0.0.zip",
-        "sha256": "b057982c1e437bfd4d02f3a0cdd1c2b3cf5e6b94c58aca72226323b5d3225d64",
-        "size": 14653
+        "url": "dist/javis-agency-security-senior-secops-1.0.1.zip",
+        "sha256": "6d5f61c0695fae4e4b82cf2a7db79c54077b21749c93453fd0c5081c13a2c094",
+        "size": 14868
       }
     },
     {
@@ -14287,7 +14287,7 @@
         "vi": "Kế hoạch tài chính, quản lý ngân sách, phân tích hiệu quả kinh doanh. Giữ tài chính lành mạnh, tối ưu dòng tiền, đưa góc nhìn tài chính cho tăng trưởng.",
         "en": "Expert financial analyst and controller specializing in financial planning, budget management, and business performance analysis. Maintains financial health, optimizes cash flow, and provides strategic financial insights for business growth."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "msitarzewski",
         "url": "https://github.com/msitarzewski/agency-agents"
@@ -14299,7 +14299,7 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-10-29",
+      "updated": "2026-11-06",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.agency.support-finance-tracker",
       "source": "https://github.com/msitarzewski/agency-agents/blob/main/support/support-finance-tracker.md",
       "license": "MIT",
@@ -14310,9 +14310,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-agency-support-finance-tracker-1.0.0.zip",
-        "sha256": "c0a29f98b268e564dc32dc9661e0ba82b1cc76cb55fc9bca256252c593409432",
-        "size": 9022
+        "url": "dist/javis-agency-support-finance-tracker-1.0.1.zip",
+        "sha256": "caba4a7f7234e70b74e68ce0f1eb9ddd35c9322af51e80d6d9fa44e2179849a5",
+        "size": 9290
       }
     },
     {
@@ -14833,7 +14833,7 @@
         "vi": "Phân tích, tối ưu và tự động hoá quy trình ở mọi bộ phận để năng suất và hiệu quả cao nhất.",
         "en": "Expert process improvement specialist focused on analyzing, optimizing, and automating workflows across all business functions for maximum productivity and efficiency"
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "msitarzewski",
         "url": "https://github.com/msitarzewski/agency-agents"
@@ -14845,7 +14845,7 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-10-29",
+      "updated": "2026-11-06",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.agency.testing-workflow-optimizer",
       "source": "https://github.com/msitarzewski/agency-agents/blob/main/testing/testing-workflow-optimizer.md",
       "license": "MIT",
@@ -14856,9 +14856,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-agency-testing-workflow-optimizer-1.0.0.zip",
-        "sha256": "b33fcac95db392c97bad4cf97967a0ab07a4914a86d0b3965970d5ce8f171e28",
-        "size": 8707
+        "url": "dist/javis-agency-testing-workflow-optimizer-1.0.1.zip",
+        "sha256": "2aa9c48db5c5e810742bfa895c00a24ea31b12c93dda26b89a72556ffc2ed007",
+        "size": 9029
       }
     },
     {
