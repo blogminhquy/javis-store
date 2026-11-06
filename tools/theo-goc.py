@@ -42,6 +42,17 @@ Store để người dùng cài lẻ từng agent. Gói lẻ dựng lại cùng 
 lên bản vá khi agent của nó đổi, và biến mất khi repo gốc bỏ agent. Gói lẻ không mang `upstream`
 (chỉ gói gộp nằm ở mục Đề xuất), mà mang `thuoc_goi` trỏ về gói gộp.
 
+Tệp dùng chung (`kem`, từ 2026-11-06)
+-------------------------------------
+Có repo để bộ script dùng chung ở GỐC repo chứ không trong thư mục skill nào (claude-seo:
+`scripts/`, `requirements.txt`, gọi qua `${CLAUDE_PLUGIN_ROOT}/scripts/...`). Chỉ chép skill thì
+skill trỏ vào tệp không có. Mục `chep` kiểu skill khai thêm `kem`: danh sách
+`{"tu": <đường dẫn trong repo>, "vao": "<skill>/<đường dẫn>"}`, chép NGUYÊN VĂN tệp hay thư mục đó
+vào trong một skill của chính mục ấy. Đặt đúng chỗ bộ cài chính thức của tác giả đặt (bản cài tay
+của claude-seo để chúng trong `skills/seo/`), để cách chạy tác giả ghi cho bản cài tay dùng được.
+Không ghi đè tệp skill có sẵn: trùng đường dẫn là từ chối. Tệp mã đi vào đây cũng tính như mã
+trong skill, đổi là phải chờ duyệt.
+
 Khi nào cần người duyệt
 -----------------------
 Kho có luật mọi gói đều được đọc trước khi trộn. Đồng bộ tự động không phá luật đó, nó chia hai:
@@ -137,6 +148,17 @@ def doc_cau_hinh(pid: str) -> dict:
                 raise LoiDongBo(f"{pid}: `bo_tep` không hợp lệ: {b!r}")
         if m["den"] not in ("skills", "agents"):
             raise LoiDongBo(f"{pid}: chỉ chép vào `skills` hoặc `agents` (đang khai {m['den']!r})")
+        kem = m.get("kem", [])
+        if not isinstance(kem, list) or (kem and (m["den"] != "skills" or m.get("phang"))):
+            raise LoiDongBo(f"{pid}: `kem` là danh sách, chỉ dùng cho mục skill dạng thư mục")
+        for k in kem:
+            for khoa in ("tu", "vao"):
+                v = str((k or {}).get(khoa) or "") if isinstance(k, dict) else ""
+                phan = v.split("/")
+                if not v or v.startswith("/") or ".." in phan or "" in phan or v in (".", "./"):
+                    raise LoiDongBo(f"{pid}: `kem.{khoa}` không hợp lệ: {v!r}")
+            if len(k["vao"].split("/")) < 2:
+                raise LoiDongBo(f"{pid}: `kem.vao` phải dạng <skill>/<đường dẫn>: {k['vao']!r}")
         if m["den"] == "agents":
             if m.get("ten") or m.get("phang") or m.get("bo_tep"):
                 raise LoiDongBo(f"{pid}: mục `agents` không nhận `ten`, `phang`, `bo_tep`")
@@ -178,11 +200,18 @@ def tai_goc(c: dict, dich: Path) -> str:
     repo (`tu: "."`) thì cần cả cây, nên tải đủ."""
     _git("clone", "--quiet", "--depth", "1", "--filter=blob:none", "--sparse", "--branch", c["ref"],
          f"{GIT_GOC}{c['repo']}.git", str(dich))
-    thu_muc = sorted({m["tu"] for m in c["chep"]})
+    thu_muc = {m["tu"] for m in c["chep"]}
+    for m in c["chep"]:
+        for k in m.get("kem") or []:
+            # `kem` có thể là TỆP (`.claude-plugin/plugin.json`): sparse kiểu cone chỉ nhận thư mục,
+            # nên lấy cả thư mục cha. Tệp ở gốc repo thì cone luôn có sẵn.
+            thu_muc.add(k["tu"])
+            if "/" in k["tu"]:
+                thu_muc.add(k["tu"].rsplit("/", 1)[0])
     if "." in thu_muc:
         _git("sparse-checkout", "disable", cwd=dich)
     else:
-        _git("sparse-checkout", "set", *thu_muc, cwd=dich)
+        _git("sparse-checkout", "set", "--skip-checks", *sorted(thu_muc), cwd=dich)
     return _git("rev-parse", "HEAD", cwd=dich)
 
 
@@ -226,6 +255,7 @@ def dung_ban_moi(c: dict, nguon: Path, ra: Path, tt: dict = None, dich: dict = N
       doi_ten  đổi tên THƯ MỤC khi trùng slug với gói khác trong cùng brain (nội dung giữ nguyên);
       ten      `tu` tự nó là một skill (SKILL.md nằm ngay ở đó, thường là gốc repo): tên thư mục trong gói;
       bo_tep   với skill `ten`: đường dẫn tương đối không chép theo (test, ảnh demo, thư mục skill khác);
+      kem      tệp hay thư mục dùng chung ở chỗ khác trong repo, chép nguyên văn vào một skill (đầu tệp);
       phang    repo để skill thành tệp `.md` phẳng (`skills/fk-x.md`, như FlowKit) thay vì thư mục có
                SKILL.md: mỗi tệp `.md` trừ README là một skill, tên theo tên tệp, chép NGUYÊN VĂN
                thành `<tên>/SKILL.md`. Tệp không có frontmatter thì Javis lấy dòng đầu làm mô tả."""
@@ -272,6 +302,8 @@ def dung_ban_moi(c: dict, nguon: Path, ra: Path, tt: dict = None, dich: dict = N
                 shutil.copyfile(d, ra / m["den"] / ten / "SKILL.md")
             else:
                 _chep_cay(d, ra / m["den"] / ten, nguon, m.get("bo_tep") or ())
+        for k in m.get("kem") or []:
+            _chep_kem(k, nguon, ra / m["den"], [t for _, t in cap])
     if not skills:
         raise LoiDongBo("repo gốc không có mục nào ở thư mục đã khai")
     (ra / "docs").mkdir(parents=True, exist_ok=True)
@@ -286,6 +318,34 @@ def dung_ban_moi(c: dict, nguon: Path, ra: Path, tt: dict = None, dich: dict = N
     if sum(p.stat().st_size for p in tep) > TRAN_TONG:
         raise LoiDongBo("quá 40 MB")
     return skills
+
+
+def _chep_kem(k: dict, nguon: Path, ra: Path, skill_cua_muc: list) -> None:
+    """Một mục `kem`: chép nguyên văn `tu` (tệp hay thư mục) vào `ra/<vao>`. `vao` phải nằm trong
+    một skill của chính mục `chep` này, và không được đè tệp đã có."""
+    skill = k["vao"].split("/")[0]
+    if skill not in skill_cua_muc:
+        raise LoiDongBo(f"`kem` trỏ vào skill không có trong mục này: {k['vao']!r}")
+    tu, dich = nguon / k["tu"], ra / k["vao"]
+    if tu.is_symlink() or not (tu.is_file() or tu.is_dir()):
+        raise LoiDongBo(f"repo gốc không còn {k['tu']}")
+    if tu.is_file():
+        _kiem_tep(tu, nguon)
+        cap = [(tu, dich)]
+    else:
+        cap = []
+        for p in sorted(tu.rglob("*")):
+            rel = p.relative_to(tu)
+            if any(x in rel.parts for x in BO_QUA):
+                continue
+            if p.is_symlink() or p.is_file():
+                _kiem_tep(p, nguon)
+                cap.append((p, dich / rel))
+    for p, d in cap:
+        if d.exists():
+            raise LoiDongBo(f"`kem` đè tệp đã có trong skill: {d.relative_to(ra).as_posix()}")
+        d.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(p, d)
 
 
 def _chep_agents(c, m, tu, nguon, ra, ten_da_co, tu_dau, tt, dich) -> None:
@@ -421,6 +481,11 @@ def _nguon_md(c: dict, tu_dau: dict, tt: dict = None) -> str:
             "| Skill | Thư mục gốc |", "|---|---|"]
     for s, tu in tu_dau.items():
         dong.append(f"| `{s}` | `{tu}` |")
+    kem = [k for m in c["chep"] for k in m.get("kem") or []]
+    if kem:
+        dong += ["", "Tệp dùng chung chép kèm vào skill, đúng chỗ bộ cài chính thức của tác giả đặt:", "",
+                 "| Trong gói | Gốc ở repo |", "|---|---|"]
+        dong += [f"| `skills/{k['vao']}` | `{k['tu']}` |" for k in kem]
     return "\n".join(dong) + "\n"
 
 

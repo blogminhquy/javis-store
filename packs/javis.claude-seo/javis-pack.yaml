@@ -1,0 +1,15 @@
+format: javis-pack
+spec: 1
+id: javis.claude-seo
+version: 1.0.0
+name: {vi: "Claude SEO: Kiểm tra và tối ưu SEO", en: "Claude SEO: Audit and optimise SEO"}
+description: {vi: "24 skill SEO của Claude SEO: kiểm tra cả website, phân tích từng trang, SEO kỹ thuật và Core Web Vitals, schema, sitemap, nội dung E-E-A-T, SEO địa phương, thương mại điện tử, backlink, SEO cho AI (GEO). Cần Python 3.11 trở lên.",
+              en: "24 Claude SEO skills: full site audits, single-page analysis, technical SEO and Core Web Vitals, schema, sitemaps, E-E-A-T content, local SEO, ecommerce, backlinks and AI search (GEO). Needs Python 3.11 or newer."}
+author: {name: "AgriciDaniel", url: "https://github.com/AgriciDaniel/claude-seo"}
+license: MIT
+homepage: "https://github.com/AgriciDaniel/claude-seo"
+compat: {app: ">=0.55.27"}
+# Gói theo repo gốc: thư mục skills/ do tools/theo-goc.py chép nguyên văn, đừng sửa tay.
+upstream: {repo: "AgriciDaniel/claude-seo", ref: "main"}
+provides:
+  skills: [seo, seo-agentic, seo-audit, seo-backlinks, seo-cluster, seo-competitor-pages, seo-content, seo-content-brief, seo-drift, seo-ecommerce, seo-flow, seo-geo, seo-google, seo-hreflang, seo-images, seo-local, seo-maps, seo-page, seo-plan, seo-programmatic, seo-schema, seo-sitemap, seo-sxo, seo-technical]
