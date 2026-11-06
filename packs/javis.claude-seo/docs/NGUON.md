@@ -46,3 +46,11 @@ Tệp dùng chung chép kèm vào skill, đúng chỗ bộ cài chính thức c�
 | `skills/seo/schema` | `schema` |
 | `skills/seo/requirements.txt` | `requirements.txt` |
 | `skills/seo/.claude-plugin/plugin.json` | `.claude-plugin/plugin.json` |
+
+Chữ duy nhất gói viết lại, trong tệp `.md` (giống bộ cài tay của tác giả). Javis không đặt
+`CLAUDE_PLUGIN_ROOT` như plugin Claude Code, còn `CLAUDE_SKILL_DIR` là thư mục skill đang nạp:
+
+| Gốc | Trong gói |
+|---|---|
+| `"${CLAUDE_PLUGIN_ROOT}/scripts/claude-seo"` | `bash "${CLAUDE_SKILL_DIR}/../seo/scripts/claude-seo"` |
+| `${CLAUDE_PLUGIN_ROOT}/skills/` | `${CLAUDE_SKILL_DIR}/../` |

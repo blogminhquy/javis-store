@@ -233,6 +233,59 @@ class TheoGoc(unittest.TestCase):
             with self.assertRaises(self.tg.LoiDongBo, msg=repr(kem)):
                 self.dong_bo()
 
+    def test_thay_bien_chi_plugin_moi_co(self):
+        # Review PR #53: skill gọi "${CLAUDE_PLUGIN_ROOT}/scripts/chay", Javis không đặt biến đó nên lệnh
+        # thành /scripts/chay (exit 127). `thay` viết lại như bộ cài tay của tác giả, chỉ trong `.md`.
+        lenh = '"${CLAUDE_PLUGIN_ROOT}/scripts/chay" run x.py'
+        (self.up / "skills" / "viet-thu" / "SKILL.md").write_bytes(
+            f"---\r\nname: viet-thu\r\ndescription: Viết thư\r\n---\r\nChạy `{lenh}`.\r\n".encode())
+        (self.up / "skills" / "viet-thu" / "chay.sh").write_text(f"# {lenh}\n", encoding="utf-8")
+        (self.up / "skills" / "doc-thu" / "references").mkdir(parents=True)
+        (self.up / "skills" / "doc-thu" / "SKILL.md").write_text(
+            "---\nname: doc-thu\ndescription: Đọc\n---\nXem `${CLAUDE_PLUGIN_ROOT}/skills/viet-thu/SKILL.md`.\n",
+            encoding="utf-8")
+        (self.up / "skills" / "doc-thu" / "references" / "a.md").write_text(f"{lenh}\n", encoding="utf-8")
+        (self.up / "scripts").mkdir()
+        (self.up / "scripts" / "chay").write_text("#!/bin/sh\necho chay-duoc\n", encoding="utf-8")
+        (self.up / "scripts" / "chay").chmod(0o755)
+        (self.up / "scripts" / "ghi-chu.md").write_text(f"{lenh}\n", encoding="utf-8")
+        self.commit("skill gọi script qua CLAUDE_PLUGIN_ROOT")
+        thay = [{"tu": '"${CLAUDE_PLUGIN_ROOT}/scripts/chay"', "thanh": '"${CLAUDE_SKILL_DIR}/../viet-thu/scripts/chay"'},
+                {"tu": "${CLAUDE_PLUGIN_ROOT}/skills/", "thanh": "${CLAUDE_SKILL_DIR}/../"}]
+        self.cau_hinh([{"tu": "skills", "den": "skills", "kem": [{"tu": "scripts", "vao": "viet-thu/scripts"}],
+                        "thay": thay}])
+        kq = self.dong_bo()
+        self.assertTrue(kq["doi"])
+        goi = self.kho / "packs" / "javis.thu" / "skills"
+        skill = (goi / "viet-thu" / "SKILL.md").read_bytes()
+        self.assertIn(b'"${CLAUDE_SKILL_DIR}/../viet-thu/scripts/chay" run x.py', skill)
+        self.assertIn(b"\r\n---\r\n", skill, "chỉ thay đúng chuỗi, giữ nguyên CRLF")
+        self.assertNotIn("CLAUDE_PLUGIN_ROOT", (goi / "doc-thu" / "references" / "a.md").read_text(encoding="utf-8"))
+        self.assertNotIn("CLAUDE_PLUGIN_ROOT", (goi / "viet-thu" / "scripts" / "ghi-chu.md").read_text(encoding="utf-8"),
+                         "`.md` đi theo `kem` cũng được thay")
+        self.assertIn("${CLAUDE_SKILL_DIR}/../viet-thu/SKILL.md",
+                      (goi / "doc-thu" / "SKILL.md").read_text(encoding="utf-8"))
+        self.assertIn(lenh, (goi / "viet-thu" / "chay.sh").read_text(encoding="utf-8"), "tệp mã không bao giờ bị thay")
+        # Lệnh đã viết lại chạy được từ thư mục skill khác, khi không có CLAUDE_PLUGIN_ROOT (đúng như Javis).
+        (goi / "viet-thu" / "scripts" / "chay").chmod(0o755)
+        env = {k: v for k, v in os.environ.items() if not k.startswith("CLAUDE_")}
+        ra = subprocess.run(["sh", "-c", '"${CLAUDE_SKILL_DIR}/../viet-thu/scripts/chay"'], capture_output=True,
+                            text=True, env=dict(env, CLAUDE_SKILL_DIR=str(goi / "doc-thu")))
+        self.assertEqual((ra.returncode, ra.stdout.strip()), (0, "chay-duoc"), ra.stderr)
+        nguon = (self.kho / "packs" / "javis.thu" / "docs" / "NGUON.md").read_text(encoding="utf-8")
+        self.assertIn('| `"${CLAUDE_PLUGIN_ROOT}/scripts/chay"` | `"${CLAUDE_SKILL_DIR}/../viet-thu/scripts/chay"` |', nguon)
+        # Repo gốc đổi cách viết: cặp thay không khớp chỗ nào thì đỏ, không lặng lẽ phát hành lệnh hỏng.
+        self.cau_hinh([{"tu": "skills", "den": "skills", "thay": [{"tu": "${KHONG_CO}/x", "thanh": "y"}]}])
+        with self.assertRaises(self.tg.LoiDongBo):
+            self.dong_bo()
+
+    def test_thay_sai_bi_tu_choi(self):
+        for thay in ("chuoi", [{"tu": "", "thanh": "a"}], [{"tu": "a", "thanh": "a"}], [{"tu": "a"}],
+                     [{"tu": "a", "thanh": "b\nc"}], [{"tu": "a", "thanh": 1}], [{"tu": "a", "thanh": "b", "x": 1}]):
+            self.cau_hinh([{"tu": "skills", "den": "skills", "thay": thay}])
+            with self.assertRaises(self.tg.LoiDongBo, msg=repr(thay)):
+                self.dong_bo()
+
     def test_skill_phang(self):
         (self.up / "phang").mkdir()
         (self.up / "phang" / "fk-a.md").write_text("Làm A.\n", encoding="utf-8")

@@ -1,18 +1,46 @@
 {
-  "_doc": "Claude SEO của AgriciDaniel. Skill chép nguyên văn từ skills/. Bộ script Python dùng chung ở gốc repo (scripts/, data/, schema/, requirements.txt) đi theo `kem` vào skills/seo/, đúng chỗ bản cài tay của tác giả (install.sh) đặt. plugin.json đặt ở skills/seo/.claude-plugin/ để runtime.py coi là bản plugin và dựng môi trường Python ở ~/.local/share/claude-seo, không phải trong brain. Bỏ seo-image-gen và seo-dataforseo: chúng chỉ là bản gương của extension cần MCP riêng (nanobanana, DataForSEO) mà gói không mang theo bộ cài. Không chép agents/: đó là subagent của Claude Code, trùng tên với skill, và mỗi agent chỉ gói lại skill cùng tên.",
+  "_doc": "Claude SEO của AgriciDaniel. Skill chép nguyên văn từ skills/. Bộ script Python dùng chung ở gốc repo (scripts/, data/, schema/, requirements.txt) đi theo `kem` vào skills/seo/, đúng chỗ bản cài tay của tác giả (install.sh) đặt. plugin.json đặt ở skills/seo/.claude-plugin/ để runtime.py coi là bản plugin và dựng môi trường Python ở ~/.local/share/claude-seo, không phải trong brain. Bỏ seo-image-gen và seo-dataforseo: chúng chỉ là bản gương của extension cần MCP riêng (nanobanana, DataForSEO) mà gói không mang theo bộ cài. Không chép agents/: đó là subagent của Claude Code, trùng tên với skill, và mỗi agent chỉ gói lại skill cùng tên. `thay` làm đúng việc install.sh của tác giả làm cho bản cài tay: Javis không đặt CLAUDE_PLUGIN_ROOT (chỉ plugin Claude Code mới có), nên lệnh \"${CLAUDE_PLUGIN_ROOT}/scripts/claude-seo\" thành /scripts/claude-seo và chết (review PR #53). Viết lại sang ${CLAUDE_SKILL_DIR}, thư mục skill đang nạp (Claude Code tự thay; Javis OS thay ở javis_use_skill, /skill của Team và skill tự chọn từ bản có changelog.d/skill-dir-bien-claude.md, bản cũ hơn thì chỉ engine Claude Code chạy được lệnh), rồi đi ngang sang skills/seo nơi `kem` đặt script. Gọi qua `bash` vì Javis cài mọi tệp của gói ở mode 0644 (pack_install.py không nghe bit thực thi trong zip), gọi thẳng launcher là exit 126; launcher là script bash, tự định vị bằng BASH_SOURCE nên chạy kiểu này y hệt. Đường dẫn tham chiếu ${CLAUDE_PLUGIN_ROOT}/skills/ thành thư mục anh em của skill.",
   "repo": "AgriciDaniel/claude-seo",
   "ref": "main",
   "chep": [
     {
       "tu": "skills",
       "den": "skills",
-      "bo": ["seo-image-gen", "seo-dataforseo"],
+      "bo": [
+        "seo-image-gen",
+        "seo-dataforseo"
+      ],
       "kem": [
-        {"tu": "scripts", "vao": "seo/scripts"},
-        {"tu": "data", "vao": "seo/data"},
-        {"tu": "schema", "vao": "seo/schema"},
-        {"tu": "requirements.txt", "vao": "seo/requirements.txt"},
-        {"tu": ".claude-plugin/plugin.json", "vao": "seo/.claude-plugin/plugin.json"}
+        {
+          "tu": "scripts",
+          "vao": "seo/scripts"
+        },
+        {
+          "tu": "data",
+          "vao": "seo/data"
+        },
+        {
+          "tu": "schema",
+          "vao": "seo/schema"
+        },
+        {
+          "tu": "requirements.txt",
+          "vao": "seo/requirements.txt"
+        },
+        {
+          "tu": ".claude-plugin/plugin.json",
+          "vao": "seo/.claude-plugin/plugin.json"
+        }
+      ],
+      "thay": [
+        {
+          "tu": "\"${CLAUDE_PLUGIN_ROOT}/scripts/claude-seo\"",
+          "thanh": "bash \"${CLAUDE_SKILL_DIR}/../seo/scripts/claude-seo\""
+        },
+        {
+          "tu": "${CLAUDE_PLUGIN_ROOT}/skills/",
+          "thanh": "${CLAUDE_SKILL_DIR}/../"
+        }
       ]
     }
   ],

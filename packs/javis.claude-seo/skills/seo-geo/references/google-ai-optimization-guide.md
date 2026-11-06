@@ -105,7 +105,7 @@ Two operational requirements with concrete enforcement surfaces:
 
 1. **Merchant Center: AI-generated product images:** must carry IPTC
    `DigitalSourceType: TrainedAlgorithmicMedia` metadata. See
-   `${CLAUDE_PLUGIN_ROOT}/skills/seo-images/SKILL.md` for the audit + injection pattern.
+   `${CLAUDE_SKILL_DIR}/../seo-images/SKILL.md` for the audit + injection pattern.
 2. **AI-generated product titles and descriptions:** must be separately
    specified and labeled as AI-generated in the merchant feed.
 
@@ -115,17 +115,17 @@ The AI optimization guide pivots near the end to **AI agents**, not just
 summarizers. Agents interact with sites through three channels: screenshots
 plus a vision model, raw HTML/DOM, and the browser accessibility tree.
 
-Full audit criteria: `${CLAUDE_PLUGIN_ROOT}/skills/seo-agentic/references/agent-friendly-pages.md` (run `/seo agentic`).
+Full audit criteria: `${CLAUDE_SKILL_DIR}/../seo-agentic/references/agent-friendly-pages.md` (run `/seo agentic`).
 
 The guide itself does not mention WebMCP (checked 2026-09-23); WebMCP status,
 consumers and safe patterns are tracked separately in
-`${CLAUDE_PLUGIN_ROOT}/skills/seo-agentic/references/webmcp.md`. The guide does
+`${CLAUDE_SKILL_DIR}/../seo-agentic/references/webmcp.md`. The guide does
 name **UCP** (Universal
 Commerce Protocol, open standard co-developed with Shopify, Etsy, Wayfair,
 Target, Walmart; Google-confirmed reference implementation in AI Mode in
 Search; ucp.dev lists 2026-08-25 as the latest date-based release, while
 Google's merchant guide documents 2026-04-08). UCP audit criteria:
-`${CLAUDE_PLUGIN_ROOT}/skills/seo-ecommerce/references/ucp-universal-commerce-protocol.md`.
+`${CLAUDE_SKILL_DIR}/../seo-ecommerce/references/ucp-universal-commerce-protocol.md`.
 
 ## How claude-seo treats this guide
 
@@ -146,4 +146,4 @@ Google's merchant guide documents 2026-04-08). UCP audit criteria:
 - Any of the linked policy docs revise eligibility or enforcement language.
 - The UCP / WebMCP standards advance (UCP spec 2026-08-25 on ucp.dev, 2026-04-08
   in Google's merchant guide; WebMCP status is tracked in
-  `${CLAUDE_PLUGIN_ROOT}/skills/seo-agentic/references/vendor-matrix.md`).
+  `${CLAUDE_SKILL_DIR}/../seo-agentic/references/vendor-matrix.md`).

@@ -53,6 +53,17 @@ của claude-seo để chúng trong `skills/seo/`), để cách chạy tác gi�
 Không ghi đè tệp skill có sẵn: trùng đường dẫn là từ chối. Tệp mã đi vào đây cũng tính như mã
 trong skill, đổi là phải chờ duyệt.
 
+Viết lại biến chỉ plugin mới có (`thay`, từ 2026-11-06)
+------------------------------------------------------
+Skill viết cho plugin Claude Code gọi lệnh qua `${CLAUDE_PLUGIN_ROOT}`. Javis cài skill vào
+`skills/<slug>/` của brain và không đặt biến đó, nên lệnh thành `/scripts/...` và chết (exit 127).
+Bộ cài tay của chính tác giả gặp đúng chuyện này và viết lại token trong mọi tệp `.md` nó chép
+(claude-seo: install.sh). Mục `chep` kiểu skill khai `thay`: danh sách `{"tu": <chuỗi>, "thanh":
+<chuỗi>}`, thay theo thứ tự, CHỈ trong tệp `.md` của skill thuộc mục đó (kể cả `.md` đi theo `kem`).
+Đích nên dùng `${CLAUDE_SKILL_DIR}`: Claude Code thay nó bằng thư mục của skill đang nạp, Javis
+làm y vậy ở `javis_use_skill`. Đây là ngoại lệ DUY NHẤT của luật "không sửa byte nào", nên mọi
+cặp thay được ghi vào `docs/NGUON.md` cho người đọc gói thấy. Tệp mã không bao giờ bị thay.
+
 Khi nào cần người duyệt
 -----------------------
 Kho có luật mọi gói đều được đọc trước khi trộn. Đồng bộ tự động không phá luật đó, nó chia hai:
@@ -159,6 +170,14 @@ def doc_cau_hinh(pid: str) -> dict:
                     raise LoiDongBo(f"{pid}: `kem.{khoa}` không hợp lệ: {v!r}")
             if len(k["vao"].split("/")) < 2:
                 raise LoiDongBo(f"{pid}: `kem.vao` phải dạng <skill>/<đường dẫn>: {k['vao']!r}")
+        thay = m.get("thay", [])
+        if not isinstance(thay, list) or (thay and (m["den"] != "skills" or m.get("phang"))):
+            raise LoiDongBo(f"{pid}: `thay` là danh sách, chỉ dùng cho mục skill dạng thư mục")
+        for t in thay:
+            if not (isinstance(t, dict) and set(t) == {"tu", "thanh"}
+                    and isinstance(t["tu"], str) and isinstance(t["thanh"], str)
+                    and t["tu"] and t["tu"] != t["thanh"] and "\n" not in t["tu"] + t["thanh"]):
+                raise LoiDongBo(f"{pid}: `thay` cần cặp {{tu, thanh}} là chuỗi một dòng, khác nhau: {t!r}")
         if m["den"] == "agents":
             if m.get("ten") or m.get("phang") or m.get("bo_tep"):
                 raise LoiDongBo(f"{pid}: mục `agents` không nhận `ten`, `phang`, `bo_tep`")
@@ -256,6 +275,7 @@ def dung_ban_moi(c: dict, nguon: Path, ra: Path, tt: dict = None, dich: dict = N
       ten      `tu` tự nó là một skill (SKILL.md nằm ngay ở đó, thường là gốc repo): tên thư mục trong gói;
       bo_tep   với skill `ten`: đường dẫn tương đối không chép theo (test, ảnh demo, thư mục skill khác);
       kem      tệp hay thư mục dùng chung ở chỗ khác trong repo, chép nguyên văn vào một skill (đầu tệp);
+      thay     viết lại chuỗi trong tệp `.md` của skill mục này, như bộ cài tay của tác giả (đầu tệp);
       phang    repo để skill thành tệp `.md` phẳng (`skills/fk-x.md`, như FlowKit) thay vì thư mục có
                SKILL.md: mỗi tệp `.md` trừ README là một skill, tên theo tên tệp, chép NGUYÊN VĂN
                thành `<tên>/SKILL.md`. Tệp không có frontmatter thì Javis lấy dòng đầu làm mô tả."""
@@ -304,6 +324,8 @@ def dung_ban_moi(c: dict, nguon: Path, ra: Path, tt: dict = None, dich: dict = N
                 _chep_cay(d, ra / m["den"] / ten, nguon, m.get("bo_tep") or ())
         for k in m.get("kem") or []:
             _chep_kem(k, nguon, ra / m["den"], [t for _, t in cap])
+        for t in m.get("thay") or []:
+            _thay_md(t, [ra / m["den"] / ten for _, ten in cap])
     if not skills:
         raise LoiDongBo("repo gốc không có mục nào ở thư mục đã khai")
     (ra / "docs").mkdir(parents=True, exist_ok=True)
@@ -346,6 +368,22 @@ def _chep_kem(k: dict, nguon: Path, ra: Path, skill_cua_muc: list) -> None:
             raise LoiDongBo(f"`kem` đè tệp đã có trong skill: {d.relative_to(ra).as_posix()}")
         d.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(p, d)
+
+
+def _thay_md(t: dict, thu_muc: list) -> None:
+    """Một cặp `thay`: thay `tu` bằng `thanh` trong mọi tệp `.md` dưới các thư mục skill này.
+    Không khớp chỗ nào là lỗi: repo gốc đã đổi cách viết, cặp này thành đồ cũ và phải sửa cấu hình."""
+    khop = 0
+    for d in thu_muc:
+        for p in sorted(d.rglob("*.md")):
+            if p.is_symlink() or not p.is_file():
+                continue
+            s = p.read_bytes().decode("utf-8")      # bytes: giữ nguyên CRLF và mọi byte ngoài chỗ thay
+            if t["tu"] in s:
+                khop += s.count(t["tu"])
+                p.write_bytes(s.replace(t["tu"], t["thanh"]).encode("utf-8"))
+    if not khop:
+        raise LoiDongBo(f"`thay` không khớp chỗ nào trong repo gốc: {t['tu']!r}")
 
 
 def _chep_agents(c, m, tu, nguon, ra, ten_da_co, tu_dau, tt, dich) -> None:
@@ -486,6 +524,12 @@ def _nguon_md(c: dict, tu_dau: dict, tt: dict = None) -> str:
         dong += ["", "Tệp dùng chung chép kèm vào skill, đúng chỗ bộ cài chính thức của tác giả đặt:", "",
                  "| Trong gói | Gốc ở repo |", "|---|---|"]
         dong += [f"| `skills/{k['vao']}` | `{k['tu']}` |" for k in kem]
+    thay = [t for m in c["chep"] for t in m.get("thay") or []]
+    if thay:
+        dong += ["", "Chữ duy nhất gói viết lại, trong tệp `.md` (giống bộ cài tay của tác giả). Javis không đặt",
+                 "`CLAUDE_PLUGIN_ROOT` như plugin Claude Code, còn `CLAUDE_SKILL_DIR` là thư mục skill đang nạp:", "",
+                 "| Gốc | Trong gói |", "|---|---|"]
+        dong += [f"| `{t['tu']}` | `{t['thanh']}` |" for t in thay]
     return "\n".join(dong) + "\n"
 
 
