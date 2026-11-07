@@ -34,8 +34,13 @@ import zalo_cli
 # `zalo-group` cần y hệt. Các tên dưới đây giữ lại làm điểm nối để test còn thay được từng chỗ chạm thế giới thật.
 CONNECTOR_ID = zalo_cli.CONNECTOR_ID
 _CLI_PACKAGE = zalo_cli.CLI_PACKAGE
-_MAX_FILES = 10                          # gửi cả chục file một lượt đã là bất thường
+# Trần mỗi lượt. ẢNH theo đúng trần của chính Zalo: app Zalo cho chọn tối đa 50 ảnh một lần gửi, nên trần 10 cũ bắt
+# người dùng chia một album thành năm lượt (người dùng báo 07/11/2026; họ sửa tay trong gói thì mỗi lần cập nhật lại
+# mất). FILE vẫn 10: file đi qua MCP của lõi, mỗi lượt chờ Zalo báo tải xong có hạn 60 giây (zalo_cli.send_files).
+_MAX_ANH = 50
+_MAX_FILES = 10
 _TIMEOUT = zalo_cli.DEFAULT_TIMEOUT      # tải file lên Zalo có thể lâu, nhưng không lâu vô hạn
+_GIAY_MOI_ANH = 6                        # mỗi ảnh quá 10 tấm được chờ thêm chừng này: 50 ảnh chờ tối đa 360 giây
 
 # Đuôi zca-js tải lên như ẢNH (link về ngay qua HTTP). Còn lại là FILE, kể cả .bmp: zca-js coi .bmp là file
 # thường, nên đưa nó vào đây là gửi ảnh .bmp cũng treo như file.
@@ -87,9 +92,14 @@ def _duong_dan_that(p, vault_root):
     return full, None
 
 
-async def _chay(argv, home):
+def _han_cho(so_anh: int) -> int:
+    """Hạn chờ lệnh gửi ảnh: trần chung cho tới 10 ảnh, thêm _GIAY_MOI_ANH cho mỗi ảnh sau đó (mỗi ảnh tải lên riêng)."""
+    return _TIMEOUT + _GIAY_MOI_ANH * max(0, int(so_anh) - 10)
+
+
+async def _chay(argv, home, timeout=_TIMEOUT):
     """Chạy lệnh con trong HOME của phiên Zalo. Xem `zalo_cli.run` (cờ không cửa sổ console nằm ở đó)."""
-    return await zalo_cli.run(argv, home, _TIMEOUT)
+    return await zalo_cli.run(argv, home, timeout)
 
 
 async def _gui_file(conn, thread_id, files, ttype, caption):
@@ -118,8 +128,9 @@ async def _send(args, ctx):
     paths = [p for p in (paths or []) if str(p or "").strip()]
     if not paths:
         return "ERROR: thiếu paths (danh sách đường dẫn file trong brain, vd attachments/anh.jpg)."
-    if len(paths) > _MAX_FILES:
-        return f"ERROR: tối đa {_MAX_FILES} file mỗi lần gửi, đang đưa vào {len(paths)}."
+    if len(paths) > _MAX_ANH:
+        return (f"ERROR: tối đa {_MAX_ANH} ảnh (hoặc {_MAX_FILES} file) mỗi lần gửi, đang đưa vào {len(paths)}. "
+                "Chia thành nhiều lượt.")
 
     thuc = []
     for p in paths:
@@ -135,6 +146,8 @@ async def _send(args, ctx):
         return ("ERROR: một lượt chỉ gửi được cùng một loại - hoặc toàn ẢNH, hoặc toàn FILE. "
                 "Gọi tool hai lần cho hai nhóm.")
     lenh = "send-image" if all(la_anh) else "send-file"
+    if lenh == "send-file" and len(thuc) > _MAX_FILES:
+        return f"ERROR: tối đa {_MAX_FILES} file mỗi lần gửi (ảnh thì {_MAX_ANH}), đang đưa vào {len(thuc)}. Chia thành nhiều lượt."
 
     conns = _ket_noi_zalo()
     cid = str(args.get("connection_id") or "").strip()
@@ -187,7 +200,7 @@ async def _send(args, ctx):
     if why:
         return "ERROR: " + why
 
-    rc, out, err = await _chay(argv, chon[0]["home"])
+    rc, out, err = await _chay(argv, chon[0]["home"], _han_cho(len(thuc)))
     if rc is None:
         return f"ERROR: gửi Zalo {err}. File nặng thì thử gửi từng cái một."
     # CLI KHÔNG đặt mã thoát khác 0 khi Zalo từ chối (xem zalo_cli.interpret): chỉ tin khi có JSON ở stdout.
@@ -205,7 +218,7 @@ def register(ctx):
             "Dùng khi cần gửi ảnh vừa tạo, ảnh trong brain, hay file báo cáo - tool zalo_send_message "
             "chỉ gửi được chữ. Tham số: thread_id (lấy từ zalo_search_threads/zalo_list_threads), "
             "paths (danh sách đường dẫn trong brain), caption, thread_type (0=cá nhân, 1=nhóm). "
-            "Một lượt gửi cùng loại: hoặc toàn ảnh, hoặc toàn file."
+            f"Một lượt gửi cùng loại: hoặc toàn ảnh (tối đa {_MAX_ANH}), hoặc toàn file (tối đa {_MAX_FILES})."
         ),
         handler=_send, min_mode="full", check_fn=_check,
         schema={
@@ -215,7 +228,7 @@ def register(ctx):
                               "description": "threadId của cuộc chat Zalo (từ zalo_search_threads)"},
                 "paths": {"type": "array", "items": {"type": "string"},
                           "description": "Đường dẫn file, tương đối gốc brain (vd attachments/anh.jpg). "
-                                         f"Tối đa {_MAX_FILES} file, phải nằm trong brain."},
+                                         f"Tối đa {_MAX_ANH} ảnh hoặc {_MAX_FILES} file, phải nằm trong brain."},
                 "caption": {"type": "string", "description": "Lời nhắn gửi kèm (tuỳ chọn)"},
                 "thread_type": {"type": "integer", "enum": [0, 1],
                                 "description": "0 = chat cá nhân, 1 = nhóm. Mặc định 0."},
