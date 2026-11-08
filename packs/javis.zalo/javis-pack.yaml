@@ -1,18 +1,23 @@
-# Gói "Zalo mở rộng": các tool đi kèm kết nối Zalo Agent MCP (zalo-agent-cli) của Javis OS.
+# Gói "Zalo mở rộng": các tool đi kèm kết nối Zalo của Javis OS.
 #
 # Kết nối Zalo và phần quét QR nằm trong LÕI Javis (đăng nhập QR không khai bằng gói được), nên
-# gói này không chứa connector. Nó chỉ chứa ba plugin bù chỗ MCP chuẩn còn thiếu: gửi ảnh/file,
-# tag người + ghi chú + nhắc hẹn + poll trong nhóm, và ĐỌC ẢNH người ta gửi trong nhóm. Cả ba gọi
-# lại chính CLI zalo-agent-cli bằng phiên đã quét QR (`server/zalo_cli.py` của lõi), không đăng
-# nhập lần hai, không gọi đi đâu ngoài Zalo (và ChatGPT của chính người dùng khi tả ảnh).
+# gói này không chứa connector. Nó chỉ chứa MỘT plugin, `zalo-extras`, bù chỗ MCP chuẩn còn thiếu:
+# gửi ảnh/file, tag người + ghi chú + nhắc hẹn + poll trong nhóm, ĐỌC ẢNH người ta gửi, và kết bạn.
+# Mọi phần gọi lại chính CLI javis-zalo bằng phiên đã quét QR (`server/zalo_cli.py` của lõi), không
+# đăng nhập lần hai, không gọi đi đâu ngoài Zalo (và ChatGPT của chính người dùng khi tả ảnh).
 #
-# Trước 0.73.0 ba plugin này nằm sẵn trong app và bật cho MỌI người, kể cả người không dùng Zalo.
+# Trước 0.73.0 các plugin này nằm sẵn trong app và bật cho MỌI người, kể cả người không dùng Zalo.
 # Chủ dự án chốt 2026-10-04: dọn sang kho, ai đấu Zalo thì Javis mời cài gói này ngay sau khi quét QR.
+#
+# 2.0.0 (chủ dự án, 2026-11-08): bốn plugin cũ (zalo-image, zalo-group, zalo-read-images, zalo-friend)
+# gộp thành một, vì mỗi tính năng Zalo mới lại đẻ thêm một plugin. Tính năng Zalo mới từ nay là một
+# module trong `plugins/zalo-extras/`, không phải một thư mục plugin mới. Cập nhật gói thay nguyên thư
+# mục gói, nên bốn plugin cũ tự biến mất; tên tool và mức quyền của từng tool giữ nguyên.
 format: javis-pack
 spec: 1
 
 id: javis.zalo
-version: 1.5.1
+version: 2.0.0
 
 name:
   vi: Zalo mở rộng
@@ -26,14 +31,11 @@ author:
 license: MIT
 homepage: https://github.com/blogminhquy/javis-store/tree/main/packs/javis.zalo
 
-# Plugin đọc ảnh dùng `image_vision` của lõi, có từ 0.73.0. Bản cũ hơn vẫn còn ba plugin này
+# Phần đọc ảnh dùng `image_vision` của lõi, có từ 0.73.0. Bản cũ hơn vẫn còn ba plugin Zalo
 # nằm sẵn trong app, nên cài gói vào đó sẽ trùng tên tool: chặn bằng compat thay vì để trùng.
 compat:
   app: ">=0.73.0"
 
 provides:
   plugins:
-    - plugins/zalo-image
-    - plugins/zalo-group
-    - plugins/zalo-read-images
-    - plugins/zalo-friend
+    - plugins/zalo-extras

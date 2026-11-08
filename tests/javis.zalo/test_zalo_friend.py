@@ -1,4 +1,4 @@
-"""Plugin zalo-friend: công cụ kết bạn Zalo (tìm người, trạng thái, gửi, nhận, từ chối lời mời).
+"""Phần kết bạn (friend.py) của plugin zalo-extras: công cụ kết bạn Zalo (tìm người, trạng thái, gửi, nhận, từ chối lời mời).
 
     JAVIS_OS_DIR=../javis-os python tests/javis.zalo/test_zalo_friend.py   (KHÔNG mạng: thay chỗ chạy CLI bằng bản ghi lại lệnh)
 
@@ -32,7 +32,7 @@ def check(name, cond, them=""):
         fails.append(name)
 
 
-spec = importlib.util.spec_from_file_location("zalo_friend_plugin", PACK / "plugins" / "zalo-friend" / "plugin.py")
+spec = importlib.util.spec_from_file_location("zalo_friend_plugin", PACK / "plugins" / "zalo-extras" / "friend.py")
 P = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(P)
 
@@ -217,7 +217,7 @@ check("xem tên gợi nhớ: đúng lệnh, đọc đúng khuôn, bỏ id sai kh
 # ============================================================
 import yaml  # noqa: E402
 
-y = yaml.safe_load((PACK / "plugins" / "zalo-friend" / "plugin.yaml").read_text(encoding="utf-8"))
+y = yaml.safe_load((PACK / "plugins" / "zalo-extras" / "plugin.yaml").read_text(encoding="utf-8"))
 
 
 class Ctx:
@@ -231,7 +231,7 @@ class Ctx:
 tc = Ctx()
 P.register(tc)
 by = {t["name"]: t for t in tc.tools}
-check("mười ba tool, khớp plugin.yaml", sorted(by) == sorted(y["tools"]) and len(by) == 13, sorted(by))
+check("mười ba tool, đều khai trong plugin.yaml", set(by) <= set(y["tools"]) and len(by) == 13, sorted(by))
 check("tool đọc chạy ở mọi mức", all(by[n]["min_mode"] == "readonly" for n in (
     "zalo_find_user", "zalo_find_phones", "zalo_search_friends", "zalo_friend_status", "zalo_friend_requests",
     "zalo_sent_friend_requests", "zalo_friend_aliases")))
@@ -242,8 +242,8 @@ check("đổi hay bỏ tên gợi nhớ ở mức safe: không gửi gì cho ai,
 check("mọi tool có check_fn và handler", all(callable(t["check_fn"]) and callable(t["handler"]) for t in tc.tools))
 check("plugin không có hook tự chạy (không luồng tự động nào)", y.get("hooks") == [] and not hasattr(P, "on_event"))
 check("không dùng em dash", chr(0x2014) not in open(__file__, encoding="utf-8").read()
-      and chr(0x2014) not in (PACK / "plugins" / "zalo-friend" / "plugin.py").read_text(encoding="utf-8")
-      and chr(0x2014) not in (PACK / "plugins" / "zalo-friend" / "plugin.yaml").read_text(encoding="utf-8"))
+      and chr(0x2014) not in (PACK / "plugins" / "zalo-extras" / "friend.py").read_text(encoding="utf-8")
+      and chr(0x2014) not in (PACK / "plugins" / "zalo-extras" / "plugin.yaml").read_text(encoding="utf-8"))
 
 if fails:
     print("\nFAIL - test_zalo_friend: " + str(len(fails)) + " lỗi: " + ", ".join(fails))

@@ -1,11 +1,11 @@
-"""Plugin của gói javis.zalo (Javis Store): công cụ KẾT BẠN trên Zalo cá nhân.
+"""Phần của plugin `zalo-extras` (gói javis.zalo, Javis Store): công cụ KẾT BẠN trên Zalo cá nhân.
 
 Chủ dự án (2026-10-11): "anh muốn javis có khả năng kết bạn ... còn việc có kết bạn hay không thì do model quyết định hoặc do yêu
 cầu của người dùng, đừng tạo ra một tính năng fix cứng". Nên plugin này CHỈ trao công cụ, không có luồng tự động nào (không "duyệt
 vào nhóm thì tự kết bạn", không tự nhận mọi lời mời). Ai được dùng tới đâu là việc của mức quyền chung của Javis: tool đọc chạy ở
 mọi mức, tool hành động là `min_mode: full` như `zalo_send_message`, vì lời mời đã gửi đi thì người kia thấy ngay dưới tên chủ.
 
-Cùng cách với plugin `zalo-group`: gọi lại chính CLI `javis-zalo` bằng phiên đã quét QR (`server/zalo_cli.py` của lõi), không đăng
+Cùng cách với phần nhóm (`group.py`): gọi lại chính CLI `javis-zalo` bằng phiên đã quét QR (`server/zalo_cli.py` của lõi), không đăng
 nhập lần hai, không gọi đi đâu ngoài Zalo. Lệnh dùng: `friend find`, `friend find-username`, `friend find-phones`,
 `friend search`, `friend request-status`, `friend recommendations`, `friend sent-requests`, `friend add`, `friend accept`,
 `friend reject`, `friend undo-request` (src/commands/friend.js của javis-zalo).

@@ -1,4 +1,4 @@
-"""Plugin zalo-image: gửi ảnh/file qua Zalo bằng phiên đã quét QR.
+"""Phần gửi ảnh (send_media.py) của plugin zalo-extras: gửi ảnh/file qua Zalo bằng phiên đã quét QR.
 
     JAVIS_OS_DIR=../javis-os python tests/javis.zalo/test_zalo_image.py
 
@@ -31,7 +31,7 @@ def check(name, cond):
 
 
 spec = importlib.util.spec_from_file_location(
-    "zalo_image_plugin", PACK / "plugins" / "zalo-image" / "plugin.py")
+    "zalo_image_plugin", PACK / "plugins" / "zalo-extras" / "send_media.py")
 P = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(P)
 
@@ -231,9 +231,9 @@ check("CLI lỗi thì trả ERROR kèm nguyên nhân", r.startswith("ERROR") and
 # ============================================================
 import fastyaml  # noqa: E402
 
-y = fastyaml.safe_load((PACK / "plugins" / "zalo-image" / "plugin.yaml").read_text(encoding="utf-8"))
+y = fastyaml.safe_load((PACK / "plugins" / "zalo-extras" / "plugin.yaml").read_text(encoding="utf-8"))
 check("plugin khai min_mode full", y.get("min_mode") == "full")
-check("plugin khai đúng tool", y.get("tools") == ["zalo_send_image"])
+check("plugin khai tool gửi ảnh", "zalo_send_image" in (y.get("tools") or []))
 
 
 class ThuCtx:

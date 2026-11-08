@@ -1,4 +1,4 @@
-"""Plugin của gói javis.zalo (Javis Store): gửi ẢNH / FILE qua Zalo.
+"""Phần của plugin `zalo-extras` (gói javis.zalo, Javis Store): gửi ẢNH / FILE qua Zalo.
 
 Vì sao có plugin này. MCP chuẩn của `zalo-agent-cli` chỉ khai đúng `text` cho
 `zalo_send_message`, nên Javis tạo được ảnh (tool `javis_generate_image`) hay xuất được báo
@@ -31,7 +31,7 @@ from pathlib import Path
 import zalo_cli
 
 # Phần dùng chung (chọn kết nối, dựng lệnh an toàn, chạy tiến trình con, đọc kết quả) nằm ở `server/zalo_cli.py` vì plugin
-# `zalo-group` cần y hệt. Các tên dưới đây giữ lại làm điểm nối để test còn thay được từng chỗ chạm thế giới thật.
+# phần nhóm (`group.py`) cần y hệt. Các tên dưới đây giữ lại làm điểm nối để test còn thay được từng chỗ chạm thế giới thật.
 CONNECTOR_ID = zalo_cli.CONNECTOR_ID
 _CLI_PACKAGE = zalo_cli.CLI_PACKAGE
 # Trần mỗi lượt. ẢNH theo đúng trần của chính Zalo: app Zalo cho chọn tối đa 50 ảnh một lần gửi, nên trần 10 cũ bắt
