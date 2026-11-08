@@ -1,4 +1,4 @@
-"""Plugin of the javis.zalo store pack: read the IMAGES people post in a Zalo group.
+"""Part of the `zalo-extras` plugin (javis.zalo store pack): read the IMAGES people post in a Zalo group.
 
 Why this exists. The owner (2026-10-04): "the Zalo MCP cannot read images in group chats". Reading the zalo-agent-cli 1.6.2 source
 showed three gaps stacked on top of each other:

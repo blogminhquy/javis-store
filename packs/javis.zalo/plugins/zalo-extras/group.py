@@ -1,9 +1,9 @@
-"""Plugin của gói javis.zalo (Javis Store): tag ĐÚNG người trong nhóm Zalo, ghi chú nhóm, nhắc hẹn và poll.
+"""Phần của plugin `zalo-extras` (gói javis.zalo, Javis Store): tag ĐÚNG người trong nhóm Zalo, ghi chú nhóm, nhắc hẹn và poll.
 
 Vì sao có plugin này. Chủ dự án (2026-09-30): trong nhóm Zalo Javis không tag được đúng tên người đang nói chuyện ("@minhquy"), và
 muốn Javis tạo được ghi chú, nhắc hẹn, poll. MCP chuẩn của `zalo-agent-cli` chỉ có bảy tool và `zalo_send_message` chỉ nhận chữ,
 nhưng chính CLI đó (bản 1.6.2, bản mới nhất trên npm) đã có `msg send --mention`, `group note-create`, `reminder create`,
-`poll create`. Nên làm như plugin `zalo-image`: gọi lại đúng CLI đó bằng phiên đã đăng nhập (xem `server/zalo_cli.py`).
+`poll create`. Nên làm như phần gửi ảnh (`send_media.py`): gọi lại đúng CLI đó bằng phiên đã đăng nhập (xem `server/zalo_cli.py`).
 
 Điều khó nhất là TAG ĐÚNG NGƯỜI. Zalo tag bằng `uid` chứ không bằng tên, mà người dùng chỉ nói tên ("tag anh Quý"). Nên:
   1. tìm tên trong những người ĐÃ NHẮN trong nhóm này (Hộp thư của Javis có sẵn, tức thì, không tốn mạng);

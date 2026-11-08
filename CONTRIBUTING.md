@@ -145,6 +145,21 @@ Plugin chạy bên trong máy chủ Javis và gọi module của lõi, nên test
 CI chạy mọi tệp đó trên nhánh `main` của Javis OS ở mỗi Pull Request và mỗi ngày một lần, để lõi đổi mà
 gói gãy thì biết ngay. Xem `tests/javis.zalo/` làm mẫu.
 
+## Tính năng Zalo mới: vào plugin `zalo-extras`, không tạo plugin mới
+
+Chủ kho chốt 08/11/2026: tính năng Zalo mới phải cho vào plugin Zalo có sẵn, đừng tạo plugin mới. Trước bản 2.0.0
+mỗi tính năng Zalo lại thêm một plugin (gửi ảnh, nhóm, đọc ảnh, kết bạn), nên trang Plugin bị phân mảnh. Gói
+`javis.zalo` giờ chỉ có MỘT plugin là `packs/javis.zalo/plugins/zalo-extras/`.
+
+- Tool Zalo mới: thêm hàm vào module đúng mảng (`send_media.py`, `group.py`, `read_images.py`, `friend.py`), hoặc một
+  module mới cạnh đó rồi thêm tên vào `_PARTS` trong `plugin.py`. Mỗi module tự `register(ctx)` các tool của nó.
+- Thêm tên tool vào `tools` của `plugin.yaml`. Tool tự khai mức quyền lúc đăng ký: đọc là `readonly`, ghi vào brain
+  là `safe`, gửi hay đổi gì trên Zalo là `full`.
+- Nâng `version` của `plugin.yaml` cùng với gói (test đòi hai số bằng nhau), rồi ra bản như mục dưới.
+- **Không** thêm thư mục plugin thứ hai vào gói, cũng không làm gói Zalo riêng cho một tính năng.
+  `tests/javis.zalo/test_zalo_extras.py` đỏ khi có thêm thư mục plugin, khi mất một tool, hay khi một tool bị đổi mức
+  quyền mà không ai sửa danh sách mức quyền trong test.
+
 ## Ra bản mới
 
 Tăng `version` ở **cả hai** chỗ: manifest trong gói và mục trong `index.json`. Thêm tệp `.zip`

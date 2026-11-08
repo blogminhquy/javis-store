@@ -48,13 +48,13 @@ def check(name, cond, them=""):
 
 
 def load(slug):
-    spec = importlib.util.spec_from_file_location(slug.replace("-", "_"), PACK / "plugins" / slug / "plugin.py")
+    spec = importlib.util.spec_from_file_location(slug.replace("-", "_"), PACK / "plugins" / "zalo-extras" / "read_images.py")
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
     return mod
 
 
-P = load("zalo-read-images")
+P = load("read_images")
 JPEG = b"\xff\xd8\xff\xe0" + b"x" * 200
 T0 = 1_791_100_000_000      # ms
 
@@ -270,15 +270,15 @@ class Ctx:
 
 
 c = Ctx()
-load("zalo-read-images").register(c)
-y = yaml.safe_load((PACK / "plugins" / "zalo-read-images" / "plugin.yaml").read_text(encoding="utf-8"))
+load("read_images").register(c)
+y = yaml.safe_load((PACK / "plugins" / "zalo-extras" / "plugin.yaml").read_text(encoding="utf-8"))
 by = {t["name"]: t for t in c.tools}
-check("tools match plugin.yaml", sorted(by) == sorted(y["tools"]) == ["zalo_read_images"], sorted(by))
+check("one tool, declared in plugin.yaml", sorted(by) == ["zalo_read_images"] and "zalo_read_images" in y["tools"], sorted(by))
 check("saving photos into the brain is a write (safe), never readonly", by["zalo_read_images"]["min_mode"] == "safe")
 check("enabled inside the pack", y.get("enabled") is True)
 check("the description steers away from zalo_view_media", "zalo_view_media" in by["zalo_read_images"]["description"])
 
-for f in (Path(__file__), PACK / "plugins" / "zalo-read-images" / "plugin.py", PACK / "plugins" / "zalo-read-images" / "plugin.yaml"):
+for f in (Path(__file__), PACK / "plugins" / "zalo-extras" / "read_images.py", PACK / "plugins" / "zalo-extras" / "plugin.yaml"):
     check(f"no em dash in {f.name}", chr(0x2014) not in f.read_text(encoding="utf-8"))
 
 if fails:

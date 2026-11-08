@@ -1,4 +1,4 @@
-"""Plugin zalo-group: tag ĐÚNG người trong nhóm Zalo, ghi chú, nhắc hẹn, poll.
+"""Phần nhóm (group.py) của plugin zalo-extras: tag ĐÚNG người trong nhóm Zalo, ghi chú, nhắc hẹn, poll.
 
     JAVIS_OS_DIR=../javis-os python tests/javis.zalo/test_zalo_group.py   (KHÔNG mạng: thay chỗ chạy CLI bằng bản ghi lại lệnh)
 
@@ -34,7 +34,7 @@ def check(name, cond, them=""):
         fails.append(name)
 
 
-spec = importlib.util.spec_from_file_location("zalo_group_plugin", PACK / "plugins" / "zalo-group" / "plugin.py")
+spec = importlib.util.spec_from_file_location("zalo_group_plugin", PACK / "plugins" / "zalo-extras" / "group.py")
 P = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(P)
 
@@ -393,7 +393,7 @@ check("thiếu thread_id thì chỉ cách tìm", "zalo_search_threads" in call(P
 # ============================================================
 import fastyaml  # noqa: E402
 
-y = fastyaml.safe_load((PACK / "plugins" / "zalo-group" / "plugin.yaml").read_text(encoding="utf-8"))
+y = fastyaml.safe_load((PACK / "plugins" / "zalo-extras" / "plugin.yaml").read_text(encoding="utf-8"))
 
 
 class Ctx:
@@ -407,8 +407,8 @@ class Ctx:
 tc = Ctx()
 P.register(tc)
 by = {t["name"]: t for t in tc.tools}
-check("bảy tool, khớp plugin.yaml", sorted(by) == sorted(y["tools"]) and len(by) == 7, sorted(by))
-check("plugin khai min_mode full và bật sẵn", y.get("min_mode") == "full" and y.get("enabled") is True and y.get("slug") == "zalo-group")
+check("bảy tool, đều khai trong plugin.yaml", set(by) <= set(y["tools"]) and len(by) == 7, sorted(by))
+check("plugin khai min_mode full và bật sẵn", y.get("min_mode") == "full" and y.get("enabled") is True and y.get("slug") == "zalo-extras")
 check("CANARY: bốn tool ghi/gửi ở mức full (chế độ suggest không tự tag hay đăng poll được)",
       all(by[n]["min_mode"] == "full" for n in ("zalo_send_mention", "zalo_create_note", "zalo_create_reminder", "zalo_create_poll")))
 check("tra danh sách thành viên là chỉ đọc", by["zalo_group_members"]["min_mode"] == "readonly")
@@ -425,7 +425,7 @@ check("mô tả tool phân biệt nhắc hẹn Zalo với nhắc hẹn riêng c�
 check("mô tả dặn hỏi lại khi trùng tên, không đoán", "HỎI LẠI" in by["zalo_send_mention"]["description"])
 
 check("không dùng em dash trong plugin và test này", chr(0x2014) not in open(__file__, encoding="utf-8").read()
-      and chr(0x2014) not in (PACK / "plugins" / "zalo-group" / "plugin.py").read_text(encoding="utf-8"))
+      and chr(0x2014) not in (PACK / "plugins" / "zalo-extras" / "group.py").read_text(encoding="utf-8"))
 
 if fails:
     print("\nFAIL - test_zalo_group: " + str(len(fails)) + " lỗi: " + ", ".join(fails))
