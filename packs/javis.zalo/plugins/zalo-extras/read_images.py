@@ -47,7 +47,8 @@ HISTORY_TIMEOUT = 60
 # #1221: Zalo answers `group history` with a 404 now and then, for one group and not another in the same run, while the
 # photos are still there. One more try after a short pause is cheap; a loop every 30 minutes covers the rest.
 HISTORY_RETRY_PAUSE = 3
-_TRANSIENT = ("404", "timed out", "timeout", "econnreset", "socket hang up", "network")
+# A timeout is not retried: the history read already waits up to HISTORY_TIMEOUT, a second one would double that.
+_TRANSIENT = ("404", "econnreset", "socket hang up", "network")
 _EXT_BY_TYPE = {"image/jpeg": ".jpg", "image/jpg": ".jpg", "image/png": ".png", "image/webp": ".webp", "image/gif": ".gif"}
 _EXT_RE = re.compile(r"\.(jpe?g|png|webp|gif)$", re.IGNORECASE)
 _SAFE_ID = re.compile(r"[^0-9A-Za-z_-]")
@@ -202,7 +203,8 @@ async def fetch_history(conn: dict, thread_id: str, count: int) -> Tuple[bool, A
 
 
 def transient(err: Any) -> bool:
-    """A history failure worth one more try: Zalo's own 404 or a network hiccup, not "not a group" (a private chat)."""
+    """A history failure worth one more try: Zalo's own 404 or a network hiccup, not "not a group" (a private chat)
+    nor a timeout."""
     e = str(err or "").lower()
     return any(k in e for k in _TRANSIENT)
 

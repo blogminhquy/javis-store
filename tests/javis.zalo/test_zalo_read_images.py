@@ -270,6 +270,8 @@ P.fetch_history = real_history
 STATE["history"] = (False, None, "Get history failed: not a group")
 d = json.loads(run({"thread_id": "dm1"}))
 check("#1221: a private chat (not a group) is not retried and carries no history_error", "history_error" not in d, d)
+check("#1221: a timeout is not retried (the read already waited its full minute)",
+      not P.transient("lệnh Zalo quá 60 giây (timeout)") and P.transient("Request failed with status code 404"))
 
 # A named message older than the history window, but still in the buffer.
 STATE["history"] = (True, HISTORY, "")
