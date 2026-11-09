@@ -2494,7 +2494,7 @@
         "vi": "Đi kèm kết nối Zalo: gửi ảnh và file, tag đúng người trong nhóm, tạo ghi chú, đọc và sửa ghi chú ghim (giữ nguyên ghim), nhắc hẹn, poll, đọc ảnh người ta gửi trong nhóm (ChatGPT trên gói của bạn tả lại nội dung ảnh cho mọi bộ não), và kết bạn: tìm người theo số điện thoại hay tên bạn bè, xem lời mời chờ duyệt và đã gửi, gửi, nhận, từ chối, rút lại lời mời, và đổi tên khách bằng tên gợi nhớ. Cần Javis 0.73.0 trở lên và đã quét QR Zalo ở trang Kết nối.",
         "en": "Goes with the Zalo connection: send images and files, tag the right people in a group, create notes, read and edit pinned notes (the pin stays), reminders and polls, read the images people post in a group (ChatGPT on your plan describes them for every brain), and handle friends: find people by phone or by a friend's name, see pending and sent requests, send, accept, reject and withdraw requests, and rename a contact with a nickname. Needs Javis 0.73.0 or newer and Zalo scanned on the Connections page."
       },
-      "version": "2.0.0",
+      "version": "2.0.1",
       "author": {
         "name": "Javis"
       },
@@ -2505,7 +2505,7 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-11-08",
+      "updated": "2026-11-09",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.zalo",
       "icon": "packs/javis.zalo/assets/zalo.png",
       "provides": {
@@ -2514,9 +2514,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-zalo-2.0.0.zip",
-        "sha256": "9cae356dc360bee3be9216f7778e543b0c4a8f4208c8344616f0167412f892a4",
-        "size": 42695
+        "url": "dist/javis-zalo-2.0.1.zip",
+        "sha256": "25dcda4ecc84aaff6cb6b932166cac37cd724098701a17656fd7b6134eaf5a77",
+        "size": 43436
       }
     },
     {

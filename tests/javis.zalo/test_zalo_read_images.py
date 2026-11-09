@@ -12,6 +12,8 @@ What is pinned here:
   3. THE BRAIN FENCE. Files land in `attachments/zalo/<thread>/` whatever the thread id looks like ("../../x" cannot climb out).
   4. FALLBACKS. Private chats (no group history) and failed CLI calls fall back to the MCP buffer; a named message not in the history
      is looked up there too; both failing is an ERROR, not an empty success.
+     #1221: Zalo's intermittent 404 on a group history is tried once more; still failing with nothing in the buffer, the ERROR says it
+     is Zalo's side and passes later (not config, rights or a wrong id); photos from the buffer alone carry `history_error`.
   5. EYES FOR EVERY ENGINE. ChatGPT gets the saved photos with one label per photo; `describe=false` skips it. (`image_vision`
      itself is tested in the Javis OS repo, tests/python/test_image_vision.py.)
 """
@@ -140,6 +142,9 @@ async def fake_history(conn, thread_id, count):
     return STATE["history"]
 
 
+P.HISTORY_RETRY_PAUSE = 0
+
+
 async def fake_buffer(conn, thread_id, count):
     STATE["buffer_called"] = True
     return STATE["buffer"]
@@ -228,6 +233,45 @@ STATE["buffer"] = (False, None, "MCP not running")
 out = run({"thread_id": "dm1"})
 check("CLI and MCP both failing is an ERROR that names both reasons", out.startswith("ERROR")
       and "not a group" in out and "MCP not running" in out, out)
+
+# #1221: Zalo's 404 on a group history. The second try succeeds: photos as usual, no error.
+calls = {"n": 0}
+real_history = P.fetch_history
+
+
+async def flaky_history(conn, thread_id, count):
+    calls["n"] += 1
+    return (False, None, "Get history failed: Request failed with status code 404") if calls["n"] == 1 else (True, HISTORY, "")
+
+P.fetch_history = flaky_history
+STATE["buffer"] = (True, {"messages": []}, "")
+d = json.loads(run({"thread_id": "g1", "describe": False}))
+check("#1221: a 404 on the history is tried once more", calls["n"] == 2, calls)
+check("#1221: the second try's photos come back, from Zalo", d["ok"] and d["source"] == "zalo"
+      and "history_error" not in d and [im["message_id"] for im in d["images"]] == ["101", "103"], d)
+
+
+async def always_404(conn, thread_id, count):
+    calls["n"] += 1
+    return False, None, "Get history failed: Request failed with status code 404"
+
+P.fetch_history = always_404
+calls["n"] = 0
+out = run({"thread_id": "g404"})
+check("#1221: still 404 is tried twice, no more", calls["n"] == 2, calls)
+check("#1221: with nothing in the buffer the ERROR says it is Zalo's side and passes later",
+      out.startswith("ERROR") and "phía máy chủ Zalo" in out and "lần chạy sau" in out and "404" in out, out)
+STATE["buffer"] = (True, BUFFER, "")
+d = json.loads(run({"thread_id": "g404"}))
+check("#1221: photos from the buffer alone say the history was missing", d["ok"] and d["source"] == "mcp"
+      and "2 giờ" in d.get("history_error", ""), d)
+calls["n"] = 0
+P.fetch_history = real_history
+STATE["history"] = (False, None, "Get history failed: not a group")
+d = json.loads(run({"thread_id": "dm1"}))
+check("#1221: a private chat (not a group) is not retried and carries no history_error", "history_error" not in d, d)
+check("#1221: a timeout is not retried (the read already waited its full minute)",
+      not P.transient("lệnh Zalo quá 60 giây (timeout)") and P.transient("Request failed with status code 404"))
 
 # A named message older than the history window, but still in the buffer.
 STATE["history"] = (True, HISTORY, "")
