@@ -1,7 +1,7 @@
 {
   "format": "javis-pack-index",
   "format_version": 1,
-  "updated": "2026-11-08",
+  "updated": "2026-11-09",
   "store": {
     "name": "Kho cài đặt Javis",
     "url": "https://github.com/blogminhquy/javis-store"
@@ -3013,7 +3013,7 @@
         "vi": "Bộ skill chính chủ của Remotion (remotion.dev): tạo dự án video bằng React, hoạt hình, chữ và hiệu ứng, phụ đề, bản đồ, xem trước và xuất video. Theo repo gốc, cập nhật mỗi khi Remotion sửa skill.",
         "en": "Remotion's official skills (remotion.dev): create React video projects, animation, type and effects, captions, maps, preview and render. Follows the source repo and updates whenever Remotion changes its skills."
       },
-      "version": "1.0.2",
+      "version": "1.0.3",
       "author": {
         "name": "Remotion",
         "url": "https://github.com/remotion-dev/skills"
@@ -3025,15 +3025,15 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-11-05",
+      "updated": "2026-11-09",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.remotion",
       "source": "https://github.com/remotion-dev/skills",
       "license": "Remotion License",
       "upstream": {
         "repo": "remotion-dev/skills",
         "ref": "main",
-        "commit": "a2824c67f8b4585c294a8101db9f9f0ad3c643f8",
-        "synced": "2026-11-05"
+        "commit": "1af7e69a2a613437d46095924057970a6a7df40d",
+        "synced": "2026-11-09"
       },
       "provides": {
         "skills": [
@@ -3053,9 +3053,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-remotion-1.0.2.zip",
-        "sha256": "f9bef76432e2f79dc4845885b12f55bc1d590480847b5265f22651260e20705a",
-        "size": 880758
+        "url": "dist/javis-remotion-1.0.3.zip",
+        "sha256": "4ef1cbb222170b0b47137edd9da13e01c91fb09a8faa09948ca5969258167e18",
+        "size": 884554
       }
     },
     {
@@ -3655,7 +3655,7 @@
         "vi": "Skill của REA (Reverse Engineer Anything), repo AI đang nổi nhất GitHub: phân tích app Electron/JavaScript, tệp chạy, firmware và trang web khi không có mã nguồn, so sánh phiên bản, dịch ngược. Cần cài công cụ rea (npm rea-agents).",
         "en": "The REA (Reverse Engineer Anything) skill, GitHub's top trending AI repo: analyse Electron/JavaScript apps, binaries, firmware and web apps without their source, compare versions, decompile. Needs the rea tool (npm rea-agents)."
       },
-      "version": "1.0.9",
+      "version": "1.0.10",
       "author": {
         "name": "morluto",
         "url": "https://github.com/morluto/rea"
@@ -3667,15 +3667,15 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-11-08",
+      "updated": "2026-11-09",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.rea",
       "source": "https://github.com/morluto/rea",
       "license": "MIT",
       "upstream": {
         "repo": "morluto/rea",
         "ref": "main",
-        "commit": "72d5e72e6d7b7997c4ecb11972fc405be8ec67d2",
-        "synced": "2026-11-08"
+        "commit": "dda2d4029548f820bf5621b3bc1dd1ce381446a2",
+        "synced": "2026-11-09"
       },
       "provides": {
         "skills": [
@@ -3683,9 +3683,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-rea-1.0.9.zip",
-        "sha256": "2612edaa754516e0646ed47d369322f490e145918fafa7136fb49ca6a6f90b94",
-        "size": 68665
+        "url": "dist/javis-rea-1.0.10.zip",
+        "sha256": "1226db392e4f94e4fa1a78c3cd640cf2c2f7a4f6eeab9513fefd036ac0e60d08",
+        "size": 75918
       }
     },
     {
@@ -4013,7 +4013,7 @@
         "vi": "Trọn bộ agency-agents, hơn 280 agent chuyên gia theo 18 nhóm: lập trình, thiết kế, marketing, quảng cáo, bán hàng, tài chính, bảo mật, làm game, bản đồ GIS, chuyên gia ngành. Mỗi agent có tính cách, quy trình và đầu ra rõ ràng. Muốn cài lẻ từng agent thì tìm ở tab Agent.",
         "en": "The full agency-agents set, 280+ expert agents in 18 divisions: engineering, design, marketing, paid media, sales, finance, security, game development, GIS, industry specialists. Each has a personality, process and clear deliverables. To install one at a time, see the Agents tab."
       },
-      "version": "1.0.1",
+      "version": "1.0.2",
       "author": {
         "name": "msitarzewski",
         "url": "https://github.com/msitarzewski/agency-agents"
@@ -4025,15 +4025,15 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-11-06",
+      "updated": "2026-11-09",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.agency-agents",
       "source": "https://github.com/msitarzewski/agency-agents",
       "license": "MIT",
       "upstream": {
         "repo": "msitarzewski/agency-agents",
         "ref": "main",
-        "commit": "b859c515d813efcfc4755d3471dd9e7686c7706d",
-        "synced": "2026-11-06"
+        "commit": "8ae6164602c95ca78828b148b9052460ee426885",
+        "synced": "2026-11-09"
       },
       "provides": {
         "agents": [
@@ -4323,9 +4323,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-agency-agents-1.0.1.zip",
-        "sha256": "c2f603de2d7d8959338c2da82c659e34b231f00c10ea99b999aed70832b2d577",
-        "size": 1766128
+        "url": "dist/javis-agency-agents-1.0.2.zip",
+        "sha256": "c9d85a919df4ad48eed5b6d0479928d67eb2cac95d154b06f4d463ea10e6bf30",
+        "size": 1768157
       }
     },
     {
@@ -5704,7 +5704,7 @@
         "vi": "Thiết kế hệ thống mở rộng được, kiến trúc cơ sở dữ liệu, phát triển API và hạ tầng đám mây. Xây ứng dụng máy chủ và microservice vững, an toàn, nhanh.",
         "en": "Senior backend architect specializing in scalable system design, database architecture, API development, and cloud infrastructure. Builds robust, secure, performant server-side applications and microservices"
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "msitarzewski",
         "url": "https://github.com/msitarzewski/agency-agents"
@@ -5716,7 +5716,7 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-10-29",
+      "updated": "2026-11-09",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.agency.engineering-backend-architect",
       "source": "https://github.com/msitarzewski/agency-agents/blob/main/engineering/engineering-backend-architect.md",
       "license": "MIT",
@@ -5727,9 +5727,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-agency-engineering-backend-architect-1.0.0.zip",
-        "sha256": "468ad84cf1aa5ad6ea3d970c781029ddbe53c4a3f205a0d016aafd05e9392434",
-        "size": 6804
+        "url": "dist/javis-agency-engineering-backend-architect-1.0.1.zip",
+        "sha256": "e0339a4c639df0f1b1d0afc84b80dc354c7c9d92555a4a1cd7fe5c8d60b16a19",
+        "size": 6841
       }
     },
     {
@@ -5899,7 +5899,7 @@
         "vi": "Xây đường ống dữ liệu tin cậy, kiến trúc lakehouse, hạ tầng dữ liệu mở rộng được. Thành thạo ETL/ELT, Spark, dbt, streaming để biến dữ liệu thô thành dữ liệu phân tích được.",
         "en": "Expert data engineer specializing in building reliable data pipelines, lakehouse architectures, and scalable data infrastructure. Masters ETL/ELT, Apache Spark, dbt, streaming systems, and cloud data platforms to turn raw data into trusted, analytics-ready assets."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "msitarzewski",
         "url": "https://github.com/msitarzewski/agency-agents"
@@ -5911,7 +5911,7 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-10-29",
+      "updated": "2026-11-09",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.agency.engineering-data-engineer",
       "source": "https://github.com/msitarzewski/agency-agents/blob/main/engineering/engineering-data-engineer.md",
       "license": "MIT",
@@ -5922,9 +5922,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-agency-engineering-data-engineer-1.0.0.zip",
-        "sha256": "bf60410d7c9999278987653f91e4184ead2a14565f51d59b70c14edf99b028b7",
-        "size": 8904
+        "url": "dist/javis-agency-engineering-data-engineer-1.0.1.zip",
+        "sha256": "6666715efe7832586932b749732eaf939559e307ce2eac647673c8e213bcb01a",
+        "size": 9667
       }
     },
     {
@@ -6484,7 +6484,7 @@
         "vi": "Công nghệ web hiện đại, React/Vue/Angular, dựng giao diện và tối ưu hiệu năng.",
         "en": "Expert frontend developer specializing in modern web technologies, React/Vue/Angular frameworks, UI implementation, and performance optimization"
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "msitarzewski",
         "url": "https://github.com/msitarzewski/agency-agents"
@@ -6496,7 +6496,7 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-10-29",
+      "updated": "2026-11-09",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.agency.engineering-frontend-developer",
       "source": "https://github.com/msitarzewski/agency-agents/blob/main/engineering/engineering-frontend-developer.md",
       "license": "MIT",
@@ -6507,9 +6507,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-agency-engineering-frontend-developer-1.0.0.zip",
-        "sha256": "3859929b616d0984d3b9b5dd8c424a2e1c47543adeed2748884ab699a595c61c",
-        "size": 5941
+        "url": "dist/javis-agency-engineering-frontend-developer-1.0.1.zip",
+        "sha256": "96ea2f015efaf3e5beccd29eea2f7d9410ff49a034208a57f8bd4540cec4eb51",
+        "size": 6441
       }
     },
     {
@@ -11944,7 +11944,7 @@
         "vi": "Thiết kế thử nghiệm, theo dõi triển khai và ra quyết định theo dữ liệu. Quản lý A/B test, thử nghiệm tính năng và kiểm chứng giả thuyết bài bản.",
         "en": "Expert project manager specializing in experiment design, execution tracking, and data-driven decision making. Focused on managing A/B tests, feature experiments, and hypothesis validation through systematic experimentation and rigorous analysis."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "msitarzewski",
         "url": "https://github.com/msitarzewski/agency-agents"
@@ -11956,7 +11956,7 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-10-29",
+      "updated": "2026-11-09",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.agency.project-management-experiment-tracker",
       "source": "https://github.com/msitarzewski/agency-agents/blob/main/project-management/project-management-experiment-tracker.md",
       "license": "MIT",
@@ -11967,9 +11967,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-agency-project-management-experiment-tracker-1.0.0.zip",
-        "sha256": "0915c438b54651383d91935c84c8d1b4f2dd1c5fe8dfc4797aa8782bd9b3c5f2",
-        "size": 5901
+        "url": "dist/javis-agency-project-management-experiment-tracker-1.0.1.zip",
+        "sha256": "5961f3eba9fdafbcc4d53e5baa4ed063834b6fcf6b140e3df5e0d5c15e48b5b8",
+        "size": 6019
       }
     },
     {
@@ -14557,7 +14557,7 @@
         "vi": "Kiểm thử API toàn diện, kiểm thử hiệu năng và đảm bảo chất lượng cho mọi hệ thống và tích hợp bên thứ ba.",
         "en": "Expert API testing specialist focused on comprehensive API validation, performance testing, and quality assurance across all systems and third-party integrations"
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "msitarzewski",
         "url": "https://github.com/msitarzewski/agency-agents"
@@ -14569,7 +14569,7 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-10-29",
+      "updated": "2026-11-09",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.agency.testing-api-tester",
       "source": "https://github.com/msitarzewski/agency-agents/blob/main/testing/testing-api-tester.md",
       "license": "MIT",
@@ -14580,9 +14580,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-agency-testing-api-tester-1.0.0.zip",
-        "sha256": "bd273df9025f7304a1d3227ee9995afdf6a551befeb941d138ef7cf6ee71b0d8",
-        "size": 7052
+        "url": "dist/javis-agency-testing-api-tester-1.0.1.zip",
+        "sha256": "94689ce9c3589415bd1636e6c3f2975e1664739ef76da9b169156e06e65812c0",
+        "size": 7485
       }
     },
     {
@@ -14635,7 +14635,7 @@
         "vi": "Đo, phân tích và cải thiện hiệu năng hệ thống trên mọi ứng dụng và hạ tầng.",
         "en": "Expert performance testing and optimization specialist focused on measuring, analyzing, and improving system performance across all applications and infrastructure"
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "msitarzewski",
         "url": "https://github.com/msitarzewski/agency-agents"
@@ -14647,7 +14647,7 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-10-29",
+      "updated": "2026-11-09",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.agency.testing-performance-benchmarker",
       "source": "https://github.com/msitarzewski/agency-agents/blob/main/testing/testing-performance-benchmarker.md",
       "license": "MIT",
@@ -14658,9 +14658,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-agency-testing-performance-benchmarker-1.0.0.zip",
-        "sha256": "7d3f16619ddc078af7c64c3d7269a795ad53069576ac620ffb58d5db938d5d69",
-        "size": 7226
+        "url": "dist/javis-agency-testing-performance-benchmarker-1.0.1.zip",
+        "sha256": "925fb2a541ac23ac07577162e5f1ba055b929a47c5adfd06cbf2706fd81b052b",
+        "size": 7409
       }
     },
     {
