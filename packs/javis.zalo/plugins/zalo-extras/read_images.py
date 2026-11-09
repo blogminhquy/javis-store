@@ -21,6 +21,7 @@ What this tool does instead:
 """
 from __future__ import annotations
 
+import asyncio
 import ipaddress
 import json
 import re
@@ -43,6 +44,10 @@ MAX_BYTES = image_gen.MAX_REF_BYTES     # same cap ChatGPT accepts, so every sav
 DOWNLOAD_TIMEOUT = 60
 MAX_REDIRECTS = 3
 HISTORY_TIMEOUT = 60
+# #1221: Zalo answers `group history` with a 404 now and then, for one group and not another in the same run, while the
+# photos are still there. One more try after a short pause is cheap; a loop every 30 minutes covers the rest.
+HISTORY_RETRY_PAUSE = 3
+_TRANSIENT = ("404", "timed out", "timeout", "econnreset", "socket hang up", "network")
 _EXT_BY_TYPE = {"image/jpeg": ".jpg", "image/jpg": ".jpg", "image/png": ".png", "image/webp": ".webp", "image/gif": ".gif"}
 _EXT_RE = re.compile(r"\.(jpe?g|png|webp|gif)$", re.IGNORECASE)
 _SAFE_ID = re.compile(r"[^0-9A-Za-z_-]")
@@ -196,6 +201,12 @@ async def fetch_history(conn: dict, thread_id: str, count: int) -> Tuple[bool, A
     return await zalo_cli.run_cli(conn, ["group", "history"], [thread_id], ["-n", str(count)], timeout=HISTORY_TIMEOUT)
 
 
+def transient(err: Any) -> bool:
+    """A history failure worth one more try: Zalo's own 404 or a network hiccup, not "not a group" (a private chat)."""
+    e = str(err or "").lower()
+    return any(k in e for k in _TRANSIENT)
+
+
 async def fetch_buffer(conn: dict, thread_id: str, count: int) -> Tuple[bool, Any, str]:
     """Messages the MCP buffered for this thread (private chats, or when the CLI cannot answer)."""
     try:
@@ -295,6 +306,9 @@ async def _read_images(args, ctx):
     question = str(args.get("question") or "").strip()
 
     ok, data, err = await fetch_history(conn, thread_id, count)
+    if not ok and transient(err):
+        await asyncio.sleep(HISTORY_RETRY_PAUSE)
+        ok, data, err = await fetch_history(conn, thread_id, count)
     source = "zalo"
     photos = photos_from_history(data) if ok else []
     if not ok or (message_id and not pick(photos, message_id, limit)):
@@ -304,6 +318,12 @@ async def _read_images(args, ctx):
             have = {p["message_id"] for p in photos}
             photos = sorted(photos + [p for p in more if p["message_id"] not in have], key=lambda p: p["ts"])
             source = "zalo+mcp" if ok else "mcp"
+        elif not ok and transient(err):
+            # #1221: say what it is, instead of a bare "Request failed with status code 404" the model then guesses about.
+            return (f"ERROR: Zalo tạm thời không trả lịch sử của cuộc chat {thread_id} (đã thử lại một lần). Đây là lỗi "
+                    "phía máy chủ Zalo, không phải lỗi cấu hình, thiếu quyền hay sai thread_id; ảnh vẫn còn trên Zalo và "
+                    "thường đọc được ở lần chạy sau. "
+                    f"Bộ đệm MCP (chỉ giữ tin 2 giờ gần nhất): {err2 or 'không có ảnh nào'}. Lỗi gốc từ Zalo: {err}.")
         elif not ok:
             return (f"ERROR: không lấy được tin của cuộc chat {thread_id}. Lịch sử nhóm qua Zalo: {err}. "
                     f"Bộ đệm MCP: {err2 or 'không có ảnh nào'}.")
@@ -334,6 +354,11 @@ async def _read_images(args, ctx):
 
     out = {"ok": bool(images), "thread_id": thread_id, "account": conn["label"], "source": source,
            "scanned": count, "images": images}
+    if not ok and transient(err):
+        # Photos came from the MCP buffer alone because Zalo refused the history for now: older ones (past 2 hours) may be
+        # missing, and a loop should know it. A private chat has no history at all, so nothing is said there.
+        out["history_error"] = (f"Lịch sử nhóm qua Zalo lỗi ({err}); ảnh chỉ lấy từ bộ đệm MCP 2 giờ gần nhất, có thể thiếu "
+                                "ảnh cũ hơn. Chạy lại sau để lấy đủ.")
     if failed:
         out["failed"] = failed
     if not images:

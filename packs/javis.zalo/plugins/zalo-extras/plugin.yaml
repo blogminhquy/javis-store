@@ -1,7 +1,7 @@
 name: Zalo mở rộng - gửi ảnh và file, nhóm, đọc ảnh, kết bạn
 name_en: "Zalo extras: images and files, groups, read images, friends"
 slug: zalo-extras
-version: 2.0.0
+version: 2.0.1
 description: Mọi công cụ Zalo mà MCP chuẩn còn thiếu, gom trong một plugin, bằng chính tài khoản đã quét QR ở trang Kết nối. Gửi ảnh và file kèm lời nhắn. Trong nhóm - tag đúng người (nói tên, Javis tự tìm ID Zalo thật), liệt kê thành viên, tạo, đọc và sửa ghi chú (giữ nguyên ghim), nhắc hẹn, poll. Đọc ảnh người ta gửi (lưu vào attachments/zalo/ của brain, engine không tự xem được ảnh thì nhận lời tả của ChatGPT trên gói đang đăng nhập). Kết bạn - tìm người theo số điện thoại hay username, tìm trong bạn bè theo tên, xem lời mời chờ duyệt và đã gửi, gửi, nhận, từ chối, rút lại lời mời, đổi tên gợi nhớ. Mỗi tool giữ mức quyền riêng - đọc chạy ở mọi mức, lưu ảnh vào brain cần mức Ghi, gửi hay đổi gì trên Zalo cần Toàn quyền.
 description_en: "Every Zalo tool the standard MCP lacks, in one plugin, using the very account scanned on the Connections page. Send images and files with a message. In groups: mention the right person (say the name, Javis finds the real Zalo ID), list members, create, read and edit notes (the pin stays), reminders, polls. Read the images people post (saved to the brain's attachments/zalo/; engines that cannot view images get a description from ChatGPT on the plan you are signed in to). Friends: find people by phone or username, search friends by name, see pending and sent requests, send, accept, reject and withdraw requests, set nicknames. Each tool keeps its own level: reading runs at every level, saving photos into the brain needs Write, sending or changing anything on Zalo needs Full."
 author: Javis
