@@ -1,0 +1,12 @@
+format: javis-pack
+spec: 1
+id: javis.google-merchant-center
+version: 1.0.0
+name: {vi: "Google Merchant Center", en: "Google Merchant Center"}
+description: {vi: "Gian hàng Google Merchant Center qua MCP chính chủ của Google (bản alpha): sản phẩm, trạng thái duyệt, lỗi tài khoản, nguồn dữ liệu (feed), báo cáo hiệu suất. Mặc định chỉ đọc. Đăng nhập Google trong dashboard, chạy được cả trên VPS, không cài gì trên máy.", en: "Google Merchant Center through Google's own MCP server (alpha): products, approval status, account issues, data sources (feeds), performance reports. Read-only by default. Sign in with Google in the dashboard, works on a VPS, nothing to install."}
+author: {name: Javis}
+license: MIT
+homepage: "https://github.com/blogminhquy/javis-store"
+compat: {app: ">=0.55.27"}
+provides:
+  connectors: [connectors/google-merchant-center.json]

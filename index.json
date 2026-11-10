@@ -1,7 +1,7 @@
 {
   "format": "javis-pack-index",
   "format_version": 1,
-  "updated": "2026-11-09",
+  "updated": "2026-11-10",
   "store": {
     "name": "Kho cài đặt Javis",
     "url": "https://github.com/blogminhquy/javis-store"
@@ -634,6 +634,76 @@
         "url": "dist/javis-google-ads-1.0.2.zip",
         "sha256": "c496583d74e2a9ef77826ace88ee9202694c802a88a6f5cbce2d5b8eda17b67f",
         "size": 28959
+      }
+    },
+    {
+      "id": "javis.google-merchant-center",
+      "kind": "connector",
+      "name": {
+        "vi": "Google Merchant Center",
+        "en": "Google Merchant Center"
+      },
+      "description": {
+        "vi": "Gian hàng Google Merchant Center qua MCP chính chủ của Google (bản alpha): sản phẩm, trạng thái duyệt, lỗi tài khoản, nguồn dữ liệu (feed), báo cáo hiệu suất. Mặc định chỉ đọc. Đăng nhập Google trong dashboard, chạy được cả trên VPS, không cài gì trên máy.",
+        "en": "Google Merchant Center through Google's own MCP server (alpha): products, approval status, account issues, data sources (feeds), performance reports. Read-only by default. Sign in with Google in the dashboard, works on a VPS, nothing to install."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "quang-cao",
+      "category_label": {
+        "vi": "Quảng cáo"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-11-10",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-merchant-center",
+      "icon": "packs/javis.google-merchant-center/assets/google-merchant-center.png",
+      "provides": {
+        "connectors": [
+          "google-merchant-center"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-google-merchant-center-1.0.0.zip",
+        "sha256": "a4ea6dfe65ea990a5eb9419a5e7807c5415a7b3738ce71564a6ecb0e61dcc3f2",
+        "size": 14994
+      }
+    },
+    {
+      "id": "javis.google-analytics",
+      "kind": "connector",
+      "name": {
+        "vi": "Google Analytics (GA4)",
+        "en": "Google Analytics (GA4)"
+      },
+      "description": {
+        "vi": "Số liệu website qua MCP chính chủ của Google cho GA4 (chỉ đọc): phiên truy cập, nguồn và chiến dịch (UTM), sự kiện, chuyển đổi, báo cáo thời gian thực. Chạy local, đăng nhập Google 1 lần.",
+        "en": "Website numbers through Google's official GA4 MCP (read-only): sessions, sources and campaigns (UTM), events, conversions and realtime reports. Runs locally; one Google sign-in."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "marketing",
+      "category_label": {
+        "vi": "Marketing"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-11-10",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-analytics",
+      "icon": "packs/javis.google-analytics/assets/google-analytics.png",
+      "provides": {
+        "connectors": [
+          "google-analytics"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-google-analytics-1.0.0.zip",
+        "sha256": "2b69c18938cd8f4aee7dbadf685819d46d6169b9ed3ae189a7c4f51c51e1707a",
+        "size": 11323
       }
     },
     {
