@@ -3,6 +3,8 @@
 # Lý do và luật chép ở đầu `tools/theo-goc.py`. Hai lượt:
 #   1. gói chỉ đổi chữ (.md, dữ liệu, ảnh): đẩy thẳng vào main, mọi máy Javis thấy bản mới ở lần làm mới kho kế tiếp;
 #   2. gói có tệp mã đổi: đóng gói trên nhánh theo-goc/tu-dong và mở Pull Request, chờ chủ kho đọc rồi mới trộn.
+# Từ 10/11/2026 "mã" gồm cả khối lệnh trong .md bị đổi, requirements*.txt và package.json (tools/theo-goc.py,
+# `can_duyet_tep`): chữ mà AI hay script sẽ CHẠY trên máy người dùng thì cũng phải qua lượt 2.
 # Trình kiểm `tools/kiem-tra.py` chạy trước mỗi lần đẩy; đỏ thì không đẩy gì cả.
 name: Theo repo gốc
 

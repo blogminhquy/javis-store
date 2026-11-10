@@ -72,6 +72,9 @@ Kho có luật mọi gói đều được đọc trước khi trộn. Đồng b�
   được chủ kho chọn là đáng tin, và chữ hướng dẫn đổi là chuyện thường ngày của repo đó.
 - Có tệp MÃ đổi hay thêm (script, `.py`, `.js`, `.ts`...): mở Pull Request, chờ chủ kho đọc.
   Javis không bao giờ thấy bản đó cho tới khi PR được trộn.
+- Từ 10/11/2026 ba thứ mang đuôi chữ cũng tính là mã, vì chúng quyết định cái gì chạy trên máy người
+  dùng: khối lệnh trong `.md` bị đổi (AI gõ đúng những dòng đó), `requirements*.txt` và `package.json`
+  (script của skill tự cài theo), và tệp tên kiểu `README.py` (xem `can_duyet_tep`).
 
 Job CI chạy hai lượt: `--khong-ma` ghi và đẩy thẳng các gói chỉ đổi chữ, rồi lượt thứ hai ghi các gói
 có trong dòng `cho_duyet=` (tệp này ghi vào `$GITHUB_OUTPUT`) lên nhánh riêng kèm Pull Request.
@@ -123,6 +126,10 @@ DUOI_CAM = (".pem", ".p12", ".pfx", ".key", ".ppk")
 DUOI_CHU = (".md", ".txt", ".json", ".yaml", ".yml", ".geojson", ".csv", ".png", ".jpg", ".jpeg",
             ".webp", ".gif", ".svg", ".html", ".css", ".dot", ".ttf", ".otf", ".woff", ".woff2")
 TEN_CHU = ("LICENSE", "NOTICE", "README", "AUTHORS", "CHANGELOG")
+# Tệp mang đuôi CHỮ nhưng quyết định thứ sẽ được CÀI hay CHẠY trên máy người dùng (10/11/2026): danh sách thư viện mà
+# script của skill tự `pip install`, và `package.json` với mục `scripts` và phụ thuộc của nó. Đổi chúng là đổi mã.
+_TEN_CAI_DAT = re.compile(r"^((requirements|constraints)[^/]*\.txt|package(-lock)?\.json|npm-shrinkwrap\.json)$", re.I)
+_RAO_MA = re.compile(r"^[ \t]{0,3}(`{3,}|~{3,})")
 TRAN_SO_TEP, TRAN_MOT_TEP, TRAN_TONG = 500, 5 * 1024 * 1024, 40 * 1024 * 1024
 
 
@@ -664,6 +671,52 @@ def ghi_index(pid: str, c: dict, ban: str, skills: list, commit: str, zip_: Path
     INDEX.write_text(json.dumps(d, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
+def lenh_trong_md(chu: str) -> list:
+    """Các dòng nằm trong khối mã (``` hoặc ~~~) của một tệp markdown, đã bỏ khoảng trắng hai đầu, xếp thứ tự.
+
+    Đây là phần "chạy được" của một skill: AI đọc SKILL.md rồi gõ đúng những dòng này vào terminal."""
+    ra, rao = [], ""
+    for dong in (chu or "").splitlines():
+        m = _RAO_MA.match(dong)
+        if m and not rao:
+            rao = m.group(1)                      # mở khối
+            continue
+        if m and rao and m.group(1)[0] == rao[0] and len(m.group(1)) >= len(rao) and dong.strip() == m.group(1):
+            rao = ""                              # đóng khối: cùng ký tự, dài ít nhất bằng rào mở, không kèm chữ
+            continue
+        if rao and dong.strip():
+            ra.append(dong.strip())
+    return sorted(ra)
+
+
+def can_duyet_tep(k: str, cu: Path, moi: Path) -> bool:
+    """Tệp `k` (đường dẫn trong gói) đổi, thêm hay mất: lần đổi này có cần chủ kho đọc trước khi vào `main` không.
+
+    Luật cũ chỉ nhìn ĐUÔI tệp, và ba kiểu đổi "chỉ là chữ" vẫn tới máy người dùng như mã (rà soát 10/11/2026):
+
+    1. Tệp tên `README.py`, `LICENSE.sh`: phần tên nằm trong TEN_CHU nên được miễn dù đuôi là mã. Nay chỉ miễn khi tệp
+       KHÔNG có đuôi (`LICENSE`, `NOTICE`), đúng thứ luật đó sinh ra để cho qua.
+    2. `requirements.txt`, `package.json`: script của skill tự cài theo chúng ở lần chạy kế tiếp.
+    3. Khối lệnh trong `.md`: skill là lời dặn cho AI, và AI chạy đúng dòng lệnh ghi trong đó. Một dòng
+       `npx -y ten-goi@latest` đổi thành gói khác là đổi chương trình sẽ chạy trên máy người dùng.
+
+    Văn xuôi, ảnh, dữ liệu và mẫu trang vẫn đi thẳng như trước: đó là phần lớn các lần repo gốc đổi."""
+    p = Path(k)
+    thap = k.lower()
+    if not thap.endswith(DUOI_CHU):
+        return not (p.suffix == "" and p.name.upper() in TEN_CHU)
+    if _TEN_CAI_DAT.match(p.name):
+        return True
+    if thap.endswith(".md"):
+        def _doc(goc):
+            try:
+                return (goc / k).read_text(encoding="utf-8", errors="replace")
+            except OSError:
+                return ""
+        return lenh_trong_md(_doc(cu)) != lenh_trong_md(_doc(moi))
+    return False
+
+
 def dong_bo(pid: str, chi_kiem: bool = False, hom_nay: str = "", bo_qua_ma: bool = False) -> dict:
     """Đồng bộ một gói. Trả {id, doi, can_duyet, ban, commit, tep_ma, ghi}.
 
@@ -687,8 +740,7 @@ def dong_bo(pid: str, chi_kiem: bool = False, hom_nay: str = "", bo_qua_ma: bool
             return {"id": pid, "doi": True, "can_duyet": False, "ban": _ban_cu(thu_muc), "commit": commit,
                     "tep_ma": [], "so_tep_doi": 0, "so_tach": so_tach, "ghi": True}
         doi = {k for k in set(cu) | set(moi) if cu.get(k) != moi.get(k)}
-        tep_ma = sorted(k for k in doi if not k.lower().endswith(DUOI_CHU) and not k.startswith("docs/")
-                        and Path(k).stem.upper() not in TEN_CHU)
+        tep_ma = sorted(k for k in doi if not k.startswith("docs/") and can_duyet_tep(k, thu_muc, tmp / "moi"))
         ban = _tang_ban(_ban_cu(thu_muc))
         kq = {"id": pid, "doi": True, "can_duyet": bool(tep_ma), "ban": ban, "commit": commit,
               "tep_ma": tep_ma, "so_tep_doi": len(doi)}

@@ -16,11 +16,19 @@ on:
   schedule:
     - cron: "17 2 * * *"
 
+# Ba job dưới đây chỉ ĐỌC kho. Chúng chạy mã không phải của kho (test của gói, MCP bên thứ 3 bản mới nhất, lệnh
+# viết trong skill theo repo gốc), nên token của lượt chạy không được có quyền ghi, và không nằm lại trong
+# `.git/config` cho các bước đó đọc (10/11/2026).
+permissions:
+  contents: read
+
 jobs:
   kiem-tra:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -33,10 +41,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: actions/checkout@v4
         with:
           repository: blogminhquy/javis-os
           path: javis-os
+          persist-credentials: false
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -58,10 +69,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: actions/checkout@v4
         with:
           repository: blogminhquy/javis-os
           path: javis-os
+          persist-credentials: false
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
