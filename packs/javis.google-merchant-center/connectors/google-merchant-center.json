@@ -1,0 +1,126 @@
+{
+  "id": "google-merchant-center",
+  "name": "Google Merchant Center",
+  "icon": "assets/google-merchant-center.png",
+  "category": "Quảng cáo",
+  "description": "Gian hàng Google Merchant Center qua MCP chính chủ của Google (bản alpha): sản phẩm, trạng thái duyệt, lỗi tài khoản, nguồn dữ liệu (feed), báo cáo hiệu suất. Mặc định chỉ đọc. Đăng nhập Google trong dashboard, chạy được cả trên VPS, không cài gì trên máy.",
+  "status": "beta",
+  "transport": "http",
+  "url": "https://merchantapi.googleapis.com/mcp",
+  "auth": {
+    "type": "oauth",
+    "provider": "google",
+    "authorize_url": "https://accounts.google.com/o/oauth2/v2/auth",
+    "token_url": "https://oauth2.googleapis.com/token",
+    "_scopes_doc": "Tài liệu chính chủ (Merchant API MCP Access Service) chỉ đòi đúng một scope 'content'. Google không có bản chỉ đọc của scope này, nên việc giữ Javis ở mức đọc là do tool_meta bên dưới chứ không phải do token.",
+    "scopes": [
+      "openid",
+      "email",
+      "https://www.googleapis.com/auth/content"
+    ],
+    "authorize_params": {
+      "access_type": "offline",
+      "prompt": "consent",
+      "include_granted_scopes": "true"
+    },
+    "fields": [
+      {
+        "key": "client_id",
+        "label": "OAuth Client ID",
+        "placeholder": "Ví dụ: xxxx.apps.googleusercontent.com"
+      },
+      {
+        "key": "client_secret",
+        "label": "OAuth Client Secret",
+        "placeholder": "Ví dụ: GOCSPX-..."
+      }
+    ],
+    "guide": "Server MCP của Merchant Center do Google chạy sẵn, đang ở bản alpha: không cài gì trên máy, nhưng bộ tool có thể đổi.\n\nLàm 1 lần, khoảng 10 phút:\n1. Vào console.cloud.google.com, tạo project (hoặc dùng project đã đấu Google Ads) rồi bật Merchant API.\n2. Đăng ký project đó với tài khoản Merchant Center. Trong Merchant Center, mở Cài đặt, tìm mục Merchant API (có nơi ghi Developer registration) rồi thêm project. Phải làm bằng tài khoản có quyền Quản trị.\nThiếu bước này thì đăng nhập vẫn thành công nhưng mọi lệnh bị Google từ chối với câu 'GCP project is not registered'. Đăng ký xong chờ khoảng 5 phút.\n3. Google Auth Platform > Audience: chọn External, thêm email của bạn vào Test users.\n4. Google Auth Platform > Data Access: thêm phạm vi https://www.googleapis.com/auth/content\n5. Google Auth Platform > Clients > Tạo OAuth client ID loại 'Ứng dụng web'. Ở phần 'URI chuyển hướng được ủy quyền', thêm đúng địa chỉ này:\nhttp://localhost:7777/connect/oauth/callback\nNếu chạy trên VPS thì thêm cả https://<tên-miền>/connect/oauth/callback\n6. Điền Client ID và Client Secret bên dưới rồi bấm nút đăng nhập, dùng email có quyền trong Merchant Center.\n\nKhông cần điền ID gian hàng: một lần đăng nhập thấy mọi tài khoản Merchant Center mà email đó có quyền, Javis tự chọn theo từng câu hỏi.\n\nGặp cảnh báo 'ứng dụng chưa được xác minh' thì bấm Nâng cao > Tiếp tục, vì đây là app của chính bạn.\n\nKhi app còn ở trạng thái Testing, Google thu hồi đăng nhập sau 7 ngày: bấm đăng nhập lại là xong, hoặc vào Audience > Publish app để dùng lâu dài.\n\nLệnh gọi qua đây tính chung hạn mức với Merchant API của project.",
+    "guide_url": "https://console.cloud.google.com/apis/library/merchantapi.googleapis.com",
+    "steps": [
+      {
+        "text": "Đã đấu Google Ads, Gmail hay Lịch rồi thì dùng lại đúng project và OAuth client đó, chỉ cần làm thêm bước bật Merchant API, đăng ký project và thêm phạm vi content.",
+        "link": "",
+        "link_label": ""
+      },
+      {
+        "text": "Vào Google Cloud tạo project (hoặc dùng project sẵn có) rồi bật Merchant API.",
+        "link": "https://console.cloud.google.com/apis/library/merchantapi.googleapis.com",
+        "link_label": "Bật Merchant API"
+      },
+      {
+        "text": "Đăng ký project với tài khoản Merchant Center bằng tài khoản có quyền Quản trị: mở Cài đặt, tìm mục Merchant API (có nơi ghi Developer registration) rồi thêm project. Bỏ bước này là mọi lệnh bị từ chối với câu 'GCP project is not registered' dù đăng nhập thành công. Đăng ký xong chờ khoảng 5 phút.",
+        "link": "https://merchants.google.com/",
+        "link_label": "Mở Merchant Center"
+      },
+      {
+        "text": "Màn hình đồng ý OAuth: chọn External, thêm email của bạn vào Test users.",
+        "link": "https://console.cloud.google.com/auth/audience",
+        "link_label": "Mở màn hình đồng ý"
+      },
+      {
+        "text": "Quyền dữ liệu > Thêm hoặc bớt phạm vi: dán phạm vi https://www.googleapis.com/auth/content",
+        "link": "https://console.cloud.google.com/auth/scopes",
+        "link_label": "Mở trang Quyền dữ liệu"
+      },
+      {
+        "text": "Tạo OAuth client loại 'Ứng dụng web', thêm địa chỉ dưới đây vào ô 'URI chuyển hướng được ủy quyền'.",
+        "link": "https://console.cloud.google.com/apis/credentials/oauthclient",
+        "link_label": "Tạo OAuth client",
+        "copy": "redirect"
+      },
+      {
+        "text": "Điền Client ID và Client Secret vào ô bên dưới rồi bấm Kết nối, đăng nhập bằng email có quyền trong Merchant Center. Gặp cảnh báo 'ứng dụng chưa được xác minh' thì bấm Nâng cao rồi Tiếp tục."
+      }
+    ],
+    "setup": {
+      "links": [
+        {
+          "label": "Bật Merchant API",
+          "url": "https://console.cloud.google.com/apis/library/merchantapi.googleapis.com"
+        },
+        {
+          "label": "Mở Merchant Center",
+          "url": "https://merchants.google.com/"
+        },
+        {
+          "label": "Khai phạm vi quyền (Data Access)",
+          "url": "https://console.cloud.google.com/auth/scopes"
+        }
+      ]
+    }
+  },
+  "validate": {
+    "tool": "list_accounts",
+    "args": {}
+  },
+  "_tool_meta_doc": "Bộ tool của bản alpha (soát 2026-11-10, theo trang Merchant API MCP Access Service). Hai tool đổi dữ liệu là create_data_source (tạo nguồn dữ liệu mới) và fetch_data_source (bắt Google kéo lại feed ngay, sản phẩm đổi theo tệp nguồn). Bản alpha chưa có tool sửa hay xoá sản phẩm. Các mẫu ở nhóm danger là khai ĐÓN ĐẦU: Google thêm tool xoá hay sửa dữ liệu đang chạy (delete, remove, insert, update, patch) thì nó chỉ chạy ở mức Toàn quyền, không tự chạy ở mức Ghi nháp. MCP chạy từ xa nên job soi-ban-moi không chạy thử được.",
+  "tool_meta": {
+    "read": [
+      "get_product_by_name",
+      "list_products",
+      "report_search",
+      "list_aggregate_product_statuses",
+      "list_data_sources",
+      "get_data_source",
+      "get_file_upload",
+      "list_accounts",
+      "list_account_issues",
+      "list_programs",
+      "get_automatic_improvements"
+    ],
+    "write": [
+      "create_data_source",
+      "fetch_data_source"
+    ],
+    "danger": [
+      "delete_*",
+      "remove_*",
+      "insert_*",
+      "update_*",
+      "patch_*"
+    ]
+  },
+  "default_perm": "readonly",
+  "risk": "Mức Chỉ đọc (mặc định) chỉ xem sản phẩm, trạng thái duyệt, lỗi tài khoản, nguồn dữ liệu và báo cáo, không sửa được gì trong gian hàng.\n\nMức Ghi nháp cho Javis TẠO nguồn dữ liệu (feed) mới và bắt Google KÉO LẠI một feed ngay. Kéo lại feed làm sản phẩm trong gian hàng đổi theo tệp nguồn ở thời điểm đó.\n\nBản alpha của Google chưa có tool nào sửa giá, sửa hay xoá sản phẩm. Nếu Google thêm tool sửa hoặc xoá dữ liệu đang chạy thì nó chỉ chạy ở mức Toàn quyền; sửa giá hay xoá sản phẩm có hiệu lực ngay trên gian hàng thật.\n\nQuyền Google cấp cho lần đăng nhập này là quyền đọc và ghi Merchant Center (Google không có bản chỉ đọc), nên việc giữ ở mức đọc là do Javis chặn."
+}
