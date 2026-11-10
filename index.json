@@ -610,9 +610,9 @@
         "vi": "Google Ads"
       },
       "description": {
-        "vi": "Số liệu Google Ads qua MCP chính chủ của Google (chỉ đọc): chiến dịch, chi phí, chuyển đổi, từ khoá qua truy vấn GAQL. Chạy local; cần developer token + Google Cloud, cài 1 lần hơi kỹ thuật."
+        "vi": "Số liệu Google Ads qua MCP chính chủ của Google: chiến dịch, chi phí, chuyển đổi, từ khoá, lịch sử thay đổi qua truy vấn GAQL. Mặc định chỉ đọc. Chạy local; cần Google Cloud project + OAuth client, không cần developer token, cài 1 lần khoảng 10 phút."
       },
-      "version": "1.0.1",
+      "version": "1.0.2",
       "author": {
         "name": "Javis"
       },
@@ -622,7 +622,7 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-10-05",
+      "updated": "2026-11-10",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-ads",
       "icon": "packs/javis.google-ads/assets/google-ads.webp",
       "provides": {
@@ -631,9 +631,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-google-ads-1.0.1.zip",
-        "sha256": "8a6573613a25c6a057b2da7166d1317e5804c4c1ecd70a42c226f8b5a2ce26f4",
-        "size": 28344
+        "url": "dist/javis-google-ads-1.0.2.zip",
+        "sha256": "b6591a1a0ef97cdb990a7f4ba3b088f20a8ecbc62fa33c6b643817301d23245d",
+        "size": 28966
       }
     },
     {
