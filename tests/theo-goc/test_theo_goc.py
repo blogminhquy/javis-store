@@ -122,6 +122,54 @@ class TheoGoc(unittest.TestCase):
         self.assertEqual(kq["tep_ma"], ["skills/viet-thu/chay.sh"])
         self.assertEqual(self.muc()["version"], "1.0.2")
 
+    def test_chu_ma_chay_duoc_thi_cho_duyet(self):
+        """10/11/2026: ba kiểu đổi mang đuôi chữ mà vẫn quyết định cái gì chạy trên máy người dùng."""
+        self.dong_bo()
+        skill = self.up / "skills" / "viet-thu"
+        md = skill / "SKILL.md"
+        dau = "---\nname: viet-thu\ndescription: Viết thư\n---\n"
+        md.write_text(dau + "Chạy:\n\n```bash\nnpx -y cong-cu@latest lam\n```\n", encoding="utf-8")
+        self.commit("thêm khối lệnh")
+        kq = self.dong_bo()
+        self.assertTrue(kq["can_duyet"], "khối lệnh mới trong .md phải chờ duyệt")
+        self.assertEqual(kq["tep_ma"], ["skills/viet-thu/SKILL.md"])
+
+        md.write_text(dau + "Chạy như sau nhé:\n\n```bash\nnpx -y cong-cu@latest lam\n```\nXong.\n", encoding="utf-8")
+        self.commit("chỉ đổi văn xuôi quanh khối lệnh")
+        kq = self.dong_bo()
+        self.assertTrue(kq["doi"])
+        self.assertFalse(kq["can_duyet"], "văn xuôi đổi, khối lệnh giữ nguyên thì đi thẳng")
+
+        md.write_text(dau + "Chạy như sau nhé:\n\n```bash\nnpx -y goi-khac@latest lam\n```\nXong.\n", encoding="utf-8")
+        self.commit("đổi gói trong khối lệnh")
+        kq = self.dong_bo()
+        self.assertTrue(kq["can_duyet"], "một dòng lệnh đổi là đổi chương trình sẽ chạy")
+
+        (skill / "requirements.txt").write_text("requests\n", encoding="utf-8")
+        self.commit("thêm requirements")
+        kq = self.dong_bo()
+        self.assertEqual(kq["tep_ma"], ["skills/viet-thu/requirements.txt"])
+
+        (skill / "package.json").write_text('{"scripts": {"postinstall": "id"}}\n', encoding="utf-8")
+        self.commit("thêm package.json")
+        self.assertEqual(self.dong_bo()["tep_ma"], ["skills/viet-thu/package.json"])
+
+        (skill / "README.py").write_text("print(1)\n", encoding="utf-8")
+        (skill / "LICENSE").write_text("MIT\n", encoding="utf-8")
+        (skill / "du-lieu.json").write_text('{"a": 1}\n', encoding="utf-8")
+        self.commit("tên giống chữ, đuôi là mã")
+        kq = self.dong_bo()
+        self.assertEqual(kq["tep_ma"], ["skills/viet-thu/README.py"],
+                         "README.py là mã; LICENSE không đuôi và dữ liệu .json vẫn là chữ")
+
+    def test_lenh_trong_md(self):
+        f = self.tg.lenh_trong_md
+        self.assertEqual(f("a\n```sh\n  x 1\n\ny\n```\nb\n~~~\nz\n~~~\n"), ["x 1", "y", "z"])
+        self.assertEqual(f("không có khối nào `x`"), [])
+        self.assertEqual(f("```\nchưa đóng\n"), ["chưa đóng"], "khối chưa đóng vẫn tính tới hết tệp")
+        self.assertEqual(f("````\n```\nlong\n```\n````\n"), ["```", "```", "long"], "rào dài bọc rào ngắn")
+        self.assertEqual(f(None), [])
+
     def test_khong_ma_de_lai_goi_can_duyet(self):
         self.dong_bo()
         (self.up / "skills" / "viet-thu" / "chay.sh").write_text("echo 3\n", encoding="utf-8")
