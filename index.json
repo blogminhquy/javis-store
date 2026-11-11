@@ -1,7 +1,7 @@
 {
   "format": "javis-pack-index",
   "format_version": 1,
-  "updated": "2026-11-10",
+  "updated": "2026-11-11",
   "store": {
     "name": "Kho cài đặt Javis",
     "url": "https://github.com/blogminhquy/javis-store"
@@ -3083,7 +3083,7 @@
         "vi": "Bộ skill chính chủ của Remotion (remotion.dev): tạo dự án video bằng React, hoạt hình, chữ và hiệu ứng, phụ đề, bản đồ, xem trước và xuất video. Theo repo gốc, cập nhật mỗi khi Remotion sửa skill.",
         "en": "Remotion's official skills (remotion.dev): create React video projects, animation, type and effects, captions, maps, preview and render. Follows the source repo and updates whenever Remotion changes its skills."
       },
-      "version": "1.0.3",
+      "version": "1.0.4",
       "author": {
         "name": "Remotion",
         "url": "https://github.com/remotion-dev/skills"
@@ -3095,15 +3095,15 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-11-09",
+      "updated": "2026-11-11",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.remotion",
       "source": "https://github.com/remotion-dev/skills",
       "license": "Remotion License",
       "upstream": {
         "repo": "remotion-dev/skills",
         "ref": "main",
-        "commit": "1af7e69a2a613437d46095924057970a6a7df40d",
-        "synced": "2026-11-09"
+        "commit": "1fc074b74b95cfecf7b1e419132f2cfe23dafebe",
+        "synced": "2026-11-11"
       },
       "provides": {
         "skills": [
@@ -3123,9 +3123,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-remotion-1.0.3.zip",
-        "sha256": "4ef1cbb222170b0b47137edd9da13e01c91fb09a8faa09948ca5969258167e18",
-        "size": 884554
+        "url": "dist/javis-remotion-1.0.4.zip",
+        "sha256": "3bb604a11fb6c9dafeb5b1f27065af253416498d3c7c8fa05d7d947438440160",
+        "size": 884550
       }
     },
     {
