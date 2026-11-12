@@ -1,0 +1,13 @@
+format: javis-pack
+spec: 1
+id: javis.scrapling
+version: 1.0.0
+name: {vi: "Scrapling", en: "Scrapling"}
+description: {vi: "Cào dữ liệu web bằng Scrapling, thư viện mã nguồn mở hơn 100 nghìn sao: tải trang nhanh giả dạng trình duyệt thật, mở trình duyệt ẩn danh cho trang chạy JavaScript hoặc có Cloudflare, lấy đúng phần cần bằng CSS selector và trả về Markdown gọn cho AI đọc. Chạy ngay trên máy bạn, không cần API key, không tốn phí theo lượt.",
+              en: "Scrape the web with Scrapling, the 100k-star open-source library: fast fetches that impersonate a real browser, a stealth browser for JavaScript pages and Cloudflare, CSS selectors to keep only what you need, clean Markdown for the AI. Runs on your own machine, no API key, no per-call fees."}
+author: {name: "Karim Shoair (D4Vinci)", url: "https://github.com/D4Vinci/Scrapling"}
+license: BSD-3-Clause
+homepage: "https://github.com/D4Vinci/Scrapling"
+compat: {app: ">=0.55.27"}
+provides:
+  connectors: [connectors/scrapling.json]

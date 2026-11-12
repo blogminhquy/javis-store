@@ -1,0 +1,118 @@
+{
+  "id": "scrapling",
+  "name": "Scrapling",
+  "icon": "assets/scrapling.png",
+  "category": "Website",
+  "description": "Cào dữ liệu web bằng Scrapling, thư viện mã nguồn mở hơn 100 nghìn sao: tải trang nhanh giả dạng trình duyệt thật, mở trình duyệt ẩn danh cho trang chạy JavaScript hoặc có Cloudflare, lấy đúng phần cần bằng CSS selector và trả về Markdown gọn cho AI đọc. Chạy ngay trên máy bạn, không cần API key, không tốn phí theo lượt.",
+  "status": "beta",
+  "transport": "stdio",
+  "command": "uvx",
+  "args": [
+    "--from",
+    "scrapling[ai]@latest",
+    "scrapling",
+    "mcp"
+  ],
+  "requires": {
+    "uv": true
+  },
+  "auth": {
+    "type": "none",
+    "fields": [
+      {
+        "key": "executable_path",
+        "label": "Đường dẫn Chrome có sẵn trên máy (tuỳ chọn, bỏ trống = dùng trình duyệt Scrapling tự tải)",
+        "placeholder": "Ví dụ: /usr/bin/google-chrome",
+        "optional": true,
+        "default": "",
+        "env": "SCRAPLING_EXECUTABLE_PATH"
+      }
+    ],
+    "guide": "Không cần API key, không cần tài khoản. Máy chạy Javis phải có uv (Javis dùng uvx để chạy Scrapling).\n\nBấm Kết nối là dùng được ngay phần tải trang nhanh: Scrapling gửi yêu cầu HTTP giả dạng Chrome thật, đủ cho đa số trang tin, blog, trang sản phẩm.\n\nMuốn dùng trình duyệt ẩn danh (trang chạy JavaScript, trang có Cloudflare) thì làm thêm 2 việc, mỗi việc 1 lần:\n1. Tải trình duyệt cho Scrapling. Mở cửa sổ lệnh trên máy chạy Javis và chạy:\nuvx --from \"scrapling[ai]@latest\" scrapling install\nLệnh này tải Chromium về, nặng vài trăm MB. Trên Linux nó còn cài thư viện hệ thống nên có thể hỏi mật khẩu sudo.\nMáy đã có Chrome thì khỏi tải: điền đường dẫn Chrome vào ô bên dưới.\n2. Vào trang Kết nối, nâng kết nối này lên mức Ghi nháp. Gói cài từ Kho luôn bắt đầu ở mức Chỉ đọc, và ở mức đó Scrapling chỉ tải trang bằng HTTP.\n\nLần chạy đầu uvx tải Scrapling về nên hơi lâu. Scrapling ra bản mới mà báo thiếu trình duyệt thì chạy lại lệnh ở bước 1.\n\nChỉ cào những trang bạn được phép lấy dữ liệu, và tôn trọng điều khoản của trang đó.",
+    "guide_url": "https://scrapling.readthedocs.io/en/latest/ai/mcp-server.html",
+    "setup": {
+      "links": [
+        {
+          "label": "Cài uv",
+          "url": "https://docs.astral.sh/uv/getting-started/installation/"
+        },
+        {
+          "label": "Tài liệu Scrapling MCP",
+          "url": "https://scrapling.readthedocs.io/en/latest/ai/mcp-server.html"
+        }
+      ]
+    },
+    "steps": [
+      {
+        "text": "Cài uv trên máy chạy Javis nếu chưa có. Javis dùng uvx để chạy Scrapling.",
+        "link": "https://docs.astral.sh/uv/getting-started/installation/",
+        "link_label": "Cài uv"
+      },
+      {
+        "text": "Bấm Kết nối. Phần tải trang nhanh bằng HTTP dùng được ngay, không cần làm gì thêm."
+      },
+      {
+        "text": "Muốn dùng trình duyệt ẩn danh thì chạy một lần: uvx --from \"scrapling[ai]@latest\" scrapling install (hoặc điền đường dẫn Chrome có sẵn vào ô bên dưới), rồi nâng kết nối lên mức Ghi nháp.",
+        "link": "https://scrapling.readthedocs.io/en/latest/ai/mcp-server.html",
+        "link_label": "Tài liệu Scrapling MCP"
+      }
+    ]
+  },
+  "validate": {
+    "tool": "list_sessions",
+    "args": {}
+  },
+  "_call_rules_doc": "Ba tool dưới đây cũng nằm trong tool_meta.danger. Javis xét call_rules TRƯỚC danh sách danger, nên luật ở đây mới là thứ quyết định: GET là đọc, mở trình duyệt một trang là ghi. Danh sách danger chỉ là lưới đỡ: bản Javis nào không hiểu call_rules thì cả ba rơi về mức nguy hiểm thay vì rơi về đọc.",
+  "call_rules": {
+    "make_request": {
+      "key": "method",
+      "default": "GET",
+      "read_values": [
+        "GET"
+      ],
+      "else": "danger"
+    },
+    "session_make_request": {
+      "key": "method",
+      "default": "GET",
+      "read_values": [
+        "GET"
+      ],
+      "else": "danger"
+    },
+    "browser_fetch_once": {
+      "key": "additional_args",
+      "default": "khong-co",
+      "write_values": [
+        "khong-co"
+      ],
+      "else": "danger"
+    }
+  },
+  "tool_meta": {
+    "read": [
+      "list_sessions",
+      "browser_fetch",
+      "browser_extract",
+      "browser_network_requests",
+      "browser_screenshot",
+      "browser_observe"
+    ],
+    "write": [
+      "open_request_session",
+      "close_session"
+    ],
+    "danger": [
+      "make_request",
+      "session_make_request",
+      "browser_fetch_once",
+      "browser_open",
+      "browser_actions",
+      "browser_evaluate",
+      "browser_network_request",
+      "browser_save_state",
+      "browser_load_state"
+    ]
+  },
+  "risk": "Scrapling chạy trên máy đang chạy Javis và đi ra Internet bằng địa chỉ IP của máy đó. Cào quá dày một trang có thể khiến IP của bạn bị trang đó chặn.\n\nMức Chỉ đọc (mặc định): chỉ TẢI trang bằng HTTP (lệnh GET) và xem danh sách phiên. Không mở trình duyệt, không gửi dữ liệu đi đâu. Lưu ý: nó tải được cả địa chỉ nội bộ mà máy chạy Javis nhìn thấy (localhost, mạng LAN).\n\nMức Ghi nháp: thêm quyền mở trình duyệt ẩn danh để tải MỘT trang (chạy JavaScript, vượt Cloudflare) và mở phiên HTTP giữ cookie. Trình duyệt chạy bằng hồ sơ trống riêng của Scrapling, không đụng vào Chrome bạn đang dùng. Ở mức này AI có thể chỉ định tệp trình duyệt khác để chạy (tham số executable_path), nên chỉ nâng khi bạn tin nội dung mình cho AI đọc.\n\nMức Toàn quyền: thêm quyền mở phiên trình duyệt dài, BẤM, GÕ, điền form, chạy JavaScript trong trang, gửi yêu cầu POST, PUT, DELETE, lưu và nạp cookie đăng nhập ra tệp trên máy, nối vào một Chrome đang chạy (cdp_url) và truyền tuỳ chọn khởi động trình duyệt. Bấm nút là gửi form, là đặt hàng thật trên trang đó. Nối vào Chrome đang chạy nghĩa là AI thấy mọi trang bạn đang đăng nhập. Tuỳ chọn khởi động trình duyệt có thể chạy lệnh trên máy, nên nó chỉ nằm ở mức này.\n\nNội dung trang web là dữ liệu của người lạ: một trang xấu có thể cài câu lệnh giả vào nội dung để dụ AI làm việc khác. Giữ kết nối ở mức thấp nhất đủ cho việc bạn cần."
+}

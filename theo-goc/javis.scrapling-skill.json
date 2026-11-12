@@ -1,0 +1,34 @@
+{
+  "_doc": "Skill chính chủ của tác giả Scrapling, nằm ở agent-skill/Scrapling-Skill của repo gốc. Đi cặp với gói kết nối javis.scrapling (MCP). Skill có 4 tệp .py ví dụ, nên bản đổi mã sẽ thành Pull Request chờ duyệt.",
+  "repo": "D4Vinci/Scrapling",
+  "ref": "main",
+  "chep": [
+    {
+      "tu": "agent-skill/Scrapling-Skill",
+      "den": "skills",
+      "ten": "scrapling-official"
+    }
+  ],
+  "giay_phep": [
+    "LICENSE",
+    "LICENSE.md",
+    "LICENSE.txt"
+  ],
+  "goi": {
+    "name": {
+      "vi": "Scrapling: Skill cào dữ liệu web",
+      "en": "Scrapling: Web scraping skill"
+    },
+    "description": {
+      "vi": "Skill chính chủ của Scrapling, thư viện cào web hơn 100 nghìn sao: dạy AI viết mã cào đúng API mới nhất, từ tải một trang, vượt chống bot (Cloudflare), chạy JavaScript, tới spider cào cả site có tạm dừng và chạy tiếp. Cần Python 3.10 trở lên. Dùng tốt nhất với bộ não có shell.",
+      "en": "The official skill for Scrapling, the 100k-star web scraping library: teaches the AI to write scrapers against the current API, from a single fetch, anti-bot bypass (Cloudflare) and JavaScript rendering to full-site spiders with pause and resume. Needs Python 3.10+. Works best on an engine with a shell."
+    },
+    "author": "Karim Shoair (D4Vinci)",
+    "category": "lap-trinh",
+    "category_label": {
+      "vi": "Lập trình",
+      "en": "Development"
+    },
+    "license": "BSD-3-Clause"
+  }
+}

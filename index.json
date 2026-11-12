@@ -1,7 +1,7 @@
 {
   "format": "javis-pack-index",
   "format_version": 1,
-  "updated": "2026-11-11",
+  "updated": "2026-11-12",
   "store": {
     "name": "Kho cài đặt Javis",
     "url": "https://github.com/blogminhquy/javis-store"
@@ -15500,6 +15500,89 @@
         "url": "dist/javis-claude-seo-1.0.2.zip",
         "sha256": "27533246873c23ab3b510e461c1aee3e6dbf619c68b9911e8d07a0da7af3171c",
         "size": 676402
+      }
+    },
+    {
+      "id": "javis.scrapling",
+      "kind": "connector",
+      "name": {
+        "vi": "Scrapling",
+        "en": "Scrapling"
+      },
+      "description": {
+        "vi": "Cào dữ liệu web bằng Scrapling, thư viện mã nguồn mở hơn 100 nghìn sao: tải trang nhanh giả dạng trình duyệt thật, mở trình duyệt ẩn danh cho trang chạy JavaScript hoặc có Cloudflare, lấy đúng phần cần bằng CSS selector và trả về Markdown gọn cho AI đọc. Chạy ngay trên máy bạn, không cần API key, không tốn phí theo lượt.",
+        "en": "Scrape the web with Scrapling, the 100k-star open-source library: fast fetches that impersonate a real browser, a stealth browser for JavaScript pages and Cloudflare, CSS selectors to keep only what you need, clean Markdown for the AI. Runs on your own machine, no API key, no per-call fees."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Karim Shoair (D4Vinci)",
+        "url": "https://github.com/D4Vinci/Scrapling"
+      },
+      "category": "website",
+      "category_label": {
+        "vi": "Website",
+        "en": "Website"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-11-12",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.scrapling",
+      "icon": "packs/javis.scrapling/assets/scrapling.png",
+      "source": "https://github.com/D4Vinci/Scrapling",
+      "license": "BSD-3-Clause",
+      "provides": {
+        "connectors": [
+          "scrapling"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-scrapling-1.0.0.zip",
+        "sha256": "ebe39e4cc071356c3cf73278099be8f7eb97b01c5b8bd3ba290503377b9a8a52",
+        "size": 23983
+      }
+    },
+    {
+      "id": "javis.scrapling-skill",
+      "kind": "skill",
+      "name": {
+        "vi": "Scrapling: Skill cào dữ liệu web",
+        "en": "Scrapling: Web scraping skill"
+      },
+      "description": {
+        "vi": "Skill chính chủ của Scrapling, thư viện cào web hơn 100 nghìn sao: dạy AI viết mã cào đúng API mới nhất, từ tải một trang, vượt chống bot (Cloudflare), chạy JavaScript, tới spider cào cả site có tạm dừng và chạy tiếp. Cần Python 3.10 trở lên. Dùng tốt nhất với bộ não có shell.",
+        "en": "The official skill for Scrapling, the 100k-star web scraping library: teaches the AI to write scrapers against the current API, from a single fetch, anti-bot bypass (Cloudflare) and JavaScript rendering to full-site spiders with pause and resume. Needs Python 3.10+. Works best on an engine with a shell."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Karim Shoair (D4Vinci)",
+        "url": "https://github.com/D4Vinci/Scrapling"
+      },
+      "category": "lap-trinh",
+      "category_label": {
+        "vi": "Lập trình",
+        "en": "Development"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-11-12",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.scrapling-skill",
+      "source": "https://github.com/D4Vinci/Scrapling",
+      "license": "BSD-3-Clause",
+      "upstream": {
+        "repo": "D4Vinci/Scrapling",
+        "ref": "main",
+        "commit": "bb223f2f5fc8f743772751a5ce283ef7851ca6be",
+        "synced": "2026-11-12"
+      },
+      "provides": {
+        "skills": [
+          "scrapling-official"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-scrapling-skill-1.0.0.zip",
+        "sha256": "61783c20f774029b045559c5a301d1e6e2f857262deeba0df2d5905477897f9f",
+        "size": 100478
       }
     }
   ]
