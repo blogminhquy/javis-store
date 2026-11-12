@@ -35,9 +35,9 @@ check("pack: only one plugin folder", sorted(p.name for p in (PACK / "plugins").
 check("pack: plugin.yaml carries the pack's version",
       re.search(r"^version:\s*(\S+)", plugin_yaml, re.M).group(1) == pack_version)
 compat = re.search(r'app:\s*">=(\d+)\.(\d+)\.(\d+)"', manifest)
-# Javis before 0.548.0 still ships this plugin inside the app; installing the pack there would register fb_monitor twice.
+# Javis before 0.549.0 still ships this plugin inside the app; installing the pack there would register fb_monitor twice.
 check("pack: compat keeps it off app versions that still bundle the plugin",
-      bool(compat) and tuple(int(x) for x in compat.groups()) >= (0, 548, 0))
+      bool(compat) and tuple(int(x) for x in compat.groups()) >= (0, 549, 0))
 check("plugin.yaml: slug, tool and level unchanged",
       "slug: fb-monitor-apify" in plugin_yaml and "- fb_monitor" in plugin_yaml and "min_mode: readonly" in plugin_yaml)
 check("Javis OS no longer bundles the plugin (the checkout under test is new enough)",

@@ -1,6 +1,6 @@
 """Plugin của gói javis.facebook-monitor: theo dõi Trang/Nhóm CÔNG KHAI Facebook tìm bài viral (nhiều share) qua Apify.
 
-Trước Javis 0.548.0 plugin này nằm sẵn trong app (`system/plugins/fb-monitor-apify`). Chủ dự án chốt 12/11/2026:
+Trước Javis 0.549.0 plugin này nằm sẵn trong app (`system/plugins/fb-monitor-apify`). Chủ dự án chốt 12/11/2026:
 công cụ quét qua Apify là phần cài thêm, nên nó dọn sang kho, đi cùng connector `facebook-monitor` của chính gói này.
 
 Thay vì tự cào bằng cookie tài khoản cá nhân (rủi ro khoá + IP VPS bị chặn), gọi dịch vụ quét

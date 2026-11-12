@@ -2,7 +2,7 @@
 #
 # 1.1.0 (chủ dự án, 2026-11-12): plugin `fb-monitor-apify` trước đây nằm sẵn trong app Javis, bật cho mọi người kể cả
 # người không dùng Apify. Công cụ quét qua Apify là phần cài thêm, nên plugin dọn sang đây, đi cùng connector mà nó
-# đọc token. Mã plugin giữ nguyên, chỉ đổi chỗ ở. Bản Javis cũ hơn 0.548.0 vẫn còn plugin đó nằm sẵn trong app, nên
+# đọc token. Mã plugin giữ nguyên, chỉ đổi chỗ ở. Bản Javis cũ hơn 0.549.0 vẫn còn plugin đó nằm sẵn trong app, nên
 # cài 1.1.0 vào đó sẽ trùng tên tool: chặn bằng compat thay vì để trùng (cùng cách với gói javis.zalo).
 format: javis-pack
 spec: 1
@@ -10,12 +10,12 @@ id: javis.facebook-monitor
 version: 1.1.0
 name: {vi: "Theo dõi Facebook (Apify)", en: "Facebook monitor (Apify)"}
 description:
-  vi: "Theo dõi Trang và Nhóm CÔNG KHAI trên Facebook để tìm bài viral (nhiều share), qua dịch vụ quét Apify. KHÔNG dùng tài khoản cá nhân của bạn nên không lo khoá; chạy tốt trên VPS 24/7. Trả về bài kèm số share/react/bình luận để lọc bài hot. Cần token Apify (đăng ký free, trả theo lượt quét ~2.6 USD/1000 bài). Nhóm KÍN là bước sau (cần thêm cookie). Từ bản 1.1.0 gói mang luôn công cụ quét (tool fb_monitor), cần Javis 0.548.0 trở lên."
-  en: "Watches PUBLIC Facebook Pages and Groups for viral posts (many shares) through the Apify scraping service. It does NOT use your personal account, so there is no lock-out risk, and it runs fine on a VPS around the clock. Returns posts with share, reaction and comment counts to filter the hot ones. Needs an Apify token (free sign-up, pay per scan, about 2.6 USD per 1,000 posts). Private groups come later (they need a cookie). Since 1.1.0 the pack carries the scanning tool itself (fb_monitor) and needs Javis 0.548.0 or newer."
+  vi: "Theo dõi Trang và Nhóm CÔNG KHAI trên Facebook để tìm bài viral (nhiều share), qua dịch vụ quét Apify. KHÔNG dùng tài khoản cá nhân của bạn nên không lo khoá; chạy tốt trên VPS 24/7. Trả về bài kèm số share/react/bình luận để lọc bài hot. Cần token Apify (đăng ký free, trả theo lượt quét ~2.6 USD/1000 bài). Nhóm KÍN là bước sau (cần thêm cookie). Từ bản 1.1.0 gói mang luôn công cụ quét (tool fb_monitor), cần Javis 0.549.0 trở lên."
+  en: "Watches PUBLIC Facebook Pages and Groups for viral posts (many shares) through the Apify scraping service. It does NOT use your personal account, so there is no lock-out risk, and it runs fine on a VPS around the clock. Returns posts with share, reaction and comment counts to filter the hot ones. Needs an Apify token (free sign-up, pay per scan, about 2.6 USD per 1,000 posts). Private groups come later (they need a cookie). Since 1.1.0 the pack carries the scanning tool itself (fb_monitor) and needs Javis 0.549.0 or newer."
 author: {name: Javis}
 license: MIT
 homepage: "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.facebook-monitor"
-compat: {app: ">=0.548.0"}
+compat: {app: ">=0.549.0"}
 provides:
   connectors: [connectors/facebook-monitor.json]
   plugins: [plugins/fb-monitor-apify]
