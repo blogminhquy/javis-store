@@ -574,33 +574,39 @@
       "id": "javis.facebook-monitor",
       "kind": "connector",
       "name": {
-        "vi": "Theo dõi Facebook (Apify)"
+        "vi": "Theo dõi Facebook (Apify)",
+        "en": "Facebook monitor (Apify)"
       },
       "description": {
-        "vi": "Theo dõi Trang và Nhóm CÔNG KHAI trên Facebook để tìm bài viral (nhiều share), qua dịch vụ quét Apify. KHÔNG dùng tài khoản cá nhân của bạn nên không lo khoá; chạy tốt trên VPS 24/7. Trả về bài kèm số share/react/bình luận để lọc bài hot. Cần token Apify (đăng ký free, trả theo lượt quét ~2.6 USD/1000 bài). Nhóm KÍN là bước sau (cần thêm cookie)."
+        "vi": "Theo dõi Trang và Nhóm CÔNG KHAI trên Facebook để tìm bài viral (nhiều share), qua dịch vụ quét Apify. KHÔNG dùng tài khoản cá nhân của bạn nên không lo khoá; chạy tốt trên VPS 24/7. Trả về bài kèm số share/react/bình luận để lọc bài hot. Cần token Apify (đăng ký free, trả theo lượt quét ~2.6 USD/1000 bài). Nhóm KÍN là bước sau (cần thêm cookie). Từ bản 1.1.0 gói mang luôn công cụ quét (tool fb_monitor), cần Javis 0.548.0 trở lên.",
+        "en": "Watches PUBLIC Facebook Pages and Groups for viral posts (many shares) through the Apify scraping service. It does NOT use your personal account, so there is no lock-out risk, and it runs fine on a VPS around the clock. Returns posts with share, reaction and comment counts to filter the hot ones. Needs an Apify token (free sign-up, pay per scan, about 2.6 USD per 1,000 posts). Private groups come later (they need a cookie). Since 1.1.0 the pack carries the scanning tool itself (fb_monitor) and needs Javis 0.548.0 or newer."
       },
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": {
         "name": "Javis"
       },
       "category": "mang-xa-hoi",
       "category_label": {
-        "vi": "Mạng xã hội"
+        "vi": "Mạng xã hội",
+        "en": "Social media"
       },
-      "tier": "data",
+      "tier": "code",
       "verified": true,
-      "updated": "2026-09-05",
+      "updated": "2026-11-12",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.facebook-monitor",
       "icon": "packs/javis.facebook-monitor/assets/meta-ads.webp",
       "provides": {
         "connectors": [
           "facebook-monitor"
+        ],
+        "plugins": [
+          "fb-monitor-apify"
         ]
       },
       "download": {
-        "url": "dist/javis-facebook-monitor-1.0.0.zip",
-        "sha256": "9f1bc6d88aacdf8741330c620680bba66fcdc881fafa32393c8e7cf7b4669647",
-        "size": 16844
+        "url": "dist/javis-facebook-monitor-1.1.0.zip",
+        "sha256": "c4bb181e9cf98d9c2f269675d893ab79466bee01ca506f2f8a82e749f8c2839f",
+        "size": 21528
       }
     },
     {
