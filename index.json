@@ -3330,7 +3330,7 @@
         "vi": "44 skill chính chủ Anthropic cho chủ doanh nghiệp nhỏ: tình hình kinh doanh, dòng tiền, đòi công nợ, trả hoá đơn, quảng cáo, nội dung mạng xã hội, tìm khách, tuyển người, tồn kho, chốt sổ tháng và thuế.",
         "en": "44 official Anthropic skills for small business owners: business pulse, cash flow, invoice chasing, paying bills, ads, social content, finding leads, hiring, inventory, month-end close and taxes."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Anthropic",
         "url": "https://github.com/anthropics/knowledge-work-plugins"
@@ -3342,15 +3342,15 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-10-28",
+      "updated": "2026-11-13",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.anthropic-small-business",
       "source": "https://github.com/anthropics/knowledge-work-plugins",
       "license": "Apache-2.0",
       "upstream": {
         "repo": "anthropics/knowledge-work-plugins",
         "ref": "main",
-        "commit": "2574e29377c7173d0cecffef29a6ecbd7f8ccb5d",
-        "synced": "2026-10-28"
+        "commit": "02717ef04446b6ef5aa4b8af15bb536d79f42ed0",
+        "synced": "2026-11-13"
       },
       "provides": {
         "skills": [
@@ -3401,9 +3401,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-anthropic-small-business-1.0.0.zip",
-        "sha256": "f391342097941e7c508c28e1da69704ab97c6b4669afbc9299db64771595bc1f",
-        "size": 574466
+        "url": "dist/javis-anthropic-small-business-1.0.1.zip",
+        "sha256": "f0df0145bd86489aa34b3fbe4957c94159fd3471617f89e6665fe0eeed314a5e",
+        "size": 574458
       }
     },
     {
