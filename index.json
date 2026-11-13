@@ -1,7 +1,7 @@
 {
   "format": "javis-pack-index",
   "format_version": 1,
-  "updated": "2026-11-12",
+  "updated": "2026-11-13",
   "store": {
     "name": "Kho cài đặt Javis",
     "url": "https://github.com/blogminhquy/javis-store"
@@ -150,7 +150,7 @@
       "description": {
         "vi": "Hộp thư fanpage trên Pancake (pages.fm): đọc hội thoại, tin nhắn, bình luận, khách hàng, thẻ và thống kê nhân viên; gắn thẻ, phân công, ghi chú khách, trả lời khách bằng chữ hoặc ảnh. Mỗi page một kết nối, dán Page ID và Page Access Token là xong."
       },
-      "version": "1.1.0",
+      "version": "1.1.1",
       "author": {
         "name": "Javis"
       },
@@ -160,7 +160,7 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-10-19",
+      "updated": "2026-11-13",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.pancake-chat",
       "icon": "packs/javis.pancake-chat/assets/pancake-chat.png",
       "provides": {
@@ -169,9 +169,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-pancake-chat-1.1.0.zip",
-        "sha256": "e8203a04a630c012a1b90b9afbc1deeab0781fd6f922ef532056b867ac50ca43",
-        "size": 8616
+        "url": "dist/javis-pancake-chat-1.1.1.zip",
+        "sha256": "38b03d805a01a6a4d39be0468877a3cd0a6fc2a684802b711c2ee85970ee036f",
+        "size": 27335
       }
     },
     {
@@ -183,7 +183,7 @@
       "description": {
         "vi": "Hàng hoá, nhóm hàng, khách hàng, hoá đơn, trả hàng và chi nhánh từ KiotViet (bán lẻ và F&B). Dán Client ID, Client Secret và tên gian hàng là xong. Mỗi gian hàng một kết nối."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Javis"
       },
@@ -193,7 +193,7 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-10-14",
+      "updated": "2026-11-13",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.kiotviet",
       "icon": "packs/javis.kiotviet/assets/kiotviet.png",
       "provides": {
@@ -202,9 +202,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-kiotviet-1.0.0.zip",
-        "sha256": "310e98d83944c472e3c2eb078fc4f18254d7fa23528ff04e6180981a60860cf4",
-        "size": 12528
+        "url": "dist/javis-kiotviet-1.0.1.zip",
+        "sha256": "f21793f24b89fb1e8cb0f175aa8fd318779d65834064c0ffd3e3ae6e736668df",
+        "size": 19904
       }
     },
     {
@@ -216,7 +216,7 @@
       "description": {
         "vi": "Đơn hàng, sản phẩm, khách hàng, tồn kho, khuyến mãi và báo cáo doanh thu từ Sapo (Omni, Web). Tạo một ứng dụng riêng trong Sapo, dán API Key và API Secret là xong."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Javis"
       },
@@ -226,7 +226,7 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-10-14",
+      "updated": "2026-11-13",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.sapo",
       "icon": "packs/javis.sapo/assets/sapo.png",
       "provides": {
@@ -235,9 +235,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-sapo-1.0.0.zip",
-        "sha256": "e06b1d607fe36513612e87c50b2da02b1fe5476f7be395c8625c6b746d5882ea",
-        "size": 13627
+        "url": "dist/javis-sapo-1.0.1.zip",
+        "sha256": "2a00d4b23af5d00970e348fb1f487ea4bbe4756418ab1e55ae550f56c15dfa27",
+        "size": 33507
       }
     },
     {
@@ -249,7 +249,7 @@
       "description": {
         "vi": "Đơn hàng, sản phẩm, khách hàng, tồn kho và báo cáo doanh thu, phân nhóm khách, gợi ý nhập hàng từ Haravan. Tạo một ứng dụng riêng trong Haravan, dán Access Token là xong."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Javis"
       },
@@ -259,7 +259,7 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-10-14",
+      "updated": "2026-11-13",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.haravan",
       "icon": "packs/javis.haravan/assets/haravan.png",
       "provides": {
@@ -268,9 +268,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-haravan-1.0.0.zip",
-        "sha256": "f1b9fe0a33790a40a8e46c69eb8d537d212d4829a3c1084bce55fb7bdfb3c189",
-        "size": 8235
+        "url": "dist/javis-haravan-1.0.1.zip",
+        "sha256": "90624303463e0f7852053686cd7b81c0f6991a5112e52a4c355c9c916ec315d8",
+        "size": 24298
       }
     },
     {
@@ -282,7 +282,7 @@
       "description": {
         "vi": "Đơn hàng, doanh thu, sản phẩm bán chạy, tồn kho và khách hàng từ Nhanh.vn. Chỉ đọc, không sửa được gì trên cửa hàng. Cần Access Token, App ID và Business ID."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Javis"
       },
@@ -292,7 +292,7 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-10-14",
+      "updated": "2026-11-13",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.nhanh",
       "icon": "packs/javis.nhanh/assets/nhanh.png",
       "provides": {
@@ -301,9 +301,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-nhanh-1.0.0.zip",
-        "sha256": "ab6e073afbe7ebd6a2389d2a5f647f5d5fd18d8c322923fdea5355aaf2ea44f7",
-        "size": 9419
+        "url": "dist/javis-nhanh-1.0.1.zip",
+        "sha256": "d6a20dea3c0efcbe7e708d37481d43844fec85e0cbee554847e1d02b5bc77ab5",
+        "size": 16389
       }
     },
     {
