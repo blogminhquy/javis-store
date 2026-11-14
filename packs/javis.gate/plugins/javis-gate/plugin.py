@@ -11,6 +11,9 @@ gói của mình thì cài gói này, và việc cài là lựa chọn có chủ
 đọc hội thoại của Javis và nhắn THẲNG vào khung chat như chủ gõ, thay vì giao việc qua Kanban. Lượt
 đó chạy trên Javis như mọi lượt chat: chủ xem chữ chạy, bấm Dừng được, Javis học được.
 
+2.2.0: lõi Javis cho cửa này chọn model (ghim cho hội thoại) và effort (chỉ cho một tin) trong câu lệnh, và báo chủ
+qua chuông khi việc AI bên ngoài giao xong mà nó đã thôi chờ. Gói chỉ đổi trang Cho phép cho đúng sự thật đó.
+
 Cách chạy
 ---------
 Người dùng chat trên chatgpt.com hay claude.ai như bình thường, còn AI đó tự gọi sang Javis qua
@@ -555,7 +558,8 @@ def _trang_dong_y(ctx, yc: dict):
 <p><b>{html.escape(yc["ten"])}</b> trên <code>{host}</code> muốn gọi công cụ của Javis.</p>
 <ul>
   <li>Dùng mọi kết nối bạn đã bật trong Javis (bán hàng, quảng cáo, lịch, Zalo...)</li>
-  <li>Đọc hội thoại của Javis, và ở mức Toàn quyền thì nhắn vào khung chat để Javis làm tiếp</li>
+  <li>Đọc hội thoại của Javis, và ở mức Toàn quyền thì nhắn vào khung chat để Javis làm tiếp,
+      chọn cả model (ghim cho hội thoại đó, bạn đổi lại được) và effort cho tin nó gửi</li>
   <li>Đọc và ghi trong brain đang mở, tạo việc và nhắc lịch</li>
   <li>Mức quyền: {html.escape(_MO_TA_MUC.get(muc, muc))}</li>
 </ul>

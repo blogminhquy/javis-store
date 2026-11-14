@@ -8,6 +8,11 @@ Cổng cho **ChatGPT, Claude và AI khác** làm việc cùng Javis. Bạn chat 
 
 AI đọc, tư vấn cho bạn. Bạn đồng ý ngay trên ChatGPT (hay Claude), nó nhắn vào đúng hội thoại "Viết Web" để Javis làm tiếp. Trên Javis bạn thấy tin đó với nhãn **từ ChatGPT**, thấy Javis trả lời từng chữ, bấm **Dừng** được, và Javis nhớ lại cho lần sau.
 
+Điểm mới từ bản 2.2.0 (cần Javis OS bản mới, xem mục "Đổi model và effort"):
+
+- **Đổi model và effort ngay trong câu lệnh.** "Bảo Javis làm việc này bằng Opus, effort cao."
+- **Javis xong việc mà ChatGPT đã thôi chờ thì chuông Javis báo về điện thoại.** Bạn nhắn ChatGPT một câu "xem kết quả Javis" là nó đọc được, kể cả ở một cuộc chat mới.
+
 > Tiền thân là gói **Javis trong ChatGPT** (`javis.javis-trong-chatgpt`). Máy đang cài gói cũ thấy Javis Gate như một bản cập nhật: token, mức quyền và địa chỉ đã dán vào ChatGPT được giữ nguyên, không phải kết nối lại.
 
 ---
@@ -24,8 +29,10 @@ AI bên ngoài dùng đúng bộ công cụ Javis đã có (kết nối MCP, bra
 |---|---|---|
 | `javis_chat_find` | Tìm hội thoại theo tên hoặc nội dung | Mọi mức |
 | `javis_chat_read` | Đọc các tin cuối của một hội thoại | Mọi mức |
-| `javis_chat_send` | Nhắn vào hội thoại để Javis làm, rồi chờ câu trả lời | Chỉ Toàn quyền |
-| `javis_chat_result` | Đọc câu trả lời khi Javis làm lâu | Mọi mức |
+| `javis_chat_send` | Nhắn vào hội thoại để Javis làm, rồi chờ câu trả lời. Kèm được model và effort | Chỉ Toàn quyền |
+| `javis_chat_result` | Chờ tiếp câu trả lời khi Javis làm lâu | Mọi mức |
+| `javis_chat_updates` | Đọc mọi kết quả Javis đã xong mà AI đó chưa đọc, ở mọi hội thoại | Mọi mức |
+| `javis_chat_models` | Xem Javis có những model nào, thang effort, và hội thoại đang chạy model nào | Mọi mức |
 | `javis_chat_note` | Ghi lại cuộc chat bên ChatGPT/Claude vào Javis: bạn hỏi gì, đã chốt gì | Ghi nháp, Toàn quyền |
 
 ## Cần có gì
@@ -93,7 +100,34 @@ Javis không đọc được lịch sử chat trên chatgpt.com hay claude.ai, n
 - Muốn ghi vào đúng một hội thoại có sẵn của Javis (ví dụ "Viết Web"), bảo AI đó: "ghi vào hội thoại Viết Web trên Javis".
 - Cần đủ lịch sử nguyên văn thì xuất dữ liệu từ ChatGPT (Settings, Data controls, Export) hay Claude (Settings, Privacy, Export data), rồi đưa tệp cho Javis đọc.
 
-Javis làm lâu thì AI kia báo kết quả sẽ hiện trên khung chat của Javis, và bạn nhắn nó **"xem tiếp"** khi muốn nó đọc lại.
+### Đổi model và effort ngay trong câu lệnh
+
+Cần bản Javis OS có công cụ `javis_chat_models`. Cách thử nhanh: hỏi ChatGPT "Javis có những model nào?". Nó liệt kê được là máy bạn đã có.
+
+Nói với ChatGPT (hay Claude) như nói với người:
+
+- "Bảo Javis viết lại trang chủ, dùng Opus, effort cao."
+- "Việc này nhẹ, cho Javis chạy Sonnet effort thấp thôi."
+- "Hội thoại Viết Web quay về model mặc định nhé."
+
+Hai thứ này chạy khác nhau, có chủ ý:
+
+| | Đổi tới đâu | Vì sao |
+|---|---|---|
+| **Model** | Ghim cho **đúng hội thoại đó**, y như bạn chọn trên thanh model của khung chat. Chip trên Javis hiện đúng model mới, các tin sau của hội thoại (kể cả tin bạn tự gõ) chạy model đó cho tới khi đổi lại. | Bạn nhìn thấy và đổi lại được bất cứ lúc nào. Hội thoại khác không bị kéo theo. |
+| **Effort** | **Chỉ cho đúng tin đó.** Tin sau quay về mức của hội thoại. Không đổi gì trong cài đặt. | Effort trên khung chat là của cả thẻ model: ChatGPT mà đổi nó là đổi luôn mọi hội thoại khác và việc chạy nền. |
+
+- Thang effort của Javis: `off`, `low`, `medium`, `high`, `xhigh`, `ultra` (mức cao nhất engine có). ChatGPT nói "max" hay "cao" thì Javis tự hiểu.
+- Tên model trùng ở hai thẻ (ví dụ Opus ở cả gói Claude Code lẫn Anthropic API) thì Javis **không đoán**, trả lại cho ChatGPT hai lựa chọn kèm tên thẻ để nó hỏi bạn. Đoán nhầm là chuyển sang thẻ tính tiền theo API.
+- Đang lúc Javis trả lời trong hội thoại đó thì không đổi được model hay effort (lượt đang chạy đã chọn xong). ChatGPT chờ lượt xong rồi gửi lại.
+
+### Javis làm lâu: ChatGPT chờ lâu hơn, và chuông báo khi xong
+
+ChatGPT và Claude **không cho máy ngoài đánh thức một cuộc chat** (tới 11/2026 chưa có đường chính thức nào cho chat thường), nên Javis không thể tự "gõ cửa" ChatGPT. Gói làm ba việc thay vào đó:
+
+1. **ChatGPT chờ lâu hơn trong cùng một lượt trả lời**, tới khoảng 10 phút, thay vì bỏ cuộc sau nửa phút. Việc vừa phải thì bạn cứ ngồi đó, nó tự đọc kết quả và tư vấn tiếp.
+2. **Quá lâu, ChatGPT thôi chờ thì Javis báo bạn khi xong.** Lượt chat xong mà sau 1 phút ChatGPT vẫn chưa đọc, Javis để câu trả lời vào **chuông** (đẩy về điện thoại nếu bạn đã bật thông báo), kèm câu cần nhắn sang ChatGPT. Việc nào ChatGPT đã tự đọc thì không báo, để khỏi ồn.
+3. **Một câu là đủ:** mở ChatGPT, nhắn **"xem kết quả Javis"** (hoặc "Javis xong chưa", "xem tiếp"). Nó lấy mọi kết quả chưa đọc, ở mọi hội thoại, **kể cả khi bạn mở một cuộc chat mới** bên ChatGPT, rồi tư vấn bước tiếp theo.
 
 ---
 
@@ -119,7 +153,7 @@ Javis tự chặn ở phía mình theo mức đã chọn. AI bên ngoài không 
 
 ## Điều cần biết trước
 
-- **AI bên ngoài không tự thức dậy.** Nó chỉ đọc được câu trả lời của Javis trong lúc nó đang trả lời bạn. Việc dài thì kết quả luôn nằm trên khung chat của Javis, và bạn nhắn AI kia "xem tiếp" khi cần.
+- **AI bên ngoài không tự thức dậy.** Nó chỉ đọc được câu trả lời của Javis trong lúc nó đang trả lời bạn. Việc dài thì kết quả luôn nằm trên khung chat của Javis, chuông Javis báo khi xong, và bạn nhắn AI kia "xem kết quả Javis".
 - **Tin nhắn vào khung chat tốn hạn mức bộ não của Javis.** Lượt đó chạy bằng model bạn chọn cho Javis (Claude Code, Codex...), như khi bạn tự gõ. Phần tư vấn bên ChatGPT hay Claude thì tốn hạn mức gói bên đó.
 - **Chỉ nhắn được vào hội thoại của bạn** (khung Trò chuyện, chat với Cộng sự). Hội thoại của khách và nhóm chat thì AI bên ngoài không đọc, không nhắn được.
 - **Công cụ ngoài khung chat làm việc trên brain đang mở gần nhất.** Kết quả mỗi công cụ có ghi rõ đang ở brain nào. Tin nhắn vào khung chat thì chạy trên brain của chính hội thoại đó.
@@ -132,6 +166,9 @@ Javis tự chặn ở phía mình theo mức đã chọn. AI bên ngoài không 
 | Không có nút Add custom connector (Claude) | Gói miễn phí, hoặc tổ chức chưa cho phép | Dùng gói trả phí, hỏi chủ sở hữu tổ chức |
 | Báo không kết nối được server | Địa chỉ không phải https, gói đang tắt, hoặc Javis chưa có mật khẩu | Xem lại "Cần có gì" và bước 1 |
 | AI báo cần mức Toàn quyền khi nhắn vào khung chat | Gói đang ở mức thấp hơn | Nâng mức quyền trên trang của gói |
+| AI không đổi được model, hoặc không có `javis_chat_models` | Javis OS chưa lên bản có tính năng này | Cập nhật Javis OS |
+| AI báo "several connected models match" | Tên model có ở hai thẻ | Nói rõ thẻ nào (gói Claude Code hay API), AI gửi lại |
+| Việc xong mà chuông không kêu | ChatGPT đã tự đọc kết quả, hoặc điện thoại chưa bật thông báo Javis | Bình thường nếu ChatGPT đã đọc. Bật thông báo trong Cài đặt của Javis |
 | Trang Javis báo "Yêu cầu này đã quá hạn" | Để trang Cho phép mở quá 10 phút | Kết nối lại từ ChatGPT hoặc Claude |
 | Đang dùng tốt bỗng bắt kết nối lại | 30 ngày không dùng, hoặc đã bấm Ngắt mọi kết nối | Kết nối lại |
 

@@ -12,6 +12,9 @@ Locks:
 3. javis_chat_send posts into the chat, Javis answers, and the stored message carries the sender "Claude".
 4. Upgrade from javis.javis-trong-chatgpt 1.x: the token issued before the update still works, on the OLD address.
 5. Notes (Javis 0.441.0+): javis_chat_note saves the owner's decision into a "Từ Claude: <title>" chat.
+6. Model and effort (gate 2.2.0, on a Javis OS that has javis_chat_models): through this pack's own OAuth door, the
+   outside AI pins a chat's model and sets one message's effort, the consent page says so, and javis_chat_updates
+   hands over a result it did not wait for.
 """
 import _paths  # noqa: F401
 from _paths import PACK, STORE
@@ -243,6 +246,47 @@ if "javis_chat_note" in chat_bridge.TOOLS:
     check("note: the owner's decision is in Javis", any("Plan 2" in (m.get("content") or "") for m in msgs))
 else:
     print("skip notes: this Javis OS is older than 0.441.0")
+
+# ============================================================
+# 6. Model and effort, and unread results (javis.gate 2.2.0 on a Javis OS that has them)
+# ============================================================
+if "javis_chat_models" in chat_bridge.TOOLS:
+    SEEN = []
+    _post = _FakeClient.post
+
+    async def _post_seen(self, url, headers=None, json=None):
+        SEEN.append({"model": (json or {}).get("model"), "reasoning": (json or {}).get("reasoning")})
+        return await _post(self, url, headers=headers, json=json)
+    _FakeClient.post = _post_seen
+    cfg.update_settings({"model": {"openrouter_key": "test-key", "catalog": {"openrouter": ["test-model", "model-b"]}}})
+
+    def call(name, args):
+        r = rpc(stranger, "/ext/javis-gate/mcp", "tools/call", {"name": name, "arguments": args}, token=tok)
+        return r.json()["result"]["content"][0]["text"]
+
+    txt = call("javis_chat_models", {"id": sid})
+    check("javis_chat_models through the gate lists the connected models", "model-b" in txt, txt[:200])
+    txt = call("javis_chat_send", {"id": sid, "message": "Viết lại trang chủ.", "model": "openrouter/model-b",
+                                   "effort": "high", "wait_seconds": 15})
+    out = json.loads(txt) if not txt.startswith("ERROR") else {}
+    check("send with model + effort through the gate: answered", (out.get("result") or {}).get("status") == "done",
+          txt[:300])
+    row = ss.get_session(sid)
+    check("the chat is pinned to the model the outside AI picked",
+          row.get("pinned_provider") == "openrouter" and row.get("pinned_model") == "model-b", row)
+    check("that turn ran on it, at that effort", SEEN and SEEN[-1] == {"model": "model-b", "reasoning": {"effort": "high"}},
+          SEEN[-1:])
+    # A turn left running after the request ends does not go on under TestClient (its event loop closes with the
+    # request), so the unread-result path itself is locked in Javis OS (tests/python/test_javis_gate_model_notice.py).
+    # Here: the tool answers through this pack's door, and a result the AI already waited for is not handed over again.
+    txt = call("javis_chat_updates", {})
+    check("javis_chat_updates answers through the gate, nothing unread after a send it waited for",
+          not txt.startswith("ERROR") and json.loads(txt).get("items") == [], txt[:300])
+    _FakeClient.post = _post
+    r = owner.get("/ext/javis-gate/oauth/authorize", params={**q, "state": "st2"})
+    check("consent page says the AI may pick the model and effort", "chọn cả model" in r.text, r.text[:300])
+else:
+    print("skip model/effort: this Javis OS has no javis_chat_models yet")
 
 print()
 print("ALL PASS" if not _fails else f"{len(_fails)} FAIL: {_fails}")
