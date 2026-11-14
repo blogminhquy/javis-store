@@ -6,6 +6,7 @@
 # gói cũ: cài lên là token, mức quyền và địa chỉ đã dán vào ChatGPT được giữ nguyên.
 # 2.2.0: AI bên ngoài chọn model và effort trong câu lệnh, và chuông báo chủ khi việc nó giao xong mà nó đã thôi
 # chờ. Các công cụ đó do lõi Javis cấp (chat_bridge), nên gói không đổi mức `compat`: Javis cũ vẫn chạy như 2.1.0.
+# Cũng 2.2.0: công cụ AI khác nối được (địa chỉ quay về chủ tự cho phép, khoá riêng cho công cụ chỉ dán header).
 format: javis-pack
 spec: 1
 
@@ -18,8 +19,8 @@ name:
   vi: Javis Gate
   en: Javis Gate
 description:
-  vi: Cổng cho ChatGPT, Claude và AI khác làm việc cùng Javis. AI đó đọc hội thoại của Javis, tư vấn cho bạn, và khi bạn đồng ý thì nhắn thẳng vào khung chat để Javis làm tiếp, chọn được cả model và effort. Bạn xem được tiến độ, chuông báo khi việc dài xong, Javis nhớ lại cho lần sau. Cần Javis 0.440.0 trở lên, mật khẩu quản trị và tên miền https.
-  en: A gate for ChatGPT, Claude and other AIs to work with Javis. The AI reads your Javis chats, advises you, and once you agree posts straight into the chat so Javis carries on, with the model and effort it picks. You watch the progress, the bell rings when long work is done, Javis remembers it next time. Needs Javis 0.440.0 or newer, an admin password and an https domain.
+  vi: Cổng cho ChatGPT, Claude, Gemini, Cursor, n8n và công cụ AI khác làm việc cùng Javis. AI đó đọc hội thoại của Javis, tư vấn cho bạn, và khi bạn đồng ý thì nhắn thẳng vào khung chat để Javis làm tiếp, chọn được cả model và effort. Bạn xem được tiến độ, chuông báo khi việc dài xong, Javis nhớ lại cho lần sau. Cần Javis 0.440.0 trở lên, mật khẩu quản trị và tên miền https.
+  en: A gate for ChatGPT, Claude, Gemini, Cursor, n8n and other AI tools to work with Javis. The AI reads your Javis chats, advises you, and once you agree posts straight into the chat so Javis carries on, with the model and effort it picks. You watch the progress, the bell rings when long work is done, Javis remembers it next time. Needs Javis 0.440.0 or newer, an admin password and an https domain.
 
 author:
   name: Javis

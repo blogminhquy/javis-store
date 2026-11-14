@@ -15,6 +15,9 @@ Locks:
 6. Model and effort (gate 2.2.0, on a Javis OS that has javis_chat_models): through this pack's own OAuth door, the
    outside AI pins a chat's model and sets one message's effort, the consent page says so, and javis_chat_updates
    hands over a result it did not wait for.
+7. Other AI tools (gate 2.2.0, any Javis OS): an unknown redirect address is refused but listed for the owner, who
+   alone can allow it (https or an app scheme, never http); a personal key, made by the owner only, connects a tool
+   that only sends a header, labels its messages with the key's name, and dies on revoke or "disconnect all".
 """
 import _paths  # noqa: F401
 from _paths import PACK, STORE
@@ -287,6 +290,86 @@ if "javis_chat_models" in chat_bridge.TOOLS:
     check("consent page says the AI may pick the model and effort", "chọn cả model" in r.text, r.text[:300])
 else:
     print("skip model/effort: this Javis OS has no javis_chat_models yet")
+
+# ============================================================
+# 7. Other AI tools: owner-allowed addresses and personal keys
+# ============================================================
+check("names of other AIs", G.ten_ai("Gemini CLI") == "Gemini" and G.ten_ai("Mistral Le Chat") == "Le Chat"
+      and G.ten_ai("Codex (OpenAI)") == "Codex" and G.ten_ai("GitHub Copilot") == "Copilot"
+      and G.ten_ai("Máy  của tôi") == "Máy của tôi")
+for uri, want in (("https://chat.mistral.ai/oauth/cb", "https://chat.mistral.ai"),
+                  ("cursor://anysphere.cursor-mcp/oauth/callback", "cursor://anysphere.cursor-mcp"),
+                  ("http://chat.mistral.ai/cb", ""), ("javascript://x.com/%0aalert(1)", ""),
+                  ("http://localhost:3000/cb", ""), ("data://x/y", "")):
+    check(f"origin of {uri} -> {want or 'refused'}", G.goc_uri(uri) == want, G.goc_uri(uri))
+OWN = {"Origin": "http://testserver"}
+LC = "https://chat.mistral.ai/connectors/oauth/callback"
+r = stranger.post("/ext/javis-gate/oauth/register", json={"client_name": "Le Chat", "redirect_uris": [LC]}, headers=HDR)
+check("unknown web tool: refused at registration", r.status_code == 400 and "Javis Gate page" in r.text, r.text[:200])
+page = owner.get("/ext/javis-gate/").text
+check("the owner's page lists it as asking to connect", "https://chat.mistral.ai" in page and "Le Chat" in page)
+r = stranger.post("/ext/javis-gate/nguon", json={"goc": "https://chat.mistral.ai", "cho": True}, headers=OWN)
+check("a stranger cannot allow an address", r.status_code in (401, 403), r.status_code)
+r = owner.post("/ext/javis-gate/nguon", json={"goc": "http://chat.mistral.ai", "cho": True}, headers=OWN)
+check("the owner cannot allow plain http", r.status_code == 400, r.text[:200])
+r = owner.post("/ext/javis-gate/nguon", json={"goc": "https://chat.mistral.ai", "cho": True}, headers=OWN)
+check("the owner allows it", r.status_code == 200 and r.json().get("ok"), r.text[:200])
+check("it leaves the asking list", "data-cho=\"1\"" not in owner.get("/ext/javis-gate/").text)
+r = stranger.post("/ext/javis-gate/oauth/register", json={"client_name": "Le Chat", "redirect_uris": [LC]}, headers=HDR)
+check("then the tool registers", r.status_code == 201, r.text[:200])
+lc_id = r.json().get("client_id", "")
+ver2 = secrets.token_urlsafe(48)
+ch2 = base64.urlsafe_b64encode(hashlib.sha256(ver2.encode()).digest()).decode().rstrip("=")
+q2 = {"client_id": lc_id, "redirect_uri": LC, "response_type": "code", "state": "lc",
+      "code_challenge": ch2, "code_challenge_method": "S256"}
+r = owner.get("/ext/javis-gate/oauth/authorize", params=q2)
+check("consent page names Le Chat and says the owner added this address",
+      "Cho phép Le Chat dùng Javis?" in r.text and "tự cho phép thêm" in r.text, r.text[:300])
+yid = r.text.split('name="yeu_cau" value="', 1)[1].split('"', 1)[0]
+r = owner.post("/ext/javis-gate/oauth/authorize", data={"yeu_cau": yid, "hanh_dong": "cho_phep"}, headers=OWN,
+               follow_redirects=False)
+code2 = r.headers.get("location", "").split("code=", 1)[-1].split("&", 1)[0]
+r = stranger.post("/ext/javis-gate/oauth/token", data={"grant_type": "authorization_code", "code": code2,
+                                                       "code_verifier": ver2, "client_id": lc_id, "redirect_uri": LC},
+                  headers=HDR)
+check("Le Chat gets its token", r.status_code == 200 and r.json().get("access_token"), r.text[:200])
+owner.post("/ext/javis-gate/nguon", json={"goc": "https://chat.mistral.ai", "cho": False}, headers=OWN)
+r = owner.get("/ext/javis-gate/oauth/authorize", params=q2)
+check("after the owner removes the address, a new consent is refused", "không còn được cho phép" in r.text, r.text[:300])
+CUR = "cursor://anysphere.cursor-mcp/oauth/callback"
+r = stranger.post("/ext/javis-gate/oauth/register", json={"client_name": "Cursor", "redirect_uris": [CUR]}, headers=HDR)
+check("an app scheme (cursor://) waits for the owner too", r.status_code == 400
+      and "cursor://anysphere.cursor-mcp" in owner.get("/ext/javis-gate/").text)
+owner.post("/ext/javis-gate/nguon", json={"goc": "cursor://anysphere.cursor-mcp", "cho": True}, headers=OWN)
+r = stranger.post("/ext/javis-gate/oauth/register", json={"client_name": "Cursor", "redirect_uris": [CUR]}, headers=HDR)
+check("and registers once allowed", r.status_code == 201, r.text[:200])
+
+r = stranger.post("/ext/javis-gate/khoa", json={"ten": "n8n"}, headers=OWN)
+check("a stranger cannot make a key", r.status_code in (401, 403), r.status_code)
+check("a key needs a name", owner.post("/ext/javis-gate/khoa", json={"ten": "  "}, headers=OWN).status_code == 400)
+r = owner.post("/ext/javis-gate/khoa", json={"ten": "n8n"}, headers=OWN)
+key = r.json().get("khoa", "")
+check("the owner makes a key for n8n", r.status_code == 200 and key.startswith("jg_"), r.text[:200])
+page = owner.get("/ext/javis-gate/").text
+check("the page lists the key by name, never the key itself", "n8n" in page and key not in page)
+kho = (STATE_DIR / "plugin-data" / "javis-gate" / "kho.json").read_text(encoding="utf-8")
+check("the key is stored hashed only", key not in kho and hashlib.sha256(key.encode()).hexdigest() in kho)
+r = rpc(stranger, "/ext/javis-gate/mcp", "tools/list", token=key)
+check("the key opens the gate", r.status_code == 200 and "javis_chat_find" in r.text, r.status_code)
+r = rpc(stranger, "/ext/javis-gate/mcp", "tools/call",
+        {"name": "javis_chat_send", "arguments": {"id": sid, "message": "Gửi từ n8n.", "wait_seconds": 15}}, token=key)
+last_user = [m for m in ss.get_messages(sid) if m["role"] == "user"][-1]["content"]
+check("its messages carry the key's name as the source", last_user.startswith("[GỬI QUA JAVIS GATE: n8n."),
+      last_user[:80])
+check("a made-up jg_ key is refused", rpc(stranger, "/ext/javis-gate/mcp", "tools/list",
+                                          token="jg_" + secrets.token_urlsafe(32)).status_code == 401)
+kid = next(k["id"] for k in G.ds_khoa_rieng(plugin_ctx) if k["ten"] == "n8n")
+check("revoke", owner.post("/ext/javis-gate/khoa-xoa", json={"id": kid}, headers=OWN).json().get("ok"))
+check("a revoked key is refused at once", rpc(stranger, "/ext/javis-gate/mcp", "tools/list", token=key).status_code == 401)
+key2 = owner.post("/ext/javis-gate/khoa", json={"ten": "Script"}, headers=OWN).json().get("khoa", "")
+owner.post("/ext/javis-gate/ngat", json={}, headers=OWN)
+check("'disconnect all' also kills personal keys",
+      rpc(stranger, "/ext/javis-gate/mcp", "tools/list", token=key2).status_code == 401)
 
 print()
 print("ALL PASS" if not _fails else f"{len(_fails)} FAIL: {_fails}")

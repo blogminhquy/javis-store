@@ -12,6 +12,7 @@ AI đọc, tư vấn cho bạn. Bạn đồng ý ngay trên ChatGPT (hay Claude)
 
 - **Đổi model và effort ngay trong câu lệnh.** "Bảo Javis làm việc này bằng Opus, effort cao."
 - **Javis xong việc mà ChatGPT đã thôi chờ thì chuông Javis báo về điện thoại.** Bạn nhắn ChatGPT một câu "xem kết quả Javis" là nó đọc được, kể cả ở một cuộc chat mới.
+- **Không chỉ ChatGPT và Claude.** Gemini CLI, Codex, Cursor, Le Chat, Copilot, n8n hay script của bạn đều nối được (Bước 2c), và có đủ mọi thứ ở trên: đổi model, effort, chuông báo, đọc kết quả.
 
 > Tiền thân là gói **Javis trong ChatGPT** (`javis.javis-trong-chatgpt`). Máy đang cài gói cũ thấy Javis Gate như một bản cập nhật: token, mức quyền và địa chỉ đã dán vào ChatGPT được giữ nguyên, không phải kết nối lại.
 
@@ -21,7 +22,7 @@ AI đọc, tư vấn cho bạn. Bạn đồng ý ngay trên ChatGPT (hay Claude)
 
 | Loại | Slug | Việc |
 |---|---|---|
-| Plugin | `javis-gate` | Cửa OAuth và địa chỉ MCP cho ChatGPT, Claude, cùng một trang cài đặt riêng |
+| Plugin | `javis-gate` | Cửa OAuth, khoá riêng và địa chỉ MCP cho ChatGPT, Claude và công cụ AI khác, cùng một trang cài đặt riêng |
 
 AI bên ngoài dùng đúng bộ công cụ Javis đã có (kết nối MCP, brain, nhắc lịch, Kanban, plugin), cộng năm công cụ chỉ có ở cổng này:
 
@@ -74,6 +75,28 @@ AI bên ngoài dùng đúng bộ công cụ Javis đã có (kết nối MCP, bra
 Gói Team hay Enterprise thì chủ sở hữu tổ chức thêm connector trước ở phần quản trị, thành viên chỉ cần bấm Connect.
 
 > Tên các mục có thể hơi khác theo phiên bản ChatGPT hay Claude. Tìm chữ "Connectors" trong phần Settings.
+
+## Bước 2c: Nối công cụ AI khác
+
+Mọi công cụ có chỗ thêm "MCP server" bằng địa chỉ đều nối được. Tuỳ công cụ đăng nhập kiểu nào:
+
+**Công cụ chạy trên chính máy bạn và đăng nhập OAuth** (Claude Code, Claude Desktop, Codex CLI, Gemini CLI...): dán địa chỉ ở bước 1, làm theo trang Cho phép như ChatGPT. Javis tự nhận vì mã đăng nhập chỉ quay về chính máy bạn.
+
+**Công cụ web khác đăng nhập OAuth** (Le Chat, Copilot...): lần đầu Javis từ chối, để kẻ gian không tự nối được. Rồi:
+
+1. Mở trang của gói (trang Plugin, thẻ Javis Gate, **Mở trang**), mục **Công cụ đang xin kết nối**.
+2. Thấy địa chỉ của công cụ bạn vừa nối (ví dụ `https://chat.mistral.ai`), bấm **Cho phép**. Ứng dụng trên máy có địa chỉ kiểu `cursor://...` cũng làm vậy.
+3. Kết nối lại từ công cụ đó, làm theo trang Cho phép như ChatGPT.
+
+Chỉ cho phép địa chỉ của công cụ **bạn vừa tự nối**. Thấy một địa chỉ lạ thì cứ để đó, nó tự mất sau 7 ngày. Bấm **Bỏ** là địa chỉ đó không xin quyền mới được nữa.
+
+**Công cụ chỉ cho dán khoá vào header** (n8n, script của bạn, trình soạn mã không đăng nhập OAuth được):
+
+1. Trên trang của gói, mục **Khoá riêng**, gõ tên công cụ (ví dụ `n8n`) rồi bấm **Tạo khoá**.
+2. **Chép ngay**: Javis chỉ hiện khoá này một lần. Trang có sẵn đoạn cấu hình mẫu.
+3. Trong công cụ: địa chỉ là địa chỉ ở bước 1, header `Authorization: Bearer <khoá>`.
+
+Tên khoá là tên hiện trên khung chat của Javis ("từ n8n"). Ai cầm khoá là dùng được Javis ở mức quyền bạn chọn, nên đừng dán vào chỗ công khai. Không dùng nữa thì bấm **Thu hồi**, công cụ đó mất kết nối ngay.
 
 ## Bước 3: Cho phép
 
@@ -146,7 +169,8 @@ Javis tự chặn ở phía mình theo mức đã chọn. AI bên ngoài không 
 ## Ngắt kết nối
 
 - **Tạm dừng:** tắt gói **Javis Gate** ở Javis Store. Kết nối cũ giữ nguyên, bật lại là dùng tiếp.
-- **Ngắt hẳn:** bấm **Ngắt mọi kết nối** trên trang của gói. Muốn dùng lại thì nối lại từ bước 2.
+- **Ngắt hẳn:** bấm **Ngắt mọi kết nối** trên trang của gói, kể cả mọi khoá riêng. Muốn dùng lại thì nối lại từ bước 2.
+- **Ngắt một công cụ dùng khoá riêng:** bấm **Thu hồi** cạnh khoá đó.
 - **Gỡ gói:** gỡ ở Javis Store. Mọi đường của gói biến mất cùng lúc.
 
 ---
@@ -164,6 +188,8 @@ Javis tự chặn ở phía mình theo mức đã chọn. AI bên ngoài không 
 |---|---|---|
 | Không có mục Developer mode (ChatGPT) | Gói miễn phí, hoặc đang ở app điện thoại | Dùng gói trả phí, mở chatgpt.com trên máy tính |
 | Không có nút Add custom connector (Claude) | Gói miễn phí, hoặc tổ chức chưa cho phép | Dùng gói trả phí, hỏi chủ sở hữu tổ chức |
+| Công cụ AI khác báo không kết nối được | Địa chỉ quay về của nó chưa được cho phép | Trang của gói, mục Công cụ đang xin kết nối, bấm Cho phép, rồi kết nối lại (Bước 2c) |
+| Công cụ dùng khoá riêng báo 401 | Khoá đã bị thu hồi, hoặc đã bấm Ngắt mọi kết nối | Tạo khoá mới |
 | Báo không kết nối được server | Địa chỉ không phải https, gói đang tắt, hoặc Javis chưa có mật khẩu | Xem lại "Cần có gì" và bước 1 |
 | AI báo cần mức Toàn quyền khi nhắn vào khung chat | Gói đang ở mức thấp hơn | Nâng mức quyền trên trang của gói |
 | AI không đổi được model, hoặc không có `javis_chat_models` | Javis OS chưa lên bản có tính năng này | Cập nhật Javis OS |
@@ -175,6 +201,7 @@ Javis tự chặn ở phía mình theo mức đã chọn. AI bên ngoài không 
 ## An toàn
 
 - Token chỉ lưu dạng băm trong thư mục dữ liệu riêng của gói, không nằm trong brain.
-- Cổng chỉ trả mã về đúng máy của OpenAI (`chatgpt.com`, `*.openai.com`), của Anthropic (`claude.ai`, `claude.com`), hoặc chính máy của bạn (`localhost`, cho Claude Code và Claude Desktop). Kẻ gian tự đăng ký một kết nối trỏ về máy mình sẽ không nhận được mã.
+- Cổng chỉ trả mã về đúng máy của OpenAI (`chatgpt.com`, `*.openai.com`), của Anthropic (`claude.ai`, `claude.com`), chính máy của bạn (`localhost`, cho Claude Code và Claude Desktop), hoặc địa chỉ **chính bạn** bấm Cho phép trên trang của gói (trang đòi đăng nhập Javis). Không bao giờ nhận địa chỉ `http` của máy khác. Kẻ gian tự đăng ký một kết nối trỏ về máy mình sẽ không nhận được mã.
+- Khoá riêng chỉ bạn tạo được, chỉ hiện một lần, và cũng chỉ lưu dạng băm.
 - Token của gói này tách hẳn khỏi token Claude Code và Codex dùng. Ngắt bên này không ảnh hưởng bên kia.
 - Refresh token xoay vòng: một token cũ bị dùng lại là Javis thu hồi cả chuỗi và bắt cho phép lại.
