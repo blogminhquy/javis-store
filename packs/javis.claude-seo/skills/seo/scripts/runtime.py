@@ -46,11 +46,12 @@ ALLOWED_CORE_SCRIPTS = frozenset(
         "indexnow_submit.py", "iptc_ai_label.py", "keyword_planner.py",
         "keywordseverywhere_api.py",
         "lcp_subparts.py", "lighthouse_agentic.py", "matomo_auth.py", "matomo_report.py", "metadata_template.py",
-        "moz_api.py", "nlp_analyze.py", "pagespeed_check.py",
+        "moz_api.py", "nlp_analyze.py", "page_checks.py", "pagespeed_check.py",
         "parasite_risk.py", "parse_html.py", "preload_check.py", "render_page.py",
         "portability_check.py", "consistency_check.py",
         "schema_ecommerce_validate.py", "schema_generate.py", "seo_updates.py",
-        "sitemap_discovery.py", "sync_flow.py", "ucp_check.py", "unlighthouse_run.py",
+        "sitemap_discovery.py", "sync_flow.py", "transport_check.py", "ucp_check.py",
+        "unlighthouse_run.py",
         "url_safety.py", "validate_backlink_report.py", "verify_backlinks.py",
         "youtube_search.py",
     }
@@ -290,6 +291,23 @@ class SetupLock:
         self.path.unlink(missing_ok=True)
 
 
+def _replace_with_retry(source: Path, target: Path, attempts: int = 8) -> None:
+    """Swap a directory into place, tolerating Windows handle-release lag.
+
+    Right after pip or Playwright writes a venv, Windows (often Defender) can
+    hold handles in it briefly, so the rename fails with WinError 5 and then
+    succeeds about a second later.
+    """
+    for attempt in range(attempts):
+        try:
+            source.replace(target)
+            return
+        except PermissionError:
+            if attempt == attempts - 1:
+                raise
+            time.sleep(0.25 * (attempt + 1))
+
+
 def command_setup(args: argparse.Namespace) -> int:
     if not _python_supported():
         print(_python_range_message(), file=sys.stderr)
@@ -351,9 +369,9 @@ def command_setup(args: argparse.Namespace) -> int:
             )
             shutil.rmtree(backup, ignore_errors=True)
             if final_venv.exists():
-                final_venv.replace(backup)
+                _replace_with_retry(final_venv, backup)
                 previous_moved = True
-            staged.replace(final_venv)
+            _replace_with_retry(staged, final_venv)
             swapped = True
             state = dict(status["expected"])
             state["browser_ready"] = browser_ready
@@ -368,7 +386,7 @@ def command_setup(args: argparse.Namespace) -> int:
             if swapped:
                 shutil.rmtree(final_venv, ignore_errors=True)
             if previous_moved and had_previous and backup.exists():
-                backup.replace(final_venv)
+                _replace_with_retry(backup, final_venv)
         print(f"Claude SEO setup failed: {_redact(str(exc))}", file=sys.stderr)
         return 1
     if browser_ready or args.skip_browser:

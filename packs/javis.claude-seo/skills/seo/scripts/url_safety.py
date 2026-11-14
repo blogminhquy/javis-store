@@ -17,9 +17,11 @@ validate_url(url) -> bool
     google_auth.py.
 
 validate_url_strict(url) -> tuple[str, str]
-    Resolves the hostname via socket.getaddrinfo, validates every returned
-    A record against the safety predicate, and returns
-    ``(normalized_url, pinned_ipv4)``. Raises ``URLSafetyError`` if any
+    Resolves the hostname via socket.getaddrinfo in both address families,
+    validates every returned A and AAAA record against the safety
+    predicate, and returns ``(normalized_url, pinned_ip)``. The pinned
+    address is IPv4 whenever the host has an A record, and IPv6 only for a
+    host that publishes AAAA records alone. Raises ``URLSafetyError`` if any
     resolved IP is non-public. Use this whenever the caller is about to
     open a network connection so DNS rebinding cannot swap a public IP
     for a private one between checks.
@@ -41,7 +43,10 @@ safe_requests_session(url) -> context manager yielding requests.Session
 
 is_safe_ip(ip_str) -> bool
     True iff the address parses as IPv4/IPv6 and is none of:
-    private, loopback, reserved, link-local, multicast, unspecified.
+    private, loopback, reserved, link-local, multicast, unspecified,
+    an IPv6 transition or special-purpose range (NAT64, 6to4, Teredo,
+    site-local, documentation, ORCHID), or an address with a zone
+    identifier.
 
 URLSafetyError
     ValueError subclass raised by the strict validator and pinning helpers.
@@ -55,7 +60,9 @@ audit a dev server, a staging host, or a machine reached over Tailscale.
 It is consulted **only** for the first, top-level URL handed to
 ``validate_url`` / ``validate_url_strict``. Redirect targets, embedded
 subresources, and browser-issued requests never consult it, and cloud
-metadata endpoints are refused even when listed. Unset, the policy is
+metadata endpoints are refused even when listed. The one later read is the
+DNS pin's port check: a redirect to another port on the admitted host is
+followed only if the allowlist names that port too. Unset, the policy is
 exactly what it is without the feature.
 
 Threading
@@ -89,12 +96,17 @@ import os
 import re
 import socket
 import threading
+import time
 from contextlib import contextmanager
 from typing import Iterator, Optional
 from urllib.parse import urlparse
 
 try:
     import requests
+
+    # urllib3 is the HTTP layer under requests, so it installs with it.
+    from urllib3 import exceptions as _urllib3_exceptions
+    from urllib3.response import BaseHTTPResponse as _Urllib3Response
 except ImportError as exc:  # pragma: no cover - hard dependency
     raise RuntimeError(
         "scripts/url_safety.py requires the 'requests' package. "
@@ -201,21 +213,56 @@ def _reject_authority_confusion(url: str, parsed) -> None:
 # hand out 100.64/10 addresses for internal services.
 _SHARED_ADDRESS_SPACE = ipaddress.ip_network("100.64.0.0/10")
 
+# IPv6 ranges that are never a public audit target. The ``ipaddress`` flags
+# used below already cover most of them, but those tables change between
+# Python releases (2001:20::/28 is no longer ``is_private``, 2002::/16 only
+# became so recently) and no flag covers site-local, so the policy is spelled
+# out here and holds on every interpreter. The ranges that embed an IPv4
+# address (NAT64, 6to4, Teredo, IPv4-compatible) are refused whole rather
+# than judged by that address. The one place a NAT64 address is passed over
+# is the DNS64 case in ``validate_url_strict``, where it is never dialled.
+_NAT64_WELL_KNOWN = ipaddress.ip_network("64:ff9b::/96")
+_UNSAFE_IPV6_NETWORKS = tuple(
+    ipaddress.ip_network(network)
+    for network in (
+        "::/96",           # IPv4-compatible (deprecated); holds :: and ::1
+        "64:ff9b::/96",    # NAT64 well-known prefix (RFC 6052)
+        "64:ff9b:1::/48",  # NAT64 local-use prefix (RFC 8215)
+        "2001::/32",       # Teredo
+        "2001:10::/28",    # ORCHID (deprecated)
+        "2001:20::/28",    # ORCHIDv2
+        "2001:db8::/32",   # documentation
+        "2002::/16",       # 6to4
+        "3fff::/20",       # documentation (RFC 9637)
+        "fc00::/7",        # unique-local; holds AWS IMDS fd00:ec2::254
+        "fe80::/10",       # link-local
+        "fec0::/10",       # site-local (deprecated)
+        "ff00::/8",        # multicast
+    )
+)
+
 
 def is_safe_ip(ip_str: str) -> bool:
     """Return True iff ``ip_str`` is a public unicast address.
 
     IPv4-mapped IPv6 (``::ffff:127.0.0.1``) is unwrapped and judged as the
     embedded IPv4 address, so every IPv4 rule below applies to it too.
-    IPv6 unique-local (``fc00::/7``) and link-local (``fe80::/10``) are
-    also rejected.
+    Every other IPv6 address is checked against ``_UNSAFE_IPV6_NETWORKS``
+    as well as the flags below. An address with a zone identifier
+    (``fe80::1%eth0``) is refused: a zone only means something on the
+    machine that names it.
     """
     try:
         ip = ipaddress.ip_address(ip_str)
     except ValueError:
         return False
-    if ip.version == 6 and ip.ipv4_mapped is not None:
-        ip = ip.ipv4_mapped
+    if ip.version == 6:
+        if ip.scope_id is not None:
+            return False
+        if ip.ipv4_mapped is not None:
+            ip = ip.ipv4_mapped
+        elif any(ip in network for network in _UNSAFE_IPV6_NETWORKS):
+            return False
     return not (
         ip.is_private
         or (ip.version == 4 and ip in _SHARED_ADDRESS_SPACE)
@@ -246,6 +293,8 @@ def is_safe_ip(ip_str: str) -> bool:
 #     free of any environment dependency.
 #   * A host must be named. There is no range, wildcard, or "all private".
 #   * ``host:port`` matches that port only. A bare ``host`` matches any port.
+#     ``_pin_dns`` holds the admitted host to the same rule for the whole
+#     request chain: see ``_local_pin_allows_port``.
 #   * Cloud metadata endpoints are refused even when listed. This is the
 #     trapdoor every "allow local" flag falls through: 169.254.169.254 is
 #     link-local, 100.100.100.200 sits inside the Tailscale range this
@@ -286,6 +335,8 @@ def _is_allowlistable_ip(ip_str: str) -> bool:
         ip = ipaddress.ip_address(ip_str)
     except ValueError:
         return False
+    if ip.version == 6 and ip.scope_id is not None:
+        return False  # Zone identifier, refused as in is_safe_ip.
     if ip.version == 6 and ip.ipv4_mapped is not None:
         ip = ip.ipv4_mapped
     if str(ip) in _NEVER_ALLOWLISTABLE_HOSTNAMES:
@@ -464,19 +515,41 @@ def validate_url(url: str) -> bool:
     return allowlisted and _is_allowlistable_ip(hostname)
 
 
+def _is_dns64_synthesized(ip_str: str) -> bool:
+    """True for an address in the NAT64 well-known prefix, 64:ff9b::/96.
+
+    The local-use prefix 64:ff9b:1::/48 and anything with a zone identifier
+    do not count: neither is what a DNS64 resolver hands out by default.
+    """
+    try:
+        ip = ipaddress.ip_address(ip_str)
+    except ValueError:
+        return False
+    return ip.version == 6 and ip.scope_id is None and ip in _NAT64_WELL_KNOWN
+
+
 def validate_url_strict(url: str) -> tuple[str, str]:
     """
     Resolve and validate the URL's hostname.
 
-    Returns ``(url, pinned_ipv4)`` on success. Raises ``URLSafetyError`` if:
+    Returns ``(url, pinned_ip)`` on success. Raises ``URLSafetyError`` if:
         - Scheme is invalid or hostname is missing.
         - Hostname is hard-blocked.
         - DNS resolution fails.
-        - Any A record resolves to a non-public IP (DNS rebinding refused).
+        - Any A or AAAA record resolves to a non-public IP (DNS rebinding
+          refused).
 
-    Multi-A-record handling: every returned record must be public. A
-    hostname with one public and one private A record is refused so an
-    attacker cannot race the resolver between validate and connect.
+    Multi-record handling: every returned record must be public, in both
+    address families. A hostname with one public and one private record
+    (two A records, or a public A beside a private AAAA) is refused so an
+    attacker cannot race the resolver between validate and connect. The one
+    record passed over is a DNS64 AAAA under 64:ff9b::/96 on a host that
+    also has an A record: the pin is then IPv4 and that address is unused.
+
+    The pinned address is the host's IPv4 address when it has one, so a
+    dual-stack host is reached exactly as before. An IPv6 address is pinned
+    only for a host that publishes AAAA records alone, or for an IPv6
+    literal, which keeps its brackets in the returned URL.
     """
     parsed = urlparse(url)
     _reject_authority_confusion(url, parsed)
@@ -490,8 +563,9 @@ def validate_url_strict(url: str) -> tuple[str, str]:
     if port is None:
         raise URLSafetyError(f"Invalid port in URL authority: {url!r}")
 
-    # The CLAUDE_SEO_LOCAL_TARGETS allowlist is read here and nowhere the
-    # request chain can reach later, which is what keeps it top-level only.
+    # The CLAUDE_SEO_LOCAL_TARGETS allowlist is read here, which is what keeps
+    # it top-level only. The request chain reaches it again in one place, the
+    # pin's port check for this same host (``_local_pin_allows_port``).
     allowlisted = _is_allowlisted_local_target(hostname, port)
     if hostname in _BLOCKED_HOSTNAMES and not allowlisted:
         raise URLSafetyError(f"Blocked hostname: {hostname}")
@@ -513,21 +587,36 @@ def validate_url_strict(url: str) -> tuple[str, str]:
         addrinfo = socket.getaddrinfo(
             hostname,
             port,
-            family=socket.AF_INET,
+            family=socket.AF_UNSPEC,
             type=socket.SOCK_STREAM,
         )
     except (socket.gaierror, UnicodeError) as exc:
         raise URLSafetyError(f"DNS resolution failed for {hostname}: {exc}") from exc
 
-    resolved_ips = sorted({info[4][0] for info in addrinfo})
+    # IPv4 sorts first, so the pin below is IPv6 only when there is no A
+    # record. Every address in the list is still checked, whichever is pinned.
+    resolved_ips = sorted(
+        {info[4][0] for info in addrinfo}, key=lambda ip: (":" in ip, ip)
+    )
     if not resolved_ips:
-        raise URLSafetyError(f"No A records for {hostname}")
+        raise URLSafetyError(f"No address records for {hostname}")
+
+    # On a DNS64 network the resolver adds, to a name that has an A record
+    # and no AAAA, a synthesized AAAA record under 64:ff9b::/96. Judged like any
+    # other record it would refuse every IPv4-only site, which resolved fine
+    # while this lookup asked for A records alone. With an A record present
+    # the pin is IPv4, so that AAAA is never dialled: it is skipped here, not
+    # trusted. ``is_safe_ip`` still refuses the prefix everywhere else, and a
+    # host with no A record gets no such pass.
+    has_a_record = ":" not in resolved_ips[0]
 
     for ip_str in resolved_ips:
         if is_safe_ip(ip_str):
             continue
         if allowlisted and _is_allowlistable_ip(ip_str):
             continue  # Named in CLAUDE_SEO_LOCAL_TARGETS; see that block.
+        if has_a_record and _is_dns64_synthesized(ip_str):
+            continue
         raise URLSafetyError(
             f"DNS rebinding refused: {hostname} resolves to "
             f"non-public IP {ip_str}"
@@ -638,6 +727,30 @@ def _validated_proxy_hosts(url: str, proxies: Optional[dict] = None) -> frozense
     )
 
 
+def _local_pin_allows_port(hostname: str, validated_port: int, requested_port) -> bool:
+    """Whether a pin on a non-public address may answer for ``requested_port``.
+
+    The validated port always may. Any other port on the pinned host (a
+    redirect hop, a second request on a session) is a new target and goes
+    through ``CLAUDE_SEO_LOCAL_TARGETS`` again: a ``host:port`` entry reaches
+    that port only, while a bare ``host`` entry keeps matching every port.
+    A port that cannot be read as a number is refused.
+    """
+    if not requested_port:
+        return True  # No port named: the caller is handed the validated one.
+    try:
+        requested = int(requested_port)
+    except (TypeError, ValueError):
+        return False
+    if requested == validated_port:
+        return True
+    try:
+        normalized = normalize_hostname(hostname)
+    except URLSafetyError:
+        return False
+    return _is_allowlisted_local_target(normalized, requested)
+
+
 # A single non-blocking lock guards the global getaddrinfo monkey-patch.
 # This is a deliberate choice: claude-seo scripts run one URL fetch at a
 # time, and we'd rather raise loudly than silently corrupt resolver state
@@ -659,6 +772,18 @@ def _pin_dns(
     :func:`is_safe_ip`. Non-public resolutions raise ``socket.gaierror``,
     which ``requests`` surfaces as ``ConnectionError``: the caller's
     existing error path.
+
+    A public ``pinned_ip`` answers for every port on the named host, so an
+    http to https redirect keeps the pin. A non-public ``pinned_ip`` (a
+    ``CLAUDE_SEO_LOCAL_TARGETS`` target) answers for ``port`` only, plus any
+    other port the allowlist names for that host; see
+    :func:`_local_pin_allows_port`.
+
+    The pin answers in the family of ``pinned_ip``: an ``AF_INET`` tuple for
+    an IPv4 address, an ``AF_INET6`` tuple with the four-part sockaddr for an
+    IPv6 one. A lookup that asks for the other family only is refused, so a
+    machine without IPv6 fails closed on an IPv6-only host instead of being
+    handed an address it cannot connect to.
 
     ``exempt_hosts`` are resolved by the real resolver without the
     fall-through check. It carries the configured HTTP proxy, if any: the
@@ -686,24 +811,40 @@ def _pin_dns(
 
     original_getaddrinfo = socket.getaddrinfo
     target = hostname.lower()
+    # A pinned address that is not public was admitted through
+    # CLAUDE_SEO_LOCAL_TARGETS, where ``host:port`` allows that port only.
+    # Such a pin must not answer for the host's other ports, or a redirect
+    # from the allowed dev server reaches every service on that address.
+    port_bound = not is_safe_ip(pinned_ip)
+    pinned_family = socket.AF_INET6 if ":" in pinned_ip else socket.AF_INET
 
     def patched(host, requested_port, *args, **kwargs):
         # Branch 1: the originally-pinned host returns the validated IP
         # without any further resolver call.
         if host and host.lower() == target:
+            if port_bound and not _local_pin_allows_port(target, port, requested_port):
+                raise socket.gaierror(
+                    socket.EAI_FAIL,
+                    f"url_safety: refused port {requested_port!r} on pinned "
+                    f"non-public host {host}; validated port is {port}",
+                )
             family = kwargs.get("family", args[0] if args else 0)
-            if family in (0, socket.AF_UNSPEC, socket.AF_INET):
+            if family in (0, socket.AF_UNSPEC, pinned_family):
+                sockaddr = (pinned_ip, requested_port or port)
+                if pinned_family == socket.AF_INET6:
+                    sockaddr += (0, 0)  # flowinfo, scope_id
                 return [(
-                    socket.AF_INET,
+                    pinned_family,
                     socket.SOCK_STREAM,
                     socket.IPPROTO_TCP,
                     "",
-                    (pinned_ip, requested_port or port),
+                    sockaddr,
                 )]
+            pinned_kind = "IPv6" if pinned_family == socket.AF_INET6 else "IPv4"
             raise socket.gaierror(
                 socket.EAI_FAIL,
                 f"url_safety: address family {family} refused for pinned "
-                f"IPv4 host {host}",
+                f"{pinned_kind} host {host}",
             )
 
         if host and host.lower() in exempt_hosts:
@@ -782,8 +923,14 @@ DEFAULT_REQUEST_HEADERS = {
 
 
 _CONTENT_TYPE_CHARSET_RE = re.compile(r"charset\s*=\s*['\"]?([^;,'\"\s>]+)", re.IGNORECASE)
-_META_CHARSET_RE = re.compile(
-    r"<meta[^>]+charset\s*=\s*['\"]?([^;,'\"\s/>]+)",
+# HTML's encoding prescan reads attributes, not the substring "charset=".
+_META_TAG_RE = re.compile(r"<meta\b([^>]*)>", re.IGNORECASE)
+# An unquoted value runs to whitespace or ">", as in HTML, so
+# ``content=text/html;charset=windows-1252`` is one value. The value part is
+# optional so a run of name characters with no "=" is consumed in one step
+# instead of being rescanned from every offset (quadratic on hostile input).
+_META_ATTR_RE = re.compile(
+    r"([^\s=/>]+)(?:\s*=\s*(?:\"([^\"]*)\"|'([^']*)'|([^\s>]+)))?",
     re.IGNORECASE,
 )
 _BOMS = (
@@ -806,9 +953,47 @@ def _extract_charset_from_content_type(content_type: str) -> str | None:
 
 
 def _extract_meta_charset(raw: bytes) -> str | None:
+    """Return a meta encoding, using HTML's prescan rules.
+
+    A ``charset`` attribute wins. A ``content`` attribute counts only when
+    the same tag's ``http-equiv`` is ``content-type``. ``charset=`` inside
+    another attribute, such as an og:image URL, is not the document encoding.
+    """
     head = raw[:4096].decode("ascii", errors="ignore")
-    match = _META_CHARSET_RE.search(head)
-    return match.group(1).strip() if match else None
+    for match in _META_TAG_RE.finditer(head):
+        charset = None
+        got_pragma = False
+        need_pragma = None
+        seen: set[str] = set()
+        for attr in _META_ATTR_RE.finditer(match.group(1)):
+            name = attr.group(1).lower()
+            if name in seen:
+                continue
+            seen.add(name)
+            value = attr.group(2)
+            if value is None:
+                value = attr.group(3)
+            if value is None:
+                value = attr.group(4) or ""
+            if name == "http-equiv" and value.lower() == "content-type":
+                got_pragma = True
+            elif name == "content":
+                extracted = _extract_charset_from_content_type(value)
+                if extracted and charset is None:
+                    charset = extracted
+                    need_pragma = True
+            elif name == "charset":
+                charset = value.strip()
+                need_pragma = False
+        # An unquoted value keeps the "/" of a self-closing tag
+        # (``<meta charset=utf-8/>``); no encoding label ends in one.
+        charset = (charset or "").strip().rstrip("/")
+        if not charset or need_pragma is None:
+            continue
+        if need_pragma and not got_pragma:
+            continue
+        return charset
+    return None
 
 
 def decode_response_text(response) -> str:
@@ -862,18 +1047,80 @@ def read_bounded(response, max_bytes: int) -> tuple[bytes, bool]:
     before the chunk that crossed the cap, and whether the cap was hit.
     Decode the result with :func:`decode_body`, not ``response.content``.
     """
-    chunks = []
+    raw, too_large, _timed_out = _read_capped(
+        response.iter_content(chunk_size=65536), max_bytes, None
+    )
+    return raw, too_large
+
+
+def read_bounded_until(
+    response, max_bytes: int, deadline: float
+) -> tuple[bytes, bool, bool]:
+    """:func:`read_bounded` with a wall-clock deadline as well.
+
+    ``deadline`` is a ``time.monotonic()`` value. It is checked before the
+    first read and after every piece of the body, and the body is taken as
+    each socket read delivers it, so a server that drips a byte at a time is
+    cut off at the deadline plus at most one socket read timeout. Returns the
+    bytes read so far, whether the size cap was hit, and whether the deadline
+    passed.
+    """
+    return _read_capped(_iter_as_received(response), max_bytes, deadline)
+
+
+def _read_capped(
+    chunks, max_bytes: int, deadline: Optional[float]
+) -> tuple[bytes, bool, bool]:
+    """Join ``chunks`` until the size cap or the deadline stops the read."""
+    parts: list[bytes] = []
     size = 0
-    too_large = False
-    for chunk in response.iter_content(chunk_size=65536):
-        if not chunk:
-            continue
-        size += len(chunk)
-        if size > max_bytes:
-            too_large = True
-            break
-        chunks.append(chunk)
-    return b"".join(chunks), too_large
+    if deadline is not None and time.monotonic() >= deadline:
+        return b"", False, True
+    for chunk in chunks:
+        if chunk:
+            size += len(chunk)
+            if size > max_bytes:
+                return b"".join(parts), True, False
+            parts.append(chunk)
+        if deadline is not None and time.monotonic() >= deadline:
+            return b"".join(parts), False, True
+    return b"".join(parts), False, False
+
+
+def _iter_as_received(response, chunk_size: int = 65536) -> Iterator[bytes]:
+    """Yield a streamed body as each socket read delivers it.
+
+    ``iter_content(n)`` blocks until ``n`` bytes have arrived, so a slow drip
+    could hold one 64 KiB chunk for hours between two deadline checks.
+    urllib3's ``read1`` returns what a single read brings, still decompressed
+    and at most ``chunk_size`` bytes. Errors are mapped to the requests
+    exceptions ``iter_content`` raises.
+
+    A body that is already in memory has nothing left on the socket:
+    requests read it itself (``stream=False``), or the redirect hook filled
+    in a 3xx body and closed the connection. ``iter_content`` replays that
+    body, and cannot block doing so.
+    """
+    raw = getattr(response, "raw", None)
+    if getattr(response, "_content_consumed", False) or not isinstance(
+        raw, _Urllib3Response  # Anything else is a test double, not a socket.
+    ):
+        yield from response.iter_content(chunk_size=chunk_size)
+        return
+    try:
+        while True:
+            data = raw.read1(chunk_size, decode_content=True)
+            if not data:
+                return
+            yield data
+    except _urllib3_exceptions.ProtocolError as exc:
+        raise requests.exceptions.ChunkedEncodingError(exc) from exc
+    except _urllib3_exceptions.DecodeError as exc:
+        raise requests.exceptions.ContentDecodingError(exc) from exc
+    except _urllib3_exceptions.ReadTimeoutError as exc:
+        raise requests.exceptions.ConnectionError(exc) from exc
+    except _urllib3_exceptions.SSLError as exc:
+        raise requests.exceptions.SSLError(exc) from exc
 
 
 # Deepest JSON nesting a fetched document may have. Real discovery and
@@ -1150,7 +1397,7 @@ def _cli() -> None:
     parser.add_argument(
         "--strict",
         action="store_true",
-        help="Run DNS resolution and refuse on any non-public A record.",
+        help="Run DNS resolution and refuse on any non-public A or AAAA record.",
     )
     parser.add_argument(
         "--json",

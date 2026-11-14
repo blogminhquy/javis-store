@@ -64,7 +64,7 @@ _CLAIM_PATTERNS: tuple[tuple[re.Pattern, str], ...] = (
     (re.compile(r"\b\d+(?:\.\d+)?\s*%\s+of\s+[a-zA-Z]+(?:\s+[a-zA-Z]+){0,4}",
                 re.IGNORECASE),
      "statistic"),
-    (re.compile(r"\b\d+(?:\.\d+)?\s*%\b"), "statistic"),
+    (re.compile(r"\b\d+(?:\.\d+)?\s*%"), "statistic"),
     (re.compile(r"\$\s?\d+(?:\.\d+)?\s*(?:million|billion|trillion|k|M|B)\b",
                 re.IGNORECASE), "quantity"),
     (re.compile(r"\b\d{1,3}(?:,\d{3})+(?:\.\d+)?\s+\w+", re.IGNORECASE),
@@ -97,10 +97,12 @@ _CITATION_PATTERNS: tuple[re.Pattern, ...] = (
     re.compile(r"\[\^?\d+\]"),  # footnote-style [1] or [^1]
     re.compile(r"@type\s*:\s*[\"']Citation[\"']"),  # schema.org Citation
     re.compile(
-        # "Source:", "Via:", "See also:", "Cited in", "Cited by", or
-        # "Per/According to" followed by a Proper Noun.
-        r"\b(?:source\s*:|via\s*:|see\s+also\s*:|cited\s+(?:in|by)|"
-        r"according\s+to|per)\s+[A-Z]",
+        # "Source:", "Via:", "See also:", "Cited in", "Cited by" or
+        # "According to" followed by any word, or "Per" followed by a
+        # Proper Noun. Only "per" needs the case-sensitive capital: it is
+        # the one prefix that is also a common word ("per week").
+        r"\b(?:(?:source\s*:|via\s*:|see\s+also\s*:|cited\s+(?:in|by)|"
+        r"according\s+to)\s+\S|per\s+(?-i:[A-Z]))",
         re.IGNORECASE,
     ),
 )

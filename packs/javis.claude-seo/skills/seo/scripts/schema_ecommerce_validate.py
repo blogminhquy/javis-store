@@ -100,6 +100,22 @@ def _all_types(payload) -> list[str]:
     return types
 
 
+def _as_dicts(value) -> list[dict]:
+    """JSON-LD repeats a property as either one object or a list of objects."""
+    if isinstance(value, dict):
+        return [value]
+    if isinstance(value, list):
+        return [item for item in value if isinstance(item, dict)]
+    return []
+
+
+def _has_loyalty_price(offer: dict) -> bool:
+    return any(
+        _has_type(spec, "UnitPriceSpecification") and spec.get("validForMemberTier")
+        for spec in _as_dicts(offer.get("priceSpecification"))
+    )
+
+
 def _has_type(payload: dict, target_type: str) -> bool:
     kind = payload.get("@type")
     if isinstance(kind, str):
@@ -159,6 +175,12 @@ def validate(payload: dict | list, *, require_eu_energy: bool = False) -> dict:
 
         for offer in offers_list:
             if not isinstance(offer, dict):
+                findings.append({
+                    "severity": "High",
+                    "rule": "malformed-offer",
+                    "message": "Each entry in offers must be a JSON object, "
+                               f"got {type(offer).__name__}.",
+                })
                 continue
             if _has_type(offer, "AggregateOffer"):
                 findings.append({
@@ -181,9 +203,13 @@ def validate(payload: dict | list, *, require_eu_energy: bool = False) -> dict:
                         "message": f"Offer is missing recommended {field!r}.",
                     })
 
+        # Non-object offers were reported above; the offer-level fallbacks
+        # below read the first offer that is an object.
+        first_offer = next((o for o in offers_list if isinstance(o, dict)), {})
+
         # 4. hasMerchantReturnPolicy (recommended or conditional).
-        return_policy = prod.get("hasMerchantReturnPolicy") or (
-            offers_list[0].get("hasMerchantReturnPolicy") if offers_list else None
+        return_policy = prod.get("hasMerchantReturnPolicy") or first_offer.get(
+            "hasMerchantReturnPolicy"
         )
         if not return_policy:
             findings.append({
@@ -202,9 +228,7 @@ def validate(payload: dict | list, *, require_eu_energy: bool = False) -> dict:
                     })
 
         # 5. shippingDetails (recommended or conditional).
-        shipping = prod.get("shippingDetails") or (
-            offers_list[0].get("shippingDetails") if offers_list else None
-        )
+        shipping = prod.get("shippingDetails") or first_offer.get("shippingDetails")
         if not shipping:
             findings.append({
                 "severity": "Medium",
@@ -223,9 +247,7 @@ def validate(payload: dict | list, *, require_eu_energy: bool = False) -> dict:
 
         # 6. Loyalty / MemberProgram visibility (Medium).
         if not prod.get("hasMemberProgram") and not any(
-            o.get("priceSpecification", {}).get("@type") == "UnitPriceSpecification"
-            and o.get("priceSpecification", {}).get("validForMemberTier")
-            for o in offers_list if isinstance(o, dict)
+            _has_loyalty_price(o) for o in offers_list if isinstance(o, dict)
         ):
             findings.append({
                 "severity": "Medium",
