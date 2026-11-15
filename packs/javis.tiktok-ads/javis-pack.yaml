@@ -1,9 +1,9 @@
 format: javis-pack
 spec: 1
 id: javis.tiktok-ads
-version: 1.0.1
-name: {vi: "TikTok Ads"}
-description: {vi: "Số liệu quảng cáo TikTok (chỉ đọc): tài khoản, chiến dịch, nhóm quảng cáo, creative, báo cáo hiệu suất. Server cộng đồng chạy local trên Marketing API chính thức - dán App ID + Secret + Access Token."}
+version: 2.0.0
+name: {vi: "TikTok Ads", en: "TikTok Ads"}
+description: {vi: "Quản lý quảng cáo TikTok qua MCP chính chủ của TikTok for Business: xem tài khoản, số dư, chiến dịch, nhóm quảng cáo, quảng cáo, Smart+, GMV Max, báo cáo hiệu suất, đối tượng, catalog và chẩn đoán tài khoản. Đăng nhập TikTok for Business 1 chạm - không cần tạo app hay dán token. Mặc định chỉ đọc; tạo, sửa, bật tắt chiến dịch và đổi ngân sách tiêu tiền thật nên chỉ chạy ở mức Toàn quyền.", en: "Manage TikTok ads through TikTok for Business's official MCP: accounts, balance, campaigns, ad groups, ads, Smart+, GMV Max, performance reports, audiences, catalogs and account diagnosis. One-tap TikTok for Business sign-in, no app to create and no token to paste. Read-only by default; creating, editing, pausing or resuming campaigns and changing budgets spend real money, so they only run at Full access."}
 author: {name: Javis}
 license: MIT
 homepage: "https://github.com/blogminhquy/javis-store"
