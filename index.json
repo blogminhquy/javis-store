@@ -2368,7 +2368,7 @@
         "vi": "Cổng cho ChatGPT, Claude, Gemini, Cursor, n8n và công cụ AI khác làm việc cùng Javis. AI đó đọc hội thoại của Javis, tư vấn cho bạn, và khi bạn đồng ý thì nhắn thẳng vào khung chat để Javis làm tiếp, chọn được cả model và effort. Bạn xem được tiến độ, chuông báo khi việc dài xong, Javis nhớ lại cho lần sau. Cần Javis 0.440.0 trở lên, mật khẩu quản trị và tên miền https.",
         "en": "A gate for ChatGPT, Claude, Gemini, Cursor, n8n and other AI tools to work with Javis. The AI reads your Javis chats, advises you, and once you agree posts straight into the chat so Javis carries on, with the model and effort it picks. You watch the progress, the bell rings when long work is done, Javis remembers it next time. Needs Javis 0.440.0 or newer, an admin password and an https domain."
       },
-      "version": "2.2.0",
+      "version": "2.2.1",
       "author": {
         "name": "Javis"
       },
@@ -2379,13 +2379,13 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-11-14",
+      "updated": "2026-11-15",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.gate",
       "icon": "packs/javis.gate/assets/javis-gate.png",
       "download": {
-        "url": "dist/javis-gate-2.2.0.zip",
-        "sha256": "a9dea7bd5b8296aedae2733046c04a6c9497cd0ab70d6d342dc3c180318da950",
-        "size": 35545
+        "url": "dist/javis-gate-2.2.1.zip",
+        "sha256": "61465788d2aa452198a8cc2552deec7a177519457a164907b2e4eaafff13b491",
+        "size": 39817
       },
       "replaces": [
         "javis.javis-trong-chatgpt"

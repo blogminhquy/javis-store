@@ -7,11 +7,12 @@
 # 2.2.0: AI bên ngoài chọn model và effort trong câu lệnh, và chuông báo chủ khi việc nó giao xong mà nó đã thôi
 # chờ. Các công cụ đó do lõi Javis cấp (chat_bridge), nên gói không đổi mức `compat`: Javis cũ vẫn chạy như 2.1.0.
 # Cũng 2.2.0: công cụ AI khác nối được (địa chỉ quay về chủ tự cho phép, khoá riêng cho công cụ chỉ dán header).
+# 2.2.1: trang của gói làm lại cho điện thoại: hướng dẫn gọn sau nút i, các bước đánh số, ngắt riêng từng AI.
 format: javis-pack
 spec: 1
 
 id: javis.gate
-version: 2.2.0
+version: 2.2.1
 replaces:
   - javis.javis-trong-chatgpt
 
