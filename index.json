@@ -716,12 +716,14 @@
       "id": "javis.tiktok-ads",
       "kind": "connector",
       "name": {
-        "vi": "TikTok Ads"
+        "vi": "TikTok Ads",
+        "en": "TikTok Ads"
       },
       "description": {
-        "vi": "Số liệu quảng cáo TikTok (chỉ đọc): tài khoản, chiến dịch, nhóm quảng cáo, creative, báo cáo hiệu suất. Server cộng đồng chạy local trên Marketing API chính thức - dán App ID + Secret + Access Token."
+        "vi": "Quản lý quảng cáo TikTok qua MCP chính chủ của TikTok for Business: xem tài khoản, số dư, chiến dịch, nhóm quảng cáo, quảng cáo, Smart+, GMV Max, báo cáo hiệu suất, đối tượng, catalog và chẩn đoán tài khoản. Đăng nhập TikTok for Business 1 chạm - không cần tạo app hay dán token. Mặc định chỉ đọc; tạo, sửa, bật tắt chiến dịch và đổi ngân sách tiêu tiền thật nên chỉ chạy ở mức Toàn quyền.",
+        "en": "Manage TikTok ads through TikTok for Business's official MCP: accounts, balance, campaigns, ad groups, ads, Smart+, GMV Max, performance reports, audiences, catalogs and account diagnosis. One-tap TikTok for Business sign-in, no app to create and no token to paste. Read-only by default; creating, editing, pausing or resuming campaigns and changing budgets spend real money, so they only run at Full access."
       },
-      "version": "1.0.1",
+      "version": "2.0.0",
       "author": {
         "name": "Javis"
       },
@@ -729,9 +731,9 @@
       "category_label": {
         "vi": "Quảng cáo"
       },
-      "tier": "code",
+      "tier": "data",
       "verified": true,
-      "updated": "2026-10-05",
+      "updated": "2026-11-15",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.tiktok-ads",
       "icon": "packs/javis.tiktok-ads/assets/tiktok-ads.webp",
       "provides": {
@@ -740,9 +742,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-tiktok-ads-1.0.1.zip",
-        "sha256": "f08f8c68502f9d4154825c047f09ddbd2901d4ee26d2a8bb75372492bf3ddf30",
-        "size": 8802
+        "url": "dist/javis-tiktok-ads-2.0.0.zip",
+        "sha256": "e8e82b3d76145923c93c09522f1f2fc2a4bff42ae64bc127f6984c5f9eb8228d",
+        "size": 11309
       }
     },
     {
