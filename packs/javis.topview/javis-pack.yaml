@@ -1,0 +1,12 @@
+format: javis-pack
+spec: 1
+id: javis.topview
+version: 1.0.0
+name: {vi: "Topview", en: "Topview"}
+description: {vi: "Trợ lý marketing AI của Topview qua MCP chính chủ: tra dữ liệu thị trường Amazon, Shopee, TikTok Shop và kho KOL YouTube, rồi tạo ảnh, video, video avatar nói, ảnh người mẫu cầm sản phẩm, giọng đọc và nhạc bằng Seedance, Kling, Veo, Nano Banana, GPT Image. Đăng nhập Topview 1 chạm - không cần tạo app hay dán key. Lưu ý: mỗi lần tạo tiêu credit Topview của bạn, và gói Unlimited của Topview không dùng được với MCP.", en: "Topview's AI marketing agent through its official MCP: look up market data from Amazon, Shopee, TikTok Shop and a YouTube creator pool, then generate images, videos, talking avatar videos, product model shots, voiceovers and music with Seedance, Kling, Veo, Nano Banana and GPT Image. One-tap Topview sign-in, no app to create and no key to paste. Note: every generation spends your Topview credits, and Topview's Unlimited plan does not work with MCP."}
+author: {name: Javis}
+license: MIT
+homepage: "https://github.com/blogminhquy/javis-store"
+compat: {app: ">=0.55.27"}
+provides:
+  connectors: [connectors/topview.json]

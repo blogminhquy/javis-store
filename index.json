@@ -1,7 +1,7 @@
 {
   "format": "javis-pack-index",
   "format_version": 1,
-  "updated": "2026-11-13",
+  "updated": "2026-11-15",
   "store": {
     "name": "Kho cài đặt Javis",
     "url": "https://github.com/blogminhquy/javis-store"
@@ -1007,6 +1007,41 @@
         "url": "dist/javis-capcut-1.0.0.zip",
         "sha256": "43489e30cf592f190ec5bb36eea402f0126042d3f7d5cc6c96daa4b75bbcbc84",
         "size": 8942
+      }
+    },
+    {
+      "id": "javis.topview",
+      "kind": "connector",
+      "name": {
+        "vi": "Topview",
+        "en": "Topview"
+      },
+      "description": {
+        "vi": "Trợ lý marketing AI của Topview qua MCP chính chủ: tra dữ liệu thị trường Amazon, Shopee, TikTok Shop và kho KOL YouTube, rồi tạo ảnh, video, video avatar nói, ảnh người mẫu cầm sản phẩm, giọng đọc và nhạc bằng Seedance, Kling, Veo, Nano Banana, GPT Image. Đăng nhập Topview 1 chạm - không cần tạo app hay dán key. Lưu ý: mỗi lần tạo tiêu credit Topview của bạn, và gói Unlimited của Topview không dùng được với MCP.",
+        "en": "Topview's AI marketing agent through its official MCP: look up market data from Amazon, Shopee, TikTok Shop and a YouTube creator pool, then generate images, videos, talking avatar videos, product model shots, voiceovers and music with Seedance, Kling, Veo, Nano Banana and GPT Image. One-tap Topview sign-in, no app to create and no key to paste. Note: every generation spends your Topview credits, and Topview's Unlimited plan does not work with MCP."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "sang-tao",
+      "category_label": {
+        "vi": "Sáng tạo"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-11-15",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.topview",
+      "icon": "packs/javis.topview/assets/topview.webp",
+      "provides": {
+        "connectors": [
+          "topview"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-topview-1.0.0.zip",
+        "sha256": "e9d00cfbf8850907f67406b8a575cf2af5a65976e413e0807b0f6e2fa9063b88",
+        "size": 9532
       }
     },
     {
