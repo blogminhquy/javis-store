@@ -1,0 +1,75 @@
+{
+  "id": "tiktok-social",
+  "name": "TikTok",
+  "icon": "assets/tiktok.webp",
+  "category": "Mạng xã hội",
+  "description": "Quản lý kênh TikTok của bạn qua MCP chính chủ của TikTok: xem số liệu tài khoản và từng video, đọc và trả lời bình luận, theo dõi bài nhắc tới thương hiệu, tìm từ khoá, hashtag và nhạc đang thịnh hành để lên ý tưởng nội dung. Đăng nhập TikTok 1 chạm - không cần tạo app hay dán key. Chưa đăng được video hay ảnh qua kết nối này.",
+  "status": "beta",
+  "transport": "http",
+  "url": "https://business-api.tiktok.com/open_mcp/tt-ads-mcp-organic-social",
+  "auth": {
+    "type": "oauth",
+    "fields": [],
+    "guide": "Bấm Kết nối, đăng nhập tài khoản TikTok của kênh muốn quản lý, xem các quyền rồi bấm Authorize.\n\nJavis tự đăng ký ứng dụng theo chuẩn OAuth của TikTok, không cần tạo app developer hay dán key.\n\nQuyền đăng nhập có hiệu lực 1 năm. Hết hạn thì bấm Kết nối lại bằng đúng tài khoản TikTok đó.\n\nĐăng video và ảnh chưa làm được qua kết nối này vì TikTok chưa mở cho MCP. Một số công cụ có thể không có, tuỳ khu vực và loại tài khoản.",
+    "guide_url": "https://business-api.tiktok.com/portal/docs/how-to-connect-a-ready-made-agent-to-tiktok-social-mcp-server-as-an-advertiser/v1.3"
+  },
+  "tool_meta": {
+    "read": [
+      "account_user_get",
+      "account_user_post_list_get",
+      "account_user_benchmark_get",
+      "account_user_post_setting_get",
+      "account_user_publish_status_get",
+      "account_user_hashtag_suggestion_get",
+      "account_user_post_authorize_status_get",
+      "account_user_post_recommend_get",
+      "account_user_comment_list_get",
+      "account_user_comment_reply_list_get",
+      "discovery_cml_list_get",
+      "discovery_cml_post_list_get",
+      "discovery_search",
+      "discovery_search_recommend_get",
+      "account_user_mention_post_list_get",
+      "account_user_mention_post_get",
+      "account_user_mention_top_word_list_get",
+      "account_user_mention_top_hashtag_list_get",
+      "account_user_mention_hashtag_video_list_get",
+      "account_user_mention_comment_list_get",
+      "account_user_mention_comment_get",
+      "account_user_mention_hashtag_verify_list_get",
+      "account_user_mention_hashtag_manage_list_get"
+    ],
+    "write": [
+      "account_user_comment_like_update",
+      "account_user_mention_hashtag_add"
+    ],
+    "danger": [
+      "account_user_comment_create",
+      "account_user_comment_reply_create",
+      "account_user_comment_visibility_update",
+      "account_user_comment_delete",
+      "account_user_post_publish",
+      "account_user_photo_publish",
+      "account_user_post_authorize_setting_update",
+      "account_user_post_authorize_update",
+      "account_user_post_authorize_delete",
+      "account_user_mention_hashtag_delete",
+      "*create*",
+      "*publish*",
+      "*delete*",
+      "*remove*",
+      "*authorize*",
+      "*visibility*",
+      "*hide*",
+      "*upload*",
+      "*send*",
+      "*message*"
+    ]
+  },
+  "ghi_chu_tool_meta": "Tên tool lấy từ trang Available tools in TikTok Social MCP Server (v1.3) của TikTok API for Business. Nhóm đọc chỉ khai tên chính xác vì Javis xét nhóm đọc trước nhóm nguy hiểm. Đăng bình luận, trả lời, ẩn hay xoá bình luận là việc công khai dưới tên kênh nên để nguy hiểm. Cấp quyền dùng video làm quảng cáo Spark Ads cũng nguy hiểm. Thả tim bình luận và thêm hashtag theo dõi là ghi: nhẹ và gỡ lại được.",
+  "ghi_da_can_nhac": [
+    "account_user_publish_status_get"
+  ],
+  "default_perm": "readonly",
+  "risk": "TikTok là kênh CÔNG KHAI của bạn: bình luận, trả lời hay ẩn bình luận đều hiện ngay dưới tên kênh trước mọi người xem.\n\nMặc định để mức Chỉ đọc: Javis xem số liệu, đọc bình luận, theo dõi bài nhắc tới thương hiệu và tìm xu hướng, chưa đụng gì tới kênh.\n\nMức Ghi nháp: thêm thả tim bình luận và thêm hashtag để theo dõi thương hiệu.\n\nMức Toàn quyền: Javis tự đăng bình luận, trả lời, ẩn hoặc xoá bình luận, và cấp quyền dùng video của bạn làm quảng cáo Spark Ads. Một câu trả lời sai giọng là khách thấy ngay, nên hãy để Javis soạn nháp trong chat cho bạn duyệt trước khi nâng Toàn quyền.\n\nKết nối này không tiêu tiền và chưa đăng được video hay ảnh. Giới hạn 6 lần gọi mỗi giây cho mỗi công cụ.\n\nTên công cụ lấy từ tài liệu chính thức của TikTok; kết nối này chưa được thử với tài khoản TikTok thật."
+}

@@ -1,0 +1,12 @@
+format: javis-pack
+spec: 1
+id: javis.tiktok-social
+version: 1.0.0
+name: {vi: "TikTok", en: "TikTok"}
+description: {vi: "Quản lý kênh TikTok của bạn qua MCP chính chủ của TikTok: xem số liệu tài khoản và từng video, đọc và trả lời bình luận, theo dõi bài nhắc tới thương hiệu, tìm từ khoá, hashtag và nhạc đang thịnh hành để lên ý tưởng nội dung. Đăng nhập TikTok 1 chạm - không cần tạo app hay dán key. Chưa đăng được video hay ảnh qua kết nối này.", en: "Run your TikTok account through TikTok's official Social MCP: account and per-video analytics, read and reply to comments, track posts that mention your brand, and find trending keywords, hashtags and music for content ideas. One-tap TikTok sign-in, no app to create and no key to paste. Publishing videos or photos is not available through this connection yet."}
+author: {name: Javis}
+license: MIT
+homepage: "https://github.com/blogminhquy/javis-store"
+compat: {app: ">=0.55.27"}
+provides:
+  connectors: [connectors/tiktok-social.json]
