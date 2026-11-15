@@ -8,11 +8,12 @@
 # chờ. Các công cụ đó do lõi Javis cấp (chat_bridge), nên gói không đổi mức `compat`: Javis cũ vẫn chạy như 2.1.0.
 # Cũng 2.2.0: công cụ AI khác nối được (địa chỉ quay về chủ tự cho phép, khoá riêng cho công cụ chỉ dán header).
 # 2.2.1: trang của gói làm lại cho điện thoại: hướng dẫn gọn sau nút i, các bước đánh số, ngắt riêng từng AI.
+# 2.2.2: trang của gói theo sáng/tối đã chọn trên dashboard (mặc định sáng), cùng màu và font với dashboard.
 format: javis-pack
 spec: 1
 
 id: javis.gate
-version: 2.2.1
+version: 2.2.2
 replaces:
   - javis.javis-trong-chatgpt
 
