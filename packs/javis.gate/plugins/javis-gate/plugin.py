@@ -11,6 +11,16 @@ gói của mình thì cài gói này, và việc cài là lựa chọn có chủ
 đọc hội thoại của Javis và nhắn THẲNG vào khung chat như chủ gõ, thay vì giao việc qua Kanban. Lượt
 đó chạy trên Javis như mọi lượt chat: chủ xem chữ chạy, bấm Dừng được, Javis học được.
 
+2.2.0: lõi Javis cho cửa này chọn model (ghim cho hội thoại) và effort (chỉ cho một tin) trong câu lệnh, và báo chủ
+qua chuông khi việc AI bên ngoài giao xong mà nó đã thôi chờ. Mọi AI đi qua cửa đều có, không riêng ChatGPT.
+
+Cũng 2.2.0 (chủ dự án 14/11: "không chỉ ChatGPT, các công cụ AI khác nối vào cũng được như vậy"), hai đường nối
+cho công cụ ngoài ChatGPT và Claude, cả hai do CHỦ mở trên trang của gói (trang đòi đăng nhập dashboard):
+  - Công cụ xin nối bằng OAuth với địa chỉ quay về lạ thì bị từ chối như cũ, nhưng địa chỉ đó hiện trên trang
+    của gói ("đang xin kết nối"); chủ bấm Cho phép là địa chỉ đó vào danh sách riêng của máy này.
+  - Khoá riêng (`jg_...`) cho công cụ chỉ biết dán header Authorization (n8n, script, vài trình soạn mã). Mỗi khoá
+    một tên, là tên hiện trên khung chat ("từ Cursor"), chỉ lưu dạng băm, thu hồi từng khoá được.
+
 Cách chạy
 ---------
 Người dùng chat trên chatgpt.com hay claude.ai như bình thường, còn AI đó tự gọi sang Javis qua
@@ -29,9 +39,11 @@ Cần Javis 0.64.26 trở lên: bản đó mở `ctx.register_http` và `ctx.reg
 Ranh giới an toàn
 -----------------
 - Javis chưa có mật khẩu quản trị thì mọi cửa OAuth trả 404: cửa đồng ý dựa vào đăng nhập.
-- `redirect_uri` chỉ nhận máy của OpenAI, của Anthropic, hoặc chính máy của chủ (localhost, cho
-  Claude Code và Claude Desktop). Kẻ tự đăng ký client trỏ về máy mình rồi dụ chủ bấm "Cho phép"
-  sẽ không nhận được mã.
+- `redirect_uri` chỉ nhận máy của OpenAI, của Anthropic, chính máy của chủ (localhost, cho
+  Claude Code và Claude Desktop), hoặc một gốc CHỦ tự cho phép trên trang của gói (trang đòi đăng nhập).
+  Kẻ tự đăng ký client trỏ về máy mình rồi dụ chủ bấm "Cho phép" sẽ không nhận được mã; địa chỉ của
+  hắn chỉ nằm trong danh sách "đang xin kết nối", kèm lời dặn chỉ cho phép công cụ chủ vừa tự nối.
+- Khoá riêng (`jg_...`) chỉ chủ tạo được, chỉ hiện một lần, lưu dạng băm; "Ngắt mọi kết nối" xoá cả khoá.
 - Token, mã cấp quyền chỉ lưu dạng BĂM SHA-256. Tệp lộ ra không dùng được để gọi.
 - Token của cửa này KHÔNG phải `hub_token` của Claude Code/Codex, và ngược lại.
 - Mức quyền (full / auto / suggest) chủ chọn trên trang của gói; hub ép ở lớp cứng như mọi
@@ -46,6 +58,7 @@ import hashlib
 import html
 import json
 import os
+import re
 import secrets
 import threading
 import time
@@ -68,6 +81,16 @@ _HOST_MAY_NHA = ("localhost", "127.0.0.1", "::1")
 # Plugin này từng tên `javis-trong-chatgpt` (gói 1.x). Lõi Javis chuyển đường /ext/<tên cũ>/ sang
 # đây; trang khám phá OAuth cũng phải nhận tên cũ thì connector đã dán vào ChatGPT mới chạy tiếp.
 SLUG_CU = "javis-trong-chatgpt"
+
+# Địa chỉ quay về chủ tự cho phép thêm: https://<host> của một công cụ web, hoặc <scheme>://<host> của một ứng dụng
+# trên máy (RFC 8252, scheme riêng như cursor://). Không bao giờ nhận các scheme dưới đây, kể cả khi chủ bấm.
+_SCHEME_CAM = ("http", "javascript", "data", "file", "vbscript", "about", "blob", "ws", "wss", "ftp", "mailto")
+MAX_NGUON_THEM = 30
+MAX_CHO_DUYET = 10                  # địa chỉ lạ vừa xin nối, giữ vài cái mới nhất cho chủ xem
+TTL_CHO_DUYET = 7 * 24 * 3600
+MAX_KHOA_RIENG = 20
+TIEN_TO_KHOA = "jg_"
+GHI_LAN_DUNG_S = 600                # "dùng lần cuối" của khoá ghi xuống đĩa tối đa 10 phút một lần
 
 _KHOA = threading.Lock()
 
@@ -198,12 +221,38 @@ def dat_muc_quyen(ctx, m: str) -> bool:
     return True
 
 
+def nguon_them(ctx) -> list:
+    """Các gốc địa chỉ quay về chủ đã cho phép thêm trên trang của gói."""
+    ds = _doc_json(ctx.data_dir / "cai-dat.json", {}).get("nguon_them")
+    return [g for g in ds if isinstance(g, str) and goc_uri(g + "/") == g] if isinstance(ds, list) else []
+
+
+def dat_nguon(ctx, goc: str, cho: bool) -> tuple:
+    """Chủ cho phép (cho=True) hoặc bỏ một gốc. (ok, câu lỗi). Cho phép xong thì gốc đó rời danh sách đang chờ."""
+    g = goc_uri(str(goc or "").strip().rstrip("/") + "/")
+    if not g:
+        return False, "Địa chỉ không hợp lệ. Cần dạng https://ten-mien hoặc ung-dung://ten (không nhận http)."
+    with _KHOA:
+        d = _doc_json(ctx.data_dir / "cai-dat.json", {})
+        ds = [x for x in d.get("nguon_them") or [] if isinstance(x, str) and x != g]
+        if cho:
+            if len(ds) >= MAX_NGUON_THEM:
+                return False, "Đã đủ số địa chỉ cho phép thêm. Bỏ bớt cái không dùng."
+            ds.append(g)
+        d["nguon_them"] = ds
+        _ghi_json(ctx.data_dir / "cai-dat.json", d)
+        kho = _doc(ctx)
+        if kho["cho_duyet"].pop(g, None) is not None:
+            _ghi(ctx, kho)
+    return True, ""
+
+
 def _doc(ctx) -> dict:
     """Kho: client, token, yêu cầu đang chờ Cho phép, mã cấp quyền. Nằm TRÊN ĐĨA chứ không
     trong RAM: Javis nạp lại plugin mỗi khi bật/tắt một plugin bất kỳ, và một yêu cầu đang chờ
     mà mất giữa chừng là người dùng bấm Cho phép rồi nhận câu "quá hạn"."""
     d = _doc_json(ctx.data_dir / "kho.json", {})
-    for k in ("clients", "tokens", "yeu_cau", "ma"):
+    for k in ("clients", "tokens", "yeu_cau", "ma", "khoa_rieng", "cho_duyet"):
         if not isinstance(d.get(k), dict):
             d[k] = {}
     return d
@@ -215,6 +264,9 @@ def _ghi(ctx, d: dict) -> None:
     now = time.time()
     for k in ("tokens", "yeu_cau", "ma"):
         d[k] = {h: t for h, t in d[k].items() if t.get("het", 0) > now}
+    d["cho_duyet"] = dict(sorted(((g, x) for g, x in d.get("cho_duyet", {}).items()
+                                  if x.get("luc", 0) > now - TTL_CHO_DUYET),
+                                 key=lambda gx: gx[1].get("luc", 0))[-MAX_CHO_DUYET:])
     _ghi_json(ctx.data_dir / "kho.json", d)
 
 
@@ -227,7 +279,24 @@ def _s256(verifier: str) -> str:
         hashlib.sha256(verifier.encode("ascii")).digest()).decode().rstrip("=")
 
 
-def redirect_hop_le(uri: str) -> bool:
+def goc_uri(uri: str) -> str:
+    """"<scheme>://<host>" viết thường của một địa chỉ quay về, hoặc "" nếu không phải thứ chủ cho phép thêm được
+    (scheme cấm, thiếu host, scheme lạ hình thù). Đây là đơn vị chủ bấm Cho phép, không phải từng đường dẫn."""
+    try:
+        u = urlparse(str(uri or "").strip())
+    except Exception:
+        return ""
+    sc = (u.scheme or "").lower()
+    h = (u.hostname or "").lower()
+    if not sc or not h or sc in _SCHEME_CAM or not re.fullmatch(r"[a-z][a-z0-9+.-]{1,40}", sc):
+        return ""
+    if not re.fullmatch(r"[a-z0-9.-]{1,253}", h) or h in _HOST_MAY_NHA:
+        return ""
+    return f"{sc}://{h}"
+
+
+def redirect_hop_le(uri: str, them=()) -> bool:
+    """Máy của OpenAI, của Anthropic, chính máy của chủ, hoặc một gốc chủ đã tự cho phép trên trang của gói."""
     try:
         u = urlparse(uri)
     except Exception:
@@ -237,19 +306,29 @@ def redirect_hop_le(uri: str) -> bool:
     h = u.hostname.lower()
     if h in _HOST_MAY_NHA:
         return u.scheme in ("http", "https")
+    g = goc_uri(uri)
+    if g and g in them:
+        return True
     if u.scheme != "https":
         return False
     return h in _HOST_REDIRECT or any(h.endswith(d) for d in _DUOI_REDIRECT)
 
 
+_TEN_AI = (("chatgpt", "ChatGPT"), ("openai", "ChatGPT"), ("claude", "Claude"), ("anthropic", "Claude"),
+           ("gemini", "Gemini"), ("grok", "Grok"), ("copilot", "Copilot"), ("cursor", "Cursor"),
+           ("mistral", "Le Chat"), ("le chat", "Le Chat"), ("perplexity", "Perplexity"), ("codex", "Codex"))
+
+
 def ten_ai(ten: str) -> str:
-    """Tên ngắn của AI đang gọi, để nhãn "từ ChatGPT" / "từ Claude" trên khung chat của Javis."""
-    t = str(ten or "").strip()
+    """Tên ngắn của AI đang gọi, để nhãn "từ ChatGPT" / "từ Claude" / "từ Gemini" trên khung chat của Javis.
+    Codex đứng sau OpenAI vì client của Codex CLI hay mang cả chữ "OpenAI"; tên lạ thì giữ nguyên, cắt 40 chữ."""
+    t = re.sub(r"\s+", " ", str(ten or "")).strip()
     thap = t.lower()
-    if "chatgpt" in thap or "openai" in thap:
-        return "ChatGPT"
-    if "claude" in thap or "anthropic" in thap:
-        return "Claude"
+    if "codex" in thap:
+        return "Codex"
+    for chu, ten_ngan in _TEN_AI:
+        if chu in thap:
+            return ten_ngan
     return t[:40] or "AI"
 
 
@@ -264,11 +343,24 @@ def _noi(uri: str, q: dict) -> str:
 def dang_ky_client(ctx, body: dict) -> tuple:
     """(mã HTTP, JSON). RFC 7591, chỉ phần ChatGPT dùng: client công khai, không bí mật."""
     uris = body.get("redirect_uris") if isinstance(body, dict) else None
-    if not isinstance(uris, list) or not uris or not all(
-            isinstance(u, str) and redirect_hop_le(u) for u in uris):
+    ten = str((body or {}).get("client_name") or "AI")[:120] if isinstance(body, dict) else "AI"
+    them = nguon_them(ctx)
+    if not isinstance(uris, list) or not uris or not all(isinstance(u, str) for u in uris):
+        return 400, {"error": "invalid_redirect_uri", "error_description": "redirect_uris is required"}
+    la = [u for u in uris if not redirect_hop_le(u, them)]
+    if la:
+        # Ghi lại để chủ thấy trên trang của gói và bấm Cho phép nếu đúng là công cụ chủ vừa tự nối.
+        with _KHOA:
+            d = _doc(ctx)
+            for u in la:
+                g = goc_uri(u)
+                if g:
+                    d["cho_duyet"][g] = {"ten": ten[:60], "luc": time.time()}
+            _ghi(ctx, d)
         return 400, {"error": "invalid_redirect_uri",
-                     "error_description": "redirect_uris must be https addresses of ChatGPT or Claude, or localhost"}
-    ten = str(body.get("client_name") or "AI")[:120]
+                     "error_description": ("this redirect address is not allowed yet. The Javis owner can allow it "
+                                           "on the Javis Gate page in Javis (Plugins, Javis Gate, Open page), then "
+                                           "connect again")}
     with _KHOA:
         d = _doc(ctx)
         if len(d["clients"]) >= MAX_CLIENT:
@@ -305,6 +397,9 @@ def bat_dau_uy_quyen(ctx, q: dict) -> tuple:
         ru = str(q.get("redirect_uri") or "")
         if ru not in client["redirect_uris"]:
             return "trang_loi", "Địa chỉ quay về không khớp với lúc đăng ký."
+        if not redirect_hop_le(ru, nguon_them(ctx)):
+            # Chủ đã bỏ gốc này khỏi danh sách cho phép thêm sau lúc công cụ đăng ký.
+            return "trang_loi", "Địa chỉ quay về này không còn được cho phép. Mở trang Javis Gate để cho phép lại."
         state = str(q.get("state") or "")
         if q.get("response_type") != "code":
             return "chuyen", _noi(ru, {"error": "unsupported_response_type",
@@ -435,19 +530,71 @@ def thu_hoi(ctx, raw: str) -> None:
         _ghi(ctx, d)
 
 
-def ngat_tat_ca(ctx) -> int:
-    """Nút "Ngắt mọi kết nối": xoá sạch client, token, yêu cầu, mã. Trả số client đã xoá."""
+def tao_khoa_rieng(ctx, ten: str) -> tuple:
+    """Khoá riêng cho một công cụ chỉ biết dán header. (ok, dict). Khoá thô chỉ trả MỘT lần, kho giữ bản băm."""
+    ten = re.sub(r"\s+", " ", str(ten or "")).strip()[:40]
+    if not ten:
+        return False, {"error": "Đặt tên cho khoá (tên công cụ sẽ dùng nó, ví dụ Cursor, n8n)."}
     with _KHOA:
-        n = len(_doc(ctx)["clients"])
-        _ghi(ctx, {"clients": {}, "tokens": {}, "yeu_cau": {}, "ma": {}})
+        d = _doc(ctx)
+        if len(d["khoa_rieng"]) >= MAX_KHOA_RIENG:
+            return False, {"error": "Đã đủ số khoá. Thu hồi bớt khoá không dùng."}
+        raw = TIEN_TO_KHOA + secrets.token_urlsafe(32)
+        kid = secrets.token_hex(4)
+        d["khoa_rieng"][_bam(raw)] = {"id": kid, "ten": ten, "tao": time.time(), "dung": 0}
+        _ghi(ctx, d)
+    return True, {"khoa": raw, "id": kid, "ten": ten}
+
+
+def kiem_khoa_rieng(ctx, raw: str):
+    """Bản ghi của một khoá riêng còn hiệu lực, hoặc None. Ghi "dùng lần cuối" thưa thôi để khỏi ghi đĩa mỗi lượt."""
+    if not raw or not raw.startswith(TIEN_TO_KHOA):
+        return None
+    h = _bam(raw)
+    rec = _doc(ctx)["khoa_rieng"].get(h)
+    if not rec:
+        return None
+    if time.time() - float(rec.get("dung") or 0) > GHI_LAN_DUNG_S:
+        with _KHOA:
+            d = _doc(ctx)
+            if h in d["khoa_rieng"]:
+                d["khoa_rieng"][h]["dung"] = time.time()
+                _ghi(ctx, d)
+    return rec
+
+
+def xoa_khoa_rieng(ctx, kid: str) -> bool:
+    with _KHOA:
+        d = _doc(ctx)
+        h = next((h for h, r in d["khoa_rieng"].items() if r.get("id") == str(kid or "")), None)
+        if not h:
+            return False
+        d["khoa_rieng"].pop(h)
+        _ghi(ctx, d)
+    return True
+
+
+def ds_khoa_rieng(ctx) -> list:
+    """Khoá riêng để vẽ trên trang: tên, ngày tạo, lần dùng cuối. Không bao giờ có khoá thô hay bản băm."""
+    return sorted(({"id": r.get("id"), "ten": r.get("ten"), "tao": r.get("tao"), "dung": r.get("dung")}
+                   for r in _doc(ctx)["khoa_rieng"].values()), key=lambda r: r.get("tao") or 0)
+
+
+def ngat_tat_ca(ctx) -> int:
+    """Nút "Ngắt mọi kết nối": xoá sạch client, token, yêu cầu, mã và khoá riêng. Trả số kết nối đã xoá."""
+    with _KHOA:
+        d = _doc(ctx)
+        n = len(d["clients"]) + len(d["khoa_rieng"])
+        _ghi(ctx, {"clients": {}, "tokens": {}, "yeu_cau": {}, "ma": {}, "khoa_rieng": {}, "cho_duyet": {}})
     return n
 
 
 def so_ket_noi(ctx) -> int:
-    """Số lần cho phép còn hiệu lực (mỗi họ refresh còn sống là một)."""
+    """Số lần cho phép còn hiệu lực (mỗi họ refresh còn sống là một), cộng số khoá riêng."""
     now = time.time()
-    return len({t.get("ho") for t in _doc(ctx)["tokens"].values()
-                if t.get("loai") == "refresh" and not t.get("thu_hoi") and t.get("het", 0) > now})
+    d = _doc(ctx)
+    return len({t.get("ho") for t in d["tokens"].values()
+                if t.get("loai") == "refresh" and not t.get("thu_hoi") and t.get("het", 0) > now}) + len(d["khoa_rieng"])
 
 
 # ============================================================
@@ -487,6 +634,13 @@ a { color:var(--nhan); }
 .hop { display:flex; gap:8px; align-items:stretch; }
 .hop input { flex:1; }
 .hop button { width:auto; margin:0; padding:0 16px; }
+.dong { display:flex; gap:10px; align-items:center; justify-content:space-between; padding:10px 0;
+        border-bottom:1px solid var(--vien); }
+.dong div { min-width:0; overflow-wrap:anywhere; }
+.dong button { width:auto; margin:0; padding:9px 14px; flex:none; }
+pre { font-size:15px; white-space:pre-wrap; overflow-wrap:anywhere; background:var(--nen); padding:12px;
+      border-radius:10px; border:1px solid var(--vien); margin:8px 0; }
+.the-moi { border:1px solid var(--nhan); border-radius:12px; padding:14px; margin-top:12px; }
 """
 
 
@@ -548,14 +702,20 @@ document.getElementById("f").onsubmit = async (ev) => {
 
 def _trang_dong_y(ctx, yc: dict):
     muc = muc_quyen(ctx)
-    host = html.escape(urlparse(yc["redirect_uri"]).hostname or "")
+    u = urlparse(yc["redirect_uri"])
+    noi = (u.hostname or "") if (u.scheme or "").lower() in ("http", "https") else goc_uri(yc["redirect_uri"])
+    them = goc_uri(yc["redirect_uri"]) in nguon_them(ctx)
     ai = html.escape(ten_ai(yc["ten"]))
+    ghi_chu = ('<p class="phu">Đây là địa chỉ bạn đã tự cho phép thêm trên trang của gói. Chỉ bấm Cho phép nếu '
+               'bạn vừa tự kết nối từ công cụ đó.</p>') if them else ""
     return _trang(f"""
 <h1>Cho phép {ai} dùng Javis?</h1>
-<p><b>{html.escape(yc["ten"])}</b> trên <code>{host}</code> muốn gọi công cụ của Javis.</p>
+<p><b>{html.escape(yc["ten"])}</b> trên <code>{html.escape(noi)}</code> muốn gọi công cụ của Javis.</p>
+{ghi_chu}
 <ul>
   <li>Dùng mọi kết nối bạn đã bật trong Javis (bán hàng, quảng cáo, lịch, Zalo...)</li>
-  <li>Đọc hội thoại của Javis, và ở mức Toàn quyền thì nhắn vào khung chat để Javis làm tiếp</li>
+  <li>Đọc hội thoại của Javis, và ở mức Toàn quyền thì nhắn vào khung chat để Javis làm tiếp,
+      chọn cả model (ghim cho hội thoại đó, bạn đổi lại được) và effort cho tin nó gửi</li>
   <li>Đọc và ghi trong brain đang mở, tạo việc và nhắc lịch</li>
   <li>Mức quyền: {html.escape(_MO_TA_MUC.get(muc, muc))}</li>
 </ul>
@@ -566,6 +726,38 @@ def _trang_dong_y(ctx, yc: dict):
   <button class="chinh" name="hanh_dong" value="cho_phep" type="submit">Cho phép</button>
   <button class="phu-nut" name="hanh_dong" value="tu_choi" type="submit">Từ chối</button>
 </form>""")
+
+
+def _ngay(ts) -> str:
+    if not ts:
+        return "chưa dùng"
+    try:
+        import localefmt
+        return localefmt.format_ts(ts, "%d/%m/%Y %H:%M")
+    except Exception:
+        return time.strftime("%d/%m/%Y %H:%M", time.localtime(float(ts)))
+
+
+def _ds_nguon(ctx) -> str:
+    """Hai danh sách của mục 3: địa chỉ đang xin nối (nút Cho phép) và địa chỉ đã cho phép thêm (nút Bỏ)."""
+    phan = []
+    cho = sorted(_doc(ctx)["cho_duyet"].items(), key=lambda gx: -float(gx[1].get("luc") or 0))
+    for g, x in cho:
+        phan.append(f'<div class="dong"><div><code>{html.escape(g)}</code><br><span class="phu">'
+                    f'{html.escape(str(x.get("ten") or ""))}, {html.escape(_ngay(x.get("luc")))}</span></div>'
+                    f'<button class="chinh" type="button" data-nguon="{html.escape(g)}" data-cho="1">Cho phép</button></div>')
+    for g in nguon_them(ctx):
+        phan.append(f'<div class="dong"><div><code>{html.escape(g)}</code><br><span class="phu">đã cho phép</span></div>'
+                    f'<button class="phu-nut" type="button" data-nguon="{html.escape(g)}" data-cho="0">Bỏ</button></div>')
+    return "".join(phan) or '<p class="phu">Chưa có công cụ nào xin kết nối.</p>'
+
+
+def _ds_khoa(ctx) -> str:
+    phan = [f'<div class="dong"><div><b>{html.escape(str(k.get("ten") or ""))}</b><br><span class="phu">tạo '
+            f'{html.escape(_ngay(k.get("tao")))}, dùng lần cuối {html.escape(_ngay(k.get("dung")))}</span></div>'
+            f'<button class="phu-nut" type="button" data-xoa-khoa="{html.escape(str(k.get("id") or ""))}" '
+            f'data-ten="{html.escape(str(k.get("ten") or ""))}">Thu hồi</button></div>' for k in ds_khoa_rieng(ctx)]
+    return "".join(phan)
 
 
 def _trang_loi(cau: str, status: int = 400):
@@ -588,19 +780,35 @@ def _trang_cai_dat(ctx, request):
             '<p class="loi">ChatGPT và Claude chỉ nhận địa chỉ https. Gắn tên miền riêng cho Javis '
             '(Cài đặt, mục Giọng nói, thương hiệu và truy cập) rồi tải lại trang này.</p>')
         than_chinh = f"""
-<h2>1. Dán địa chỉ này vào ChatGPT hoặc Claude</h2>
+<h2>1. Dán địa chỉ này vào ChatGPT, Claude hay công cụ AI khác</h2>
 <p class="phu"><b>ChatGPT:</b> Settings, Apps &amp; Connectors, bật Developer mode, rồi Create. Ô "MCP Server URL", xác thực OAuth.</p>
 <p class="phu"><b>Claude:</b> Settings, Connectors, Add custom connector. Dán địa chỉ rồi bấm Add.</p>
+<p class="phu"><b>Công cụ khác</b> (Gemini CLI, Codex, Cursor, Le Chat, Copilot...): chỗ thêm "MCP server" bằng
+địa chỉ. Công cụ đòi đăng nhập OAuth thì làm như ChatGPT; công cụ chỉ cho dán header thì tạo khoá ở mục 4.</p>
 <div class="hop"><input id="url" readonly value="{html.escape(url)}">
 <button class="phu-nut" id="chep" type="button">Chép</button></div>
 {canh_bao}
 <h2>2. Mức quyền của AI bên ngoài</h2>
 <select id="muc">{chon}</select>
 <div id="tb" class="phu" role="status"></div>
-<h2>3. Kết nối đang dùng: <span id="so">{so_ket_noi(ctx)}</span></h2>
+<h2>3. Công cụ đang xin kết nối</h2>
+<p class="phu">Javis tự nhận ChatGPT, Claude và ứng dụng chạy trên chính máy bạn. Công cụ khác xin kết nối thì hiện
+ở đây. Chỉ bấm Cho phép khi bạn vừa tự kết nối từ đúng công cụ đó, rồi kết nối lại từ công cụ.</p>
+{_ds_nguon(ctx)}
+<h2>4. Khoá riêng cho công cụ chỉ biết dán header</h2>
+<p class="phu">Cho n8n, script của bạn, hay trình soạn mã không đăng nhập OAuth được. Mỗi công cụ một khoá, tên khoá
+là tên hiện trên khung chat của Javis. Ai cầm khoá là dùng được Javis ở mức quyền trên, nên đừng dán nó vào chỗ
+công khai.</p>
+<div class="hop"><input id="ten-khoa" maxlength="40" placeholder="Tên công cụ, ví dụ Cursor">
+<button class="chinh" id="tao-khoa" type="button">Tạo khoá</button></div>
+<div id="khoa-moi"></div>
+{_ds_khoa(ctx)}
+<h2>5. Kết nối đang dùng: <span id="so">{so_ket_noi(ctx)}</span></h2>
 <button class="phu-nut" id="ngat" type="button">Ngắt mọi kết nối</button>
 <script>
 const tb = document.getElementById("tb");
+const URL_MCP = {json.dumps(url)};
+function chu(s) {{ const d = document.createElement("div"); d.textContent = s; return d.innerHTML; }}
 document.getElementById("chep").onclick = async (ev) => {{
   const o = document.getElementById("url");
   try {{ await navigator.clipboard.writeText(o.value); }}
@@ -622,11 +830,41 @@ document.getElementById("muc").onchange = async (ev) => {{
   catch (x) {{ tb.className = "loi"; tb.textContent = x.message; }}
 }};
 document.getElementById("ngat").onclick = async () => {{
-  if (!confirm("Ngắt mọi kết nối? Muốn dùng lại phải kết nối lại từ ChatGPT hoặc Claude.")) return;
+  if (!confirm("Ngắt mọi kết nối, kể cả mọi khoá riêng? Muốn dùng lại phải kết nối lại từ từng công cụ.")) return;
   try {{ await goi({json.dumps(_p(ctx, "ngat"))});
-         document.getElementById("so").textContent = "0";
-         tb.className = "tot"; tb.textContent = "Đã ngắt mọi kết nối."; }}
+         location.reload(); }}
   catch (x) {{ tb.className = "loi"; tb.textContent = x.message; }}
+}};
+document.querySelectorAll("[data-nguon]").forEach((b) => b.onclick = async () => {{
+  const cho = b.dataset.cho === "1";
+  if (cho && !confirm("Cho phép " + b.dataset.nguon + "? Chỉ đồng ý nếu bạn vừa tự kết nối từ công cụ này.")) return;
+  try {{ await goi({json.dumps(_p(ctx, "nguon"))}, {{goc: b.dataset.nguon, cho: cho}}); location.reload(); }}
+  catch (x) {{ alert(x.message); }}
+}});
+document.querySelectorAll("[data-xoa-khoa]").forEach((b) => b.onclick = async () => {{
+  if (!confirm("Thu hồi khoá " + b.dataset.ten + "? Công cụ đang dùng nó sẽ mất kết nối ngay.")) return;
+  try {{ await goi({json.dumps(_p(ctx, "khoa-xoa"))}, {{id: b.dataset.xoaKhoa}}); location.reload(); }}
+  catch (x) {{ alert(x.message); }}
+}});
+document.getElementById("tao-khoa").onclick = async () => {{
+  const o = document.getElementById("khoa-moi");
+  try {{
+    const d = await goi({json.dumps(_p(ctx, "khoa"))}, {{ten: document.getElementById("ten-khoa").value}});
+    const cau_hinh = JSON.stringify({{mcpServers: {{javis: {{url: URL_MCP,
+      headers: {{Authorization: "Bearer " + d.khoa}}}}}}}}, null, 2);
+    o.innerHTML = '<div class="the-moi"><p><b>Khoá cho ' + chu(d.ten) + '</b>. Chép ngay: Javis chỉ hiện khoá này '
+      + 'MỘT lần.</p><div class="hop"><input id="khoa-tho" readonly><button class="phu-nut" id="chep-khoa" '
+      + 'type="button">Chép</button></div><p class="phu">Trong công cụ: địa chỉ là địa chỉ ở mục 1, header '
+      + '<code>Authorization: Bearer &lt;khoá&gt;</code>. Nhiều công cụ nhận cấu hình dạng này (tên ô có thể khác):</p>'
+      + '<pre id="cau-hinh"></pre><button class="phu-nut" type="button" onclick="location.reload()">Xong</button></div>';
+    document.getElementById("khoa-tho").value = d.khoa;
+    document.getElementById("cau-hinh").textContent = cau_hinh;
+    document.getElementById("chep-khoa").onclick = async (ev) => {{
+      try {{ await navigator.clipboard.writeText(d.khoa); }}
+      catch (x) {{ const i = document.getElementById("khoa-tho"); i.select(); document.execCommand("copy"); }}
+      ev.target.textContent = "Đã chép";
+    }};
+  }} catch (x) {{ o.innerHTML = '<p class="loi">' + chu(x.message) + '</p>'; }}
 }};
 </script>"""
     return _trang(f"""
@@ -749,6 +987,11 @@ def register(ctx):
         raw = str(request.headers.get("authorization") or "")
         raw = raw[7:].strip() if raw[:7].lower() == "bearer " else ""
         rec = kiem_token(ctx, raw)
+        nguon = ten_client(ctx, rec) if rec else ""
+        if not rec:
+            # Khoá riêng chủ tạo trên trang của gói cho công cụ chỉ biết dán header. Tên khoá là tên nguồn.
+            rec = kiem_khoa_rieng(ctx, raw)
+            nguon = ten_ai(rec.get("ten") or "") if rec else ""
         if not rec:
             from starlette.responses import JSONResponse
             return JSONResponse(
@@ -764,7 +1007,7 @@ def register(ctx):
         # để khung chat của Javis ghi "từ ChatGPT" / "từ Claude".
         return await mcp_hub.tra_loi_jsonrpc(request, muc_quyen(ctx), include_plugins=True,
                                              include_ambient=False, raw_vault=None,
-                                             gate={"source": ten_client(ctx, rec)})
+                                             gate={"source": nguon})
 
     def mcp_khac(request, ctx):
         # Streamable HTTP không trạng thái: không có luồng do máy chủ mở, không có phiên để xoá.
@@ -788,5 +1031,23 @@ def register(ctx):
         return _json({"ok": True, "muc_quyen": muc_quyen(ctx)})
 
     ctx.register_http("cai-dat", cai_dat, methods=("POST",))
+
+    async def nguon(request, ctx):
+        f = await _doc_form(request)
+        ok, loi = dat_nguon(ctx, str(f.get("goc") or ""), f.get("cho") in (True, "1", "true", 1))
+        return _json({"ok": ok, **({"error": loi} if loi else {})}, 200 if ok else 400)
+
+    async def khoa(request, ctx):
+        ok, d = tao_khoa_rieng(ctx, str((await _doc_form(request)).get("ten") or ""))
+        return _json({"ok": ok, **d}, 200 if ok else 400)
+
+    async def khoa_xoa(request, ctx):
+        ok = xoa_khoa_rieng(ctx, str((await _doc_form(request)).get("id") or ""))
+        return _json({"ok": ok, **({} if ok else {"error": "Không thấy khoá này."})}, 200 if ok else 404)
+
+    # Không `public`: lõi Javis đòi phiên trình duyệt thật và chặn CSRF, nên chỉ chủ mở được cửa mới.
+    ctx.register_http("nguon", nguon, methods=("POST",))
+    ctx.register_http("khoa", khoa, methods=("POST",))
+    ctx.register_http("khoa-xoa", khoa_xoa, methods=("POST",))
     ctx.register_http("ngat", lambda request, ctx: _json({"ok": True, "da_ngat": ngat_tat_ca(ctx)}),
                       methods=("POST",))
