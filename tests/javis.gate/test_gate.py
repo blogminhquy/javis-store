@@ -18,6 +18,9 @@ Locks:
 7. Other AI tools (gate 2.2.0, any Javis OS): an unknown redirect address is refused but listed for the owner, who
    alone can allow it (https or an app scheme, never http); a personal key, made by the owner only, connects a tool
    that only sends a header, labels its messages with the key's name, and dies on revoke or "disconnect all".
+8. The pack's page (gate 2.2.1, owner 15/11: "guidance tucked behind an i button, steps easy to read"): status first,
+   the address before any help, every help text behind an (i) that starts closed, numbered steps per platform, the
+   level as three choices, each connection listed by name with its own Disconnect (owner only), danger zone last.
 """
 import _paths  # noqa: F401
 from _paths import PACK, STORE
@@ -370,6 +373,54 @@ key2 = owner.post("/ext/javis-gate/khoa", json={"ten": "Script"}, headers=OWN).j
 owner.post("/ext/javis-gate/ngat", json={}, headers=OWN)
 check("'disconnect all' also kills personal keys",
       rpc(stranger, "/ext/javis-gate/mcp", "tools/list", token=key2).status_code == 401)
+
+# ============================================================
+# 8. The pack's page: help behind (i), steps, per-connection disconnect
+# ============================================================
+def oauth(name, cb):
+    cid = stranger.post("/ext/javis-gate/oauth/register", json={"client_name": name, "redirect_uris": [cb]},
+                        headers=HDR).json()["client_id"]
+    v = secrets.token_urlsafe(48)
+    c = base64.urlsafe_b64encode(hashlib.sha256(v.encode()).digest()).decode().rstrip("=")
+    t = owner.get("/ext/javis-gate/oauth/authorize", params={"client_id": cid, "redirect_uri": cb, "response_type": "code",
+                                                             "state": "x", "code_challenge": c,
+                                                             "code_challenge_method": "S256"}).text
+    y = t.split('name="yeu_cau" value="', 1)[1].split('"', 1)[0]
+    loc = owner.post("/ext/javis-gate/oauth/authorize", data={"yeu_cau": y, "hanh_dong": "cho_phep"}, headers=OWN,
+                     follow_redirects=False).headers["location"]
+    return stranger.post("/ext/javis-gate/oauth/token", data={
+        "grant_type": "authorization_code", "code": loc.split("code=", 1)[1].split("&", 1)[0], "code_verifier": v,
+        "client_id": cid, "redirect_uri": cb}, headers=HDR).json()["access_token"]
+
+
+tok_gpt = oauth("ChatGPT", "https://chatgpt.com/connector_platform_oauth_redirect")
+tok_cl = oauth("Claude", CB)
+page = owner.get("/ext/javis-gate/").text
+i_url, i_help = page.find('id="url"'), page.find('id="i-noi"')
+check("status shows first: ready to connect", "Sẵn sàng kết nối" in page and page.find("Sẵn sàng kết nối") < i_url)
+check("every help text sits behind an (i) button that starts closed",
+      page.count("data-i ") >= 5 and page.count('aria-expanded="false"') >= 5
+      and all(f'id="{m}" hidden' in page for m in ("i-noi", "i-muc", "i-dang", "i-xin", "i-khoa")))
+check("connect help: a tab per platform with numbered steps",
+      all(t in page for t in ('aria-controls="tab-gpt"', 'aria-controls="tab-claude"', 'aria-controls="tab-khac"'))
+      and page.count('<ol class="buoc">') == 3)
+check("the address and its copy button come before the long lists", 0 < i_url < page.find('name="muc"'))
+check("the level is three choices with the current one checked",
+      page.count('name="muc"') == 3 and 'value="full" checked' in page)
+check("each connection is listed by name with its own Disconnect",
+      page.count("data-ngat-mot=") == 2 and "<b>ChatGPT</b>" in page and "<b>Claude</b>" in page)
+check("disconnect-all sits last, styled as dangerous",
+      page.find('class="nguy" id="ngat"') > page.find("data-ngat-mot="))
+ho_gpt = page.split('data-ngat-mot="', 1)[1].split('"', 1)[0]
+r = stranger.post("/ext/javis-gate/ngat-mot", json={"ho": ho_gpt}, headers=OWN)
+check("a stranger cannot disconnect anything", r.status_code in (401, 403), r.status_code)
+r = owner.post("/ext/javis-gate/ngat-mot", json={"ho": ho_gpt}, headers=OWN)
+check("the owner disconnects one connection", r.status_code == 200 and r.json().get("ok"), r.text[:200])
+check("that AI loses access at once", rpc(stranger, "/ext/javis-gate/mcp", "tools/list", token=tok_gpt).status_code == 401)
+check("the other AI keeps working", rpc(stranger, "/ext/javis-gate/mcp", "tools/list", token=tok_cl).status_code == 200)
+check("an unknown connection id is refused",
+      owner.post("/ext/javis-gate/ngat-mot", json={"ho": "khong-co"}, headers=OWN).status_code == 404)
+check("the list now shows one connection", owner.get("/ext/javis-gate/").text.count("data-ngat-mot=") == 1)
 
 print()
 print("ALL PASS" if not _fails else f"{len(_fails)} FAIL: {_fails}")

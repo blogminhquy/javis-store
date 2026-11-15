@@ -589,6 +589,37 @@ def ngat_tat_ca(ctx) -> int:
     return n
 
 
+def ds_ket_noi(ctx) -> list:
+    """Kết nối OAuth còn hiệu lực, mỗi lần chủ bấm Cho phép là một dòng (một họ refresh): tên AI, ngày nối, lần dùng
+    gần nhất (refresh xoay mỗi lần AI làm mới, nên hạn của nó trừ TTL_REFRESH là lúc làm mới cuối)."""
+    now = time.time()
+    d = _doc(ctx)
+    ra = {}
+    for t in d["tokens"].values():
+        if t.get("loai") != "refresh" or t.get("thu_hoi") or t.get("het", 0) <= now:
+            continue
+        c = d["clients"].get(str(t.get("client") or "")) or {}
+        cu = ra.get(t.get("ho"))
+        if cu and cu["het"] >= t["het"]:
+            continue
+        ra[t.get("ho")] = {"ho": t.get("ho"), "ten": ten_ai(c.get("ten") or ""), "tao": c.get("tao"),
+                           "het": t["het"], "dung": t["het"] - TTL_REFRESH}
+    return sorted(ra.values(), key=lambda x: x.get("tao") or 0)
+
+
+def ngat_mot(ctx, ho: str) -> bool:
+    """Ngắt một kết nối OAuth (cả họ refresh của nó). Công cụ đó phải bấm kết nối lại mới dùng tiếp."""
+    with _KHOA:
+        d = _doc(ctx)
+        trung = [t for t in d["tokens"].values() if t.get("ho") == str(ho or "") and not t.get("thu_hoi")]
+        if not ho or not trung:
+            return False
+        for t in trung:
+            t["thu_hoi"] = True
+        _ghi(ctx, d)
+    return True
+
+
 def so_ket_noi(ctx) -> int:
     """Số lần cho phép còn hiệu lực (mỗi họ refresh còn sống là một), cộng số khoá riêng."""
     now = time.time()
@@ -602,20 +633,25 @@ def so_ket_noi(ctx) -> int:
 # ============================================================
 
 _CSS = """
-:root { color-scheme: light dark; --nen:#f6f5f2; --the:#fff; --chu:#1d1d1f; --phu:#6b6b70;
-        --vien:#dcdad4; --nhan:#c2410c; --nhan-chu:#fff; --loi:#dc2626; --tot:#15803d; }
+:root { color-scheme: light dark; --nen:#f4f3ef; --the:#fff; --chu:#1d1d1f; --phu:#5f5f66;
+        --vien:#dcdad4; --nhan:#c2410c; --nhan-nhat:#fff4ec; --nhan-chu:#fff; --loi:#c81e1e; --loi-nhat:#fdeeee;
+        --tot:#15803d; --tot-nhat:#e9f7ee; --goi-y:#f7f6f2; }
 @media (prefers-color-scheme: dark) {
-  :root { --nen:#141414; --the:#1f1f1f; --chu:#eee; --phu:#a3a3a8; --vien:#3a3a3a;
-          --tot:#4ade80; --loi:#f87171; }
+  :root { --nen:#121212; --the:#1d1d1d; --chu:#eee; --phu:#a8a8ad; --vien:#363636; --nhan:#f0773a;
+          --nhan-nhat:#2c1c13; --nhan-chu:#160c06; --loi:#f87171; --loi-nhat:#2c1515; --tot:#4ade80;
+          --tot-nhat:#12251a; --goi-y:#252525; }
 }
 * { box-sizing: border-box; }
 body { margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
-       background:var(--nen); color:var(--chu); font-size:17px; line-height:1.5;
+       background:var(--nen); color:var(--chu); font-size:17px; line-height:1.55;
        font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; padding:16px; }
+body.dai { align-items:flex-start; }
 .the { background:var(--the); border:1px solid var(--vien); border-radius:16px; padding:28px 24px;
        width:100%; max-width:480px; }
-h1 { font-size:22px; margin:0 0 8px; }
-h2 { font-size:18px; margin:22px 0 8px; }
+.trang { width:100%; max-width:560px; padding-bottom:24px; }
+h1 { font-size:24px; margin:0 0 6px; line-height:1.25; }
+h2 { font-size:19px; margin:0; line-height:1.3; }
+h3 { font-size:17px; margin:0; }
 p { margin:0 0 14px; }
 .phu { color:var(--phu); font-size:16px; }
 ul { margin:0 0 18px; padding-left:20px; }
@@ -623,10 +659,11 @@ li { margin-bottom:6px; }
 label { display:block; font-size:16px; margin:12px 0 6px; }
 input, select { width:100%; font-size:17px; padding:12px; border-radius:10px;
                 border:1px solid var(--vien); background:transparent; color:inherit; }
-button { width:100%; font-size:17px; padding:13px; border-radius:10px; border:0; cursor:pointer;
-         margin-top:12px; }
-.chinh { background:var(--nhan); color:var(--nhan-chu); }
+button { width:100%; font-size:17px; min-height:48px; padding:12px; border-radius:12px; border:0; cursor:pointer;
+         margin-top:12px; font-family:inherit; }
+.chinh { background:var(--nhan); color:var(--nhan-chu); font-weight:600; }
 .phu-nut { background:transparent; color:var(--chu); border:1px solid var(--vien); }
+.nguy { background:transparent; color:var(--loi); border:1.5px solid var(--loi); font-weight:600; }
 .loi { color:var(--loi); font-size:16px; margin-top:10px; }
 .tot { color:var(--tot); font-size:16px; margin-top:10px; }
 code { font-size:16px; word-break:break-all; }
@@ -634,17 +671,78 @@ a { color:var(--nhan); }
 .hop { display:flex; gap:8px; align-items:stretch; }
 .hop input { flex:1; }
 .hop button { width:auto; margin:0; padding:0 16px; }
-.dong { display:flex; gap:10px; align-items:center; justify-content:space-between; padding:10px 0;
-        border-bottom:1px solid var(--vien); }
-.dong div { min-width:0; overflow-wrap:anywhere; }
-.dong button { width:auto; margin:0; padding:9px 14px; flex:none; }
-pre { font-size:15px; white-space:pre-wrap; overflow-wrap:anywhere; background:var(--nen); padding:12px;
+pre { font-size:15px; white-space:pre-wrap; overflow-wrap:anywhere; background:var(--goi-y); padding:12px;
       border-radius:10px; border:1px solid var(--vien); margin:8px 0; }
-.the-moi { border:1px solid var(--nhan); border-radius:12px; padding:14px; margin-top:12px; }
+button:focus-visible, input:focus-visible, summary:focus-visible, a:focus-visible {
+      outline:3px solid var(--nhan); outline-offset:2px; }
+
+/* trang cài đặt */
+.dau { padding:8px 4px 18px; }
+.dau p { margin:0 0 12px; }
+.chip { display:inline-flex; align-items:center; gap:8px; font-size:16px; font-weight:600; padding:6px 12px;
+        border-radius:999px; }
+.chip::before { content:""; width:9px; height:9px; border-radius:50%; background:currentColor; }
+.chip.tot { background:var(--tot-nhat); color:var(--tot); margin:0; }
+.chip.loi { background:var(--loi-nhat); color:var(--loi); margin:0; }
+.khoi { background:var(--the); border:1px solid var(--vien); border-radius:16px; padding:18px 18px 20px;
+        margin-bottom:14px; }
+.tieu { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.nut-i { width:40px; min-height:40px; height:40px; margin:0; padding:0; flex:none; border-radius:50%;
+         border:1.5px solid var(--vien); background:transparent; color:var(--phu); font:italic 700 18px Georgia,serif; }
+.nut-i[aria-expanded="true"] { background:var(--nhan); border-color:var(--nhan); color:var(--nhan-chu); }
+.goi-y { background:var(--goi-y); border-radius:12px; padding:14px 14px 4px; margin-top:12px; font-size:16px; }
+.goi-y p { margin:0 0 10px; }
+.mo-ta { color:var(--phu); font-size:16px; margin:6px 0 0; }
+.dia-chi { font:16px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; background:var(--goi-y);
+           border:1px solid var(--vien); border-radius:12px; padding:12px 14px; margin-top:14px;
+           overflow-wrap:anywhere; user-select:all; }
+.canh-bao { background:var(--loi-nhat); color:var(--loi); border-radius:12px; padding:12px 14px; margin-top:12px;
+            font-size:16px; }
+.tabs { display:flex; gap:6px; background:var(--the); border:1px solid var(--vien); border-radius:12px; padding:4px;
+        margin-bottom:12px; }
+.tabs button { margin:0; min-height:42px; padding:8px 6px; border-radius:9px; background:transparent;
+               color:var(--phu); font-size:16px; }
+.tabs button[aria-selected="true"] { background:var(--nhan); color:var(--nhan-chu); font-weight:600; }
+ol.buoc { list-style:none; margin:0 0 10px; padding:0; counter-reset:b; }
+ol.buoc li { counter-increment:b; position:relative; padding:0 0 12px 40px; margin:0; }
+ol.buoc li::before { content:counter(b); position:absolute; left:0; top:-1px; width:28px; height:28px;
+                     border-radius:50%; background:var(--nhan); color:var(--nhan-chu); font-size:15px;
+                     font-weight:700; display:flex; align-items:center; justify-content:center; }
+.chon { display:flex; gap:12px; align-items:flex-start; margin:10px 0 0; padding:14px; border:1.5px solid var(--vien);
+        border-radius:12px; cursor:pointer; font-size:17px; }
+.chon input { width:22px; height:22px; margin:2px 0 0; flex:none; accent-color:var(--nhan); }
+.chon b { display:block; }
+.chon small { display:block; color:var(--phu); font-size:16px; line-height:1.45; margin-top:2px; }
+.chon:has(input:checked) { border-color:var(--nhan); background:var(--nhan-nhat); }
+.tb { font-size:16px; margin:10px 0 0; color:var(--phu); }
+.tb:empty { display:none; }
+.dong { display:flex; gap:12px; align-items:center; justify-content:space-between; padding:12px 0;
+        border-bottom:1px solid var(--vien); }
+.dong:last-child { border-bottom:0; }
+.dong > div { min-width:0; overflow-wrap:anywhere; }
+.dong b { display:block; }
+.dong .phu { display:block; overflow-wrap:anywhere; }
+.dong button { width:auto; margin:0; min-height:42px; padding:8px 14px; flex:none; }
+.trong { color:var(--phu); font-size:16px; margin:10px 0 0; }
+details.khoi > summary { list-style:none; cursor:pointer; display:flex; align-items:center; gap:10px; }
+details.khoi > summary::-webkit-details-marker { display:none; }
+details.khoi > summary::after { content:""; width:10px; height:10px; margin-left:auto; flex:none;
+        border-right:2.5px solid var(--phu); border-bottom:2.5px solid var(--phu); transform:rotate(45deg);
+        margin-top:-4px; }
+details.khoi[open] > summary::after { transform:rotate(-135deg); margin-top:4px; }
+.so { background:var(--nhan); color:var(--nhan-chu); border-radius:999px; font-size:15px; font-weight:700;
+      padding:1px 9px; vertical-align:2px; margin-left:4px; }
+.nguy-hiem .mo-ta { margin:0; }
+.phan { margin-top:18px; padding-top:16px; border-top:1px solid var(--vien); }
+.xep { display:flex; flex-direction:column; gap:10px; margin-top:12px; }
+.xep input, .xep button { margin:0; }
+.the-moi { border:1.5px solid var(--nhan); border-radius:12px; padding:14px; margin-top:12px; }
+.nguy-hiem { border-color:var(--loi-nhat); }
+.cuoi { text-align:center; margin:18px 0 0; font-size:16px; }
 """
 
 
-def _trang(than: str, status: int = 200):
+def _trang(than: str, status: int = 200, khung: bool = True):
     # `same-origin`, KHÔNG phải `no-referrer`. URL trang Cho phép mang state và code_challenge
     # nên không được rò sang trang khác qua Referer, và cả hai giá trị đều chặn được điều đó.
     # Nhưng `no-referrer` còn làm trình duyệt gửi `Origin: null` khi nộp form, hàng rào CSRF
@@ -654,7 +752,9 @@ def _trang(than: str, status: int = 200):
         '<!doctype html><html lang="vi"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width,initial-scale=1">'
         '<meta name="referrer" content="same-origin"><title>Javis Gate</title>'
-        f'<style>{_CSS}</style></head><body><div class="the">{than}</div></body></html>',
+        f'<style>{_CSS}</style></head>'
+        + (f'<body><div class="the">{than}</div></body></html>' if khung
+           else f'<body class="dai"><main class="trang">{than}</main></body></html>'),
         status_code=status,
         headers={"Cache-Control": "no-store", "X-Frame-Options": "DENY",
                  "Content-Security-Policy": "frame-ancestors 'none'"})
@@ -665,6 +765,13 @@ _MO_TA_MUC = {
     "auto": "Tự làm có giới hạn: đọc dữ liệu và viết nháp, không làm việc ra bên ngoài",
     "suggest": "Chỉ đọc và gợi ý: không ghi file, không làm việc ra bên ngoài",
 }
+
+
+_MUC_THE = (
+    ("full", "Toàn quyền", "Đọc, nhắn vào khung chat để Javis làm, và làm việc thật như gửi tin, tạo đơn, đăng bài."),
+    ("auto", "Tự làm có giới hạn", "Đọc, ghi chép, viết nháp. Không nhắn vào khung chat, không làm gì ra bên ngoài."),
+    ("suggest", "Chỉ đọc và gợi ý", "Chỉ đọc, kể cả hội thoại. Không ghi gì."),
+)
 
 
 def _trang_dang_nhap():
@@ -729,150 +836,262 @@ def _trang_dong_y(ctx, yc: dict):
 
 
 def _ngay(ts) -> str:
+    """Ngày giờ theo múi giờ của chủ, bỏ năm khi là năm nay (dòng ngắn đọc trên điện thoại)."""
     if not ts:
         return "chưa dùng"
+    mau = "%d/%m %H:%M" if time.localtime(float(ts)).tm_year == time.localtime().tm_year else "%d/%m/%Y %H:%M"
     try:
         import localefmt
-        return localefmt.format_ts(ts, "%d/%m/%Y %H:%M")
+        return localefmt.format_ts(ts, mau)
     except Exception:
-        return time.strftime("%d/%m/%Y %H:%M", time.localtime(float(ts)))
+        return time.strftime(mau, time.localtime(float(ts)))
 
 
-def _ds_nguon(ctx) -> str:
-    """Hai danh sách của mục 3: địa chỉ đang xin nối (nút Cho phép) và địa chỉ đã cho phép thêm (nút Bỏ)."""
+def _nut_i(ma: str, nhan: str) -> str:
+    """Nút (i) cạnh tiêu đề: bấm mới mở phần hướng dẫn `ma`. Chủ dự án 15/11: hướng dẫn gọn lại sau nút i."""
+    return (f'<button class="nut-i" type="button" data-i aria-expanded="false" aria-controls="{ma}" '
+            f'aria-label="{html.escape(nhan)}" title="{html.escape(nhan)}">i</button>')
+
+
+def _goi_y(ma: str, than: str) -> str:
+    return f'<div class="goi-y" id="{ma}" hidden>{than}</div>'
+
+
+def _ds_nguon(ctx) -> tuple:
+    """(html, số đang chờ): địa chỉ đang xin nối (nút Cho phép) rồi địa chỉ đã cho phép thêm (nút Bỏ)."""
     phan = []
     cho = sorted(_doc(ctx)["cho_duyet"].items(), key=lambda gx: -float(gx[1].get("luc") or 0))
     for g, x in cho:
-        phan.append(f'<div class="dong"><div><code>{html.escape(g)}</code><br><span class="phu">'
-                    f'{html.escape(str(x.get("ten") or ""))}, {html.escape(_ngay(x.get("luc")))}</span></div>'
+        phan.append(f'<div class="dong"><div><b>{html.escape(str(x.get("ten") or "Công cụ lạ"))}</b><span class="phu">'
+                    f'{html.escape(g)}<br>xin lúc {html.escape(_ngay(x.get("luc")))}</span></div>'
                     f'<button class="chinh" type="button" data-nguon="{html.escape(g)}" data-cho="1">Cho phép</button></div>')
     for g in nguon_them(ctx):
-        phan.append(f'<div class="dong"><div><code>{html.escape(g)}</code><br><span class="phu">đã cho phép</span></div>'
+        phan.append(f'<div class="dong"><div><b>{html.escape(g.split("://", 1)[-1])}</b><span class="phu">'
+                    f'{html.escape(g)}<br>đã cho phép</span></div>'
                     f'<button class="phu-nut" type="button" data-nguon="{html.escape(g)}" data-cho="0">Bỏ</button></div>')
-    return "".join(phan) or '<p class="phu">Chưa có công cụ nào xin kết nối.</p>'
+    return "".join(phan) or '<p class="trong">Chưa có công cụ nào xin kết nối.</p>', len(cho)
 
 
-def _ds_khoa(ctx) -> str:
-    phan = [f'<div class="dong"><div><b>{html.escape(str(k.get("ten") or ""))}</b><br><span class="phu">tạo '
-            f'{html.escape(_ngay(k.get("tao")))}, dùng lần cuối {html.escape(_ngay(k.get("dung")))}</span></div>'
-            f'<button class="phu-nut" type="button" data-xoa-khoa="{html.escape(str(k.get("id") or ""))}" '
-            f'data-ten="{html.escape(str(k.get("ten") or ""))}">Thu hồi</button></div>' for k in ds_khoa_rieng(ctx)]
-    return "".join(phan)
+def _ds_dang_noi(ctx) -> tuple:
+    """(html, số dòng) của mục Đang kết nối: từng lần Cho phép (OAuth) và từng khoá riêng, mỗi dòng một nút ngắt."""
+    phan = [f'<div class="dong"><div><b>{html.escape(k["ten"])}</b><span class="phu">dùng gần nhất '
+            f'{html.escape(_ngay(k.get("dung")))}</span></div>'
+            f'<button class="phu-nut" type="button" data-ngat-mot="{html.escape(str(k["ho"]))}" '
+            f'data-ten="{html.escape(k["ten"])}">Ngắt</button></div>' for k in ds_ket_noi(ctx)]
+    phan += [f'<div class="dong"><div><b>{html.escape(str(k.get("ten") or ""))}</b><span class="phu">khoá riêng, '
+             + (f'dùng gần nhất {html.escape(_ngay(k.get("dung")))}' if k.get("dung") else "chưa dùng")
+             + f'</span></div><button class="phu-nut" type="button" data-xoa-khoa="{html.escape(str(k.get("id") or ""))}" '
+             f'data-ten="{html.escape(str(k.get("ten") or ""))}">Thu hồi</button></div>' for k in ds_khoa_rieng(ctx)]
+    return "".join(phan) or ('<p class="trong">Chưa có AI nào kết nối. Chép địa chỉ ở trên rồi dán vào ChatGPT, '
+                             'Claude hay công cụ bạn dùng.</p>'), len(phan)
 
 
 def _trang_loi(cau: str, status: int = 400):
     return _trang(f"<h1>Không kết nối được</h1><p>{html.escape(cau)}</p>", status)
 
 
+_HD_KET_NOI = """
+<div data-tabs>
+<div class="tabs" role="tablist">
+  <button type="button" role="tab" aria-selected="true" aria-controls="tab-gpt">ChatGPT</button>
+  <button type="button" role="tab" aria-selected="false" aria-controls="tab-claude">Claude</button>
+  <button type="button" role="tab" aria-selected="false" aria-controls="tab-khac">Khác</button>
+</div>
+<div id="tab-gpt" role="tabpanel"><ol class="buoc">
+  <li>Mở <b>chatgpt.com trên máy tính</b>, vào <b>Settings</b>, rồi <b>Apps &amp; Connectors</b>.</li>
+  <li>Mở <b>Advanced settings</b>, bật <b>Developer mode</b>.</li>
+  <li>Bấm <b>Create</b>. Tên: <b>Javis</b>. MCP Server URL: dán địa chỉ. Authentication: <b>OAuth</b>.</li>
+  <li>Tích ô tin tưởng, bấm <b>Create</b>, rồi bấm <b>Cho phép</b> trên trang Javis hiện ra.</li>
+</ol><p class="phu">Cần gói trả phí. Gói Business: quản trị viên bật Create custom MCP connectors trước.</p></div>
+<div id="tab-claude" role="tabpanel" hidden><ol class="buoc">
+  <li>Trên <b>claude.ai</b> hoặc Claude Desktop, vào <b>Settings</b>, rồi <b>Connectors</b>.</li>
+  <li>Bấm <b>Add custom connector</b>. Tên: <b>Javis</b>. Dán địa chỉ, bấm <b>Add</b>.</li>
+  <li>Bấm <b>Connect</b>, rồi bấm <b>Cho phép</b> trên trang Javis hiện ra.</li>
+</ol><p class="phu">Cần gói trả phí (Pro, Max, Team, Enterprise).</p></div>
+<div id="tab-khac" role="tabpanel" hidden><ol class="buoc">
+  <li>Trong công cụ, tìm chỗ thêm <b>MCP server</b> bằng địa chỉ, rồi dán địa chỉ.</li>
+  <li>Công cụ chạy trên máy bạn (Claude Code, Codex, Gemini CLI...): đăng nhập là xong.</li>
+  <li>Công cụ web khác bị từ chối lần đầu: mở mục <b>Công cụ AI khác</b> bên dưới, bấm <b>Cho phép</b>, rồi nối lại.</li>
+  <li>Công cụ chỉ cho dán khoá (n8n, script): tạo <b>khoá riêng</b> ở mục đó.</li>
+</ol></div>
+</div>"""
+
+
 def _trang_cai_dat(ctx, request):
+    """Trang của gói (chủ dự án 15/11: "các phần thông tin hướng dẫn làm gọn lại sau nút i, các bước dễ đọc").
+    Thứ tự theo việc chủ cần: trạng thái, địa chỉ để chép, mức quyền, ai đang nối, công cụ khác (thu gọn), rồi nút xoá
+    hết tách riêng ở cuối. Mọi giải thích nằm sau nút (i), bấm mới mở."""
     goc = _goc(request)
     url = goc + _p(ctx, "mcp")
     muc = muc_quyen(ctx)
     https = goc.startswith("https://")
+    dau = f"""<header class="dau"><h1>Javis Gate</h1>
+<p class="phu">Cổng để ChatGPT, Claude và AI khác đọc hội thoại và giao việc cho Javis.</p>"""
     if not _co_mat_khau():
-        than_chinh = ('<p class="loi">Javis chưa có mật khẩu quản trị. Bước Cho phép dựa vào '
-                      'đăng nhập, nên cửa này đang đóng. Đặt mật khẩu ở Cài đặt rồi quay lại.</p>')
-    else:
-        chon = "".join(
-            f'<option value="{m}"{" selected" if m == muc else ""}>{html.escape(_MO_TA_MUC[m])}</option>'
-            for m in MUC_QUYEN)
-        canh_bao = "" if https else (
-            '<p class="loi">ChatGPT và Claude chỉ nhận địa chỉ https. Gắn tên miền riêng cho Javis '
-            '(Cài đặt, mục Giọng nói, thương hiệu và truy cập) rồi tải lại trang này.</p>')
-        than_chinh = f"""
-<h2>1. Dán địa chỉ này vào ChatGPT, Claude hay công cụ AI khác</h2>
-<p class="phu"><b>ChatGPT:</b> Settings, Apps &amp; Connectors, bật Developer mode, rồi Create. Ô "MCP Server URL", xác thực OAuth.</p>
-<p class="phu"><b>Claude:</b> Settings, Connectors, Add custom connector. Dán địa chỉ rồi bấm Add.</p>
-<p class="phu"><b>Công cụ khác</b> (Gemini CLI, Codex, Cursor, Le Chat, Copilot...): chỗ thêm "MCP server" bằng
-địa chỉ. Công cụ đòi đăng nhập OAuth thì làm như ChatGPT; công cụ chỉ cho dán header thì tạo khoá ở mục 4.</p>
-<div class="hop"><input id="url" readonly value="{html.escape(url)}">
-<button class="phu-nut" id="chep" type="button">Chép</button></div>
-{canh_bao}
-<h2>2. Mức quyền của AI bên ngoài</h2>
-<select id="muc">{chon}</select>
-<div id="tb" class="phu" role="status"></div>
-<h2>3. Công cụ đang xin kết nối</h2>
-<p class="phu">Javis tự nhận ChatGPT, Claude và ứng dụng chạy trên chính máy bạn. Công cụ khác xin kết nối thì hiện
-ở đây. Chỉ bấm Cho phép khi bạn vừa tự kết nối từ đúng công cụ đó, rồi kết nối lại từ công cụ.</p>
-{_ds_nguon(ctx)}
-<h2>4. Khoá riêng cho công cụ chỉ biết dán header</h2>
-<p class="phu">Cho n8n, script của bạn, hay trình soạn mã không đăng nhập OAuth được. Mỗi công cụ một khoá, tên khoá
-là tên hiện trên khung chat của Javis. Ai cầm khoá là dùng được Javis ở mức quyền trên, nên đừng dán nó vào chỗ
-công khai.</p>
-<div class="hop"><input id="ten-khoa" maxlength="40" placeholder="Tên công cụ, ví dụ Cursor">
-<button class="chinh" id="tao-khoa" type="button">Tạo khoá</button></div>
-<div id="khoa-moi"></div>
-{_ds_khoa(ctx)}
-<h2>5. Kết nối đang dùng: <span id="so">{so_ket_noi(ctx)}</span></h2>
-<button class="phu-nut" id="ngat" type="button">Ngắt mọi kết nối</button>
-<script>
-const tb = document.getElementById("tb");
-const URL_MCP = {json.dumps(url)};
-function chu(s) {{ const d = document.createElement("div"); d.textContent = s; return d.innerHTML; }}
-document.getElementById("chep").onclick = async (ev) => {{
-  const o = document.getElementById("url");
-  try {{ await navigator.clipboard.writeText(o.value); }}
-  catch (x) {{ o.select(); document.execCommand("copy"); }}
-  ev.target.textContent = "Đã chép";
-  setTimeout(() => ev.target.textContent = "Chép", 1500);
-}};
-async function goi(duong, body) {{
-  const r = await fetch(duong, {{method: "POST", credentials: "same-origin",
-    headers: {{"Content-Type": "application/json"}}, body: JSON.stringify(body || {{}})}});
-  const d = await r.json().catch(() => ({{}}));
+        return _trang(dau + """<span class="chip loi">Đang đóng</span></header>
+<section class="khoi"><h2>Cần mật khẩu quản trị</h2>
+<p class="mo-ta">Bước Cho phép dựa vào đăng nhập Javis, nên cổng chỉ mở khi Javis có mật khẩu. Đặt mật khẩu trong
+Cài đặt rồi quay lại trang này.</p></section>""", khung=False)
+    chip = ('<span class="chip tot">Sẵn sàng kết nối</span>' if https
+            else '<span class="chip loi">Chưa có https</span>')
+    canh_bao = "" if https else (
+        '<div class="canh-bao">ChatGPT và Claude chỉ nhận địa chỉ https. Gắn tên miền riêng cho Javis (Cài đặt, mục '
+        'Giọng nói, thương hiệu và truy cập) rồi tải lại trang này.</div>')
+    the_muc = "".join(
+        f'<label class="chon"><input type="radio" name="muc" value="{m}"{" checked" if m == muc else ""}>'
+        f'<span><b>{html.escape(ten)}</b><small>{html.escape(mo_ta)}</small></span></label>'
+        for m, ten, mo_ta in _MUC_THE)
+    ds_nguon, so_cho = _ds_nguon(ctx)
+    ds_noi, so_noi = _ds_dang_noi(ctx)
+    cfg = json.dumps({"url": url, "duong": {k: _p(ctx, v) for k, v in (
+        ("cai_dat", "cai-dat"), ("nguon", "nguon"), ("khoa", "khoa"), ("khoa_xoa", "khoa-xoa"), ("ngat", "ngat"),
+        ("ngat_mot", "ngat-mot"))}}, ensure_ascii=False).replace("</", "<\\/")
+    than = f"""{dau}{chip}</header>
+
+<section class="khoi">
+  <div class="tieu"><h2>Địa chỉ kết nối</h2>{_nut_i("i-noi", "Cách kết nối")}</div>
+  <p class="mo-ta">Dán vào ChatGPT, Claude hay công cụ AI bạn dùng.</p>
+  {_goi_y("i-noi", _HD_KET_NOI)}
+  <div class="dia-chi" id="url">{html.escape(url)}</div>
+  <button class="chinh" id="chep" type="button">Chép địa chỉ</button>
+  {canh_bao}
+</section>
+
+<section class="khoi">
+  <div class="tieu"><h2>Mức quyền</h2>{_nut_i("i-muc", "Về mức quyền")}</div>
+  {_goi_y("i-muc", '<p>Javis tự chặn ở phía mình theo mức này, AI bên ngoài không tự nâng quyền được.</p>'
+                   '<p>Đổi là có hiệu lực từ lượt gọi kế tiếp, không cần kết nối lại. Áp cho mọi AI đang nối.</p>')}
+  <div role="radiogroup" aria-label="Mức quyền">{the_muc}</div>
+  <p class="tb" id="tb-muc" role="status"></p>
+</section>
+
+<section class="khoi">
+  <div class="tieu"><h2>Đang kết nối{f' <span class="so">{so_noi}</span>' if so_noi else ""}</h2>{_nut_i("i-dang", "Về các kết nối")}</div>
+  {_goi_y("i-dang", '<p>Mỗi dòng là một lần bạn bấm Cho phép, hoặc một khoá riêng. Bấm Ngắt hay Thu hồi là công '
+                    'cụ đó mất kết nối ngay.</p><p>Kết nối không dùng 30 ngày tự hết hạn.</p>')}
+  {ds_noi}
+</section>
+
+<details class="khoi"{" open" if so_cho else ""}>
+  <summary><h2>Công cụ AI khác</h2>{f'<span class="so">{so_cho}</span>' if so_cho else ""}</summary>
+  <p class="mo-ta">Cho công cụ ngoài ChatGPT và Claude: Le Chat, Copilot, n8n...</p>
+  <div class="phan">
+    <div class="tieu"><h3>Đang xin kết nối</h3>{_nut_i("i-xin", "Về công cụ xin kết nối")}</div>
+    {_goi_y("i-xin", '<p>Javis tự nhận ChatGPT, Claude và ứng dụng chạy trên chính máy bạn. Công cụ khác xin nối '
+                     'thì hiện ở đây.</p><p><b>Chỉ bấm Cho phép khi bạn vừa tự nối từ đúng công cụ đó</b>, rồi nối '
+                     'lại từ công cụ. Địa chỉ lạ cứ để, sau 7 ngày tự mất. Không bao giờ nhận địa chỉ http.</p>')}
+    {ds_nguon}
+  </div>
+  <div class="phan">
+    <div class="tieu"><h3>Khoá riêng</h3>{_nut_i("i-khoa", "Về khoá riêng")}</div>
+    {_goi_y("i-khoa", '<p>Cho công cụ chỉ biết dán khoá vào header (n8n, script, trình soạn mã). Tên khoá là tên '
+                      'hiện trên khung chat của Javis.</p><p><b>Ai cầm khoá là dùng được Javis</b> ở mức quyền '
+                      'trên. Đừng dán vào chỗ công khai. Khoá chỉ hiện một lần.</p>')}
+    <div class="xep">
+      <input id="ten-khoa" maxlength="40" placeholder="Tên công cụ, ví dụ n8n" aria-label="Tên công cụ">
+      <button class="chinh" id="tao-khoa" type="button">Tạo khoá</button>
+    </div>
+    <div id="khoa-moi"></div>
+  </div>
+</details>
+
+<section class="khoi nguy-hiem">
+  <p class="mo-ta">Cần cắt hết một lần (mất điện thoại, nghi lộ khoá): ngắt mọi AI đang nối và xoá mọi khoá riêng.
+  Muốn dùng lại phải nối lại từ đầu.</p>
+  <button class="nguy" id="ngat" type="button">Ngắt mọi kết nối</button>
+</section>
+
+<p class="cuoi"><a href="{HUONG_DAN}" target="_blank" rel="noopener">Xem hướng dẫn đầy đủ</a></p>
+<script id="cfg" type="application/json">{cfg}</script>
+<script>{_JS_CAI_DAT}</script>"""
+    return _trang(than, khung=False)
+
+
+# JS của trang cài đặt, chuỗi thường (không phải f-string) để khỏi nhân đôi ngoặc; đường dẫn đọc từ khối #cfg.
+_JS_CAI_DAT = """
+(() => {
+const C = JSON.parse(document.getElementById("cfg").textContent);
+const $ = (s, r) => (r || document).querySelector(s);
+const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+function chu(s) { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
+async function goi(duong, body) {
+  const r = await fetch(duong, {method: "POST", credentials: "same-origin",
+    headers: {"Content-Type": "application/json"}, body: JSON.stringify(body || {})});
+  const d = await r.json().catch(() => ({}));
   if (!r.ok || !d.ok) throw new Error(d.error || ("Lỗi " + r.status));
   return d;
-}}
-document.getElementById("muc").onchange = async (ev) => {{
-  tb.className = "phu"; tb.textContent = "Đang lưu...";
-  try {{ await goi({json.dumps(_p(ctx, "cai-dat"))}, {{muc_quyen: ev.target.value}});
-         tb.className = "tot"; tb.textContent = "Đã lưu. Có hiệu lực từ lượt gọi kế tiếp."; }}
-  catch (x) {{ tb.className = "loi"; tb.textContent = x.message; }}
-}};
-document.getElementById("ngat").onclick = async () => {{
-  if (!confirm("Ngắt mọi kết nối, kể cả mọi khoá riêng? Muốn dùng lại phải kết nối lại từ từng công cụ.")) return;
-  try {{ await goi({json.dumps(_p(ctx, "ngat"))});
-         location.reload(); }}
-  catch (x) {{ tb.className = "loi"; tb.textContent = x.message; }}
-}};
-document.querySelectorAll("[data-nguon]").forEach((b) => b.onclick = async () => {{
+}
+async function chep(text, nut) {
+  try { await navigator.clipboard.writeText(text); }
+  catch (x) {
+    const t = document.createElement("textarea"); t.value = text; document.body.appendChild(t);
+    t.select(); document.execCommand("copy"); t.remove();
+  }
+  const cu = nut.textContent; nut.textContent = "Đã chép";
+  setTimeout(() => { nut.textContent = cu; }, 1600);
+}
+$$("[data-i]").forEach((b) => b.onclick = () => {
+  const mo = b.getAttribute("aria-expanded") !== "true";
+  b.setAttribute("aria-expanded", String(mo));
+  document.getElementById(b.getAttribute("aria-controls")).hidden = !mo;
+});
+$$("[role=tab]").forEach((t) => t.onclick = () => {
+  $$("[role=tab]", t.closest("[data-tabs]")).forEach((x) => {
+    const on = x === t;
+    x.setAttribute("aria-selected", String(on));
+    document.getElementById(x.getAttribute("aria-controls")).hidden = !on;
+  });
+});
+$("#chep").onclick = (ev) => chep(C.url, ev.currentTarget);
+$$("input[name=muc]").forEach((r) => r.onchange = async () => {
+  const tb = $("#tb-muc"); tb.className = "tb"; tb.textContent = "Đang lưu...";
+  try { await goi(C.duong.cai_dat, {muc_quyen: r.value});
+        tb.className = "tb tot"; tb.textContent = "Đã lưu. Có hiệu lực từ lượt gọi kế tiếp."; }
+  catch (x) { tb.className = "tb loi"; tb.textContent = x.message; }
+});
+$$("[data-nguon]").forEach((b) => b.onclick = async () => {
   const cho = b.dataset.cho === "1";
   if (cho && !confirm("Cho phép " + b.dataset.nguon + "? Chỉ đồng ý nếu bạn vừa tự kết nối từ công cụ này.")) return;
-  try {{ await goi({json.dumps(_p(ctx, "nguon"))}, {{goc: b.dataset.nguon, cho: cho}}); location.reload(); }}
-  catch (x) {{ alert(x.message); }}
-}});
-document.querySelectorAll("[data-xoa-khoa]").forEach((b) => b.onclick = async () => {{
+  try { await goi(C.duong.nguon, {goc: b.dataset.nguon, cho: cho}); location.reload(); }
+  catch (x) { alert(x.message); }
+});
+$$("[data-ngat-mot]").forEach((b) => b.onclick = async () => {
+  if (!confirm("Ngắt " + b.dataset.ten + "? Muốn dùng lại phải kết nối lại từ công cụ đó.")) return;
+  try { await goi(C.duong.ngat_mot, {ho: b.dataset.ngatMot}); location.reload(); }
+  catch (x) { alert(x.message); }
+});
+$$("[data-xoa-khoa]").forEach((b) => b.onclick = async () => {
   if (!confirm("Thu hồi khoá " + b.dataset.ten + "? Công cụ đang dùng nó sẽ mất kết nối ngay.")) return;
-  try {{ await goi({json.dumps(_p(ctx, "khoa-xoa"))}, {{id: b.dataset.xoaKhoa}}); location.reload(); }}
-  catch (x) {{ alert(x.message); }}
-}});
-document.getElementById("tao-khoa").onclick = async () => {{
-  const o = document.getElementById("khoa-moi");
-  try {{
-    const d = await goi({json.dumps(_p(ctx, "khoa"))}, {{ten: document.getElementById("ten-khoa").value}});
-    const cau_hinh = JSON.stringify({{mcpServers: {{javis: {{url: URL_MCP,
-      headers: {{Authorization: "Bearer " + d.khoa}}}}}}}}, null, 2);
-    o.innerHTML = '<div class="the-moi"><p><b>Khoá cho ' + chu(d.ten) + '</b>. Chép ngay: Javis chỉ hiện khoá này '
-      + 'MỘT lần.</p><div class="hop"><input id="khoa-tho" readonly><button class="phu-nut" id="chep-khoa" '
-      + 'type="button">Chép</button></div><p class="phu">Trong công cụ: địa chỉ là địa chỉ ở mục 1, header '
-      + '<code>Authorization: Bearer &lt;khoá&gt;</code>. Nhiều công cụ nhận cấu hình dạng này (tên ô có thể khác):</p>'
-      + '<pre id="cau-hinh"></pre><button class="phu-nut" type="button" onclick="location.reload()">Xong</button></div>';
-    document.getElementById("khoa-tho").value = d.khoa;
-    document.getElementById("cau-hinh").textContent = cau_hinh;
-    document.getElementById("chep-khoa").onclick = async (ev) => {{
-      try {{ await navigator.clipboard.writeText(d.khoa); }}
-      catch (x) {{ const i = document.getElementById("khoa-tho"); i.select(); document.execCommand("copy"); }}
-      ev.target.textContent = "Đã chép";
-    }};
-  }} catch (x) {{ o.innerHTML = '<p class="loi">' + chu(x.message) + '</p>'; }}
-}};
-</script>"""
-    return _trang(f"""
-<h1>Javis Gate</h1>
-<p class="phu">Cổng cho ChatGPT, Claude và AI khác làm việc cùng Javis. AI đó đọc hội thoại của Javis
-và nhắn vào khung chat như bạn gõ, nên bạn xem được tiến độ ngay trên Javis.
-<a href="{HUONG_DAN}" target="_blank" rel="noopener">Hướng dẫn từng bước</a></p>
-{than_chinh}""")
+  try { await goi(C.duong.khoa_xoa, {id: b.dataset.xoaKhoa}); location.reload(); }
+  catch (x) { alert(x.message); }
+});
+$("#tao-khoa").onclick = async () => {
+  const o = $("#khoa-moi");
+  try {
+    const d = await goi(C.duong.khoa, {ten: $("#ten-khoa").value});
+    const cau_hinh = JSON.stringify({mcpServers: {javis: {url: C.url,
+      headers: {Authorization: "Bearer " + d.khoa}}}}, null, 2);
+    o.innerHTML = '<div class="the-moi"><p><b>Khoá cho ' + chu(d.ten) + '</b></p>'
+      + '<p class="phu">Chép ngay: Javis chỉ hiện khoá này một lần.</p>'
+      + '<div class="dia-chi" id="khoa-tho"></div><button class="chinh" id="chep-khoa" type="button">Chép khoá</button>'
+      + '<ol class="buoc" style="margin-top:16px"><li>Địa chỉ: địa chỉ kết nối ở trên.</li>'
+      + '<li>Header: <code>Authorization: Bearer &lt;khoá&gt;</code></li>'
+      + '<li>Công cụ nhận cấu hình dạng JSON thì dán đoạn dưới (tên ô có thể khác).</li></ol>'
+      + '<pre id="cau-hinh"></pre><button class="phu-nut" id="chep-cau-hinh" type="button">Chép cấu hình</button>'
+      + '<button class="phu-nut" type="button" onclick="location.reload()">Xong</button></div>';
+    $("#khoa-tho").textContent = d.khoa;
+    $("#cau-hinh").textContent = cau_hinh;
+    $("#chep-khoa").onclick = (ev) => chep(d.khoa, ev.currentTarget);
+    $("#chep-cau-hinh").onclick = (ev) => chep(cau_hinh, ev.currentTarget);
+  } catch (x) { o.innerHTML = '<p class="loi">' + chu(x.message) + '</p>'; }
+};
+$("#ngat").onclick = async () => {
+  if (!confirm("Ngắt mọi kết nối, kể cả mọi khoá riêng? Muốn dùng lại phải kết nối lại từ từng công cụ.")) return;
+  try { await goi(C.duong.ngat); location.reload(); }
+  catch (x) { alert(x.message); }
+};
+})();
+"""
 
 
 # ============================================================
@@ -1049,5 +1268,11 @@ def register(ctx):
     ctx.register_http("nguon", nguon, methods=("POST",))
     ctx.register_http("khoa", khoa, methods=("POST",))
     ctx.register_http("khoa-xoa", khoa_xoa, methods=("POST",))
+
+    async def ngat_mot_http(request, ctx):
+        ok = ngat_mot(ctx, str((await _doc_form(request)).get("ho") or ""))
+        return _json({"ok": ok, **({} if ok else {"error": "Không thấy kết nối này."})}, 200 if ok else 404)
+
+    ctx.register_http("ngat-mot", ngat_mot_http, methods=("POST",))
     ctx.register_http("ngat", lambda request, ctx: _json({"ok": True, "da_ngat": ngat_tat_ca(ctx)}),
                       methods=("POST",))
