@@ -1078,6 +1078,41 @@
       }
     },
     {
+      "id": "javis.tiktok-social",
+      "kind": "connector",
+      "name": {
+        "vi": "TikTok",
+        "en": "TikTok"
+      },
+      "description": {
+        "vi": "Quản lý kênh TikTok của bạn qua MCP chính chủ của TikTok: xem số liệu tài khoản và từng video, đọc và trả lời bình luận, theo dõi bài nhắc tới thương hiệu, tìm từ khoá, hashtag và nhạc đang thịnh hành để lên ý tưởng nội dung. Đăng nhập TikTok 1 chạm - không cần tạo app hay dán key. Chưa đăng được video hay ảnh qua kết nối này.",
+        "en": "Run your TikTok account through TikTok's official Social MCP: account and per-video analytics, read and reply to comments, track posts that mention your brand, and find trending keywords, hashtags and music for content ideas. One-tap TikTok sign-in, no app to create and no key to paste. Publishing videos or photos is not available through this connection yet."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "mang-xa-hoi",
+      "category_label": {
+        "vi": "Mạng xã hội"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-11-15",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.tiktok-social",
+      "icon": "packs/javis.tiktok-social/assets/tiktok.webp",
+      "provides": {
+        "connectors": [
+          "tiktok-social"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-tiktok-social-1.0.0.zip",
+        "sha256": "0de3e729e9202b2e91c40efd92a5d235db8d690045cc450b8823954337d24f94",
+        "size": 9868
+      }
+    },
+    {
       "id": "javis.x-twitter",
       "kind": "connector",
       "name": {
