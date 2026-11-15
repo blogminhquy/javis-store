@@ -22,12 +22,13 @@ gói, và chạy mục 0 "Kiểm trước khi gửi" trước khi báo xong. M�
 
 - **Màn mới hoặc thiết kế lại:** làm bản HTML cho chủ duyệt trước khi code, trừ khi chủ bảo làm thẳng. Gửi ảnh trước và
   sau, chụp ở khổ 390px, cả giao diện sáng lẫn tối.
-- **Mẫu là trang `javis.gate` 2.2.1** (`packs/javis.gate/plugins/javis-gate/plugin.py`, hàm `_trang_cai_dat`). Thứ tự:
+- **Mẫu là trang `javis.gate` 2.2.2** (`packs/javis.gate/plugins/javis-gate/plugin.py`, hàm `_trang_cai_dat`). Thứ tự:
   trạng thái, việc chính (một nút lớn), cài đặt dạng thẻ chọn, danh sách có nút riêng từng dòng, phần ít dùng thu gọn,
   vùng nguy hiểm ở cuối.
 - **Cỡ:** chữ thân 17px, không chữ nào dưới 16px, nút cao 48px, không tràn ngang.
 - **Giải thích:** mọi lời giải thích nằm sau nút (i), đóng sẵn. Các bước có số tròn, mỗi bước một câu.
 - **Gọn và thẳng hàng:** không lặp tiêu đề, một mép trái chung, icon thay chữ khi đủ nghĩa, chỉ in đậm thứ quan trọng.
 - **Câu chữ:** tiếng Việt như văn nói, không thuật ngữ. Logo hãng phải là logo thật.
-- **Giao diện mặc định là sáng** (chủ chốt 05/11/2026 cho dashboard). Trang gói đang theo sáng/tối của hệ điều hành;
-  trang mới, hoặc trang cũ khi đụng tới, nên theo `localStorage["javis.theme"]` của dashboard.
+- **Giao diện mặc định là sáng** (chủ chốt 05/11/2026). Trang của gói theo đúng lựa chọn đã lưu của dashboard
+  (`localStorage["javis.theme"]`), cùng màu và font Be Vietnam Pro (`/static/fonts/fonts.css`). Chép `_JS_GIAO_DIEN` và
+  `_CSS` của `javis.gate` 2.2.2 khi làm trang gói mới; đừng dùng `prefers-color-scheme`.

@@ -21,6 +21,8 @@ Locks:
 8. The pack's page (gate 2.2.1, owner 15/11: "guidance tucked behind an i button, steps easy to read"): status first,
    the address before any help, every help text behind an (i) that starts closed, numbered steps per platform, the
    level as three choices, each connection listed by name with its own Disconnect (owner only), danger zone last.
+9. Theme (gate 2.2.2): every page of the pack is light unless the dashboard's saved choice (localStorage javis.theme)
+   says dark, uses the dashboard's font, and no longer follows the phone's own light/dark setting.
 """
 import _paths  # noqa: F401
 from _paths import PACK, STORE
@@ -421,6 +423,20 @@ check("the other AI keeps working", rpc(stranger, "/ext/javis-gate/mcp", "tools/
 check("an unknown connection id is refused",
       owner.post("/ext/javis-gate/ngat-mot", json={"ho": "khong-co"}, headers=OWN).status_code == 404)
 check("the list now shows one connection", owner.get("/ext/javis-gate/").text.count("data-ngat-mot=") == 1)
+
+# ============================================================
+# 9. Theme follows the dashboard, light by default (owner, 05/11/2026)
+# ============================================================
+for ten, html_ in (("settings page", owner.get("/ext/javis-gate/").text),
+                   ("page shown before login", TestClient(main.app).get("/ext/javis-gate/oauth/authorize", params={**q, "state": "t"}).text)):
+    head = html_.split("</head>", 1)[0]
+    check(f"{ten}: reads the dashboard's saved theme before painting", "localStorage.getItem('javis.theme')" in head
+          and head.find("javis.theme") < head.find("<style>"))
+    check(f"{ten}: light by default, dark only when chosen", 'data-theme="dark"' in head
+          and "setAttribute('data-theme','dark')" in head and "prefers-color-scheme" not in html_)
+    check(f"{ten}: the dashboard's font", "/static/fonts/fonts.css" in head and "Be Vietnam Pro" in head)
+check("the font sheet it links is public (no login needed)", TestClient(main.app).get("/static/fonts/fonts.css").status_code
+      == 200)
 
 print()
 print("ALL PASS" if not _fails else f"{len(_fails)} FAIL: {_fails}")

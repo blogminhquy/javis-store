@@ -632,19 +632,20 @@ def so_ket_noi(ctx) -> int:
 # HTML (chữ tối thiểu 16px, đọc trên điện thoại)
 # ============================================================
 
+# Màu lấy theo biến của dashboard (`dashboard/style.css` của Javis OS: --bg, --bg2, --border, --text, --text2,
+# --accent-solid), để trang của gói nhìn như một trang của Javis. Sáng là mặc định; tối chỉ khi `_JS_GIAO_DIEN`
+# đặt data-theme="dark" theo lựa chọn đã lưu của dashboard (2.2.2).
 _CSS = """
-:root { color-scheme: light dark; --nen:#f4f3ef; --the:#fff; --chu:#1d1d1f; --phu:#5f5f66;
-        --vien:#dcdad4; --nhan:#c2410c; --nhan-nhat:#fff4ec; --nhan-chu:#fff; --loi:#c81e1e; --loi-nhat:#fdeeee;
-        --tot:#15803d; --tot-nhat:#e9f7ee; --goi-y:#f7f6f2; }
-@media (prefers-color-scheme: dark) {
-  :root { --nen:#121212; --the:#1d1d1d; --chu:#eee; --phu:#a8a8ad; --vien:#363636; --nhan:#f0773a;
-          --nhan-nhat:#2c1c13; --nhan-chu:#160c06; --loi:#f87171; --loi-nhat:#2c1515; --tot:#4ade80;
-          --tot-nhat:#12251a; --goi-y:#252525; }
-}
+:root { color-scheme: light; --nen:#fbf9f7; --the:#ffffff; --chu:#1c1a24; --phu:#55505f;
+        --vien:#e7e1da; --nhan:#c2410c; --nhan-nhat:#fff4ec; --nhan-chu:#fff; --loi:#c81e1e; --loi-nhat:#fdeeee;
+        --tot:#15803d; --tot-nhat:#e9f7ee; --goi-y:#f7f4ef; }
+:root[data-theme="dark"] { color-scheme: dark; --nen:#0e0e16; --the:#181822; --chu:#f3f3fb; --phu:#c0c0da;
+        --vien:#36364c; --nhan:#ff7a3c; --nhan-nhat:#2c1c13; --nhan-chu:#160c06; --loi:#f87171; --loi-nhat:#2c1515;
+        --tot:#4ade80; --tot-nhat:#12251a; --goi-y:#22222e; }
 * { box-sizing: border-box; }
 body { margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
        background:var(--nen); color:var(--chu); font-size:17px; line-height:1.55;
-       font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; padding:16px; }
+       font-family:"Be Vietnam Pro",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; padding:16px; }
 body.dai { align-items:flex-start; }
 .the { background:var(--the); border:1px solid var(--vien); border-radius:16px; padding:28px 24px;
        width:100%; max-width:480px; }
@@ -742,6 +743,21 @@ details.khoi[open] > summary::after { transform:rotate(-135deg); margin-top:4px;
 """
 
 
+# Sáng hay tối: đọc đúng lựa chọn dashboard đã lưu trên máy này (`localStorage["javis.theme"]`: light | dark | auto,
+# auto theo khung giờ "HH:MM-HH:MM" ở `javis.theme.schedule`, mặc định 06:00-18:00 là sáng). Trang của gói cùng tên
+# miền với dashboard nên đọc được. Chưa từng chọn, hoặc trình duyệt chặn localStorage, thì SÁNG: chủ dự án 05/11/2026
+# "giao diện sáng là màn mặc định của javis". Cùng phép tính với đoạn script đầu `dashboard/index.html`; "dim" là tên
+# cũ của tối. Chạy trong <head>, trước khi vẽ, để không nháy từ sáng sang tối.
+_JS_GIAO_DIEN = (
+    "(function(){try{var m=localStorage.getItem('javis.theme'),L=m!=='dark'&&m!=='dim';"
+    "if(m==='auto'){var p=/^(\\d{1,2}):(\\d{2})-(\\d{1,2}):(\\d{2})$/.exec("
+    "localStorage.getItem('javis.theme.schedule')||'')||[0,6,0,18,0],a=p[1]*60+ +p[2],b=p[3]*60+ +p[4],"
+    "d=new Date(),n=d.getHours()*60+d.getMinutes();L=a!==b&&(a<b?n>=a&&n<b:n>=a||n<b);}"
+    "if(!L){document.documentElement.setAttribute('data-theme','dark');"
+    "var t=document.querySelector('meta[name=theme-color]');if(t)t.setAttribute('content','#181822');}"
+    "}catch(e){}})();")
+
+
 def _trang(than: str, status: int = 200, khung: bool = True):
     # `same-origin`, KHÔNG phải `no-referrer`. URL trang Cho phép mang state và code_challenge
     # nên không được rò sang trang khác qua Referer, và cả hai giá trị đều chặn được điều đó.
@@ -751,7 +767,11 @@ def _trang(than: str, status: int = 200, khung: bool = True):
     return HTMLResponse(
         '<!doctype html><html lang="vi"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width,initial-scale=1">'
-        '<meta name="referrer" content="same-origin"><title>Javis Gate</title>'
+        '<meta name="referrer" content="same-origin"><meta name="theme-color" content="#ffffff">'
+        '<title>Javis Gate</title>'
+        f'<script>{_JS_GIAO_DIEN}</script>'
+        # Font của dashboard (Be Vietnam Pro, tự chứa ở /static/, mở công khai nên trang đăng nhập cũng tải được).
+        '<link rel="stylesheet" href="/static/fonts/fonts.css?v=1">'
         f'<style>{_CSS}</style></head>'
         + (f'<body><div class="the">{than}</div></body></html>' if khung
            else f'<body class="dai"><main class="trang">{than}</main></body></html>'),
