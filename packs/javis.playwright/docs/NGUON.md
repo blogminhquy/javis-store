@@ -26,4 +26,6 @@ Cookie và storage bị xếp `danger` **kể cả lệnh chỉ đọc**: chúng
 
 ## Mặc định an toàn
 
-Bốn ô cấu hình điền sẵn `isolated=true` và `headless=true`. `isolated` là quan trọng nhất: mặc định GỐC của Playwright MCP là hồ sơ lưu trên đĩa, tức nó thấy mọi trang bạn đang đăng nhập. Gói này lật ngược mặc định đó.
+Bốn ô cấu hình điền sẵn `isolated=true` và `headless=true`, còn ô trình duyệt để trống. `isolated` là quan trọng nhất: mặc định GỐC của Playwright MCP là hồ sơ lưu trên đĩa, tức nó thấy mọi trang bạn đang đăng nhập. Gói này lật ngược mặc định đó.
+
+Ô trình duyệt cố ý để trống (từ bản 1.0.3). Để trống thì Javis tự chọn theo máy: `chrome` khi máy có sẵn Google Chrome, `chromium` khi Javis đã tải bản Chromium riêng hoặc máy không có Chrome (máy chủ Linux, container). Bản 1.0.2 trở về trước điền sẵn `chrome`, và giá trị điền sẵn được lưu vào kết nối nên lấn quyền lựa chọn tự động đó: trên máy chủ, Playwright đi tìm `/opt/google/chrome/chrome`, không thấy, và thử cài thì cần quyền root.

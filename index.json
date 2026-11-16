@@ -2138,7 +2138,7 @@
         "vi": "Điều khiển trình duyệt thật qua Playwright MCP chính chủ của Microsoft: mở trang, đọc cấu trúc trang, điền form, bấm nút, chụp màn hình, xuất PDF, chạy kiểm thử đầu-cuối. Không cần API key. Mặc định chạy hồ sơ TÁCH BIỆT và ẩn cửa sổ.",
         "en": "Drive a real browser through Microsoft's official Playwright MCP: open pages, read page structure, fill forms, click, screenshot, export PDF, run end-to-end tests. No API key. Defaults to an isolated, headless profile."
       },
-      "version": "1.0.2",
+      "version": "1.0.3",
       "author": {
         "name": "Microsoft",
         "url": "https://github.com/microsoft/playwright-mcp"
@@ -2150,7 +2150,7 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-09-05",
+      "updated": "2026-11-16",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.playwright",
       "icon": "packs/javis.playwright/assets/playwright.png",
       "source": "https://github.com/microsoft/playwright-mcp",
@@ -2161,9 +2161,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-playwright-1.0.2.zip",
-        "sha256": "413409d9169b6bdaa43ea41c4eb10241858e2ddf47632ebd861cca7cb03228d3",
-        "size": 21077
+        "url": "dist/javis-playwright-1.0.3.zip",
+        "sha256": "2d28d1239ff17a9cd7dde4718424c14628b406a12890db522832605885e464ed",
+        "size": 21473
       }
     },
     {

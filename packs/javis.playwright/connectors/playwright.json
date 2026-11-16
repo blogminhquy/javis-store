@@ -34,9 +34,9 @@
       },
       {
         "key": "browser",
-        "label": "Trình duyệt (chrome, firefox, webkit, msedge)",
+        "label": "Trình duyệt (bỏ trống = Javis tự chọn theo máy; hoặc ghi chromium, chrome, firefox, webkit, msedge)",
         "optional": true,
-        "default": "chrome",
+        "default": "",
         "env": "PLAYWRIGHT_MCP_BROWSER"
       },
       {
@@ -47,14 +47,14 @@
         "env": "PLAYWRIGHT_MCP_ALLOWED_ORIGINS"
       }
     ],
-    "guide": "Không cần API key, không cần tài khoản. Bấm Kết nối là xong.\n\nLần chạy đầu npx tải @playwright/mcp về, và Playwright tự tải trình duyệt nếu máy chưa có, nên lần đầu hơi lâu. Máy chạy Javis phải có Node 18 trở lên.\n\nBốn ô dưới đã điền sẵn mức an toàn, không rõ thì để nguyên:\n- Hồ sơ tách biệt = true: Playwright mở một hồ sơ trống, KHÔNG đụng vào các phiên đăng nhập sẵn có trong trình duyệt của bạn. Đổi thành false là nó dùng hồ sơ lưu trên đĩa, tức mọi trang bạn đang đăng nhập đều nằm trong tầm với của nó.\n- Ẩn cửa sổ = true: chạy ngầm. Đổi thành false khi bạn muốn nhìn nó thao tác.\n- Ô tên miền: điền vào là khoá Playwright trong đúng những trang đó. Đây là hàng rào mềm của Playwright, không phải tường lửa, nhưng vẫn đáng điền khi bạn chỉ định dùng cho một site.",
+    "guide": "Không cần API key, không cần tài khoản. Bấm Kết nối là xong.\n\nLần chạy đầu npx tải @playwright/mcp về, và Playwright tự tải trình duyệt nếu máy chưa có, nên lần đầu hơi lâu. Máy chạy Javis phải có Node 18 trở lên.\n\nCác ô dưới đã điền sẵn mức an toàn, không rõ thì để nguyên:\n- Hồ sơ tách biệt = true: Playwright mở một hồ sơ trống, KHÔNG đụng vào các phiên đăng nhập sẵn có trong trình duyệt của bạn. Đổi thành false là nó dùng hồ sơ lưu trên đĩa, tức mọi trang bạn đang đăng nhập đều nằm trong tầm với của nó.\n- Ẩn cửa sổ = true: chạy ngầm. Đổi thành false khi bạn muốn nhìn nó thao tác.\n- Ô trình duyệt: để trống là Javis tự chọn. Máy cá nhân có sẵn Google Chrome thì dùng Chrome, máy chủ Linux thì dùng bản Chromium Javis tự tải về. Chỉ ghi tên khi bạn muốn ép một trình duyệt cụ thể: ghi `chrome` trên máy chủ không có Google Chrome là Playwright báo không tìm thấy trình duyệt.\n- Ô tên miền: điền vào là khoá Playwright trong đúng những trang đó. Đây là hàng rào mềm của Playwright, không phải tường lửa, nhưng vẫn đáng điền khi bạn chỉ định dùng cho một site.",
     "guide_url": "https://github.com/microsoft/playwright-mcp#configuration",
     "steps": [
       {
         "text": "Kiểm tra máy chạy Javis đã có Node 18 trở lên (gõ `node -v`)."
       },
       {
-        "text": "Bốn ô dưới đã điền sẵn mức an toàn, cứ để nguyên nếu bạn không có nhu cầu riêng."
+        "text": "Các ô dưới đã điền sẵn mức an toàn, cứ để nguyên nếu bạn không có nhu cầu riêng."
       },
       {
         "text": "Bấm Kết nối. Lần đầu Playwright tải trình duyệt về nên chờ hơi lâu.",
