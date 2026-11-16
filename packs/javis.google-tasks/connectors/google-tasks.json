@@ -65,7 +65,7 @@
         "text": "TRƯỚC KHI LÀM, đọc dòng này: kết nối này chạy trên chính máy cài Javis, và lần đầu gọi tool nó mở trình duyệt CỦA MÁY ĐÓ để bạn bấm đồng ý. Javis chạy trên VPS không màn hình thì đường này không đi được."
       },
       {
-        "text": "Đã đấu Google Workspace hoặc dịch vụ Google khác rồi thì DÙNG LẠI key của nó (nút bên dưới ô nhập), chỉ cần làm thêm bước bật API."
+        "text": "Đã đấu Google Workspace hoặc dịch vụ Google khác rồi thì DÙNG LẠI key của nó (ô Dùng lại key ở đầu khung này), chỉ cần làm thêm bước bật API."
       },
       {
         "text": "Vào Google Cloud tạo project (hoặc dùng project sẵn có), bật Google Tasks API.",

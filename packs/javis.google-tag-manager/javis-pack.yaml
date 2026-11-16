@@ -1,0 +1,12 @@
+format: javis-pack
+spec: 1
+id: javis.google-tag-manager
+version: 1.0.0
+name: {vi: "Google Tag Manager", en: "Google Tag Manager"}
+description: {vi: "Xem và sửa Google Tag Manager: thẻ, trình kích hoạt, biến, phiên bản, xuất bản khi bạn cho phép. Chạy trên máy cài Javis, đăng nhập Google 1 lần, dùng lại được key Google đã lưu ở dịch vụ Google khác.", en: "Read and edit Google Tag Manager: tags, triggers, variables, versions, and publishing when you allow it. Runs on the Javis machine; one Google sign-in, and it can reuse a Google key saved for another Google service."}
+author: {name: Javis}
+license: MIT
+homepage: "https://github.com/blogminhquy/javis-store"
+compat: {app: ">=0.573.0"}
+provides:
+  connectors: [connectors/google-tag-manager.json]

@@ -86,6 +86,12 @@ def _env_gia(con, thu_muc):
             env[ten] = "https://javis-soi-gia.invalid"
         else:
             env[ten] = "javis-soi-gia"
+    # `oauth_env` (Tag Manager của Stape): Javis đưa đăng nhập Google vào biến sau khi người dùng đăng nhập. Server
+    # đó thoát ngay khi thiếu biến, nên giả luôn chúng. Refresh token giả chỉ được đổi lúc gọi tool, mà soi thì không
+    # gọi tool nào.
+    for ten in (con.get("oauth_env") or {}).values():
+        if isinstance(ten, str) and ten.strip():
+            env[ten.strip()] = "javis-soi-gia"
     return env
 
 

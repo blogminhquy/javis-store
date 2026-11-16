@@ -44,7 +44,7 @@
     "guide_url": "https://console.cloud.google.com/apis/credentials",
     "steps": [
       {
-        "text": "Đã đấu Google Calendar rồi thì DÙNG LẠI key của nó (nút bên dưới ô nhập), chỉ cần làm thêm bước 2 cho Gmail.",
+        "text": "Đã đấu Google Calendar rồi thì DÙNG LẠI key của nó (ô Dùng lại key ở đầu khung này), chỉ cần làm thêm bước 2 cho Gmail.",
         "link": "",
         "link_label": ""
       },

@@ -1,7 +1,7 @@
 {
   "format": "javis-pack-index",
   "format_version": 1,
-  "updated": "2026-11-15",
+  "updated": "2026-11-16",
   "store": {
     "name": "Kho cài đặt Javis",
     "url": "https://github.com/blogminhquy/javis-store"
@@ -447,7 +447,7 @@
       "description": {
         "vi": "Số liệu SEO website: khách tìm từ khoá gì ra trang của bạn, lượt hiển thị, lượt bấm, trang top."
       },
-      "version": "1.0.3",
+      "version": "1.0.4",
       "author": {
         "name": "Javis"
       },
@@ -457,7 +457,7 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-10-05",
+      "updated": "2026-11-16",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-search-console",
       "icon": "packs/javis.google-search-console/assets/google-search-console.png",
       "provides": {
@@ -466,9 +466,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-google-search-console-1.0.3.zip",
-        "sha256": "6fbaaf2835d485a07bdbf4e84bf4bfdc8f68f9caae73a79d6250691cde28fd45",
-        "size": 9920
+        "url": "dist/javis-google-search-console-1.0.4.zip",
+        "sha256": "7eef3ddd29d135d232d63cf5ce91510a9e4fa338f06d4a3a2e457966696aa1a2",
+        "size": 9932
       }
     },
     {
@@ -513,7 +513,7 @@
       "description": {
         "vi": "Việc cần làm trong Google Tasks: xem danh sách, thêm việc, đặt hạn, đánh dấu xong. Chỉ xin quyền Tasks, không đụng Gmail hay Drive. Đăng nhập Google bằng OAuth client tự tạo (~10 phút, có hướng dẫn)."
       },
-      "version": "1.0.3",
+      "version": "1.0.4",
       "author": {
         "name": "Javis"
       },
@@ -523,7 +523,7 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-10-05",
+      "updated": "2026-11-16",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-tasks",
       "icon": "packs/javis.google-tasks/assets/google-tasks.png",
       "provides": {
@@ -532,9 +532,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-google-tasks-1.0.3.zip",
-        "sha256": "5e7feb26aeded6905e6953a5f4290f0dcd92fec5ca272f2c1189cff76525c535",
-        "size": 14188
+        "url": "dist/javis-google-tasks-1.0.4.zip",
+        "sha256": "257dd360f55cf5293e13a3cdbfcb10c7566d63464ec4583039af3078b38cd441",
+        "size": 14194
       }
     },
     {
@@ -713,6 +713,41 @@
       }
     },
     {
+      "id": "javis.google-tag-manager",
+      "kind": "connector",
+      "name": {
+        "vi": "Google Tag Manager",
+        "en": "Google Tag Manager"
+      },
+      "description": {
+        "vi": "Xem và sửa Google Tag Manager: thẻ, trình kích hoạt, biến, phiên bản, xuất bản khi bạn cho phép. Chạy trên máy cài Javis, đăng nhập Google 1 lần, dùng lại được key Google đã lưu ở dịch vụ Google khác.",
+        "en": "Read and edit Google Tag Manager: tags, triggers, variables, versions, and publishing when you allow it. Runs on the Javis machine; one Google sign-in, and it can reuse a Google key saved for another Google service."
+      },
+      "version": "1.0.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "marketing",
+      "category_label": {
+        "vi": "Marketing"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-11-16",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-tag-manager",
+      "icon": "packs/javis.google-tag-manager/assets/google-tag-manager.png",
+      "provides": {
+        "connectors": [
+          "google-tag-manager"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-google-tag-manager-1.0.0.zip",
+        "sha256": "bbcfc6cc9c5c6298fd85a84aa6d68952ebc6e5912710b133bcbc5e1515f5bd0e",
+        "size": 11049
+      }
+    },
+    {
       "id": "javis.tiktok-ads",
       "kind": "connector",
       "name": {
@@ -789,7 +824,7 @@
       "description": {
         "vi": "Gmail qua MCP chính chủ của Google: đọc và tìm thư, soạn NHÁP, gắn nhãn sắp xếp hộp thư. Server chính chủ KHÔNG có tool gửi thẳng - luôn dừng ở bản nháp để bạn tự bấm gửi. Cần tạo OAuth client + ghi danh Developer Preview của Google 1 lần."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Javis"
       },
@@ -799,7 +834,7 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-09-05",
+      "updated": "2026-11-16",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.gmail",
       "icon": "packs/javis.gmail/assets/gmail.webp",
       "provides": {
@@ -808,9 +843,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-gmail-1.0.0.zip",
-        "sha256": "0c8669e18a4443f0a370fc12ca984db6f1dbc0c60586382e48f7e137197db675",
-        "size": 16670
+        "url": "dist/javis-gmail-1.0.1.zip",
+        "sha256": "f54a42851f50fb028ddf6aea98ebc7ff9fbaba39db29368a08dede2a738a4afe",
+        "size": 16684
       }
     },
     {

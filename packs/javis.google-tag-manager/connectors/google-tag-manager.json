@@ -1,0 +1,122 @@
+{
+  "id": "google-tag-manager",
+  "name": "Google Tag Manager",
+  "icon": "assets/google-tag-manager.png",
+  "category": "Marketing",
+  "key_family": "google",
+  "description": "Xem và sửa Google Tag Manager: thẻ, trình kích hoạt, biến, phiên bản, xuất bản khi bạn cho phép. Chạy trên máy cài Javis, đăng nhập Google 1 lần, dùng lại được key Google đã lưu ở dịch vụ Google khác.",
+  "_mcp_doc": "Google không phát hành MCP chính chủ cho Tag Manager (chỉ có Ads và Analytics). Gói dùng google-tag-manager-mcp-server của Stape (Apache-2.0, npm), bản CHẠY TẠI MÁY: nó chỉ gọi oauth2.googleapis.com và API Tag Manager của Google, không qua máy chủ của Stape. Bản 'hosted' của Stape thì giữ token Google ở máy họ, nên không dùng. Đăng nhập: Javis chạy luồng OAuth Google như Analytics, rồi đưa client_id, client_secret, refresh_token vào biến môi trường (oauth_env, Javis 0.573.0 trở lên) vì server này đọc biến chứ không đọc file ADC.",
+  "status": "beta",
+  "transport": "stdio",
+  "command": "npx",
+  "args": [
+    "-y",
+    "google-tag-manager-mcp-server@latest"
+  ],
+  "requires": {
+    "node": ">=20"
+  },
+  "auth": {
+    "type": "oauth",
+    "provider": "google",
+    "authorize_url": "https://accounts.google.com/o/oauth2/v2/auth",
+    "token_url": "https://oauth2.googleapis.com/token",
+    "_scopes_doc": "Không xin tagmanager.manage.users và tagmanager.manage.accounts: hai quyền đó cho thêm hay bớt người dùng GTM và đổi cài đặt tài khoản, việc hiếm khi cần nhờ AI mà lộ ra thì nặng nhất. Thiếu chúng thì gtm_user_permission và lệnh update của gtm_account trả 403, mọi việc khác chạy bình thường. Muốn mở thì thêm hai scope vào đây, ra bản gói mới.",
+    "scopes": [
+      "openid",
+      "email",
+      "https://www.googleapis.com/auth/tagmanager.readonly",
+      "https://www.googleapis.com/auth/tagmanager.edit.containers",
+      "https://www.googleapis.com/auth/tagmanager.edit.containerversions",
+      "https://www.googleapis.com/auth/tagmanager.delete.containers",
+      "https://www.googleapis.com/auth/tagmanager.publish"
+    ],
+    "authorize_params": {
+      "access_type": "offline",
+      "prompt": "consent",
+      "include_granted_scopes": "true"
+    },
+    "fields": [
+      {
+        "key": "client_id",
+        "label": "OAuth Client ID",
+        "placeholder": "Ví dụ: xxxx.apps.googleusercontent.com"
+      },
+      {
+        "key": "client_secret",
+        "label": "OAuth Client Secret",
+        "placeholder": "Ví dụ: GOCSPX-..."
+      }
+    ],
+    "guide": "Cần trước: Node.js 20 trở lên trên máy cài Javis. Javis tự tải bản mới nhất của server Tag Manager mỗi lần khởi động.\n\nĐã đấu Gmail, Lịch, Analytics hay dịch vụ Google khác rồi thì bấm Dùng lại key ở đầu khung này, chỉ cần bật thêm Tag Manager API.\n\nLàm 1 lần, khoảng 10 phút:\n1. Vào console.cloud.google.com, chọn project rồi bật Tag Manager API.\n2. Màn hình đồng ý OAuth: chọn External, thêm email của bạn vào Test users.\n3. Thông tin xác thực > Tạo OAuth client ID loại 'Ứng dụng web'.\n4. Ở phần 'URI chuyển hướng được ủy quyền', thêm đúng địa chỉ này:\nhttp://localhost:7777/connect/oauth/callback\nNếu chạy trên VPS thì thêm cả https://<tên-miền>/connect/oauth/callback\n5. Điền Client ID + Secret rồi bấm đăng nhập, tick hết các ô quyền.\n\nEmail đăng nhập phải có quyền trong Tag Manager: Đọc để xem, Sửa để Javis sửa thẻ, Xuất bản nếu muốn Javis đưa thay đổi lên website.\n\nGặp cảnh báo 'ứng dụng chưa được xác minh' thì bấm Nâng cao > Tiếp tục, vì đây là app của chính bạn.",
+    "guide_url": "https://www.npmjs.com/package/google-tag-manager-mcp-server",
+    "steps": [
+      {
+        "text": "Đã đấu Gmail, Lịch, Analytics hay dịch vụ Google khác rồi thì bấm Dùng lại key ở đầu khung này, khỏi tạo key mới. Khi đó chỉ cần làm bước bật Tag Manager API rồi bấm đăng nhập."
+      },
+      {
+        "text": "Vào Google Cloud, chọn đúng project chứa key (hoặc tạo project mới), bật Tag Manager API.",
+        "link": "https://console.cloud.google.com/apis/library/tagmanager.googleapis.com",
+        "link_label": "Bật Tag Manager API"
+      },
+      {
+        "text": "Màn hình đồng ý OAuth: chọn External rồi thêm email Google của bạn vào Test users. Bỏ bước này là Google chặn ngay lúc đăng nhập.",
+        "link": "https://console.cloud.google.com/auth/audience",
+        "link_label": "Mở màn hình đồng ý"
+      },
+      {
+        "text": "Tạo OAuth client loại 'Ứng dụng web', thêm địa chỉ dưới đây vào ô 'URI chuyển hướng được ủy quyền'. Dùng lại key cũ thì mở key đó ra xem đã có địa chỉ này chưa.",
+        "link": "https://console.cloud.google.com/apis/credentials/oauthclient",
+        "link_label": "Tạo OAuth client",
+        "copy": "redirect"
+      },
+      {
+        "text": "Tải file JSON của client rồi kéo thả vào ô bên dưới (hoặc copy Client ID + Secret), bấm đăng nhập. Gặp cảnh báo 'ứng dụng chưa được xác minh' thì bấm Nâng cao rồi Tiếp tục, vì đây là app của chính bạn. Nhớ TICK HẾT các ô quyền."
+      },
+      {
+        "text": "Email đăng nhập phải có quyền trong Tag Manager: Đọc để xem, Sửa để Javis sửa thẻ, Xuất bản nếu muốn Javis đưa thay đổi lên website."
+      }
+    ]
+  },
+  "oauth_env": {
+    "client_id": "GOOGLE_CLIENT_ID",
+    "client_secret": "GOOGLE_CLIENT_SECRET",
+    "refresh_token": "GOOGLE_REFRESH_TOKEN"
+  },
+  "validate": {
+    "tool": "gtm_account",
+    "args": {
+      "action": "list"
+    }
+  },
+  "tool_meta": {
+    "read": [
+      "gtm_guide",
+      "gtm_auth_status",
+      "gtag_destination"
+    ]
+  },
+  "_call_rules_doc": "Mọi tool gtm_* là tool gộp, lệnh nằm ở tham số action. Lệnh lạ (Stape thêm sau) không có trong danh sách nào thì rơi về danger. Nguy hiểm: remove (xoá), publish (lên website thật), revert (vứt sửa nháp), bulkUpdate (một lần gọi có thể xoá nhiều thứ), combine và moveTagId (gộp, chuyển container), reauthorize (làm chết link xem trước đang chia sẻ). Cấp quyền GTM cho người khác (gtm_user_permission) và đổi cài đặt tài khoản (gtm_account update) là tác động ra ngoài, nên ngoài lệnh đọc đều là danger.",
+  "call_rules": {
+    "gtm_user_permission": {
+      "key": "action",
+      "read_values": ["get", "list"],
+      "else": "danger"
+    },
+    "gtm_account": {
+      "key": "action",
+      "read_values": ["get", "list"],
+      "else": "danger"
+    },
+    "gtm_*": {
+      "key": "action",
+      "read_values": ["get", "list", "lookup", "snippet", "entities", "live", "latest", "getStatus"],
+      "write_values": ["create", "update", "importFromGallery", "moveEntitiesToFolder", "createVersion", "sync",
+                       "resolveConflict", "quickPreview", "setLatest", "undelete"],
+      "danger_values": ["remove", "publish", "revert", "bulkUpdate", "combine", "moveTagId", "reauthorize"],
+      "else": "danger"
+    }
+  },
+  "default_perm": "readonly",
+  "risk": "Mức Ghi nháp cho Javis tạo và sửa thẻ, trình kích hoạt, biến, thư mục trong không gian làm việc nháp, và tạo phiên bản. Chưa có gì lên website cho tới khi xuất bản.\n\nMức Toàn quyền thêm quyền XUẤT BẢN lên website thật, XOÁ, vứt thay đổi nháp, gộp hay chuyển container. Xuất bản sai có thể làm hỏng đo lường hay quảng cáo đang chạy.\n\nChỉ cần xem cấu hình thì giữ mức Chỉ đọc."
+}
