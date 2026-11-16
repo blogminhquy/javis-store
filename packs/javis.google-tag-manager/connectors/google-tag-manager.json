@@ -5,7 +5,7 @@
   "category": "Marketing",
   "key_family": "google",
   "description": "Xem và sửa Google Tag Manager: thẻ, trình kích hoạt, biến, phiên bản, xuất bản khi bạn cho phép. Chạy trên máy cài Javis, đăng nhập Google 1 lần, dùng lại được key Google đã lưu ở dịch vụ Google khác.",
-  "_mcp_doc": "Google không phát hành MCP chính chủ cho Tag Manager (chỉ có Ads và Analytics). Gói dùng google-tag-manager-mcp-server của Stape (Apache-2.0, npm), bản CHẠY TẠI MÁY: nó chỉ gọi oauth2.googleapis.com và API Tag Manager của Google, không qua máy chủ của Stape. Bản 'hosted' của Stape thì giữ token Google ở máy họ, nên không dùng. Đăng nhập: Javis chạy luồng OAuth Google như Analytics, rồi đưa client_id, client_secret, refresh_token vào biến môi trường (oauth_env, Javis 0.572.0 trở lên) vì server này đọc biến chứ không đọc file ADC.",
+  "_mcp_doc": "Google không phát hành MCP chính chủ cho Tag Manager (chỉ có Ads và Analytics). Gói dùng google-tag-manager-mcp-server của Stape (Apache-2.0, npm), bản CHẠY TẠI MÁY: nó chỉ gọi oauth2.googleapis.com và API Tag Manager của Google, không qua máy chủ của Stape. Bản 'hosted' của Stape thì giữ token Google ở máy họ, nên không dùng. Đăng nhập: Javis chạy luồng OAuth Google như Analytics, rồi đưa client_id, client_secret, refresh_token vào biến môi trường (oauth_env, Javis 0.573.0 trở lên) vì server này đọc biến chứ không đọc file ADC.",
   "status": "beta",
   "transport": "stdio",
   "command": "npx",

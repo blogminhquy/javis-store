@@ -7,6 +7,6 @@ description: {vi: "Xem và sửa Google Tag Manager: thẻ, trình kích hoạt,
 author: {name: Javis}
 license: MIT
 homepage: "https://github.com/blogminhquy/javis-store"
-compat: {app: ">=0.572.0"}
+compat: {app: ">=0.573.0"}
 provides:
   connectors: [connectors/google-tag-manager.json]

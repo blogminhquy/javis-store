@@ -107,7 +107,7 @@ check("one step with the redirect copy box", sum(1 for s in auth.get("steps", []
 check("the post-sign-in check is a read", group(CON["validate"]["tool"], CON["validate"]["args"].get("action")) == "read")
 
 manifest = (PACK / "javis-pack.yaml").read_text(encoding="utf-8")
-check("the pack asks for the Javis that knows oauth_env (0.572.0)", 'compat: {app: ">=0.572.0"}' in manifest)
+check("the pack asks for the Javis that knows oauth_env (0.573.0)", 'compat: {app: ">=0.573.0"}' in manifest)
 
 # soi-ban-moi fills the oauth_env variables, or the server exits at once and is never checked.
 spec = importlib.util.spec_from_file_location("soi_ban_moi", STORE / "tools" / "soi-ban-moi.py")
