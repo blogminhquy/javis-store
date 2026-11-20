@@ -103,7 +103,10 @@
       "label_write",
       "projects_write",
       "discussion_comment_write",
-      "issue_artifact_write"
+      "issue_artifact_write",
+      "create_automation",
+      "update_automation",
+      "run_automation"
     ]
   },
   "call_rules": {
@@ -148,8 +151,9 @@
     "remove_pull_request_review_comment_reaction",
     "remove_sub_issue",
     "manage_notification_subscription",
-    "manage_repository_notification_subscription"
+    "manage_repository_notification_subscription",
+    "list_available_automation_triggers"
   ],
   "default_perm": "readonly",
-  "risk": "Mức Chỉ đọc: đọc code, issue, Pull Request, log CI, tìm kiếm. Không đổi gì.\n\nMức Ghi nháp: Javis SỬA THẬT trên GitHub, gồm đẩy commit thẳng vào nhánh, tạo nhánh, sửa file, mở Pull Request, viết issue và bình luận, gửi review, ẩn hoặc hiện bình luận, mời người review, gỡ reaction và gỡ issue con, tạo và sửa nhãn, thêm và sửa mục Project, trả lời thảo luận. Mọi thứ vẫn nằm trong lịch sử git nên quay lại được, nhưng bình luận và review thì người khác đã thấy.\n\nMức Toàn quyền mở thêm nhóm nguy hiểm: TRỘN Pull Request vào nhánh chính, CHẠY lại hoặc huỷ workflow GitHub Actions (có thể deploy thật, tốn phút Actions), xoá file, XOÁ REPO, xoá nhãn, xoá mục và view trong Project, xoá bình luận thảo luận, đặt luật bảo vệ nhánh, giao việc cho Copilot (tiêu lượt Copilot trả phí).\n\nToken là hàng rào thật: chỉ chọn những repo và quyền bạn muốn Javis đụng tới. Không cấp Administration thì Javis không xoá được repo dù đang ở Toàn quyền."
+  "risk": "Mức Chỉ đọc: đọc code, issue, Pull Request, log CI, tìm kiếm. Không đổi gì.\n\nMức Ghi nháp: Javis SỬA THẬT trên GitHub, gồm đẩy commit thẳng vào nhánh, tạo nhánh, sửa file, mở Pull Request, viết issue và bình luận, gửi review, ẩn hoặc hiện bình luận, mời người review, gỡ reaction và gỡ issue con, tạo và sửa nhãn, thêm và sửa mục Project, trả lời thảo luận. Mọi thứ vẫn nằm trong lịch sử git nên quay lại được, nhưng bình luận và review thì người khác đã thấy.\n\nMức Toàn quyền mở thêm nhóm nguy hiểm: TRỘN Pull Request vào nhánh chính, CHẠY lại hoặc huỷ workflow GitHub Actions (có thể deploy thật, tốn phút Actions), xoá file, XOÁ REPO, xoá nhãn, xoá mục và view trong Project, xoá bình luận thảo luận, đặt luật bảo vệ nhánh, giao việc cho Copilot (tiêu lượt Copilot trả phí), tạo, sửa, chạy hay xoá Copilot automation (một agent tự chạy theo lịch hoặc sự kiện trên repo, cũng tiêu lượt Copilot trả phí).\n\nToken là hàng rào thật: chỉ chọn những repo và quyền bạn muốn Javis đụng tới. Không cấp Administration thì Javis không xoá được repo dù đang ở Toàn quyền."
 }
