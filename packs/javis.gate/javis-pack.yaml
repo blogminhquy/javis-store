@@ -9,11 +9,13 @@
 # Cũng 2.2.0: công cụ AI khác nối được (địa chỉ quay về chủ tự cho phép, khoá riêng cho công cụ chỉ dán header).
 # 2.2.1: trang của gói làm lại cho điện thoại: hướng dẫn gọn sau nút i, các bước đánh số, ngắt riêng từng AI.
 # 2.2.2: trang của gói theo sáng/tối đã chọn trên dashboard (mặc định sáng), cùng màu và font với dashboard.
+# 2.2.3: Claude Code và Codex nối vào Gate là tự hỏi bật Javis Sync (lưu mọi lượt chat vào Javis); gói
+# truyền địa chỉ công khai sang lõi để lệnh cài tự điền đúng URL. Cần Javis OS có javis_sync_setup.
 format: javis-pack
 spec: 1
 
 id: javis.gate
-version: 2.2.2
+version: 2.2.3
 replaces:
   - javis.javis-trong-chatgpt
 

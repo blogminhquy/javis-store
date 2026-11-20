@@ -1244,9 +1244,12 @@ def register(ctx):
         # raw_vault=None: brain do Javis tự suy (brain đang mở), không nhận header từ ngoài.
         # gate: bốn tool chat của lõi (tìm, đọc, gửi vào hội thoại, đọc kết quả), kèm tên AI đang gọi
         # để khung chat của Javis ghi "từ ChatGPT" / "từ Claude".
+        # base_url (2.2.3): the public address this door answered on, the one the AI already reaches. A Javis OS that has javis_sync_setup
+        # puts it in the Javis Sync install command (javis_sync_setup), so Claude Code / Codex never has to ask for
+        # the URL. An older Javis OS ignores the extra key.
         return await mcp_hub.tra_loi_jsonrpc(request, muc_quyen(ctx), include_plugins=True,
                                              include_ambient=False, raw_vault=None,
-                                             gate={"source": nguon})
+                                             gate={"source": nguon, "base_url": _goc(request)})
 
     def mcp_khac(request, ctx):
         # Streamable HTTP không trạng thái: không có luồng do máy chủ mở, không có phiên để xoá.

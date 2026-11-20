@@ -125,6 +125,21 @@ Javis không đọc được lịch sử chat trên chatgpt.com hay claude.ai, n
 - Muốn ghi vào đúng một hội thoại có sẵn của Javis (ví dụ "Viết Web"), bảo AI đó: "ghi vào hội thoại Viết Web trên Javis".
 - Cần đủ lịch sử nguyên văn thì xuất dữ liệu từ ChatGPT (Settings, Data controls, Export) hay Claude (Settings, Privacy, Export data), rồi đưa tệp cho Javis đọc.
 
+### Claude Code và Codex: tự lưu mọi lượt chat vào Javis (Javis Sync)
+
+AI viết code (Claude Code, Codex) bận làm việc nên gần như không tự ghi chép. Với chúng, Javis có **Javis Sync**: mỗi lượt
+xong, câu bạn gõ và câu trả lời cuối của AI tự vào Lịch sử của Javis, tên **Từ Claude Code: <dự án>: <câu đầu>** hay **Từ
+Codex: ...**.
+
+1. Nối Claude Code hay Codex vào Gate như mục Bước 2b, 2c.
+2. Nó hỏi bạn một câu: "Bật Javis Sync không?". Trả lời **ok**.
+3. Nó tự cài trên máy, báo lại. Khởi động lại Claude Code hay Codex là chạy.
+
+- Không hỏi thì nhắn nó **"bật Javis Sync"**.
+- Không tốn hạn mức của Javis. API key lọt vào câu chữ được che trước khi lưu. Javis tắt thì lượt chờ, gửi bù sau.
+- Token nó dùng **chỉ lưu được hội thoại**, không làm được gì khác. Xem và thu hồi ở trang **Tích hợp**, tab **Token API**.
+- Cần mức **Ghi nháp** hoặc **Toàn quyền**, Python 3.8 trở lên trên máy đó, và bản Javis OS có công cụ `javis_sync_setup`.
+
 ### Đổi model và effort ngay trong câu lệnh
 
 Cần bản Javis OS có công cụ `javis_chat_models`. Cách thử nhanh: hỏi ChatGPT "Javis có những model nào?". Nó liệt kê được là máy bạn đã có.
