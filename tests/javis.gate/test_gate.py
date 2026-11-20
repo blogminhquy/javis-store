@@ -23,6 +23,8 @@ Locks:
    level as three choices, each connection listed by name with its own Disconnect (owner only), danger zone last.
 9. Theme (gate 2.2.2): every page of the pack is light unless the dashboard's saved choice (localStorage javis.theme)
    says dark, uses the dashboard's font, and no longer follows the phone's own light/dark setting.
+10. Javis Sync (gate 2.2.3): the door passes its public address to Javis OS, so javis_sync_setup builds the install
+   command for Claude Code / Codex without asking the AI for a URL.
 """
 import _paths  # noqa: F401
 from _paths import PACK, STORE
@@ -295,6 +297,23 @@ if "javis_chat_models" in chat_bridge.TOOLS:
     check("consent page says the AI may pick the model and effort", "chọn cả model" in r.text, r.text[:300])
 else:
     print("skip model/effort: this Javis OS has no javis_chat_models yet")
+
+# ============================================================
+# 6b. Javis Sync (gate 2.2.3 on a Javis OS that has javis_sync_setup): connecting Gate is the whole setup
+# ============================================================
+if "javis_sync_setup" in chat_bridge.TOOLS:
+    r = rpc(stranger, "/ext/javis-gate/mcp", "initialize", {"protocolVersion": "2025-06-18"}, token=tok)
+    ins = (r.json().get("result") or {}).get("instructions") or ""
+    check("initialize through this door tells a coding agent to offer Javis Sync", "javis_sync_setup" in ins, ins[:200])
+    r = rpc(stranger, "/ext/javis-gate/mcp", "tools/call", {"name": "javis_sync_setup", "arguments": {}}, token=tok)
+    txt = r.json()["result"]["content"][0]["text"]
+    out = json.loads(txt) if not txt.startswith("ERROR") else {}
+    base = (cfg.read_settings().get("domain") or {}).get("custom") or ""
+    base = f"https://{base}" if base else "http://testserver"
+    check("javis_sync_setup takes this door's public address, the AI never has to ask",
+          f"--url {base} --token jvs_" in out.get("command", ""), txt[:300])
+else:
+    print("skip Javis Sync: this Javis OS has no javis_sync_setup yet")
 
 # ============================================================
 # 7. Other AI tools: owner-allowed addresses and personal keys
