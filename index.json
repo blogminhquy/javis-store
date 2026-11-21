@@ -1,7 +1,7 @@
 {
   "format": "javis-pack-index",
   "format_version": 1,
-  "updated": "2026-11-16",
+  "updated": "2026-11-21",
   "store": {
     "name": "Kho cài đặt Javis",
     "url": "https://github.com/blogminhquy/javis-store"
@@ -2080,7 +2080,7 @@
         "vi": "Bộ skill quy trình làm việc nổi nhất cho dân lập trình (obra/superpowers): brainstorm trước khi code, viết và thực thi plan, TDD, gỡ lỗi có hệ thống, review code hai chiều, git worktree, kiểm chứng trước khi báo xong.",
         "en": "The most popular workflow skills for developers (obra/superpowers): brainstorm before coding, write and execute plans, TDD, systematic debugging, both sides of code review, git worktrees, verify before claiming done."
       },
-      "version": "1.0.1",
+      "version": "1.0.2",
       "author": {
         "name": "Jesse Vincent",
         "url": "https://github.com/obra/superpowers"
@@ -2092,15 +2092,15 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-10-28",
+      "updated": "2026-11-21",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.superpowers",
       "source": "https://github.com/obra/superpowers",
       "license": "MIT",
       "upstream": {
         "repo": "obra/superpowers",
         "ref": "main",
-        "commit": "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b",
-        "synced": "2026-10-28"
+        "commit": "22f0b463e7a5e579904dd6211a520321035526f7",
+        "synced": "2026-11-21"
       },
       "provides": {
         "skills": [
@@ -2122,9 +2122,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-superpowers-1.0.1.zip",
-        "sha256": "31946f9fe7ed8715c280cd4a7524663c9b15de9d9b9b085d747d6caeee03d176",
-        "size": 197647
+        "url": "dist/javis-superpowers-1.0.2.zip",
+        "sha256": "3b603be7e067ab607d4f18663af0a7bb45a30aad183deb36f83549378c0151a1",
+        "size": 195454
       }
     },
     {
@@ -3152,7 +3152,7 @@
         "vi": "Skill của Lemomo dựng phim ngắn hoàn toàn bằng code theo 59 phong cách (sơn dầu, màu nước, ukiyo-e, ảnh vệ tinh...): kịch bản, hình, nhạc, lồng tiếng. Cần Node 20+, ffmpeg, Python 3.11+; chạy tốt nhất với Claude.",
         "en": "Lemomo's skill for short films made entirely in code in 59 styles (oil paint, watercolor, ukiyo-e, satellite...): story, picture, score, narration. Needs Node 20+, ffmpeg, Python 3.11+; tuned for Claude."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Lemomo",
         "url": "https://github.com/lemomo-ai/lemo-opuscar"
@@ -3164,15 +3164,15 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-10-28",
+      "updated": "2026-11-21",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.lemo-opuscar",
       "source": "https://github.com/lemomo-ai/lemo-opuscar",
       "license": "MIT",
       "upstream": {
         "repo": "lemomo-ai/lemo-opuscar",
         "ref": "main",
-        "commit": "413a6bd6d78ebd3bdd5abaec9538a26867f890df",
-        "synced": "2026-10-28"
+        "commit": "f9e204293930952b61ba921cd8944d05f121beee",
+        "synced": "2026-11-21"
       },
       "provides": {
         "skills": [
@@ -3180,9 +3180,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-lemo-opuscar-1.0.0.zip",
-        "sha256": "0b7e1de517752f601a8ca09b5395f4f7fe2923d580e899aeccb3d893d12e28d8",
-        "size": 6934
+        "url": "dist/javis-lemo-opuscar-1.0.1.zip",
+        "sha256": "ef03c3cbe32b49aa661e4893c8e688dbedda47a6c3c053d7d3420ebae2f0a746",
+        "size": 10829
       }
     },
     {
@@ -3196,7 +3196,7 @@
         "vi": "Bộ skill chính chủ của Remotion (remotion.dev): tạo dự án video bằng React, hoạt hình, chữ và hiệu ứng, phụ đề, bản đồ, xem trước và xuất video. Theo repo gốc, cập nhật mỗi khi Remotion sửa skill.",
         "en": "Remotion's official skills (remotion.dev): create React video projects, animation, type and effects, captions, maps, preview and render. Follows the source repo and updates whenever Remotion changes its skills."
       },
-      "version": "1.0.4",
+      "version": "1.0.5",
       "author": {
         "name": "Remotion",
         "url": "https://github.com/remotion-dev/skills"
@@ -3208,15 +3208,15 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-11-11",
+      "updated": "2026-11-21",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.remotion",
       "source": "https://github.com/remotion-dev/skills",
       "license": "Remotion License",
       "upstream": {
         "repo": "remotion-dev/skills",
         "ref": "main",
-        "commit": "1fc074b74b95cfecf7b1e419132f2cfe23dafebe",
-        "synced": "2026-11-11"
+        "commit": "6f55706d1069e512430582ad86e4e57dc07afe1b",
+        "synced": "2026-11-21"
       },
       "provides": {
         "skills": [
@@ -3236,9 +3236,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-remotion-1.0.4.zip",
-        "sha256": "3bb604a11fb6c9dafeb5b1f27065af253416498d3c7c8fa05d7d947438440160",
-        "size": 884550
+        "url": "dist/javis-remotion-1.0.5.zip",
+        "sha256": "bd836b01d5afe86d5ac9aa4e07f1b8c4264f7c7528db5f5961208c6fed149fc9",
+        "size": 409387
       }
     },
     {
@@ -3524,7 +3524,7 @@
         "vi": "12 skill của GitNexus: dựng đồ thị phụ thuộc của cả codebase rồi dùng nó để khám phá mã, gỡ lỗi, đánh giá tác động trước khi sửa, refactor, review PR. Cần chạy npx gitnexus analyze. Giấy phép chỉ cho dùng phi thương mại.",
         "en": "12 GitNexus skills: index the whole codebase into a dependency graph and use it to explore code, debug, check impact before an edit, refactor and review PRs. Needs npx gitnexus analyze. Licensed for noncommercial use only."
       },
-      "version": "1.0.2",
+      "version": "1.0.3",
       "author": {
         "name": "Abhigyan Patwari",
         "url": "https://github.com/abhigyanpatwari/GitNexus"
@@ -3536,15 +3536,15 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-11-05",
+      "updated": "2026-11-21",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.gitnexus",
       "source": "https://github.com/abhigyanpatwari/GitNexus",
       "license": "PolyForm-Noncommercial-1.0.0",
       "upstream": {
         "repo": "abhigyanpatwari/GitNexus",
         "ref": "main",
-        "commit": "fb85794c621f89217ceb7fc9e708459e4f21ba77",
-        "synced": "2026-11-05"
+        "commit": "9a5ec195aa4f70d0a290c04439836f115dfe9a6d",
+        "synced": "2026-11-21"
       },
       "provides": {
         "skills": [
@@ -3563,9 +3563,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-gitnexus-1.0.2.zip",
-        "sha256": "308c9757a58f58953386d80dfbb93ba4307088f5bb11a17fb4f0a069ce012dc3",
-        "size": 150025
+        "url": "dist/javis-gitnexus-1.0.3.zip",
+        "sha256": "fcff410435df5db81b92955636156e3161e5d86873311fece3b7b30aaa840289",
+        "size": 150981
       }
     },
     {
@@ -3579,7 +3579,7 @@
         "vi": "Skill sửa văn bản cho bớt mùi AI: nhận ra và gỡ các dấu hiệu quen thuộc (từ sáo rỗng, câu ba vế, kết luận chung chung) để bài viết đọc như người thật viết. Dùng tốt nhất với nội dung tiếng Anh.",
         "en": "Edits text so it stops sounding like AI: spots and removes the familiar tells (stock words, rule of three, vague wrap-ups) so the piece reads as written by a person. Works best on English."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Siqi Chen",
         "url": "https://github.com/blader/humanizer"
@@ -3591,15 +3591,15 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-10-28",
+      "updated": "2026-11-21",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.humanizer",
       "source": "https://github.com/blader/humanizer",
       "license": "MIT",
       "upstream": {
         "repo": "blader/humanizer",
         "ref": "main",
-        "commit": "0ef9fe5bc3572734fd3ae6c448fe00a30cd5dcf0",
-        "synced": "2026-10-28"
+        "commit": "a32f24407364c74c812b43c15926d638bee1e072",
+        "synced": "2026-11-21"
       },
       "provides": {
         "skills": [
@@ -3607,9 +3607,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-humanizer-1.0.0.zip",
-        "sha256": "a1b621385d0ae105d5d3654c31c7b9a0676d293fe7e4a08e50821e63b80a7fa7",
-        "size": 28082
+        "url": "dist/javis-humanizer-1.0.1.zip",
+        "sha256": "6a566208322945a1804be2604683e047e4b9f300c8a5986927ff433649542e61",
+        "size": 30780
       }
     },
     {
@@ -3623,7 +3623,7 @@
         "vi": "Bộ skill của HeyGen để AI làm video bằng HTML: lên ý tưởng, dựng cảnh, hoạt hình, slideshow, lấy thiết kế từ Figma, chuyển dự án Remotion sang, rồi xuất video. Cần Node 22+ và ffmpeg.",
         "en": "HeyGen's skills for making video in HTML: plan, build scenes, animate, slideshows, pull designs from Figma, migrate Remotion projects, then render. Needs Node 22+ and ffmpeg."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "HeyGen",
         "url": "https://github.com/heygen-com/hyperframes"
@@ -3635,15 +3635,15 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-10-28",
+      "updated": "2026-11-21",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.hyperframes",
       "source": "https://github.com/heygen-com/hyperframes",
       "license": "Apache-2.0",
       "upstream": {
         "repo": "heygen-com/hyperframes",
         "ref": "main",
-        "commit": "7758d9b8fd507384573eb56ba84cc62fb20444c6",
-        "synced": "2026-10-28"
+        "commit": "b0d9f3615984e6e88c2d6b4dae862fbde2004da1",
+        "synced": "2026-11-21"
       },
       "provides": {
         "skills": [
@@ -3653,13 +3653,15 @@
           "hyperframes-registry",
           "media-use",
           "remotion-to-hyperframes",
-          "slideshow"
+          "reverse-any-video",
+          "slideshow",
+          "style-sampling"
         ]
       },
       "download": {
-        "url": "dist/javis-hyperframes-1.0.0.zip",
-        "sha256": "0752ec2c49cd594b5e61cacb15a65c4182a90c68264cdecb541f56ae76f263ad",
-        "size": 2077750
+        "url": "dist/javis-hyperframes-1.0.1.zip",
+        "sha256": "bb53e2f8d63bef9ba8ac12de3c9016cf95ea9df257524bdcf5b1233934ffa0d9",
+        "size": 2168658
       }
     },
     {
@@ -3673,7 +3675,7 @@
         "vi": "52 skill marketing của Corey Haines, repo marketing nhiều sao nhất: viết copy, tối ưu chuyển đổi, SEO và SEO cho AI, quảng cáo, email, định giá, ra mắt sản phẩm, giới thiệu bạn bè, đo lường, chống rời bỏ.",
         "en": "Corey Haines's 52 marketing skills, the most-starred marketing repo: copywriting, conversion, SEO and AI search, ads, email, pricing, launches, referrals, analytics and churn prevention."
       },
-      "version": "1.0.1",
+      "version": "1.0.2",
       "author": {
         "name": "Corey Haines",
         "url": "https://github.com/coreyhaines31/marketingskills"
@@ -3685,15 +3687,15 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-10-30",
+      "updated": "2026-11-21",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.marketingskills",
       "source": "https://github.com/coreyhaines31/marketingskills",
       "license": "MIT",
       "upstream": {
         "repo": "coreyhaines31/marketingskills",
         "ref": "main",
-        "commit": "820ad2c1c0ac4cc350158bd7912c753681a7d173",
-        "synced": "2026-10-30"
+        "commit": "5b2b400eec1e7e1cec76245a715d0b0d4fd2a9c1",
+        "synced": "2026-11-21"
       },
       "provides": {
         "skills": [
@@ -3740,6 +3742,7 @@
           "prospecting",
           "public-relations",
           "referrals",
+          "reverse-engineer-marketing",
           "revops",
           "sales-enablement",
           "schema",
@@ -3752,9 +3755,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-marketingskills-1.0.1.zip",
-        "sha256": "67f8b7e94666753ed98541a3aac3189da4836cf50142a45c1d74d61875ae6857",
-        "size": 1691426
+        "url": "dist/javis-marketingskills-1.0.2.zip",
+        "sha256": "04bc07e7f18ed478cca10ca857841f8375146fac3bb9688a197fdb47d93de11a",
+        "size": 1926761
       }
     },
     {
@@ -3838,7 +3841,7 @@
         "vi": "Skill của REA (Reverse Engineer Anything), repo AI đang nổi nhất GitHub: phân tích app Electron/JavaScript, tệp chạy, firmware và trang web khi không có mã nguồn, so sánh phiên bản, dịch ngược. Cần cài công cụ rea (npm rea-agents).",
         "en": "The REA (Reverse Engineer Anything) skill, GitHub's top trending AI repo: analyse Electron/JavaScript apps, binaries, firmware and web apps without their source, compare versions, decompile. Needs the rea tool (npm rea-agents)."
       },
-      "version": "1.0.10",
+      "version": "1.0.11",
       "author": {
         "name": "morluto",
         "url": "https://github.com/morluto/rea"
@@ -3850,15 +3853,15 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-11-09",
+      "updated": "2026-11-21",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.rea",
       "source": "https://github.com/morluto/rea",
       "license": "MIT",
       "upstream": {
         "repo": "morluto/rea",
         "ref": "main",
-        "commit": "dda2d4029548f820bf5621b3bc1dd1ce381446a2",
-        "synced": "2026-11-09"
+        "commit": "3a60c55a91c3211fe087c572570c8e907d881e7e",
+        "synced": "2026-11-21"
       },
       "provides": {
         "skills": [
@@ -3866,9 +3869,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-rea-1.0.10.zip",
-        "sha256": "1226db392e4f94e4fa1a78c3cd640cf2c2f7a4f6eeab9513fefd036ac0e60d08",
-        "size": 75918
+        "url": "dist/javis-rea-1.0.11.zip",
+        "sha256": "6edec7faee0516d5b22ddc84ca48bba6b5f397a771b51c88dc2c55509f547559",
+        "size": 97795
       }
     },
     {
@@ -3882,7 +3885,7 @@
         "vi": "Bộ skill thiết kế giao diện nổi nhất: kho phong cách, bảng màu, cặp font và quy tắc UX để AI dựng trang web, landing page, banner, slide và hệ thống thiết kế đẹp ngay lần đầu. Cần Python 3.",
         "en": "The most popular interface design skills: a library of styles, palettes, font pairings and UX rules so the AI builds websites, landing pages, banners, slides and design systems that look right first time. Needs Python 3."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Next Level Builder",
         "url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill"
@@ -3894,15 +3897,15 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-10-28",
+      "updated": "2026-11-21",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.ui-ux-pro-max",
       "source": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
       "license": "MIT",
       "upstream": {
         "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
         "ref": "main",
-        "commit": "28b3b8dee8c976df4fa3e94aed4e092ad43fcb03",
-        "synced": "2026-10-28"
+        "commit": "2de1134dc4d1cfe112934611ae5803ae17a1bd7e",
+        "synced": "2026-11-21"
       },
       "provides": {
         "skills": [
@@ -3916,9 +3919,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-ui-ux-pro-max-1.0.0.zip",
-        "sha256": "257be9a6a34a1318ba0f9a4b6ac94337fc2686ff43c281299fce41ef74ba485b",
-        "size": 3552640
+        "url": "dist/javis-ui-ux-pro-max-1.0.1.zip",
+        "sha256": "cb2eef8383affa2efce039477baf7829d938cb43a85734b1951b2d4cd390a535",
+        "size": 3590875
       }
     },
     {
@@ -3932,7 +3935,7 @@
         "vi": "Skill chính chủ của Vercel: thực hành tốt nhất cho React và Next.js, React Native, hiệu ứng chuyển trang, nguyên tắc thiết kế giao diện web, viết nội dung rõ ràng, và triển khai lên Vercel.",
         "en": "Vercel's official skills: React and Next.js best practices, React Native, view transitions, web interface design guidelines, clear writing, and deploying to Vercel."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Vercel",
         "url": "https://github.com/vercel-labs/agent-skills"
@@ -3944,15 +3947,15 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-10-28",
+      "updated": "2026-11-21",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.vercel-skills",
       "source": "https://github.com/vercel-labs/agent-skills",
       "license": "MIT",
       "upstream": {
         "repo": "vercel-labs/agent-skills",
         "ref": "main",
-        "commit": "1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62",
-        "synced": "2026-10-28"
+        "commit": "5a37a6329fbad3666c3207392a6a7c0110e92efb",
+        "synced": "2026-11-21"
       },
       "provides": {
         "skills": [
@@ -3968,9 +3971,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-vercel-skills-1.0.0.zip",
-        "sha256": "5fe757668b3553f0e66ef30aa091a4d6ce959c57aa51e55407609e58ef4aee75",
-        "size": 554257
+        "url": "dist/javis-vercel-skills-1.0.1.zip",
+        "sha256": "a94aa808d6760facaea86abac611bdd3afac141c3961c5712822acb60981e716",
+        "size": 558717
       }
     },
     {
@@ -4029,7 +4032,7 @@
         "vi": "Skill lập kế hoạch kiểu Manus: việc dài được chia thành kế hoạch, ghi chú và tiến độ trong tệp markdown, nên AI không quên mục tiêu giữa chừng và làm tiếp được sau khi gián đoạn.",
         "en": "Manus-style planning: long tasks keep their plan, findings and progress in markdown files, so the AI does not lose the goal halfway and can pick up after an interruption."
       },
-      "version": "1.0.0",
+      "version": "1.0.1",
       "author": {
         "name": "Ahmad Othman Adi",
         "url": "https://github.com/OthmanAdi/planning-with-files"
@@ -4041,15 +4044,15 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-10-28",
+      "updated": "2026-11-21",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.planning-with-files",
       "source": "https://github.com/OthmanAdi/planning-with-files",
       "license": "MIT",
       "upstream": {
         "repo": "OthmanAdi/planning-with-files",
         "ref": "master",
-        "commit": "dcdfb278de53fdb69b2067ea173dbb1de45345a3",
-        "synced": "2026-10-28"
+        "commit": "7673790971ea36c88c3e9119bb2be105a29d7df0",
+        "synced": "2026-11-21"
       },
       "provides": {
         "skills": [
@@ -4057,9 +4060,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-planning-with-files-1.0.0.zip",
-        "sha256": "92fdc2ab824e2a9956b0122b9a24e8d280c14195fc1e753d4a7de8bbcf8f71d4",
-        "size": 161956
+        "url": "dist/javis-planning-with-files-1.0.1.zip",
+        "sha256": "86742d8cd2c4d18d80fc8c10857e73797f7e3dcdb6cace59d10fd137e4c1e475",
+        "size": 188065
       }
     },
     {
@@ -15559,7 +15562,7 @@
         "vi": "24 skill SEO của Claude SEO: kiểm tra cả website, phân tích từng trang, SEO kỹ thuật và Core Web Vitals, schema, sitemap, nội dung E-E-A-T, SEO địa phương, thương mại điện tử, backlink, SEO cho AI (GEO). Cần Python 3.11 trở lên.",
         "en": "24 Claude SEO skills: full site audits, single-page analysis, technical SEO and Core Web Vitals, schema, sitemaps, E-E-A-T content, local SEO, ecommerce, backlinks and AI search (GEO). Needs Python 3.11 or newer."
       },
-      "version": "1.0.2",
+      "version": "1.0.3",
       "author": {
         "name": "AgriciDaniel",
         "url": "https://github.com/AgriciDaniel/claude-seo"
@@ -15571,15 +15574,15 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-11-06",
+      "updated": "2026-11-21",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.claude-seo",
       "source": "https://github.com/AgriciDaniel/claude-seo",
       "license": "MIT",
       "upstream": {
         "repo": "AgriciDaniel/claude-seo",
         "ref": "main",
-        "commit": "6be93f45064ffbadced572b5d5c95f55fd263af0",
-        "synced": "2026-11-06"
+        "commit": "468ed5b0d9e3249394783710e54abb02837e326b",
+        "synced": "2026-11-21"
       },
       "provides": {
         "skills": [
@@ -15587,6 +15590,7 @@
           "seo-agentic",
           "seo-audit",
           "seo-backlinks",
+          "seo-bing",
           "seo-cluster",
           "seo-competitor-pages",
           "seo-content",
@@ -15602,17 +15606,19 @@
           "seo-maps",
           "seo-page",
           "seo-plan",
+          "seo-posthog",
           "seo-programmatic",
           "seo-schema",
+          "seo-shopify",
           "seo-sitemap",
           "seo-sxo",
           "seo-technical"
         ]
       },
       "download": {
-        "url": "dist/javis-claude-seo-1.0.2.zip",
-        "sha256": "27533246873c23ab3b510e461c1aee3e6dbf619c68b9911e8d07a0da7af3171c",
-        "size": 676402
+        "url": "dist/javis-claude-seo-1.0.3.zip",
+        "sha256": "9a64826e134403531b63ea19aa46e51b13ff5e64d2c954bee4ac359e3438cbbc",
+        "size": 840694
       }
     },
     {
