@@ -9,7 +9,7 @@
     "github_support_docs_search",
     "create_pull_request_with_copilot"
   ],
-  "da_soat": "v2.2.0",
+  "da_soat": "v2.3.0",
   "tools": {
     "actions_get": "read",
     "actions_list": "read",
@@ -109,6 +109,8 @@
     "projects_get": "read",
     "projects_list": "read",
     "projects_write": "destructive",
+    "pull_request_artifact_read": "read",
+    "pull_request_artifact_write": "destructive",
     "pull_request_read": "read",
     "pull_request_review_write": "write",
     "push_files": "write",
@@ -140,6 +142,8 @@
     "unresolve_review_thread": "write",
     "unstar_repository": "write",
     "update_automation": "write",
+    "update_code_scanning_alert": "destructive",
+    "update_dependabot_alert": "destructive",
     "update_gist": "write",
     "update_issue_assignees": "write",
     "update_issue_body": "write",
@@ -154,7 +158,8 @@
     "update_pull_request_branch": "write",
     "update_pull_request_draft_state": "write",
     "update_pull_request_state": "write",
-    "update_pull_request_title": "write"
+    "update_pull_request_title": "write",
+    "update_secret_scanning_alert": "destructive"
   },
   "lenh": {
     "discussion_comment_write": [
@@ -186,6 +191,10 @@
       "update_project_item",
       "update_project_items",
       "update_project_view"
+    ],
+    "pull_request_artifact_write": [
+      "delete",
+      "upsert"
     ]
   }
 }
