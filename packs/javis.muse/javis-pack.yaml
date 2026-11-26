@@ -1,0 +1,37 @@
+# Gói "Muse": nối Javis với Muse (ứng dụng AI của Meta ở muse.ai) qua Muse Gateway.
+#
+# Muse không có API công khai. Muse Gateway là một chương trình riêng (bản Go, `muse serve`) đăng nhập bằng cookie
+# phiên của từng tài khoản Muse và mở một API kiểu OpenAI ở 127.0.0.1:8080. Gói KHÔNG mang gateway: cài gateway trước
+# (xem docs/HUONG-DAN.md), gói chỉ mang plugin `muse-accounts` nói chuyện với gateway qua HTTP, nên chạy được cả khi
+# Javis và gateway ở hai container khác nhau.
+#
+# 1.3.0 (2026-11-26): plugin trước đây cài tay vào `_state/plugins/muse-accounts` (bản 1.0.0 tới 1.2.0 của AdamDeck),
+# nay vào kho. Số bản đi tiếp từ 1.2.0 và slug giữ nguyên để dữ liệu cũ dùng tiếp. Đổi so với 1.2.0: bỏ hẳn tệp .exe
+# (muse-login.exe chỉ dùng khi chủ tự cài và trỏ MUSE_LOGIN_EXE tới), đường dẫn model gửi vào chỉ được nằm trong brain
+# hoặc thư mục plugin, khoá quản trị chỉ gửi tới chính gateway, địa chỉ và khoá gateway lưu được ngay trên trang.
+format: javis-pack
+spec: 1
+
+id: javis.muse
+version: 1.3.0
+
+name:
+  vi: Muse (nhiều tài khoản)
+  en: Muse (multi-account)
+description:
+  vi: Tạo video Muse ngay trong chat Javis bằng nhiều tài khoản Muse của bạn. Nhiều cảnh chạy song song, cảnh lỗi tự làm lại, file lưu vào brain theo thứ tự. Hai cách chạy, Gộp và Luân phiên, tài khoản hỏng tự tắt. Cần Muse Gateway chạy trên máy bạn hoặc VPS. Đây là đường không chính thức, dùng cookie đăng nhập nên tài khoản có thể bị Muse khoá.
+  en: Make Muse videos right from the Javis chat with several of your Muse accounts. Many scenes run in parallel, failed scenes are retried, files land in the brain in scene order. Two modes, Pool and Rotate, broken accounts switch off. Needs Muse Gateway running on your machine or VPS. This is an unofficial route that logs in with cookies, so Muse may lock the accounts.
+
+author:
+  name: Javis
+license: MIT
+homepage: https://github.com/blogminhquy/javis-store/tree/main/packs/javis.muse
+
+# 0.491.0: plugin khai mức quyền theo từng op của một tool (`op_modes`, bản vá bảo mật 05/11/2026). Javis cũ hơn không
+# nhận tham số đó và plugin không nạp được, nên chặn ở đây cho có lý do đọc được.
+compat:
+  app: ">=0.491.0"
+
+provides:
+  plugins:
+    - plugins/muse-accounts

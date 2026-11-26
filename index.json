@@ -1,7 +1,7 @@
 {
   "format": "javis-pack-index",
   "format_version": 1,
-  "updated": "2026-11-16",
+  "updated": "2026-11-26",
   "store": {
     "name": "Kho cài đặt Javis",
     "url": "https://github.com/blogminhquy/javis-store"
@@ -1079,6 +1079,42 @@
         "url": "dist/javis-topview-1.0.0.zip",
         "sha256": "e9d00cfbf8850907f67406b8a575cf2af5a65976e413e0807b0f6e2fa9063b88",
         "size": 9532
+      }
+    },
+    {
+      "id": "javis.muse",
+      "kind": "tool",
+      "name": {
+        "vi": "Muse (nhiều tài khoản)",
+        "en": "Muse (multi-account)"
+      },
+      "description": {
+        "vi": "Tạo video Muse ngay trong chat Javis bằng nhiều tài khoản Muse của bạn. Nhiều cảnh chạy song song, cảnh lỗi tự làm lại, file lưu vào brain theo thứ tự. Hai cách chạy, Gộp và Luân phiên, tài khoản hỏng tự tắt. Cần Muse Gateway chạy trên máy bạn hoặc VPS. Đây là đường không chính thức, dùng cookie đăng nhập nên tài khoản có thể bị Muse khoá. Cần Javis 0.491.0 trở lên.",
+        "en": "Make Muse videos right from the Javis chat with several of your Muse accounts. Many scenes run in parallel, failed scenes are retried, files land in the brain in scene order. Two modes, Pool and Rotate, broken accounts switch off. Needs Muse Gateway running on your machine or VPS. This is an unofficial route that logs in with cookies, so Muse may lock the accounts. Needs Javis 0.491.0 or newer."
+      },
+      "version": "1.3.0",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "sang-tao",
+      "category_label": {
+        "vi": "Sáng tạo",
+        "en": "Creative"
+      },
+      "tier": "code",
+      "verified": true,
+      "updated": "2026-11-26",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.muse",
+      "icon": "packs/javis.muse/assets/muse.png",
+      "provides": {
+        "plugins": [
+          "muse-accounts"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-muse-1.3.0.zip",
+        "sha256": "687ac2553601b25fc07d47c48cfba8f6bdbce322735fedc1a018bf5a63717adf",
+        "size": 34525
       }
     },
     {
