@@ -1,7 +1,7 @@
 {
   "id": "google-sheets",
   "name": "Google Sheets",
-  "group": "google",
+  "key_family": "google",
   "group_line": "Đọc và ghi bảng tính Google Sheets.",
   "icon": "assets/google-sheets.png",
   "category": "Văn phòng",

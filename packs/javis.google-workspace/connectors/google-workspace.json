@@ -2,7 +2,7 @@
   "id": "google-workspace",
   "name": "Google Workspace (Gmail, Lịch, Drive, Docs)",
   "icon": "assets/google-workspace.png",
-  "group": "google",
+  "key_family": "google",
   "group_line": "Gộp Gmail, Lịch, Drive, Docs, Sheets vào MỘT kết nối. Cần máy có màn hình; VPS thì dùng thẻ Lịch và Gmail riêng.",
   "category": "Văn phòng",
   "description": "Gmail, Calendar, Drive, Docs, Sheets, Slides, Forms, Tasks... trong MỘT kết nối. Tạo OAuth client 1 lần, khoảng 10 phút, có hướng dẫn từng bước. Lần đầu gọi tool Google, trình duyệt TRÊN MÁY CHẠY JAVIS mở ra để bấm đồng ý, nên máy phải có màn hình.",

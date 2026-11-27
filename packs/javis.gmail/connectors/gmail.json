@@ -2,10 +2,10 @@
   "id": "gmail",
   "name": "Gmail",
   "icon": "assets/gmail.webp",
-  "group": "google",
-  "group_line": "Đọc và tìm thư, soạn nháp, gắn nhãn. Không có tool gửi thẳng - luôn dừng ở bản nháp.",
+  "key_family": "google",
+  "group_line": "Đọc và tìm thư, soạn nháp, gắn nhãn. Gửi thư thật cần mức Toàn quyền.",
   "category": "Văn phòng",
-  "description": "Gmail qua MCP chính chủ của Google: đọc và tìm thư, soạn NHÁP, gắn nhãn sắp xếp hộp thư. Server chính chủ KHÔNG có tool gửi thẳng - luôn dừng ở bản nháp để bạn tự bấm gửi. Cần tạo OAuth client + ghi danh Developer Preview của Google 1 lần.",
+  "description": "Gmail qua MCP chính chủ của Google: đọc và tìm thư, soạn NHÁP, gắn nhãn sắp xếp hộp thư. Gửi, trả lời, chuyển tiếp và bỏ thư vào thùng rác chỉ chạy ở mức Toàn quyền. Cần tạo OAuth client của Google 1 lần, khoảng 10 phút.",
   "status": "beta",
   "transport": "http",
   "url": "https://gmailmcp.googleapis.com/mcp/v1",
@@ -40,18 +40,13 @@
         "placeholder": "Ví dụ: GOCSPX-..."
       }
     ],
-    "guide": "Server MCP Gmail của Google đang ở giai đoạn Developer Preview: phải ghi danh chương trình (miễn phí) và bật thêm API MCP riêng, thiếu là bị chặn 403 dù đăng nhập thành công.\nLàm 1 lần, khoảng 10 phút:\n1. Ghi danh Google Workspace Developer Preview Program bằng đúng tài khoản Google sẽ đăng nhập (nút bên dưới).\n2. Vào console.cloud.google.com, tạo project, bật CẢ HAI API: Gmail API và Gmail MCP API (tìm 'Gmail MCP' trong thư viện API, có nút bên dưới).\n3. Màn hình đồng ý OAuth: chọn External, thêm email của bạn vào Test users.\n4. Thông tin xác thực > Tạo OAuth client ID loại 'Ứng dụng web'.\n5. Ở phần 'URI chuyển hướng được ủy quyền', thêm đúng địa chỉ này:\nhttp://localhost:7777/connect/oauth/callback\nNếu chạy trên VPS thì thêm cả https://<tên-miền>/connect/oauth/callback\n6. Copy Client ID + Client Secret dán vào đây rồi bấm Kết nối.\n\nTrình duyệt sẽ mở để bạn đăng nhập Google và bấm đồng ý. Gặp cảnh báo 'ứng dụng chưa được xác minh' thì bấm Nâng cao > Tiếp tục, vì đây là app của chính bạn.\n\nCó thể dùng CHUNG một OAuth client với Google Calendar, chỉ cần bật thêm Gmail API + Gmail MCP API và khai thêm phạm vi Gmail ở trang Quyền dữ liệu.\nMàn hình đồng ý có ô tick cho từng nhóm quyền: TICK HẾT, bỏ ô nào là tool tương ứng chết ngay.\nĐăng nhập xong mà Test vẫn báo thiếu quyền thì soát lại bước ghi danh, bước bật API và bước khai phạm vi - ba bước hay bị bỏ sót nhất.",
+    "guide": "Server MCP Gmail của Google đã phát hành chính thức (24/11/2026): không còn phải ghi danh Developer Preview.\nLàm 1 lần, khoảng 10 phút:\n1. Vào console.cloud.google.com, tạo project, bật CẢ HAI API: Gmail API và Gmail MCP API (nút bên dưới).\n2. Màn hình đồng ý OAuth: chọn External, thêm email của bạn vào Test users.\n3. Thông tin xác thực > Tạo OAuth client ID loại 'Ứng dụng web', và TICK ô 'Use this client for an AI-powered agent'.\nThiếu ô tick đó thì Google báo token không hợp lệ dù đăng nhập thành công.\n4. Ở phần 'URI chuyển hướng được ủy quyền', thêm đúng địa chỉ này:\nhttp://localhost:7777/connect/oauth/callback\nNếu chạy trên VPS thì thêm cả https://<tên-miền>/connect/oauth/callback\n5. Copy Client ID + Client Secret dán vào đây rồi bấm Kết nối.\n\nTrình duyệt sẽ mở để bạn đăng nhập Google và bấm đồng ý. Gặp cảnh báo 'ứng dụng chưa được xác minh' thì bấm Nâng cao > Tiếp tục, vì đây là app của chính bạn.\n\nCó thể dùng CHUNG một OAuth client với Google Calendar, chỉ cần bật thêm Gmail API + Gmail MCP API và khai thêm phạm vi Gmail ở trang Quyền dữ liệu.\nMàn hình đồng ý có ô tick cho từng nhóm quyền: TICK HẾT, bỏ ô nào là tool tương ứng chết ngay.\nĐăng nhập xong mà Test vẫn báo thiếu quyền thì soát lại bước bật API, ô AI-powered agent và bước khai phạm vi.",
     "guide_url": "https://console.cloud.google.com/apis/credentials",
     "steps": [
       {
         "text": "Đã đấu Google Calendar rồi thì DÙNG LẠI key của nó (ô Dùng lại key ở đầu khung này), chỉ cần làm thêm bước 2 cho Gmail.",
         "link": "",
         "link_label": ""
-      },
-      {
-        "text": "Ghi danh Google Workspace Developer Preview (miễn phí) bằng ĐÚNG tài khoản Google sẽ đăng nhập. Bỏ bước này là bị chặn 403 dù đăng nhập thành công.",
-        "link": "https://developers.google.com/workspace/preview",
-        "link_label": "Mở trang ghi danh"
       },
       {
         "text": "Vào Google Cloud tạo project (hoặc dùng project sẵn có), bật CẢ HAI API: Gmail API và Gmail MCP API.",
@@ -69,7 +64,7 @@
         "link_label": "Mở trang Quyền dữ liệu"
       },
       {
-        "text": "Tạo OAuth client loại 'Ứng dụng web', thêm địa chỉ dưới đây vào ô 'URI chuyển hướng được ủy quyền'.",
+        "text": "Tạo OAuth client loại 'Ứng dụng web', TICK ô 'Use this client for an AI-powered agent', rồi thêm địa chỉ dưới đây vào ô 'URI chuyển hướng được ủy quyền'. Thiếu ô tick đó thì Google báo token không hợp lệ dù đăng nhập thành công.",
         "link": "https://console.cloud.google.com/apis/credentials/oauthclient",
         "link_label": "Tạo OAuth client",
         "copy": "redirect"
@@ -86,10 +81,6 @@
     "setup": {
       "links": [
         {
-          "label": "Ghi danh Developer Preview",
-          "url": "https://developers.google.com/workspace/preview"
-        },
-        {
           "label": "Bật Gmail MCP API",
           "url": "https://console.cloud.google.com/apis/library/gmailmcp.googleapis.com"
         }
@@ -103,17 +94,33 @@
   "tool_meta": {
     "read": [
       "list_drafts",
+      "get_draft",
       "get_thread",
+      "get_message",
       "search_threads",
-      "list_labels"
+      "list_labels",
+      "list_filters"
     ],
     "write": [
       "create_draft",
+      "update_draft",
       "create_label",
-      "*label*"
+      "update_label",
+      "*label*",
+      "untrash_*",
+      "unmark_*"
     ],
-    "danger": []
+    "danger": [
+      "send_message",
+      "reply",
+      "forward",
+      "trash_*",
+      "mark_*_spam",
+      "apply_sensitive_*",
+      "create_filter"
+    ]
   },
   "default_perm": "readonly",
-  "risk": "Mức Ghi nháp cho phép Javis SOẠN NHÁP thư và gắn, gỡ nhãn trong hộp thư của bạn.\n\nServer Gmail chính chủ không có tool gửi thẳng nên Javis không tự gửi được, luôn dừng ở bản nháp để bạn tự bấm gửi.\n\nChỉ cần đọc và tìm thư thì giữ mức Chỉ đọc."
+  "risk": "Mức Ghi nháp cho phép Javis SOẠN NHÁP thư và gắn, gỡ nhãn trong hộp thư của bạn.\n\nMức Toàn quyền thêm quyền GỬI thư thật (gửi, trả lời, chuyển tiếp), bỏ thư vào thùng rác, đánh dấu spam và tạo bộ lọc Gmail.\n\nChỉ cần đọc và tìm thư thì giữ mức Chỉ đọc.",
+  "_tool_meta_doc": "2026-11-27: Google's Gmail server now also sends, replies, forwards, trashes and marks spam. Before this entry named them, send_message fell to write by its name (allowed at Draft) and mark_thread_spam to read (allowed at Read only). Same list as the core gmail card in Javis 0.647.0."
 }
