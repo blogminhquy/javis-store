@@ -2,7 +2,7 @@
   "id": "google-tasks",
   "name": "Google Tasks",
   "icon": "assets/google-tasks.png",
-  "group": "google",
+  "key_family": "google",
   "group_line": "Việc cần làm: xem danh sách, thêm việc, đặt hạn, đánh dấu xong. Chỉ xin quyền Tasks.",
   "category": "Văn phòng",
   "description": "Việc cần làm trong Google Tasks: xem danh sách, thêm việc, đặt hạn, đánh dấu xong. Chỉ xin quyền Tasks, không đụng Gmail hay Drive. Đăng nhập Google bằng OAuth client tự tạo (~10 phút, có hướng dẫn).",

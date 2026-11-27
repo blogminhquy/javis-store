@@ -2,7 +2,7 @@
   "id": "google-calendar",
   "name": "Google Calendar",
   "icon": "assets/google-calendar.png",
-  "group": "google",
+  "key_family": "google",
   "group_line": "Xem lịch, tìm giờ trống, tạo sửa sự kiện. Đăng nhập ngay trong dashboard, chạy được cả trên VPS.",
   "category": "Văn phòng",
   "description": "Lịch Google qua MCP chính chủ của Google: xem lịch, tìm chỗ trống, tạo/sửa sự kiện, nhắc hẹn. Đăng nhập Google trong dashboard, chạy được cả trên VPS. Cần tạo OAuth client + ghi danh Developer Preview của Google 1 lần (~10 phút).",

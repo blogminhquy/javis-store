@@ -414,7 +414,7 @@
       "description": {
         "vi": "Đọc/ghi bảng tính Google: đổ báo cáo doanh thu, tồn kho, công nợ ra Sheets tự động. Đấu bằng service account - không cần đăng nhập."
       },
-      "version": "1.0.1",
+      "version": "1.0.2",
       "author": {
         "name": "Javis"
       },
@@ -424,7 +424,7 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-10-05",
+      "updated": "2026-11-27",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-sheets",
       "icon": "packs/javis.google-sheets/assets/google-sheets.png",
       "provides": {
@@ -433,9 +433,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-google-sheets-1.0.1.zip",
-        "sha256": "61a4b2984dfef716d7fb855f1f458c161dc5fb7a4c8db183a19db2860f0ccc1f",
-        "size": 7516
+        "url": "dist/javis-google-sheets-1.0.2.zip",
+        "sha256": "e46a55d8b10792bdd34f6ef65226e81481fb4b7d6f8f181160bff0753537ac59",
+        "size": 7522
       }
     },
     {
@@ -480,7 +480,7 @@
       "description": {
         "vi": "Gmail, Calendar, Drive, Docs, Sheets, Slides, Forms, Tasks... trong MỘT kết nối. Tạo OAuth client 1 lần, khoảng 10 phút, có hướng dẫn từng bước. Lần đầu gọi tool Google, trình duyệt TRÊN MÁY CHẠY JAVIS mở ra để bấm đồng ý, nên máy phải có màn hình."
       },
-      "version": "1.0.3",
+      "version": "1.0.4",
       "author": {
         "name": "Javis"
       },
@@ -490,7 +490,7 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-10-05",
+      "updated": "2026-11-27",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-workspace",
       "icon": "packs/javis.google-workspace/assets/google-workspace.png",
       "provides": {
@@ -499,9 +499,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-google-workspace-1.0.3.zip",
-        "sha256": "cc6c3435b1d4bc88042e3ef0dc1f5d3e851fc404a37b307ead7f42cc98a844d7",
-        "size": 13201
+        "url": "dist/javis-google-workspace-1.0.4.zip",
+        "sha256": "ba90040e67ac0179066078b92cb63b2288a8b9f0c3eb79a782922698fa1b7e5c",
+        "size": 13207
       }
     },
     {
@@ -513,7 +513,7 @@
       "description": {
         "vi": "Việc cần làm trong Google Tasks: xem danh sách, thêm việc, đặt hạn, đánh dấu xong. Chỉ xin quyền Tasks, không đụng Gmail hay Drive. Đăng nhập Google bằng OAuth client tự tạo (~10 phút, có hướng dẫn)."
       },
-      "version": "1.0.4",
+      "version": "1.0.5",
       "author": {
         "name": "Javis"
       },
@@ -523,7 +523,7 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-11-16",
+      "updated": "2026-11-27",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-tasks",
       "icon": "packs/javis.google-tasks/assets/google-tasks.png",
       "provides": {
@@ -532,9 +532,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-google-tasks-1.0.4.zip",
-        "sha256": "257dd360f55cf5293e13a3cdbfcb10c7566d63464ec4583039af3078b38cd441",
-        "size": 14194
+        "url": "dist/javis-google-tasks-1.0.5.zip",
+        "sha256": "8a482d67c318bf50037e74d064dddab7846a11e1a3bf0414ca9d4b0304bbfde3",
+        "size": 14201
       }
     },
     {
@@ -791,39 +791,6 @@
       "description": {
         "vi": "Lịch Google qua MCP chính chủ của Google: xem lịch, tìm chỗ trống, tạo/sửa sự kiện, nhắc hẹn. Đăng nhập Google trong dashboard, chạy được cả trên VPS. Cần tạo OAuth client + ghi danh Developer Preview của Google 1 lần (~10 phút)."
       },
-      "version": "1.0.0",
-      "author": {
-        "name": "Javis"
-      },
-      "category": "van-phong",
-      "category_label": {
-        "vi": "Văn phòng"
-      },
-      "tier": "data",
-      "verified": true,
-      "updated": "2026-09-05",
-      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-calendar",
-      "icon": "packs/javis.google-calendar/assets/google-calendar.png",
-      "provides": {
-        "connectors": [
-          "google-calendar"
-        ]
-      },
-      "download": {
-        "url": "dist/javis-google-calendar-1.0.0.zip",
-        "sha256": "f3204f20a48c9e63959b2678de408e3c6843eceda12f5265d10a60aa1eae6323",
-        "size": 12536
-      }
-    },
-    {
-      "id": "javis.gmail",
-      "kind": "connector",
-      "name": {
-        "vi": "Gmail"
-      },
-      "description": {
-        "vi": "Gmail qua MCP chính chủ của Google: đọc và tìm thư, soạn NHÁP, gắn nhãn sắp xếp hộp thư. Server chính chủ KHÔNG có tool gửi thẳng - luôn dừng ở bản nháp để bạn tự bấm gửi. Cần tạo OAuth client + ghi danh Developer Preview của Google 1 lần."
-      },
       "version": "1.0.1",
       "author": {
         "name": "Javis"
@@ -834,7 +801,40 @@
       },
       "tier": "data",
       "verified": true,
-      "updated": "2026-11-16",
+      "updated": "2026-11-27",
+      "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-calendar",
+      "icon": "packs/javis.google-calendar/assets/google-calendar.png",
+      "provides": {
+        "connectors": [
+          "google-calendar"
+        ]
+      },
+      "download": {
+        "url": "dist/javis-google-calendar-1.0.1.zip",
+        "sha256": "02e2dabd6cadca2c97a0139872b7c09cc2b15728d0272278106d0004c4a5d578",
+        "size": 12540
+      }
+    },
+    {
+      "id": "javis.gmail",
+      "kind": "connector",
+      "name": {
+        "vi": "Gmail"
+      },
+      "description": {
+        "vi": "Gmail qua MCP chính chủ của Google: đọc và tìm thư, soạn NHÁP, gắn nhãn sắp xếp hộp thư. Gửi, trả lời, chuyển tiếp và bỏ thư vào thùng rác chỉ chạy ở mức Toàn quyền. Cần tạo OAuth client của Google 1 lần, khoảng 10 phút."
+      },
+      "version": "1.0.2",
+      "author": {
+        "name": "Javis"
+      },
+      "category": "van-phong",
+      "category_label": {
+        "vi": "Văn phòng"
+      },
+      "tier": "data",
+      "verified": true,
+      "updated": "2026-11-27",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.gmail",
       "icon": "packs/javis.gmail/assets/gmail.webp",
       "provides": {
@@ -843,9 +843,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-gmail-1.0.1.zip",
-        "sha256": "f54a42851f50fb028ddf6aea98ebc7ff9fbaba39db29368a08dede2a738a4afe",
-        "size": 16684
+        "url": "dist/javis-gmail-1.0.2.zip",
+        "sha256": "ef62d5d49165ba81fff8f4d5cdabb6bc49be2f0bbcad0e5bef5bb0ff30f6b45d",
+        "size": 16838
       }
     },
     {
@@ -1226,7 +1226,7 @@
       "description": {
         "vi": "Đọc và sửa ghi chú Google Keep: tìm note, tạo note và danh sách việc, gắn nhãn, ghim, lưu trữ. LƯU Ý: Keep không có API chính chủ nên phải dùng master token có TOÀN QUYỀN tài khoản Google, không phải OAuth giới hạn phạm vi như Gmail hay Lịch. Javis chỉ thao tác được ghi chú, nhưng token thì mở cả tài khoản nếu bị lộ."
       },
-      "version": "1.0.3",
+      "version": "1.0.4",
       "author": {
         "name": "Javis"
       },
@@ -1236,7 +1236,7 @@
       },
       "tier": "code",
       "verified": true,
-      "updated": "2026-10-05",
+      "updated": "2026-11-27",
       "homepage": "https://github.com/blogminhquy/javis-store/tree/main/packs/javis.google-keep",
       "icon": "packs/javis.google-keep/assets/google-keep.png",
       "provides": {
@@ -1245,9 +1245,9 @@
         ]
       },
       "download": {
-        "url": "dist/javis-google-keep-1.0.3.zip",
-        "sha256": "b949882e176cf531d9ed578a44c7d51b71bcd44b7449d752aa6adbcc2727e11e",
-        "size": 9381
+        "url": "dist/javis-google-keep-1.0.4.zip",
+        "sha256": "0af47a900713056b13f943838455ed48be834fda8c6d4d3e8a62235907901184",
+        "size": 9386
       }
     },
     {
