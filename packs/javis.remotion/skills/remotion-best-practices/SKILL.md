@@ -1,7 +1,7 @@
 ---
 name: remotion-best-practices
 description: Router for all Remotion skills
-version: 4.0.542
+version: 4.0.547
 ---
 
 ## Preserve user changes
@@ -22,6 +22,11 @@ If no Remotion project currently exists, load [Create a new Remotion project](./
 
 If you are writing Remotion React Markup, load [Remotion Markup Best Practices](./remotion-markup/REFERENCE.md)
 
+## Elements
+
+To install Elements, reusable video components from Element libraries, load [Elements](./remotion-elements/REFERENCE.md).
+Also load it when given an Element page URL or an Element library URL.
+
 ## Maps
 
 For static maps, animated routes and markers, geographic explainers, Mapbox, MapLibre, MapTiler, GeoJSON, or 3D geographic flyovers, load [Remotion Maps](./remotion-maps/REFERENCE.md).
@@ -33,15 +38,13 @@ For achieving multimedia tasks in the browser, such as trimming, cropping videos
 For video matting, background removal, or placing content behind a subject,
 load [Remotion Markup](./remotion-markup/REFERENCE.md).
 
-## Improving Interactivity
+## Interactivity
 
-By structuring the Remotion markup well, we can allow users to interactively change things in the Studio and write back to code. If relevant: [Interactivity Best Practices](./remotion-interactivity/REFERENCE.md)
+New markup is editable in Studio by default. When writing or restructuring markup, load [Interactivity Best Practices](./remotion-interactivity/REFERENCE.md).
 
 ## Open the preview
 
-If the user asks to "make" a video, "create" a video, etc.
-Don't render the video by default unless they are very explicit. They want to instead see an interactive preview.
-As soon as the project can run, start Studio and open the preview in the browser before building or editing the composition. Keep it open while you work so the user can watch progress and steer.
+When creating or editing a video, you SHOULD open Studio once the project can run, so the user can preview changes and steer.
 
 ### If you are using Cursor
 

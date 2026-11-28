@@ -16,6 +16,7 @@ Giấy phép gốc: **MIT**, nguyên văn ở `docs/LICENSE-goc*` nếu repo có
 | `seo-agentic` | `skills/seo-agentic` |
 | `seo-audit` | `skills/seo-audit` |
 | `seo-backlinks` | `skills/seo-backlinks` |
+| `seo-bing` | `skills/seo-bing` |
 | `seo-cluster` | `skills/seo-cluster` |
 | `seo-competitor-pages` | `skills/seo-competitor-pages` |
 | `seo-content` | `skills/seo-content` |
@@ -31,8 +32,10 @@ Giấy phép gốc: **MIT**, nguyên văn ở `docs/LICENSE-goc*` nếu repo có
 | `seo-maps` | `skills/seo-maps` |
 | `seo-page` | `skills/seo-page` |
 | `seo-plan` | `skills/seo-plan` |
+| `seo-posthog` | `skills/seo-posthog` |
 | `seo-programmatic` | `skills/seo-programmatic` |
 | `seo-schema` | `skills/seo-schema` |
+| `seo-shopify` | `skills/seo-shopify` |
 | `seo-sitemap` | `skills/seo-sitemap` |
 | `seo-sxo` | `skills/seo-sxo` |
 | `seo-technical` | `skills/seo-technical` |
